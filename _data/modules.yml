@@ -1,0 +1,66 @@
+modules:
+  - id: module-1
+    title: "Fundamentos Acelerados"
+    slug: "fundamentos-acelerados"
+    duration: "8 horas"
+    description: "Estabeleça as bases sólidas do Angular"
+    lessons:
+      - lesson-1-1
+      - lesson-1-2
+      - lesson-1-3
+      - lesson-1-4
+      - lesson-1-5
+    order: 1
+
+  - id: module-2
+    title: "Desenvolvimento Intermediário"
+    slug: "desenvolvimento-intermediario"
+    duration: "8 horas"
+    description: "Construa funcionalidades completas de aplicações reais"
+    lessons:
+      - lesson-2-1
+      - lesson-2-2
+      - lesson-2-3
+      - lesson-2-4
+      - lesson-2-5
+    order: 2
+
+  - id: module-3
+    title: "Programação Reativa e Estado"
+    slug: "programacao-reativa-estado"
+    duration: "8 horas"
+    description: "Domine programação reativa e gerenciamento de estado"
+    lessons:
+      - lesson-3-1
+      - lesson-3-2
+      - lesson-3-3
+      - lesson-3-4
+      - lesson-3-5
+    order: 3
+
+  - id: module-4
+    title: "Performance e Otimização"
+    slug: "performance-otimizacao"
+    duration: "8 horas"
+    description: "Crie aplicações extremamente performáticas"
+    lessons:
+      - lesson-4-1
+      - lesson-4-2
+      - lesson-4-3
+      - lesson-4-4
+      - lesson-4-5
+    order: 4
+
+  - id: module-5
+    title: "Práticas Avançadas e Projeto Final"
+    slug: "praticas-avancadas-projeto-final"
+    duration: "8 horas"
+    description: "Consolide conhecimento através de práticas avançadas"
+    lessons:
+      - lesson-5-1
+      - lesson-5-2
+      - lesson-5-3
+      - lesson-5-4
+      - lesson-5-5
+    order: 5
+

@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<article class="module-content">
+  <header>
+    <h1>{{ page.title }}</h1>
+    <div class="module-meta">
+      <span>Duração: {{ page.duration }}</span>
+      <p>{{ page.description }}</p>
+    </div>
+  </header>
+  
+  {{ content }}
+  
+  <section class="lessons-list">
+    <h2>Aulas do Módulo</h2>
+    <ul>
+      {% for lesson_id in page.lessons %}
+        {% assign lesson = site.data.lessons | where: "id", lesson_id | first %}
+        {% if lesson %}
+          <li>
+            <a href="{{ '/modules/' | append: page.slug | append: '/lessons/' | append: lesson.slug | relative_url }}">
+              {{ lesson.title }}
+            </a>
+            <span class="lesson-duration">({{ lesson.duration }})</span>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+</article>
+

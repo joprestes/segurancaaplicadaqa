@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onosendae.github.io/angular/sitemap.xml
+

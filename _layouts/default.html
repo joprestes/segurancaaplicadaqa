@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {% include google-analytics.html %}
+  {% seo %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "{{ site.title }}",
+    "description": "{{ site.description }}",
+    "provider": {
+      "@type": "Organization",
+      "name": "Angular Expert"
+    },
+    "courseCode": "angular-expert-5-days",
+    "educationalLevel": "Advanced",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+</head>
+<body>
+  {% include header.html %}
+  
+  <div class="container">
+    <aside class="sidebar">
+      {% include navigation.html %}
+    </aside>
+    
+    <main class="content">
+      {% include breadcrumbs.html %}
+      {{ content }}
+    </main>
+  </div>
+  
+  {% include footer.html %}
+  {% include progress-tracker.html %}
+  
+  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/progress-tracker.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/analytics.js' | relative_url }}"></script>
+  <script>
+    window.siteData = {
+      modules: {{ site.data.modules | jsonify }},
+      lessons: {{ site.data.lessons | jsonify }}
+    };
+    {% if site.google_analytics.enabled %}
+    window.GA_ID = '{{ site.google_analytics.id }}';
+    {% endif %}
+  </script>
+</body>
+</html>
+

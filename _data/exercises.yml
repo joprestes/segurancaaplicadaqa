@@ -1,0 +1,834 @@
+exercises:
+  - id: lesson-1-2-exercise-1
+    title: "Exercício 1.2.1: Criar Interfaces e Tipos"
+    lesson_id: lesson-1-2
+    module: module-1
+    slug: interfaces-tipos
+    order: 1
+    url: /modules/module-1/lessons/exercises/lesson-1-2-exercise-1-interfaces-tipos
+  - id: lesson-1-2-exercise-2
+    title: "Exercício 1.2.2: Implementar Classes com TypeScript"
+    lesson_id: lesson-1-2
+    module: module-1
+    slug: classes-typescript
+    order: 2
+    url: /modules/module-1/lessons/exercises/lesson-1-2-exercise-2-classes-typescript
+  - id: lesson-1-2-exercise-3
+    title: "Exercício 1.2.3: Usar Generics"
+    lesson_id: lesson-1-2
+    module: module-1
+    slug: generics
+    order: 3
+    url: /modules/module-1/lessons/exercises/lesson-1-2-exercise-3-generics
+  - id: lesson-1-2-exercise-4
+    title: "Exercício 1.2.4: Organizar com Módulos ES6"
+    lesson_id: lesson-1-2
+    module: module-1
+    slug: modulos-es6
+    order: 4
+    url: /modules/module-1/lessons/exercises/lesson-1-2-exercise-4-modulos-es6
+  - id: lesson-1-2-exercise-5
+    title: "Exercício 1.2.5: Integração TypeScript + Angular"
+    lesson_id: lesson-1-2
+    module: module-1
+    slug: integracao-angular
+    order: 5
+    url: /modules/module-1/lessons/exercises/lesson-1-2-exercise-5-integracao-angular
+  - id: lesson-1-3-exercise-1
+    title: "Exercício 1.3.1: Criar Primeiro Componente Standalone"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: componente-standalone
+    order: 1
+    url: /modules/module-1/lessons/exercises/lesson-1-3-exercise-1-componente-standalone
+  - id: lesson-1-3-exercise-2
+    title: "Exercício 1.3.2: Componente com Input e Output"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: input-output
+    order: 2
+    url: /modules/module-1/lessons/exercises/lesson-1-3-exercise-2-input-output
+  - id: lesson-1-3-exercise-3
+    title: "Exercício 1.3.3: Componente com Template Avançado"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: template-avancado
+    order: 3
+    url: /modules/module-1/lessons/exercises/lesson-1-3-exercise-3-template-avancado
+  - id: lesson-1-3-exercise-4
+    title: "Exercício 1.3.4: ViewEncapsulation e Estilos"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: view-encapsulation
+    order: 4
+    url: /modules/module-1/lessons/exercises/lesson-1-3-exercise-4-view-encapsulation
+  - id: lesson-1-3-exercise-5
+    title: "Exercício 1.3.5: Ciclo de Vida Completo"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: ciclo-vida
+    order: 5
+    url: /modules/module-1/lessons/exercises/lesson-1-3-exercise-5-ciclo-vida
+  - id: lesson-1-3-exercise-6
+    title: "Exercício 1.3.6: Projeção de Conteúdo"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: projecao-conteudo
+    order: 6
+    url: /modules/module-1/lessons/exercises/lesson-1-3-exercise-6-projecao-conteudo
+  - id: lesson-1-4-exercise-1
+    title: "Exercício 1.4.1: Formulário com Two-Way Binding"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: two-way-binding
+    order: 1
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-1-two-way-binding
+  - id: lesson-1-4-exercise-2
+    title: "Exercício 1.4.2: Lista com *ngFor e Filtros"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: ngfor-filtros
+    order: 2
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-2-ngfor-filtros
+  - id: lesson-1-4-exercise-3
+    title: "Exercício 1.4.3: Classes Dinâmicas com ngClass"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: ngclass-dinamico
+    order: 3
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-3-ngclass-dinamico
+  - id: lesson-1-4-exercise-4
+    title: "Exercício 1.4.4: Estilos Dinâmicos com ngStyle"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: ngstyle-dinamico
+    order: 4
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-4-ngstyle-dinamico
+  - id: lesson-1-4-exercise-5
+    title: "Exercício 1.4.5: Diretiva Customizada Highlight"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: diretiva-customizada
+    order: 5
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-5-diretiva-customizada
+  - id: lesson-1-4-exercise-6
+    title: "Exercício 1.4.6: Componente Interativo Completo"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: componente-interativo
+    order: 6
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-6-componente-interativo
+  - id: lesson-1-4-exercise-7
+    title: "Exercício 1.4.7: Formulário com Validação Visual"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: validacao-visual
+    order: 7
+    url: /modules/module-1/lessons/exercises/lesson-1-4-exercise-7-validacao-visual
+  - id: lesson-1-5-exercise-1
+    title: "Exercício 1.5.1: Migrar para Control Flow"
+    lesson_id: lesson-1-5
+    module: module-1
+    slug: migrar-control-flow
+    order: 1
+    url: /modules/module-1/lessons/exercises/lesson-1-5-exercise-1-migrar-control-flow
+  - id: lesson-1-5-exercise-2
+    title: "Exercício 1.5.2: Lista com @for e Pipes"
+    lesson_id: lesson-1-5
+    module: module-1
+    slug: for-pipes
+    order: 2
+    url: /modules/module-1/lessons/exercises/lesson-1-5-exercise-2-for-pipes
+  - id: lesson-1-5-exercise-3
+    title: "Exercício 1.5.3: Pipe Customizado Simples"
+    lesson_id: lesson-1-5
+    module: module-1
+    slug: pipe-simples
+    order: 3
+    url: /modules/module-1/lessons/exercises/lesson-1-5-exercise-3-pipe-simples
+  - id: lesson-1-5-exercise-4
+    title: "Exercício 1.5.4: Pipe Customizado Avançado"
+    lesson_id: lesson-1-5
+    module: module-1
+    slug: pipe-avancado
+    order: 4
+    url: /modules/module-1/lessons/exercises/lesson-1-5-exercise-4-pipe-avancado
+  - id: lesson-1-5-exercise-5
+    title: "Exercício 1.5.5: Componente Completo com Control Flow e Pipes"
+    lesson_id: lesson-1-5
+    module: module-1
+    slug: componente-completo
+    order: 5
+    url: /modules/module-1/lessons/exercises/lesson-1-5-exercise-5-componente-completo
+  - id: lesson-2-1-exercise-1
+    title: "Exercício 2.1.1: Criar Serviço Básico"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: servico-basico
+    order: 1
+    url: /modules/module-2/lessons/exercises/lesson-2-1-exercise-1-servico-basico
+  - id: lesson-2-1-exercise-2
+    title: "Exercício 2.1.2: Injeção de Dependência Hierárquica"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: di-hierarquica
+    order: 2
+    url: /modules/module-2/lessons/exercises/lesson-2-1-exercise-2-di-hierarquica
+  - id: lesson-2-1-exercise-3
+    title: "Exercício 2.1.3: Providers e Escopos"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: providers-escopos
+    order: 3
+    url: /modules/module-2/lessons/exercises/lesson-2-1-exercise-3-providers-escopos
+  - id: lesson-2-1-exercise-4
+    title: "Exercício 2.1.4: InjectionTokens e Factory Providers"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: injection-tokens-factory
+    order: 4
+    url: /modules/module-2/lessons/exercises/lesson-2-1-exercise-4-injection-tokens-factory
+  - id: lesson-2-1-exercise-5
+    title: "Exercício 2.1.5: Serviço Completo com DI"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: servico-completo
+    order: 5
+    url: /modules/module-2/lessons/exercises/lesson-2-1-exercise-5-servico-completo
+  - id: lesson-2-2-exercise-1
+    title: "Exercício 2.2.1: Configurar Rotas Básicas"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: rotas-basicas
+    order: 1
+    url: /modules/module-2/lessons/exercises/lesson-2-2-exercise-1-rotas-basicas
+  - id: lesson-2-2-exercise-2
+    title: "Exercício 2.2.2: Parâmetros de Rota e Query Params"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: parametros-query
+    order: 2
+    url: /modules/module-2/lessons/exercises/lesson-2-2-exercise-2-parametros-query
+  - id: lesson-2-2-exercise-3
+    title: "Exercício 2.2.3: Route Guards"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: route-guards
+    order: 3
+    url: /modules/module-2/lessons/exercises/lesson-2-2-exercise-3-route-guards
+  - id: lesson-2-2-exercise-4
+    title: "Exercício 2.2.4: Resolvers"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: resolvers
+    order: 4
+    url: /modules/module-2/lessons/exercises/lesson-2-2-exercise-4-resolvers
+  - id: lesson-2-2-exercise-5
+    title: "Exercício 2.2.5: Lazy Loading"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: lazy-loading
+    order: 5
+    url: /modules/module-2/lessons/exercises/lesson-2-2-exercise-5-lazy-loading
+  - id: lesson-2-2-exercise-6
+    title: "Exercício 2.2.6: Preloading Strategies"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: preloading
+    order: 6
+    url: /modules/module-2/lessons/exercises/lesson-2-2-exercise-6-preloading
+  - id: lesson-2-3-exercise-1
+    title: "Exercício 2.3.1: FormControl e FormGroup Básicos"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: formcontrol-formgroup
+    order: 1
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-1-formcontrol-formgroup
+  - id: lesson-2-3-exercise-2
+    title: "Exercício 2.3.2: FormArray e Formulários Dinâmicos"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: formarray-dinamico
+    order: 2
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-2-formarray-dinamico
+  - id: lesson-2-3-exercise-3
+    title: "Exercício 2.3.3: Validação Síncrona"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: validacao-sincrona
+    order: 3
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-3-validacao-sincrona
+  - id: lesson-2-3-exercise-4
+    title: "Exercício 2.3.4: Validação Assíncrona"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: validacao-assincrona
+    order: 4
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-4-validacao-assincrona
+  - id: lesson-2-3-exercise-5
+    title: "Exercício 2.3.5: Validators Customizados"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: validators-customizados
+    order: 5
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-5-validators-customizados
+  - id: lesson-2-3-exercise-6
+    title: "Exercício 2.3.6: Typed Forms"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: typed-forms
+    order: 6
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-6-typed-forms
+  - id: lesson-2-3-exercise-7
+    title: "Exercício 2.3.7: Formulário Completo com Validação"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: formulario-completo
+    order: 7
+    url: /modules/module-2/lessons/exercises/lesson-2-3-exercise-7-formulario-completo
+  - id: lesson-2-4-exercise-1
+    title: "Exercício 2.4.1: Requisições HTTP Básicas"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: requisicoes-basicas
+    order: 1
+    url: /modules/module-2/lessons/exercises/lesson-2-4-exercise-1-requisicoes-basicas
+  - id: lesson-2-4-exercise-2
+    title: "Exercício 2.4.2: Tratamento de Erros"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: tratamento-erros
+    order: 2
+    url: /modules/module-2/lessons/exercises/lesson-2-4-exercise-2-tratamento-erros
+  - id: lesson-2-4-exercise-3
+    title: "Exercício 2.4.3: HTTP Interceptors Básicos"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: interceptors-basicos
+    order: 3
+    url: /modules/module-2/lessons/exercises/lesson-2-4-exercise-3-interceptors-basicos
+  - id: lesson-2-4-exercise-4
+    title: "Exercício 2.4.4: Auth Interceptor"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: auth-interceptor
+    order: 4
+    url: /modules/module-2/lessons/exercises/lesson-2-4-exercise-4-auth-interceptor
+  - id: lesson-2-4-exercise-5
+    title: "Exercício 2.4.5: Interceptor Completo com Retry"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: interceptor-completo
+    order: 5
+    url: /modules/module-2/lessons/exercises/lesson-2-4-exercise-5-interceptor-completo
+  - id: lesson-2-5-exercise-1
+    title: "Exercício 2.5.1: @Input e @Output Básicos"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: input-output
+    order: 1
+    url: /modules/module-2/lessons/exercises/lesson-2-5-exercise-1-input-output
+  - id: lesson-2-5-exercise-2
+    title: "Exercício 2.5.2: ViewChild e ContentChild"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: viewchild-contentchild
+    order: 2
+    url: /modules/module-2/lessons/exercises/lesson-2-5-exercise-2-viewchild-contentchild
+  - id: lesson-2-5-exercise-3
+    title: "Exercício 2.5.3: Comunicação via Serviços"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: comunicacao-servicos
+    order: 3
+    url: /modules/module-2/lessons/exercises/lesson-2-5-exercise-3-comunicacao-servicos
+  - id: lesson-2-5-exercise-4
+    title: "Exercício 2.5.4: Padrão Master/Detail Completo"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: master-detail
+    order: 4
+    url: /modules/module-2/lessons/exercises/lesson-2-5-exercise-4-master-detail
+  - id: lesson-3-1-exercise-1
+    title: "Exercício 3.1.1: Observables Básicos"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: observables-basicos
+    order: 1
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-1-observables-basicos
+  - id: lesson-3-1-exercise-2
+    title: "Exercício 3.1.2: Operators de Transformação"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: operators-transformacao
+    order: 2
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-2-operators-transformacao
+  - id: lesson-3-1-exercise-3
+    title: "Exercício 3.1.3: Operators de Combinação"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: operators-combinacao
+    order: 3
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-3-operators-combinacao
+  - id: lesson-3-1-exercise-4
+    title: "Exercício 3.1.4: Operators de Filtragem"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: operators-filtragem
+    order: 4
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-4-operators-filtragem
+  - id: lesson-3-1-exercise-5
+    title: "Exercício 3.1.5: Subjects"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: subjects
+    order: 5
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-5-subjects
+  - id: lesson-3-1-exercise-6
+    title: "Exercício 3.1.6: Hot vs Cold Observables"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: hot-cold
+    order: 6
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-6-hot-cold
+  - id: lesson-3-1-exercise-7
+    title: "Exercício 3.1.7: Tratamento de Erros"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: tratamento-erros
+    order: 7
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-7-tratamento-erros
+  - id: lesson-3-1-exercise-8
+    title: "Exercício 3.1.8: Padrão Completo com RxJS"
+    lesson_id: lesson-3-1
+    module: module-3
+    slug: padrao-completo
+    order: 8
+    url: /modules/module-3/lessons/exercises/lesson-3-1-exercise-8-padrao-completo
+  - id: lesson-3-2-exercise-1
+    title: "Exercício 3.2.1: signal() e computed() Básicos"
+    lesson_id: lesson-3-2
+    module: module-3
+    slug: signal-computed
+    order: 1
+    url: /modules/module-3/lessons/exercises/lesson-3-2-exercise-1-signal-computed
+  - id: lesson-3-2-exercise-2
+    title: "Exercício 3.2.2: effect() e Reatividade"
+    lesson_id: lesson-3-2
+    module: module-3
+    slug: effect
+    order: 2
+    url: /modules/module-3/lessons/exercises/lesson-3-2-exercise-2-effect
+  - id: lesson-3-2-exercise-3
+    title: "Exercício 3.2.3: Model Inputs"
+    lesson_id: lesson-3-2
+    module: module-3
+    slug: model-inputs
+    order: 3
+    url: /modules/module-3/lessons/exercises/lesson-3-2-exercise-3-model-inputs
+  - id: lesson-3-2-exercise-4
+    title: "Exercício 3.2.4: Signal-Based Forms"
+    lesson_id: lesson-3-2
+    module: module-3
+    slug: signal-forms
+    order: 4
+    url: /modules/module-3/lessons/exercises/lesson-3-2-exercise-4-signal-forms
+  - id: lesson-3-2-exercise-5
+    title: "Exercício 3.2.5: Signal-First Architecture"
+    lesson_id: lesson-3-2
+    module: module-3
+    slug: signal-first
+    order: 5
+    url: /modules/module-3/lessons/exercises/lesson-3-2-exercise-5-signal-first
+  - id: lesson-3-2-exercise-6
+    title: "Exercício 3.2.6: Migração Observables para Signals"
+    lesson_id: lesson-3-2
+    module: module-3
+    slug: migracao
+    order: 6
+    url: /modules/module-3/lessons/exercises/lesson-3-2-exercise-6-migracao
+  - id: lesson-3-3-exercise-1
+    title: "Exercício 3.3.1: Store, Actions e Reducers Básicos"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: store-actions-reducers
+    order: 1
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-1-store-actions-reducers
+  - id: lesson-3-3-exercise-2
+    title: "Exercício 3.3.2: Effects"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: effects
+    order: 2
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-2-effects
+  - id: lesson-3-3-exercise-3
+    title: "Exercício 3.3.3: Selectors"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: selectors
+    order: 3
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-3-selectors
+  - id: lesson-3-3-exercise-4
+    title: "Exercício 3.3.4: Entities"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: entities
+    order: 4
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-4-entities
+  - id: lesson-3-3-exercise-5
+    title: "Exercício 3.3.5: Facade Pattern"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: facade
+    order: 5
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-5-facade
+  - id: lesson-3-3-exercise-6
+    title: "Exercício 3.3.6: NgRx DevTools"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: devtools
+    order: 6
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-6-devtools
+  - id: lesson-3-3-exercise-7
+    title: "Exercício 3.3.7: NgRx Completo"
+    lesson_id: lesson-3-3
+    module: module-3
+    slug: ngrx-completo
+    order: 7
+    url: /modules/module-3/lessons/exercises/lesson-3-3-exercise-7-ngrx-completo
+  - id: lesson-3-4-exercise-1
+    title: "Exercício 3.4.1: async pipe"
+    lesson_id: lesson-3-4
+    module: module-3
+    slug: async-pipe
+    order: 1
+    url: /modules/module-3/lessons/exercises/lesson-3-4-exercise-1-async-pipe
+  - id: lesson-3-4-exercise-2
+    title: "Exercício 3.4.2: takeUntil Pattern"
+    lesson_id: lesson-3-4
+    module: module-3
+    slug: takeuntil
+    order: 2
+    url: /modules/module-3/lessons/exercises/lesson-3-4-exercise-2-takeuntil
+  - id: lesson-3-4-exercise-3
+    title: "Exercício 3.4.3: Prevenção de Memory Leaks"
+    lesson_id: lesson-3-4
+    module: module-3
+    slug: prevencao
+    order: 3
+    url: /modules/module-3/lessons/exercises/lesson-3-4-exercise-3-prevencao
+  - id: lesson-3-4-exercise-4
+    title: "Exercício 3.4.4: Debugging Memory Leaks"
+    lesson_id: lesson-3-4
+    module: module-3
+    slug: debugging
+    order: 4
+    url: /modules/module-3/lessons/exercises/lesson-3-4-exercise-4-debugging
+  - id: lesson-3-5-exercise-1
+    title: "Exercício 3.5.1: toSignal() e toObservable()"
+    lesson_id: lesson-3-5
+    module: module-3
+    slug: tosignal-toobservable
+    order: 1
+    url: /modules/module-3/lessons/exercises/lesson-3-5-exercise-1-tosignal-toobservable
+  - id: lesson-3-5-exercise-2
+    title: "Exercício 3.5.2: Integração Prática"
+    lesson_id: lesson-3-5
+    module: module-3
+    slug: integracao
+    order: 2
+    url: /modules/module-3/lessons/exercises/lesson-3-5-exercise-2-integracao
+  - id: lesson-3-5-exercise-3
+    title: "Exercício 3.5.3: Quando Usar Signals vs Observables"
+    lesson_id: lesson-3-5
+    module: module-3
+    slug: decisao
+    order: 3
+    url: /modules/module-3/lessons/exercises/lesson-3-5-exercise-3-decisao
+  - id: lesson-4-1-exercise-1
+    title: "Exercício 4.1.1: Implementar OnPush Básico"
+    lesson_id: lesson-4-1
+    module: module-4
+    slug: onpush-basico
+    order: 1
+    url: /modules/module-4/lessons/exercises/lesson-4-1-exercise-1-onpush-basico
+  - id: lesson-4-1-exercise-2
+    title: "Exercício 4.1.2: Imutabilidade e OnPush"
+    lesson_id: lesson-4-1
+    module: module-4
+    slug: imutabilidade
+    order: 2
+    url: /modules/module-4/lessons/exercises/lesson-4-1-exercise-2-imutabilidade
+  - id: lesson-4-1-exercise-3
+    title: "Exercício 4.1.3: ChangeDetectorRef Manual"
+    lesson_id: lesson-4-1
+    module: module-4
+    slug: changedetectorref
+    order: 3
+    url: /modules/module-4/lessons/exercises/lesson-4-1-exercise-3-changedetectorref
+  - id: lesson-4-1-exercise-4
+    title: "Exercício 4.1.4: trackBy Functions"
+    lesson_id: lesson-4-1
+    module: module-4
+    slug: trackby
+    order: 4
+    url: /modules/module-4/lessons/exercises/lesson-4-1-exercise-4-trackby
+  - id: lesson-4-1-exercise-5
+    title: "Exercício 4.1.5: OnPush Everywhere"
+    lesson_id: lesson-4-1
+    module: module-4
+    slug: onpush-everywhere
+    order: 5
+    url: /modules/module-4/lessons/exercises/lesson-4-1-exercise-5-onpush-everywhere
+  - id: lesson-4-1-exercise-6
+    title: "Exercício 4.1.6: Otimização Completa"
+    lesson_id: lesson-4-1
+    module: module-4
+    slug: otimizacao-completa
+    order: 6
+    url: /modules/module-4/lessons/exercises/lesson-4-1-exercise-6-otimizacao-completa
+  - id: lesson-4-2-exercise-1
+    title: "Exercício 4.2.1: Lazy Loading Básico"
+    lesson_id: lesson-4-2
+    module: module-4
+    slug: lazy-basico
+    order: 1
+    url: /modules/module-4/lessons/exercises/lesson-4-2-exercise-1-lazy-basico
+  - id: lesson-4-2-exercise-2
+    title: "Exercício 4.2.2: Preloading Strategies"
+    lesson_id: lesson-4-2
+    module: module-4
+    slug: preloading
+    order: 2
+    url: /modules/module-4/lessons/exercises/lesson-4-2-exercise-2-preloading
+  - id: lesson-4-2-exercise-3
+    title: "Exercício 4.2.3: Custom Preloading Strategy"
+    lesson_id: lesson-4-2
+    module: module-4
+    slug: custom-preloading
+    order: 3
+    url: /modules/module-4/lessons/exercises/lesson-4-2-exercise-3-custom-preloading
+  - id: lesson-4-2-exercise-4
+    title: "Exercício 4.2.4: Bundle Analysis"
+    lesson_id: lesson-4-2
+    module: module-4
+    slug: bundle-analysis
+    order: 4
+    url: /modules/module-4/lessons/exercises/lesson-4-2-exercise-4-bundle-analysis
+  - id: lesson-4-2-exercise-5
+    title: "Exercício 4.2.5: Otimização Completa"
+    lesson_id: lesson-4-2
+    module: module-4
+    slug: otimizacao-completa
+    order: 5
+    url: /modules/module-4/lessons/exercises/lesson-4-2-exercise-5-otimizacao-completa
+  - id: lesson-4-3-exercise-1
+    title: "Exercício 4.3.1: @defer Básico"
+    lesson_id: lesson-4-3
+    module: module-4
+    slug: defer-basico
+    order: 1
+    url: /modules/module-4/lessons/exercises/lesson-4-3-exercise-1-defer-basico
+  - id: lesson-4-3-exercise-2
+    title: "Exercício 4.3.2: Placeholder e Loading"
+    lesson_id: lesson-4-3
+    module: module-4
+    slug: placeholder-loading
+    order: 2
+    url: /modules/module-4/lessons/exercises/lesson-4-3-exercise-2-placeholder-loading
+  - id: lesson-4-3-exercise-3
+    title: "Exercício 4.3.3: Triggers"
+    lesson_id: lesson-4-3
+    module: module-4
+    slug: triggers
+    order: 3
+    url: /modules/module-4/lessons/exercises/lesson-4-3-exercise-3-triggers
+  - id: lesson-4-3-exercise-4
+    title: "Exercício 4.3.4: Caso de Uso Completo"
+    lesson_id: lesson-4-3
+    module: module-4
+    slug: caso-uso-completo
+    order: 4
+    url: /modules/module-4/lessons/exercises/lesson-4-3-exercise-4-caso-uso-completo
+  - id: lesson-4-4-exercise-1
+    title: "Exercício 4.4.1: Angular DevTools"
+    lesson_id: lesson-4-4
+    module: module-4
+    slug: devtools
+    order: 1
+    url: /modules/module-4/lessons/exercises/lesson-4-4-exercise-1-devtools
+  - id: lesson-4-4-exercise-2
+    title: "Exercício 4.4.2: Performance Profiling"
+    lesson_id: lesson-4-4
+    module: module-4
+    slug: performance
+    order: 2
+    url: /modules/module-4/lessons/exercises/lesson-4-4-exercise-2-performance
+  - id: lesson-4-4-exercise-3
+    title: "Exercício 4.4.3: Memory Leaks Detection"
+    lesson_id: lesson-4-4
+    module: module-4
+    slug: memory-leaks
+    order: 3
+    url: /modules/module-4/lessons/exercises/lesson-4-4-exercise-3-memory-leaks
+  - id: lesson-4-4-exercise-4
+    title: "Exercício 4.4.4: Lighthouse Audit"
+    lesson_id: lesson-4-4
+    module: module-4
+    slug: lighthouse
+    order: 4
+    url: /modules/module-4/lessons/exercises/lesson-4-4-exercise-4-lighthouse
+  - id: lesson-4-4-exercise-5
+    title: "Exercício 4.4.5: Otimização Completa"
+    lesson_id: lesson-4-4
+    module: module-4
+    slug: otimizacao-completa
+    order: 5
+    url: /modules/module-4/lessons/exercises/lesson-4-4-exercise-5-otimizacao-completa
+  - id: lesson-4-5-exercise-1
+    title: "Exercício 4.5.1: runOutsideAngular()"
+    lesson_id: lesson-4-5
+    module: module-4
+    slug: runoutside
+    order: 1
+    url: /modules/module-4/lessons/exercises/lesson-4-5-exercise-1-runoutside
+  - id: lesson-4-5-exercise-2
+    title: "Exercício 4.5.2: Aplicação Zoneless"
+    lesson_id: lesson-4-5
+    module: module-4
+    slug: zoneless
+    order: 2
+    url: /modules/module-4/lessons/exercises/lesson-4-5-exercise-2-zoneless
+  - id: lesson-4-5-exercise-3
+    title: "Exercício 4.5.3: Migração para Zoneless"
+    lesson_id: lesson-4-5
+    module: module-4
+    slug: migracao
+    order: 3
+    url: /modules/module-4/lessons/exercises/lesson-4-5-exercise-3-migracao
+  - id: lesson-5-1-exercise-1
+    title: "Exercício 5.1.1: Testes Unitários Básicos"
+    lesson_id: lesson-5-1
+    module: module-5
+    slug: testes-unitarios-basicos
+    order: 1
+    url: /modules/module-5/lessons/exercises/lesson-5-1-exercise-1-testes-unitarios-basicos
+  - id: lesson-5-1-exercise-2
+    title: "Exercício 5.1.2: TestBed e Mocks"
+    lesson_id: lesson-5-1
+    module: module-5
+    slug: testbed-mocks
+    order: 2
+    url: /modules/module-5/lessons/exercises/lesson-5-1-exercise-2-testbed-mocks
+  - id: lesson-5-1-exercise-3
+    title: "Exercício 5.1.3: Testes de Componentes"
+    lesson_id: lesson-5-1
+    module: module-5
+    slug: testes-componentes
+    order: 3
+    url: /modules/module-5/lessons/exercises/lesson-5-1-exercise-3-testes-componentes
+  - id: lesson-5-1-exercise-4
+    title: "Exercício 5.1.4: Testes de Serviços"
+    lesson_id: lesson-5-1
+    module: module-5
+    slug: testes-servicos
+    order: 4
+    url: /modules/module-5/lessons/exercises/lesson-5-1-exercise-4-testes-servicos
+  - id: lesson-5-1-exercise-5
+    title: "Exercício 5.1.5: Testes de Integração"
+    lesson_id: lesson-5-1
+    module: module-5
+    slug: testes-integracao
+    order: 5
+    url: /modules/module-5/lessons/exercises/lesson-5-1-exercise-5-testes-integracao
+  - id: lesson-5-1-exercise-6
+    title: "Exercício 5.1.6: Testes E2E"
+    lesson_id: lesson-5-1
+    module: module-5
+    slug: testes-e2e
+    order: 6
+    url: /modules/module-5/lessons/exercises/lesson-5-1-exercise-6-testes-e2e
+  - id: lesson-5-2-exercise-1
+    title: "Exercício 5.2.1: Configurar SSR Básico"
+    lesson_id: lesson-5-2
+    module: module-5
+    slug: ssr-basico
+    order: 1
+    url: /modules/module-5/lessons/exercises/lesson-5-2-exercise-1-ssr-basico
+  - id: lesson-5-2-exercise-2
+    title: "Exercício 5.2.2: Transfer State"
+    lesson_id: lesson-5-2
+    module: module-5
+    slug: transfer-state
+    order: 2
+    url: /modules/module-5/lessons/exercises/lesson-5-2-exercise-2-transfer-state
+  - id: lesson-5-2-exercise-3
+    title: "Exercício 5.2.3: Configurar PWA Básico"
+    lesson_id: lesson-5-2
+    module: module-5
+    slug: pwa-basico
+    order: 3
+    url: /modules/module-5/lessons/exercises/lesson-5-2-exercise-3-pwa-basico
+  - id: lesson-5-2-exercise-4
+    title: "Exercício 5.2.4: Funcionalidades Offline"
+    lesson_id: lesson-5-2
+    module: module-5
+    slug: offline
+    order: 4
+    url: /modules/module-5/lessons/exercises/lesson-5-2-exercise-4-offline
+  - id: lesson-5-2-exercise-5
+    title: "Exercício 5.2.5: Push Notifications"
+    lesson_id: lesson-5-2
+    module: module-5
+    slug: push-notifications
+    order: 5
+    url: /modules/module-5/lessons/exercises/lesson-5-2-exercise-5-push-notifications
+  - id: lesson-5-3-exercise-1
+    title: "Exercício 5.3.1: Proteção XSS e Sanitization"
+    lesson_id: lesson-5-3
+    module: module-5
+    slug: xss-sanitization
+    order: 1
+    url: /modules/module-5/lessons/exercises/lesson-5-3-exercise-1-xss-sanitization
+  - id: lesson-5-3-exercise-2
+    title: "Exercício 5.3.2: Autenticação JWT"
+    lesson_id: lesson-5-3
+    module: module-5
+    slug: jwt-auth
+    order: 2
+    url: /modules/module-5/lessons/exercises/lesson-5-3-exercise-2-jwt-auth
+  - id: lesson-5-3-exercise-3
+    title: "Exercício 5.3.3: Role-Based Access Control"
+    lesson_id: lesson-5-3
+    module: module-5
+    slug: rbac
+    order: 3
+    url: /modules/module-5/lessons/exercises/lesson-5-3-exercise-3-rbac
+  - id: lesson-5-3-exercise-4
+    title: "Exercício 5.3.4: Segurança Completa"
+    lesson_id: lesson-5-3
+    module: module-5
+    slug: seguranca-completa
+    order: 4
+    url: /modules/module-5/lessons/exercises/lesson-5-3-exercise-4-seguranca-completa
+  - id: lesson-5-4-exercise-1
+    title: "Exercício 5.4.1: Clean Architecture"
+    lesson_id: lesson-5-4
+    module: module-5
+    slug: clean-architecture
+    order: 1
+    url: /modules/module-5/lessons/exercises/lesson-5-4-exercise-1-clean-architecture
+  - id: lesson-5-4-exercise-2
+    title: "Exercício 5.4.2: Feature Modules e Barrel Exports"
+    lesson_id: lesson-5-4
+    module: module-5
+    slug: feature-modules
+    order: 2
+    url: /modules/module-5/lessons/exercises/lesson-5-4-exercise-2-feature-modules
+  - id: lesson-5-4-exercise-3
+    title: "Exercício 5.4.3: Design Patterns"
+    lesson_id: lesson-5-4
+    module: module-5
+    slug: design-patterns
+    order: 3
+    url: /modules/module-5/lessons/exercises/lesson-5-4-exercise-3-design-patterns

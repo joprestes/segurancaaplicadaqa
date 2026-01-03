@@ -1,0 +1,321 @@
+lessons:
+  - id: lesson-1-1
+    title: "Introdução ao Angular e Configuração"
+    slug: "introducao-angular"
+    module: module-1
+    order: 1
+    duration: "60 minutos"
+    level: "Básico"
+    prerequisites: []
+    podcast:
+      file: "assets/podcasts/01-Fundação_Angular_Tipagem_Encapsulamento_e_Generics.m4a"
+      title: "Fundação Angular: Tipagem, Encapsulamento e Generics"
+      description: "Neste episódio, exploramos os fundamentos essenciais do Angular moderno. Você aprenderá sobre a arquitetura baseada em componentes, como o TypeScript fortalece o desenvolvimento Angular, e os conceitos de encapsulamento e generics que tornam o framework poderoso e escalável."
+      duration: "45-60 minutos"
+
+  - id: lesson-1-2
+    title: "TypeScript Essencial para Angular"
+    slug: "typescript-essencial"
+    module: module-1
+    order: 2
+    duration: "90 minutos"
+    level: "Básico"
+    prerequisites: ["lesson-1-1"]
+
+  - id: lesson-1-3
+    title: "Componentes Standalone e Templates"
+    slug: "componentes-standalone"
+    module: module-1
+    order: 3
+    duration: "120 minutos"
+    level: "Básico"
+    prerequisites: ["lesson-1-2"]
+    podcast:
+      file: "assets/podcasts/01.3e4-Fundação_Angular_Tipagem_Encapsulamento_e_Generics.m4a"
+      title: "Componentes Standalone, Templates, Data Binding e Diretivas Modernas"
+      description: "Mergulhe profundamente nos componentes standalone do Angular, a evolução moderna que simplifica a arquitetura."
+      duration: "60-75 minutos"
+
+  - id: lesson-1-4
+    title: "Data Binding e Diretivas Modernas"
+    slug: "data-binding"
+    module: module-1
+    order: 4
+    duration: "120 minutos"
+    level: "Básico"
+    prerequisites: ["lesson-1-3"]
+    podcast:
+      file: "assets/podcasts/01.3e4-Fundação_Angular_Tipagem_Encapsulamento_e_Generics.m4a"
+      title: "Componentes Standalone, Templates, Data Binding e Diretivas Modernas"
+      description: "Mergulhe profundamente nos componentes standalone do Angular, a evolução moderna que simplifica a arquitetura."
+      duration: "60-75 minutos"
+
+  - id: lesson-1-5
+    title: "Control Flow e Pipes"
+    slug: "control-flow-pipes"
+    module: module-1
+    order: 5
+    duration: "90 minutos"
+    level: "Básico"
+    prerequisites: ["lesson-1-4"]
+
+  - id: lesson-2-1
+    title: "Serviços e Injeção de Dependência"
+    slug: "servicos-di"
+    module: module-2
+    order: 1
+    duration: "90 minutos"
+    level: "Intermediário"
+    prerequisites: ["lesson-1-5"]
+    podcast:
+      file: "assets/podcasts/02.1-Serviços_e_Injeção_de_Dependência_no_Angular.m4a"
+      title: "Serviços e Injeção de Dependência no Angular"
+      description: "Descubra como os serviços são o coração da arquitetura Angular."
+      duration: "50-65 minutos"
+
+  - id: lesson-2-2
+    title: "Roteamento e Navegação Avançada"
+    slug: "roteamento"
+    module: module-2
+    order: 2
+    duration: "120 minutos"
+    level: "Intermediário"
+    prerequisites: ["lesson-2-1"]
+    podcast:
+      file: "assets/podcasts/02.2-SilêncioRouter_Guards_Resolvers_Lazy_Loading.m4a"
+      title: "Router, Guards, Resolvers e Lazy Loading"
+      description: "Domine o sistema de roteamento avançado do Angular."
+      duration: "55-70 minutos"
+
+  - id: lesson-2-3
+    title: "Formulários Reativos e Validação"
+    slug: "formularios-reativos"
+    module: module-2
+    order: 3
+    duration: "120 minutos"
+    level: "Intermediário"
+    prerequisites: ["lesson-2-2"]
+    podcast:
+      file: "assets/podcasts/02.3-Dominando_os_Formulários_Reativos_do_Angular.m4a"
+      title: "Dominando os Formulários Reativos do Angular"
+      description: "Formulários reativos são uma das funcionalidades mais poderosas do Angular."
+      duration: "60-75 minutos"
+
+  - id: lesson-2-4
+    title: "HTTP Client e Interceptors"
+    slug: "http-client"
+    module: module-2
+    order: 4
+    duration: "90 minutos"
+    level: "Intermediário"
+    prerequisites: ["lesson-2-3"]
+    podcast:
+      file: "assets/podcasts/02.4-HttpClient_e_Interceptors_no_Angular.m4a"
+      title: "HttpClient e Interceptors no Angular"
+      description: "Aprenda a consumir APIs REST de forma profissional com HttpClient."
+      duration: "50-65 minutos"
+
+  - id: lesson-2-5
+    title: "Comunicação entre Componentes"
+    slug: "comunicacao-componentes"
+    module: module-2
+    order: 5
+    duration: "60 minutos"
+    level: "Intermediário"
+    prerequisites: ["lesson-2-4"]
+    podcast:
+      file: "assets/podcasts/02.5-Comunicação_entre_Componentes_Input_Output_ViewChild.m4a"
+      title: "Comunicação entre Componentes - Input, Output, ViewChild"
+      description: "Domine todos os padrões de comunicação entre componentes no Angular."
+      duration: "45-60 minutos"
+
+  - id: lesson-3-1
+    title: "RxJS Operators Avançados"
+    slug: "rxjs-operators"
+    module: module-3
+    order: 1
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-2-5"]
+    podcast:
+      file: "assets/podcasts/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.m4a"
+      title: "RxJS Operators, Observables, SwitchMap e Busca Perfeita"
+      description: "RxJS é fundamental para Angular moderno."
+      duration: "65-80 minutos"
+
+  - id: lesson-3-2
+    title: "Signals e Signal-First Architecture"
+    slug: "signals"
+    module: module-3
+    order: 2
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-3-1"]
+    podcast:
+      file: "assets/podcasts/03.2-Angular_Signals__O_Guia_Completo_e_Prático.m4a"
+      title: "Angular Signals - O Guia Completo e Prático"
+      description: "Signals são a nova forma reativa do Angular."
+      duration: "60-75 minutos"
+
+  - id: lesson-3-3
+    title: "NgRx - Gerenciamento de Estado"
+    slug: "ngrx"
+    module: module-3
+    order: 3
+    duration: "150 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-3-2"]
+    podcast:
+      file: "assets/podcasts/03.3-NgRx_quando_vale_a_pena_usar.m4a"
+      title: "NgRx - Quando Vale a Pena Usar"
+      description: "NgRx é poderoso, mas nem sempre necessário."
+      duration: "70-85 minutos"
+
+  - id: lesson-3-4
+    title: "Padrões Reativos e Memory Leaks"
+    slug: "memory-leaks"
+    module: module-3
+    order: 4
+    duration: "60 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-3-3"]
+    podcast:
+      file: "assets/podcasts/03.4-Combatendo_Memory_Leaks_com_Async_Pipe.m4a"
+      title: "Combatendo Memory Leaks com Async Pipe"
+      description: "Memory leaks são um problema comum em aplicações Angular reativas."
+      duration: "50-65 minutos"
+
+  - id: lesson-3-5
+    title: "Integração Signals + Observables"
+    slug: "signals-observables"
+    module: module-3
+    order: 5
+    duration: "30 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-3-4"]
+    podcast:
+      file: "assets/podcasts/03.5-toSignal_e_toObservable_as_pontes_do_Angular.m4a"
+      title: "toSignal e toObservable - As Pontes do Angular"
+      description: "Angular oferece funções para integrar Signals com Observables."
+      duration: "40-50 minutos"
+
+  - id: lesson-4-1
+    title: "Change Detection Strategies"
+    slug: "change-detection"
+    module: module-4
+    order: 1
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-3-5"]
+    podcast:
+      file: "assets/podcasts/04.1-OnPush_Imutabilidade_e_Performance_de_Apps.m4a"
+      title: "OnPush, Imutabilidade e Performance de Apps"
+      description: "Change Detection é crítico para performance."
+      duration: "60-75 minutos"
+
+  - id: lesson-4-2
+    title: "Lazy Loading e Code Splitting"
+    slug: "lazy-loading"
+    module: module-4
+    order: 2
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-1"]
+    podcast:
+      file: "assets/podcasts/04.2-Lazy_Loading_e_Code_Splitting_na_Web.m4a"
+      title: "Lazy Loading e Code Splitting na Web"
+      description: "Otimize o carregamento inicial da sua aplicação com lazy loading avançado."
+      duration: "55-70 minutos"
+
+  - id: lesson-4-3
+    title: "Deferrable Views e Performance"
+    slug: "deferrable-views"
+    module: module-4
+    order: 3
+    duration: "90 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-2"]
+    podcast:
+      file: "assets/podcasts/04.3-Angular_Deferrable_Views_no_Código_(@defer).m4a"
+      title: "Angular Deferrable Views no Código (@defer)"
+      description: "Deferrable Views são a nova forma de lazy loading de componentes no Angular."
+      duration: "50-65 minutos"
+
+  - id: lesson-4-4
+    title: "Profiling e Otimização"
+    slug: "profiling"
+    module: module-4
+    order: 4
+    duration: "90 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-3"]
+    podcast:
+      file: "assets/podcasts/04.4-Profiling_Angular_Otimização_Como_Fazer.m4a"
+      title: "Profiling Angular - Otimização Como Fazer"
+      description: "Aprenda a identificar gargalos de performance usando Angular DevTools."
+      duration: "55-70 minutos"
+
+  - id: lesson-4-5
+    title: "Zone.js e Zoneless Apps"
+    slug: "zonejs"
+    module: module-4
+    order: 5
+    duration: "60 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-4"]
+    podcast:
+      file: "assets/podcasts/04.5-Zone.m4a"
+      title: "Zone.js e Zoneless Apps"
+      description: "Zone.js é o motor da change detection tradicional do Angular."
+      duration: "50-65 minutos"
+
+  - id: lesson-5-1
+    title: "Testes Completos (Unitários, Integração, E2E)"
+    slug: "testes"
+    module: module-5
+    order: 1
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-5"]
+    podcast:
+      file: "assets/podcasts/05.1-Testes_Unitários_Integração_E2E_Angular.m4a"
+      title: "Testes Unitários, Integração e E2E no Angular"
+      description: "Testes são essenciais para aplicações profissionais."
+      duration: "70-85 minutos"
+
+  - id: lesson-5-2
+    title: "SSR e PWA"
+    slug: "ssr-pwa"
+    module: module-5
+    order: 2
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-5-1"]
+
+  - id: lesson-5-3
+    title: "Segurança Avançada"
+    slug: "seguranca"
+    module: module-5
+    order: 3
+    duration: "60 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-5-2"]
+
+  - id: lesson-5-4
+    title: "Arquitetura Avançada"
+    slug: "arquitetura-avancada"
+    module: module-5
+    order: 4
+    duration: "60 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-5-3"]
+
+  - id: lesson-5-5
+    title: "Projeto Final Completo"
+    slug: "projeto-final"
+    module: module-5
+    order: 5
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-5-4"]
+

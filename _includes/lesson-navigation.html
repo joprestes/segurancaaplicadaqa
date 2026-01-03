@@ -1,0 +1,29 @@
+<nav class="lesson-navigation">
+  {% assign current_module = site.data.modules | where: "id", page.module | first %}
+  {% assign module_lessons = site.data.lessons | where: "module", page.module | sort: "order" %}
+  
+  {% for lesson in module_lessons %}
+    {% if lesson.id == page.lesson_id %}
+      {% assign current_index = forloop.index0 %}
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+      
+      {% if prev_index >= 0 %}
+        {% assign prev_lesson = module_lessons[prev_index] %}
+        <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: prev_lesson.slug | relative_url }}" class="prev-lesson">
+          ← {{ prev_lesson.title }}
+        </a>
+      {% endif %}
+      
+      {% if next_index < module_lessons.size %}
+        {% assign next_lesson = module_lessons[next_index] %}
+        <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: next_lesson.slug | relative_url }}" class="next-lesson">
+          {{ next_lesson.title }} →
+        </a>
+      {% endif %}
+      
+      {% break %}
+    {% endif %}
+  {% endfor %}
+</nav>
+

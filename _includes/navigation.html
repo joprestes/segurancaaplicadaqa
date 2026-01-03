@@ -1,0 +1,25 @@
+<nav class="sidebar-navigation">
+  <h2>Módulos</h2>
+  <ul class="modules-list">
+    {% for module in site.data.modules %}
+      <li>
+        <a href="{{ '/modules/' | append: module.slug | relative_url }}">
+          {{ module.title }}
+        </a>
+        <ul class="lessons-list">
+          {% for lesson_id in module.lessons %}
+            {% assign lesson = site.data.lessons | where: "id", lesson_id | first %}
+            {% if lesson %}
+              <li>
+                <a href="{{ '/modules/' | append: module.slug | append: '/lessons/' | append: lesson.slug | relative_url }}">
+                  {{ lesson.title }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+</nav>
+

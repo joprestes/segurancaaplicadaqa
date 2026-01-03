@@ -1,0 +1,15 @@
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="{{ '/' | relative_url }}">Início</a></li>
+    {% if page.module %}
+      {% assign module = site.data.modules | where: "id", page.module | first %}
+      {% if module %}
+        <li><a href="{{ '/modules/' | append: module.slug | relative_url }}">{{ module.title }}</a></li>
+      {% endif %}
+    {% endif %}
+    {% if page.title %}
+      <li aria-current="page">{{ page.title }}</li>
+    {% endif %}
+  </ol>
+</nav>
+

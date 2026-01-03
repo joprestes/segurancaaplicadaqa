@@ -1,0 +1,42 @@
+@import 'variables';
+
+.breadcrumbs {
+  margin-bottom: $spacing-md;
+  padding: $spacing-sm 0;
+  
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+    align-items: center;
+  }
+  
+  li {
+    display: inline;
+    font-size: $font-size-small;
+    
+    &:not(:last-child)::after {
+      content: " / ";
+      color: $text-light;
+      margin-left: $spacing-xs;
+    }
+  }
+  
+  a {
+    color: $primary-color;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  li[aria-current="page"] {
+    color: $text-light;
+    font-weight: normal;
+  }
+}
+

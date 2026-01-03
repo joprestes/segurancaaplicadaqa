@@ -1,0 +1,52 @@
+title: "Angular Expert - Do Básico ao Expert em 5 Dias"
+description: "Treinamento intensivo e prático de Angular"
+url: "https://onosendae.github.io"
+baseurl: "/angular"
+
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+collections:
+  modules:
+    output: true
+  lessons:
+    output: true
+  exercises:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: "modules"
+      type: "modules"
+    values:
+      layout: module
+  - scope:
+      path: "lessons"
+      type: "lessons"
+    values:
+      layout: lesson
+
+sass:
+  style: compressed
+
+google_analytics:
+  id: "G-XXXXXXXXXX"
+  enabled: false
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+

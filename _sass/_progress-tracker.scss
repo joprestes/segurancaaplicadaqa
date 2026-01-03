@@ -1,0 +1,53 @@
+@import 'variables';
+
+.progress-tracker {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  padding: $spacing-md;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  min-width: 200px;
+  z-index: 999;
+  
+  h3 {
+    margin: 0 0 $spacing-sm 0;
+    font-size: $font-size-base;
+    color: $text-color;
+  }
+  
+  .overall-progress {
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: $border-color;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: $spacing-xs;
+      
+      .progress-fill {
+        height: 100%;
+        background: $success-color;
+        transition: width 0.3s;
+        width: 0%;
+      }
+    }
+    
+    #overall-progress-text {
+      font-size: $font-size-small;
+      color: $text-light;
+      font-weight: bold;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .progress-tracker {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin: $spacing-md;
+  }
+}
+
