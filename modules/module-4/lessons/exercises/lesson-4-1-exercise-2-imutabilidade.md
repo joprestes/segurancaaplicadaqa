@@ -78,7 +78,6 @@ interface Item {
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-{% raw %}
   template: `
     <div>
       <h2>Lista de Itens (OnPush + Imutabilidade)</h2>
@@ -154,7 +153,6 @@ export class ItemListComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

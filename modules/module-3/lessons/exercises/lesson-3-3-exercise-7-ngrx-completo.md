@@ -339,7 +339,6 @@ import { TaskFormComponent } from './task-form.component';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, TaskFormComponent],
-{% raw %}
   template: `
     <div>
       <h2>Tarefas (NgRx Completo)</h2>
@@ -410,7 +409,6 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

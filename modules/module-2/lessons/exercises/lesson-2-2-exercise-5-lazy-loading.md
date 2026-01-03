@@ -238,7 +238,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h1>Detalhes do Produto {{ productId }}</h1>
@@ -256,7 +255,6 @@ export class ProductDetailComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **main.ts**
 ```typescript

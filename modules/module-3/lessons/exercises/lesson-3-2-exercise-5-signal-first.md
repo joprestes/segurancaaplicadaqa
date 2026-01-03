@@ -164,7 +164,6 @@ import { TaskFormComponent } from './task-form.component';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, TaskItemComponent, TaskFormComponent],
-{% raw %}
   template: `
     <div>
       <h2>Gerenciador de Tarefas (Signal-First)</h2>
@@ -230,7 +229,6 @@ export class TaskListComponent {
   }
 }
 ```
-{% endraw %}
 
 **task-item.component.ts**
 {% raw %}
@@ -243,7 +241,6 @@ import { Task } from './task.service';
   selector: 'app-task-item',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <li [class.completed]="task.completed">
       <input 
@@ -286,7 +283,6 @@ export class TaskItemComponent {
   @Output() delete = new EventEmitter<void>();
 }
 ```
-{% endraw %}
 
 **task-form.component.ts**
 ```typescript

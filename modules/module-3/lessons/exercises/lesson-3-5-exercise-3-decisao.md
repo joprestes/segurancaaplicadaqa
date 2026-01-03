@@ -134,7 +134,6 @@ import { debounceTime, map, switchMap } from 'rxjs/operators';
   selector: 'app-observables-examples',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Casos de Uso: Observables</h2>
@@ -198,7 +197,6 @@ export class ObservablesExamplesComponent {
   }
 }
 ```
-{% endraw %}
 
 **decision-guide.md**
 ```markdown

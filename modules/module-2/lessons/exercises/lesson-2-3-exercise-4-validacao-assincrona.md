@@ -115,7 +115,6 @@ import { emailExistsValidator } from './email-exists.validator';
   selector: 'app-register-async',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <h2>Registro com Validação Assíncrona</h2>
@@ -238,7 +237,6 @@ export class RegisterAsyncComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

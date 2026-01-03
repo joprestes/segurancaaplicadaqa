@@ -74,7 +74,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-contact-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
       <div>
@@ -133,7 +132,6 @@ export class ContactFormComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

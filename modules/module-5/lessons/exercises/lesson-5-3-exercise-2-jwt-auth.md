@@ -278,7 +278,6 @@ import { AuthService } from './auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-{% raw %}
   template: `
     <div class="login-container">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -353,7 +352,6 @@ export class LoginComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

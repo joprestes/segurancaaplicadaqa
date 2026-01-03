@@ -176,7 +176,6 @@ import { MessageService, Message } from './message.service';
   selector: 'app-receiver',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="receiver">
       <h3>Mensagens Recebidas</h3>
@@ -240,7 +239,6 @@ export class ReceiverComponent implements OnInit, OnDestroy {
   }
 }
 ```
-{% endraw %}
 
 **parent.component.ts**
 ```typescript

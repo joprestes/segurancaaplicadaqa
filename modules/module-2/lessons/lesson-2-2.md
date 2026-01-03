@@ -153,7 +153,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-{% raw %}
   template: `
     <div>
       <h2>Produto {{ productId }}</h2>
@@ -184,7 +183,6 @@ export class ProductDetailComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 ---
 
@@ -419,7 +417,6 @@ export const routes: Routes = [
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-{% raw %}
   template: `
     <div *ngIf="product">
       <h2>{{ product.name }}</h2>
@@ -436,7 +433,6 @@ export class ProductDetailComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 

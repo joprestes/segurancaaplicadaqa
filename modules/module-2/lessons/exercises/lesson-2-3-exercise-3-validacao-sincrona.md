@@ -74,7 +74,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <h2>Registro</h2>
@@ -242,7 +241,6 @@ export class RegisterFormComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

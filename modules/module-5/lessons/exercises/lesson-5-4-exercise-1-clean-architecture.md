@@ -228,7 +228,6 @@ import { Task } from '../../../domain/entities/task.entity';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Tarefas</h2>
@@ -264,7 +263,6 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **app.config.ts**
 ```typescript

@@ -147,7 +147,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-calculator',
   standalone: true,
   imports: [FormsModule, CommonModule],
-{% raw %}
   template: `
     <div class="calculator">
       <h2>Calculadora</h2>
@@ -250,7 +249,6 @@ export class CalculatorComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

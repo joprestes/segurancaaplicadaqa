@@ -184,7 +184,6 @@ interface Product {
   selector: 'app-exemplo-uso',
   standalone: true,
   imports: [FilterPipe, FilterByPipe, FilterMultiplePipe, CommonModule],
-{% raw %}
   template: `
     <div class="filter-examples">
       <h2>Exemplos de Filter Pipes</h2>
@@ -256,7 +255,6 @@ export class ExemploUsoComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

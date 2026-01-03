@@ -97,7 +97,6 @@ import { User } from './user.model';
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Usuários (async pipe)</h2>
@@ -125,7 +124,6 @@ export class UserListComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

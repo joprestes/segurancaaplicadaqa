@@ -141,7 +141,6 @@ import { selectCounter } from './store/counter.selectors';
   selector: 'app-counter',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="counter">
       <h2>Contador com NgRx</h2>
@@ -181,7 +180,6 @@ export class CounterComponent {
   }
 }
 ```
-{% endraw %}
 
 **counter.selectors.ts**
 ```typescript

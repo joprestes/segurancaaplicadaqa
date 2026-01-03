@@ -170,7 +170,6 @@ import { User } from './user.model';
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Usuários (Entities)</h2>
@@ -222,7 +221,6 @@ export class UserListComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

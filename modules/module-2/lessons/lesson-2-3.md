@@ -589,7 +589,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
@@ -682,7 +681,6 @@ export class RegisterComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 

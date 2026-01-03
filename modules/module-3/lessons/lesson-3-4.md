@@ -81,7 +81,6 @@ import { Observable } from 'rxjs';
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Usuários</h2>
@@ -104,7 +103,6 @@ export class UserListComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 

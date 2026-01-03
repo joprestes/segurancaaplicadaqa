@@ -93,7 +93,6 @@ import { UserForm } from './user-form.interface';
   selector: 'app-typed-user-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <h2>Cadastro de Usuário (Typed)</h2>
@@ -199,7 +198,6 @@ export class TypedUserFormComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

@@ -466,7 +466,6 @@ interface User {
   selector: 'app-user-form',
   standalone: true,
   imports: [FormsModule, CommonModule],
-{% raw %}
   template: `
     <form (ngSubmit)="onSubmit()">
       <div>
@@ -499,7 +498,6 @@ interface User {
       <pre>{{ user | json }}</pre>
     </div>
   `
-{% endraw %}
 })
 export class UserFormComponent {
   user: User = {
@@ -549,7 +547,6 @@ interface Task {
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="task-list">
       <input 
@@ -588,7 +585,6 @@ interface Task {
       <p *ngIf="filteredTasks.length === 0">Nenhuma tarefa encontrada</p>
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent {
   tasks: Task[] = [

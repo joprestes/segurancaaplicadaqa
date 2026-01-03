@@ -120,7 +120,6 @@ import { Observable } from 'rxjs';
   selector: 'app-before',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Antes da Migração</h2>
@@ -147,7 +146,6 @@ export class BeforeComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **after-migration.component.ts** (DEPOIS)
 ```typescript

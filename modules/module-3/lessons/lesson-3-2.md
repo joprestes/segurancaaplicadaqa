@@ -381,7 +381,6 @@ interface Todo {
   selector: 'app-todo-signal',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Todo List (Signals)</h2>
@@ -475,7 +474,6 @@ export class TodoSignalComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 

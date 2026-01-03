@@ -179,7 +179,6 @@ import { Product } from './product.model';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule, RouterModule],
-{% raw %}
   template: `
     <div>
       <h1>Produtos</h1>
@@ -210,7 +209,6 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **product-detail.component.ts**
 {% raw %}
@@ -224,7 +222,6 @@ import { Product } from './product.model';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       @if (product) {
@@ -265,7 +262,6 @@ export class ProductDetailComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

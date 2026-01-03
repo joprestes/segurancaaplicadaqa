@@ -334,7 +334,6 @@ export class MessageService {
 @Component({
   selector: 'app-sender',
   standalone: true,
-{% raw %}
   template: `
     <input #input type="text">
     <button (click)="send(input.value)">Enviar</button>
@@ -373,7 +372,6 @@ export class ReceiverComponent implements OnInit, OnDestroy {
 }
 {% endraw %}
 ```
-{% endraw %}
 
 ---
 
@@ -424,7 +422,6 @@ Smart Component (Container)
   selector: 'app-product-list-smart',
   standalone: true,
   imports: [ProductListDumbComponent],
-{% raw %}
   template: `
     <app-product-list-dumb
       [products]="products$ | async"
@@ -491,7 +488,6 @@ export class ProductListDumbComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 
@@ -533,7 +529,6 @@ export class SelectionService {
 @Component({
   selector: 'app-master',
   standalone: true,
-{% raw %}
   template: `
     <ul>
       @for (item of items; track item.id) {
@@ -588,7 +583,6 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 }
 ```
-{% endraw %}
 
 ---
 

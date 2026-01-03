@@ -224,7 +224,6 @@ import { ReviewsComponent } from './reviews.component';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule, RelatedProductsComponent, ReviewsComponent],
-{% raw %}
   template: `
     <div class="product-detail">
       <div class="product-main">
@@ -263,7 +262,6 @@ export class ProductDetailComponent {
   }
 }
 ```
-{% endraw %}
 
 **performance-report.md**
 ```markdown

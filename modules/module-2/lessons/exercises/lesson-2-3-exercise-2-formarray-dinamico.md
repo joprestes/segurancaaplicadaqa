@@ -74,7 +74,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-shopping-list',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="shoppingForm" (ngSubmit)="onSubmit()">
       <h2>Lista de Compras</h2>
@@ -163,7 +162,6 @@ export class ShoppingListComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

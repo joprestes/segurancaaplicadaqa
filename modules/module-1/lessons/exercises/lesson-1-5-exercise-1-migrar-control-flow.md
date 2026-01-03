@@ -125,7 +125,6 @@ interface User {
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="user-list">
       <h2>Lista de Usuários</h2>
@@ -163,7 +162,6 @@ export class UserListComponent {
   }
 }
 ```
-{% endraw %}
 
 ### Componente Migrado (Depois)
 
@@ -183,7 +181,6 @@ interface User {
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="user-list">
       <h2>Lista de Usuários</h2>
@@ -231,7 +228,6 @@ export class UserListComponent {
   };
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

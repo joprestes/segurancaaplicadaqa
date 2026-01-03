@@ -76,7 +76,6 @@ import { DataService } from './data.service';
   selector: 'app-realtime-data',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Dados em Tempo Real</h2>
@@ -172,7 +171,6 @@ export class RealtimeDataComponent implements OnInit, OnDestroy {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

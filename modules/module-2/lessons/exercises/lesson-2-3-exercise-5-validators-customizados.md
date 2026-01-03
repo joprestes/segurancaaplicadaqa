@@ -130,7 +130,6 @@ import { passwordStrengthValidator, passwordMatchValidator } from './custom-vali
   selector: 'app-password-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-{% raw %}
   template: `
     <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
       <h2>Alterar Senha</h2>
@@ -272,7 +271,6 @@ export class PasswordFormComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

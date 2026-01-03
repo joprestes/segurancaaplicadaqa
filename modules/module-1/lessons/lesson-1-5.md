@@ -364,7 +364,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-async-demo',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <p>Timer: {{ timer$ | async }}</p>
     <p>Data: {{ date$ | async | date:'medium' }}</p>
@@ -381,7 +380,6 @@ export class AsyncDemoComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 ---
 
@@ -409,7 +407,6 @@ interface Task {
   selector: 'app-task-manager',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="task-manager">
       <h2>Gerenciador de Tarefas</h2>
@@ -462,7 +459,6 @@ export class TaskManagerComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 

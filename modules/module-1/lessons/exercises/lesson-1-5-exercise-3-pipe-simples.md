@@ -156,7 +156,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-exemplo-uso',
   standalone: true,
   imports: [CapitalizePipe, CommonModule],
-{% raw %}
   template: `
     <div class="capitalize-examples">
       <h2>Exemplos de Capitalize Pipe</h2>
@@ -197,7 +196,6 @@ export class ExemploUsoComponent {
   alreadyCapitalized: string = 'João Silva';
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

@@ -125,7 +125,6 @@ import { Product } from './product.model';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Produtos (Facade Pattern)</h2>
@@ -167,7 +166,6 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

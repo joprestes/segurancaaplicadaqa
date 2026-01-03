@@ -74,7 +74,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-preferences-signal',
   standalone: true,
   imports: [CommonModule, FormsModule],
-{% raw %}
   template: `
     <div>
       <h2>Preferências do Usuário</h2>
@@ -199,7 +198,6 @@ export class PreferencesSignalComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

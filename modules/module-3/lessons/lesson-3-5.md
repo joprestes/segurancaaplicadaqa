@@ -240,7 +240,6 @@ interface User {
   selector: 'app-user-search',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Busca de Usuários</h2>
@@ -298,7 +297,6 @@ export class UserSearchComponent {
   error = signal<string | null>(null);
 }
 ```
-{% endraw %}
 
 ---
 

@@ -112,7 +112,6 @@ import { TaskService, Task } from './task.service';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Tarefas (Signals + Observables)</h2>
@@ -213,7 +212,6 @@ export class TaskListComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

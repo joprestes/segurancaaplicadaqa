@@ -84,7 +84,6 @@ interface Product {
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-{% raw %}
   template: `
     <div>
       <h2>Aplicação Otimizada</h2>
@@ -157,7 +156,6 @@ export class OptimizedAppComponent {
   }
 }
 ```
-{% endraw %}
 
 **performance-report.md**
 ```markdown

@@ -253,7 +253,6 @@ import { Product } from './product.model';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div class="product-detail">
       @if (product) {
@@ -320,7 +319,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 }
 ```
-{% endraw %}
 
 **app.component.ts**
 ```typescript

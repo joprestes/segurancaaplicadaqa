@@ -82,7 +82,6 @@ interface User {
   selector: 'app-user-list-observable',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>User List (Observable)</h2>
@@ -133,7 +132,6 @@ export class UserListObservableComponent implements OnInit, OnDestroy {
   }
 }
 ```
-{% endraw %}
 
 **user-list-signal.component.ts** (Migrado)
 ```typescript

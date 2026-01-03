@@ -282,7 +282,6 @@ import { TaskService, Task } from './task.service';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, FormsModule],
-{% raw %}
   template: `
     <div class="task-list">
       <h2>Gerenciador de Tarefas</h2>
@@ -351,7 +350,6 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

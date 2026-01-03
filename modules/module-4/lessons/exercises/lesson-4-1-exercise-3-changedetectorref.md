@@ -74,7 +74,6 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-{% raw %}
   template: `
     <div>
       <h2>Controle Manual de Change Detection</h2>
@@ -150,7 +149,6 @@ export class ManualDetectionComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 

@@ -159,6 +159,7 @@ export class StatusComponent {
 ```
 
 **status.component.html**
+{% raw %}
 ```html
 <div class="status-badge" [ngClass]="getStatusClasses()">
   <span class="status-icon" *ngIf="showIcon">
@@ -167,6 +168,7 @@ export class StatusComponent {
   <span class="status-label">{{ getStatusLabel() }}</span>
 </div>
 ```
+{% endraw %}
 
 **status.component.css**
 ```css

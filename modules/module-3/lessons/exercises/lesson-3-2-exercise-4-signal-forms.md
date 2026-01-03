@@ -75,7 +75,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-signal-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
-{% raw %}
   template: `
     <form (ngSubmit)="onSubmit()">
       <h2>Registro com Signals</h2>
@@ -232,7 +231,6 @@ export class SignalFormComponent {
   }
 }
 ```
-{% endraw %}
 
 **Explicação da Solução**:
 
