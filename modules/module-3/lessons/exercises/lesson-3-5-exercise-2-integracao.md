@@ -99,6 +99,7 @@ export class TaskService {
 ```
 
 **task-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -111,6 +112,7 @@ import { TaskService, Task } from './task.service';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Tarefas (Signals + Observables)</h2>
@@ -143,6 +145,7 @@ import { TaskService, Task } from './task.service';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class TaskListComponent {
   private taskService = inject(TaskService);
@@ -210,6 +213,7 @@ export class TaskListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

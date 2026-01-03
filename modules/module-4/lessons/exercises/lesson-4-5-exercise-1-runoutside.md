@@ -63,6 +63,7 @@ Crie:
 ### Abordagem Recomendada
 
 **optimized-component.component.ts**
+{% raw %}
 ```typescript
 import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -188,6 +189,7 @@ export class OptimizedComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

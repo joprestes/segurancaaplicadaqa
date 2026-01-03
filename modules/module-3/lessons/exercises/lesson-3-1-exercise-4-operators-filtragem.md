@@ -65,6 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **search-demo.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -174,6 +175,7 @@ export class SearchDemoComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

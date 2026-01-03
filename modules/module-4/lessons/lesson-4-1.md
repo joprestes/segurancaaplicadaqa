@@ -257,6 +257,7 @@ export class TrackByComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, Input, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -311,6 +312,7 @@ export class UserListComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 

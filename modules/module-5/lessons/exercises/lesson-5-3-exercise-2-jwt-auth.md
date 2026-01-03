@@ -266,6 +266,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 ```
 
 **login.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -277,6 +278,7 @@ import { AuthService } from './auth.service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
+{% raw %}
   template: `
     <div class="login-container">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -316,6 +318,7 @@ import { AuthService } from './auth.service';
       </form>
     </div>
   `
+{% endraw %}
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
@@ -350,6 +353,7 @@ export class LoginComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

@@ -65,6 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **combination-demo.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -75,6 +76,7 @@ import { take, map } from 'rxjs/operators';
   selector: 'app-combination-demo',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Operators de Combinação</h2>
@@ -112,6 +114,7 @@ import { take, map } from 'rxjs/operators';
       </section>
     </div>
   `
+{% endraw %}
 })
 export class CombinationDemoComponent {
   combineLatestResult: string = '';
@@ -175,6 +178,7 @@ export class CombinationDemoComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

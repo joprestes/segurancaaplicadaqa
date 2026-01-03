@@ -70,6 +70,7 @@ Observable ──async pipe──→ Template
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -80,6 +81,7 @@ import { Observable } from 'rxjs';
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Usuários</h2>
@@ -92,6 +94,7 @@ import { Observable } from 'rxjs';
       }
     </div>
   `
+{% endraw %}
 })
 export class UserListComponent {
   users$: Observable<User[]>;
@@ -101,6 +104,7 @@ export class UserListComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -131,6 +135,7 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-data',
   standalone: true,
+{% raw %}
   template: `...`
 })
 export class DataComponent implements OnInit, OnDestroy {
@@ -160,6 +165,7 @@ export class DataComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 }
+{% endraw %}
 ```
 
 ---
@@ -248,6 +254,7 @@ import { takeUntil } from 'rxjs/operators';
   selector: 'app-safe',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+{% raw %}
   template: `...`
 })
 export class SafeComponent implements OnInit, OnDestroy {
@@ -269,6 +276,7 @@ export class SafeComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 }
+{% endraw %}
 ```
 
 ---
@@ -339,6 +347,7 @@ import { ProductService } from './product.service';
   selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Dashboard</h2>
@@ -348,6 +357,7 @@ import { ProductService } from './product.service';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   userCount = 0;

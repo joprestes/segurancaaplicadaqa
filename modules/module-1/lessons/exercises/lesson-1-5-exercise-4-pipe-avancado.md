@@ -166,6 +166,7 @@ export class FilterMultiplePipe<T> implements PipeTransform {
 ```
 
 **exemplo-uso.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FilterPipe, FilterByPipe, FilterMultiplePipe } from './filter.pipe';
@@ -183,6 +184,7 @@ interface Product {
   selector: 'app-exemplo-uso',
   standalone: true,
   imports: [FilterPipe, FilterByPipe, FilterMultiplePipe, CommonModule],
+{% raw %}
   template: `
     <div class="filter-examples">
       <h2>Exemplos de Filter Pipes</h2>
@@ -219,6 +221,7 @@ interface Product {
       </div>
     </div>
   `
+{% endraw %}
 })
 export class ExemploUsoComponent {
   products: Product[] = [
@@ -253,6 +256,7 @@ export class ExemploUsoComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

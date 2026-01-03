@@ -167,6 +167,7 @@ export const routes: Routes = [
 ```
 
 **product-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -178,6 +179,7 @@ import { Product } from './product.model';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule, RouterModule],
+{% raw %}
   template: `
     <div>
       <h1>Produtos</h1>
@@ -192,6 +194,7 @@ import { Product } from './product.model';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
@@ -207,8 +210,10 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **product-detail.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -219,6 +224,7 @@ import { Product } from './product.model';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       @if (product) {
@@ -232,6 +238,7 @@ import { Product } from './product.model';
       }
     </div>
   `
+{% endraw %}
 })
 export class ProductDetailComponent implements OnInit {
   product: Product | null = null;
@@ -258,6 +265,7 @@ export class ProductDetailComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

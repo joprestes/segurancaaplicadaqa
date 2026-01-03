@@ -65,6 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **optimized-app.component.ts**
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -83,6 +84,7 @@ interface Product {
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
+{% raw %}
   template: `
     <div>
       <h2>Aplicação Otimizada</h2>
@@ -116,6 +118,7 @@ interface Product {
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class OptimizedAppComponent {
   private http = inject(HttpClient);
@@ -154,6 +157,7 @@ export class OptimizedAppComponent {
   }
 }
 ```
+{% endraw %}
 
 **performance-report.md**
 ```markdown

@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **realtime-data.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -75,6 +76,7 @@ import { DataService } from './data.service';
   selector: 'app-realtime-data',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Dados em Tempo Real</h2>
@@ -84,6 +86,7 @@ import { DataService } from './data.service';
       <p>Última atualização: {{ lastUpdate | date:'medium' }}</p>
     </div>
   `
+{% endraw %}
 })
 export class RealtimeDataComponent implements OnInit, OnDestroy {
   counter = 0;
@@ -169,6 +172,7 @@ export class RealtimeDataComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

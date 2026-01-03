@@ -159,6 +159,7 @@ export class DashboardComponent {
 ```
 
 **dashboard.component.html**
+{% raw %}
 ```html
 <div class="dashboard" [ngClass]="getThemeClasses()" [ngStyle]="getThemeStyles()">
   <header class="dashboard-header">
@@ -228,6 +229,7 @@ export class DashboardComponent {
   </section>
 </div>
 ```
+{% endraw %}
 
 **dashboard.component.css**
 ```css

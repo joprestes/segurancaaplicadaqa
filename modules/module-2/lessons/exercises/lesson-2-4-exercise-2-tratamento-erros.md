@@ -184,6 +184,7 @@ export class ProductService {
 ```
 
 **product-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -195,6 +196,7 @@ import { ErrorMessage } from './error-handler.service';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Produtos</h2>
@@ -222,6 +224,7 @@ import { ErrorMessage } from './error-handler.service';
     </div>
   `,
   styles: [`
+{% endraw %}
     .error {
       color: #f44336;
       padding: 1rem;
@@ -262,6 +265,7 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

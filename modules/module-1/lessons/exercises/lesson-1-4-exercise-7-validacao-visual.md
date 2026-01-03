@@ -148,6 +148,7 @@ export class ValidatedFormComponent {
 ```
 
 **validated-form.component.html**
+{% raw %}
 ```html
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <div class="form-container">
@@ -270,6 +271,7 @@ export class ValidatedFormComponent {
   </div>
 </form>
 ```
+{% endraw %}
 
 **validated-form.component.css**
 ```css

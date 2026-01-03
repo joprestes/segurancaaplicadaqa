@@ -109,6 +109,7 @@ Depois:
 
 ### Componente Antigo (Antes)
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -124,6 +125,7 @@ interface User {
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="user-list">
       <h2>Lista de Usuários</h2>
@@ -147,6 +149,7 @@ interface User {
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class UserListComponent {
   users: User[] = [
@@ -160,9 +163,11 @@ export class UserListComponent {
   }
 }
 ```
+{% endraw %}
 
 ### Componente Migrado (Depois)
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -178,6 +183,7 @@ interface User {
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="user-list">
       <h2>Lista de Usuários</h2>
@@ -215,6 +221,7 @@ interface User {
       }
     </div>
   `
+{% endraw %}
 })
 export class UserListComponent {
   users: User[] = [
@@ -224,6 +231,7 @@ export class UserListComponent {
   };
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

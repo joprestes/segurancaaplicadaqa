@@ -71,6 +71,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-signals-examples',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Casos de Uso: Signals</h2>
@@ -98,6 +99,7 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class SignalsExamplesComponent {
   count = signal(0);
@@ -120,6 +122,7 @@ export class SignalsExamplesComponent {
 ```
 
 **observables-examples.component.ts**
+{% raw %}
 ```typescript
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -131,6 +134,7 @@ import { debounceTime, map, switchMap } from 'rxjs/operators';
   selector: 'app-observables-examples',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Casos de Uso: Observables</h2>
@@ -163,6 +167,7 @@ import { debounceTime, map, switchMap } from 'rxjs/operators';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class ObservablesExamplesComponent {
   private http = inject(HttpClient);
@@ -193,6 +198,7 @@ export class ObservablesExamplesComponent {
   }
 }
 ```
+{% endraw %}
 
 **decision-guide.md**
 ```markdown

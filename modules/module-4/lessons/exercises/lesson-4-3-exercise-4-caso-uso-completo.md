@@ -76,6 +76,7 @@ import { NewsletterComponent } from './newsletter.component';
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, ProductListComponent, AnalyticsComponent, NewsletterComponent],
+{% raw %}
   template: `
     <div class="home">
       <header>
@@ -127,6 +128,7 @@ import { NewsletterComponent } from './newsletter.component';
     </div>
   `,
   styles: [`
+{% endraw %}
     .home {
       max-width: 1200px;
       margin: 0 auto;
@@ -210,6 +212,7 @@ export class HomeComponent {
 ```
 
 **product-detail.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -221,6 +224,7 @@ import { ReviewsComponent } from './reviews.component';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule, RelatedProductsComponent, ReviewsComponent],
+{% raw %}
   template: `
     <div class="product-detail">
       <div class="product-main">
@@ -249,6 +253,7 @@ import { ReviewsComponent } from './reviews.component';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class ProductDetailComponent {
   productId = '';
@@ -258,6 +263,7 @@ export class ProductDetailComponent {
   }
 }
 ```
+{% endraw %}
 
 **performance-report.md**
 ```markdown

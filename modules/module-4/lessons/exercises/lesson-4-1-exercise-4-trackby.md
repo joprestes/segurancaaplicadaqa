@@ -62,6 +62,7 @@ Crie:
 ### Abordagem Recomendada
 
 **product-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -201,6 +202,7 @@ export class ProductListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

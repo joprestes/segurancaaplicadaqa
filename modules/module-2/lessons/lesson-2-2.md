@@ -145,6 +145,7 @@ Parâmetros são como variáveis em uma função. A URL `/products/123` passa o 
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -152,12 +153,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <h2>Produto {{ productId }}</h2>
       <button (click)="goToNext()">Próximo Produto</button>
     </div>
   `
+{% endraw %}
 })
 export class ProductDetailComponent implements OnInit {
   productId: string | null = null;
@@ -181,6 +184,7 @@ export class ProductDetailComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -208,6 +212,7 @@ Query params são como opções extras em um pedido. A URL `/products?page=2&sor
 @Component({
   selector: 'app-product-list',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <input [(ngModel)]="searchTerm" (input)="onSearch()">
@@ -217,6 +222,7 @@ Query params são como opções extras em um pedido. A URL `/products?page=2&sor
       </select>
     </div>
   `
+{% endraw %}
 })
 export class ProductListComponent {
   searchTerm: string = '';
@@ -299,6 +305,7 @@ export const routes: Routes = [
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
+{% raw %}
   template: `
     <nav>
       <a routerLink="users">Usuários</a>
@@ -310,6 +317,7 @@ export const routes: Routes = [
   imports: [RouterModule]
 })
 export class AdminLayoutComponent {}
+{% endraw %}
 ```
 
 ---
@@ -406,16 +414,19 @@ export const routes: Routes = [
 ];
 ```
 
+{% raw %}
 ```typescript
 @Component({
   selector: 'app-product-detail',
   standalone: true,
+{% raw %}
   template: `
     <div *ngIf="product">
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
     </div>
   `
+{% endraw %}
 })
 export class ProductDetailComponent {
   product: Product | null = null;
@@ -425,6 +436,7 @@ export class ProductDetailComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 

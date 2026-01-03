@@ -128,6 +128,7 @@ bootstrapApplication(AppComponent, {
 ```
 
 **counter.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -140,6 +141,7 @@ import { selectCounter } from './store/counter.selectors';
   selector: 'app-counter',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="counter">
       <h2>Contador com NgRx</h2>
@@ -153,6 +155,7 @@ import { selectCounter } from './store/counter.selectors';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class CounterComponent {
   count$: Observable<number>;
@@ -178,6 +181,7 @@ export class CounterComponent {
   }
 }
 ```
+{% endraw %}
 
 **counter.selectors.ts**
 ```typescript

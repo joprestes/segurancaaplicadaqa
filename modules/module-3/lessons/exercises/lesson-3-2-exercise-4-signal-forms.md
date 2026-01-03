@@ -65,6 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **signal-form.component.ts**
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -74,6 +75,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-signal-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
+{% raw %}
   template: `
     <form (ngSubmit)="onSubmit()">
       <h2>Registro com Signals</h2>
@@ -138,6 +140,7 @@ import { FormsModule } from '@angular/forms';
     </form>
   `,
   styles: [`
+{% endraw %}
     .field {
       margin-bottom: 1rem;
     }
@@ -229,6 +232,7 @@ export class SignalFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

@@ -152,6 +152,7 @@ export class TaskService {
 ```
 
 **task-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -163,6 +164,7 @@ import { TaskFormComponent } from './task-form.component';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, TaskItemComponent, TaskFormComponent],
+{% raw %}
   template: `
     <div>
       <h2>Gerenciador de Tarefas (Signal-First)</h2>
@@ -192,6 +194,7 @@ import { TaskFormComponent } from './task-form.component';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class TaskListComponent {
   filter = signal<'all' | 'active' | 'completed'>('all');
@@ -227,8 +230,10 @@ export class TaskListComponent {
   }
 }
 ```
+{% endraw %}
 
 **task-item.component.ts**
+{% raw %}
 ```typescript
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -238,6 +243,7 @@ import { Task } from './task.service';
   selector: 'app-task-item',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <li [class.completed]="task.completed">
       <input 
@@ -253,6 +259,7 @@ import { Task } from './task.service';
     </li>
   `,
   styles: [`
+{% endraw %}
     li {
       display: flex;
       align-items: center;
@@ -279,6 +286,7 @@ export class TaskItemComponent {
   @Output() delete = new EventEmitter<void>();
 }
 ```
+{% endraw %}
 
 **task-form.component.ts**
 ```typescript
@@ -290,6 +298,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-task-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
+{% raw %}
   template: `
     <form (ngSubmit)="onSubmit()">
       <input 
@@ -304,6 +313,7 @@ import { FormsModule } from '@angular/forms';
       <button type="submit" [disabled]="!isValid()">Adicionar</button>
     </form>
   `
+{% endraw %}
 })
 export class TaskFormComponent {
   title = signal<string>('');

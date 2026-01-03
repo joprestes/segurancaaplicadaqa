@@ -119,6 +119,7 @@ export function passwordMatchValidator(passwordControlName: string, confirmPassw
 ```
 
 **password-form.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -129,6 +130,7 @@ import { passwordStrengthValidator, passwordMatchValidator } from './custom-vali
   selector: 'app-password-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
       <h2>Alterar Senha</h2>
@@ -185,6 +187,7 @@ import { passwordStrengthValidator, passwordMatchValidator } from './custom-vali
     </form>
   `,
   styles: [`
+{% endraw %}
     .field {
       margin-bottom: 1.5rem;
     }
@@ -269,6 +272,7 @@ export class PasswordFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **preferences-signal.component.ts**
+{% raw %}
 ```typescript
 import { Component, signal, effect, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -73,6 +74,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-preferences-signal',
   standalone: true,
   imports: [CommonModule, FormsModule],
+{% raw %}
   template: `
     <div>
       <h2>Preferências do Usuário</h2>
@@ -132,6 +134,7 @@ import { FormsModule } from '@angular/forms';
     </div>
   `,
   styles: [`
+{% endraw %}
     .preference {
       margin-bottom: 1rem;
     }
@@ -196,6 +199,7 @@ export class PreferencesSignalComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

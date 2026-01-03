@@ -580,6 +580,7 @@ export class FormStateComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
@@ -588,6 +589,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div>
@@ -627,6 +629,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
       </button>
     </form>
   `
+{% endraw %}
 })
 export class RegisterComponent {
   registerForm: FormGroup;
@@ -679,6 +682,7 @@ export class RegisterComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 

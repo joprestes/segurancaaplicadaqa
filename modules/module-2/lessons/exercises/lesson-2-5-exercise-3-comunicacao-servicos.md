@@ -115,6 +115,7 @@ import { MessageService } from './message.service';
   selector: 'app-sender',
   standalone: true,
   imports: [FormsModule, CommonModule],
+{% raw %}
   template: `
     <div class="sender">
       <h3>Enviar Mensagem</h3>
@@ -126,6 +127,7 @@ import { MessageService } from './message.service';
     </div>
   `,
   styles: [`
+{% endraw %}
     .sender {
       padding: 1rem;
       border: 1px solid #ccc;
@@ -163,6 +165,7 @@ export class SenderComponent {
 ```
 
 **receiver.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -173,6 +176,7 @@ import { MessageService, Message } from './message.service';
   selector: 'app-receiver',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="receiver">
       <h3>Mensagens Recebidas</h3>
@@ -191,6 +195,7 @@ import { MessageService, Message } from './message.service';
     </div>
   `,
   styles: [`
+{% endraw %}
     .receiver {
       padding: 1rem;
       border: 1px solid #ccc;
@@ -235,6 +240,7 @@ export class ReceiverComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 **parent.component.ts**
 ```typescript
@@ -246,6 +252,7 @@ import { ReceiverComponent } from './receiver.component';
   selector: 'app-parent',
   standalone: true,
   imports: [SenderComponent, ReceiverComponent],
+{% raw %}
   template: `
     <div>
       <h2>Comunicação via Serviço</h2>
@@ -253,6 +260,7 @@ import { ReceiverComponent } from './receiver.component';
       <app-receiver></app-receiver>
     </div>
   `
+{% endraw %}
 })
 export class ParentComponent {}
 ```

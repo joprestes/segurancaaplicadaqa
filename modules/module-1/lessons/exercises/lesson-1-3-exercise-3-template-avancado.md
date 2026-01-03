@@ -90,11 +90,13 @@ interface User {
 
 ### Dica 3: Classes Condicionais
 
+{% raw %}
 ```html
 <button [class.following]="user.isFollowing">
   {{ user.isFollowing ? 'Seguindo' : 'Seguir' }}
 </button>
 ```
+{% endraw %}
 
 ### Dica 4: *ngFor para Estatísticas
 
@@ -178,6 +180,7 @@ export class UserProfileComponent {
 ```
 
 **user-profile.component.html**
+{% raw %}
 ```html
 <div class="user-profile">
   <div class="profile-header">
@@ -227,6 +230,7 @@ export class UserProfileComponent {
   </div>
 </div>
 ```
+{% endraw %}
 
 **user-profile.component.css**
 ```css

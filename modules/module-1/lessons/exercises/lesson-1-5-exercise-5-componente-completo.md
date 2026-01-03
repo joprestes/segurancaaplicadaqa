@@ -192,6 +192,7 @@ export class TransactionListComponent implements OnInit {
 ```
 
 **transaction-list.component.html**
+{% raw %}
 ```html
 <div class="transaction-list">
   <h2>Transações Financeiras</h2>
@@ -314,6 +315,7 @@ export class TransactionListComponent implements OnInit {
   </div>
 </div>
 ```
+{% endraw %}
 
 **transaction-list.component.css**
 ```css

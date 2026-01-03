@@ -55,7 +55,9 @@ Data binding é fundamental no Angular. Sem entender completamente como dados fl
 
 Interpolação converte expressões em strings e as exibe no template. Suporta:
 - Variáveis simples: `{{ name }}`
+{% raw %}
 - Expressões: `{{ 1 + 1 }}`
+{% endraw %}
 - Chamadas de método: `{{ getFullName() }}`
 - Propriedades aninhadas: `{{ user.address.city }}`
 
@@ -65,6 +67,7 @@ Interpolação é como preencher um formulário em branco. O template é o formu
 
 **Visualização**:
 
+{% raw %}
 ```
 Component                    Template
 ┌────────────────┐            ┌─────────────┐
@@ -72,6 +75,7 @@ Component                    Template
 │ age = 30       │  ────────→ │ {{ age }}   │
 └────────────────┘            └─────────────┘
                               ↓
+{% endraw %}
                           "João"
                           "30"
 ```
@@ -90,12 +94,14 @@ export class UserComponent {
 }
 ```
 
+{% raw %}
 ```html
 <h1>{{ userName }}</h1>
 <p>Idade: {{ userAge }}</p>
 <p>Status: {{ isActive ? 'Ativo' : 'Inativo' }}</p>
 <p>{{ getDisplayName() }}</p>
 ```
+{% endraw %}
 
 ---
 
@@ -443,6 +449,7 @@ export class HighlightDirective {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -459,6 +466,7 @@ interface User {
   selector: 'app-user-form',
   standalone: true,
   imports: [FormsModule, CommonModule],
+{% raw %}
   template: `
     <form (ngSubmit)="onSubmit()">
       <div>
@@ -491,6 +499,7 @@ interface User {
       <pre>{{ user | json }}</pre>
     </div>
   `
+{% endraw %}
 })
 export class UserFormComponent {
   user: User = {
@@ -514,6 +523,7 @@ export class UserFormComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -523,6 +533,7 @@ export class UserFormComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -538,6 +549,7 @@ interface Task {
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="task-list">
       <input 
@@ -576,6 +588,7 @@ interface Task {
       <p *ngIf="filteredTasks.length === 0">Nenhuma tarefa encontrada</p>
     </div>
   `
+{% endraw %}
 })
 export class TaskListComponent {
   tasks: Task[] = [
@@ -629,6 +642,7 @@ export class TaskListComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 

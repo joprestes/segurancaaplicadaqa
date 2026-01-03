@@ -63,6 +63,7 @@ Crie:
 ### Abordagem Recomendada
 
 **manual-detection.component.ts**
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -73,6 +74,7 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
+{% raw %}
   template: `
     <div>
       <h2>Controle Manual de Change Detection</h2>
@@ -99,6 +101,7 @@ import { HttpClient } from '@angular/common/http';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class ManualDetectionComponent {
   data = signal<string>('Nenhum dado');
@@ -147,6 +150,7 @@ export class ManualDetectionComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **shopping-list.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormArray, FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -73,6 +74,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-shopping-list',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="shoppingForm" (ngSubmit)="onSubmit()">
       <h2>Lista de Compras</h2>
@@ -97,6 +99,7 @@ import { CommonModule } from '@angular/common';
     </form>
   `,
   styles: [`
+{% endraw %}
     .item-row {
       display: flex;
       gap: 1rem;
@@ -160,6 +163,7 @@ export class ShoppingListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

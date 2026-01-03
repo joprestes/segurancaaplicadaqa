@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **register-form.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -73,6 +74,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <h2>Registro</h2>
@@ -136,6 +138,7 @@ import { CommonModule } from '@angular/common';
     </form>
   `,
   styles: [`
+{% endraw %}
     .field {
       margin-bottom: 1rem;
     }
@@ -239,6 +242,7 @@ export class RegisterFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

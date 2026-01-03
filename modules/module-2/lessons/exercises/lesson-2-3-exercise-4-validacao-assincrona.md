@@ -103,6 +103,7 @@ export function emailExistsValidator(userService: UserService): AsyncValidatorFn
 ```
 
 **register-async.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -114,6 +115,7 @@ import { emailExistsValidator } from './email-exists.validator';
   selector: 'app-register-async',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <h2>Registro com Validação Assíncrona</h2>
@@ -145,6 +147,7 @@ import { emailExistsValidator } from './email-exists.validator';
     </form>
   `,
   styles: [`
+{% endraw %}
     .field {
       margin-bottom: 1rem;
     }
@@ -235,6 +238,7 @@ export class RegisterAsyncComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

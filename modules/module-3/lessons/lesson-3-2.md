@@ -209,9 +209,11 @@ import { Component, model } from '@angular/core';
 @Component({
   selector: 'app-child',
   standalone: true,
+{% raw %}
   template: `
     <input [value]="value()" (input)="value.set($any($event.target).value)">
   `
+{% endraw %}
 })
 export class ChildComponent {
   value = model<string>('');
@@ -221,10 +223,12 @@ export class ChildComponent {
   selector: 'app-parent',
   standalone: true,
   imports: [ChildComponent],
+{% raw %}
   template: `
     <app-child [(value)]="parentValue" />
     <p>Valor do pai: {{ parentValue }}</p>
   `
+{% endraw %}
 })
 export class ParentComponent {
   parentValue = signal('Valor inicial');
@@ -260,6 +264,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-signal-form',
   standalone: true,
   imports: [FormsModule],
+{% raw %}
   template: `
     <form>
       <input [(ngModel)]="name" name="name">
@@ -268,6 +273,7 @@ import { FormsModule } from '@angular/forms';
       <p>Email: {{ email() }}</p>
     </form>
   `
+{% endraw %}
 })
 export class SignalFormComponent {
   name = signal('');
@@ -312,6 +318,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-signal-first',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <h2>{{ title() }}</h2>
@@ -326,6 +333,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
       }
     </div>
   `
+{% endraw %}
 })
 export class SignalFirstComponent {
   title = signal('Signal-First App');
@@ -358,6 +366,7 @@ export class SignalFirstComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -372,6 +381,7 @@ interface Todo {
   selector: 'app-todo-signal',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Todo List (Signals)</h2>
@@ -403,6 +413,7 @@ interface Todo {
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class TodoSignalComponent {
   todos = signal<Todo[]>([]);
@@ -464,6 +475,7 @@ export class TodoSignalComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 

@@ -85,6 +85,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-child',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <h3>{{ title }}</h3>
@@ -92,6 +93,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       <button (click)="onClick()">Clique aqui</button>
     </div>
   `
+{% endraw %}
 })
 export class ChildComponent {
   @Input() title: string = 'Título Padrão';
@@ -108,6 +110,7 @@ export class ChildComponent {
   selector: 'app-parent',
   standalone: true,
   imports: [ChildComponent],
+{% raw %}
   template: `
     <app-child 
       [title]="childTitle"
@@ -115,6 +118,7 @@ export class ChildComponent {
       (buttonClick)="handleClick($event)">
     </app-child>
   `
+{% endraw %}
 })
 export class ParentComponent {
   childTitle = 'Título do Filho';
@@ -160,6 +164,7 @@ import { ChildComponent } from './child.component';
   selector: 'app-parent',
   standalone: true,
   imports: [ChildComponent],
+{% raw %}
   template: `
     <div>
       <app-child #firstChild></app-child>
@@ -167,6 +172,7 @@ import { ChildComponent } from './child.component';
       <button (click)="callChildMethod()">Chamar Método do Filho</button>
     </div>
   `
+{% endraw %}
 })
 export class ParentComponent implements AfterViewInit {
   @ViewChild('firstChild') firstChild!: ChildComponent;
@@ -216,6 +222,7 @@ import { Component, ContentChild, ContentChildren, QueryList, AfterContentInit }
 @Component({
   selector: 'app-card-header',
   standalone: true,
+{% raw %}
   template: `<ng-content></ng-content>`
 })
 export class CardHeaderComponent {}
@@ -232,6 +239,7 @@ export class CardHeaderComponent {}
       </div>
     </div>
   `
+{% endraw %}
 })
 export class CardComponent implements AfterContentInit {
   @ContentChild(CardHeaderComponent) header!: CardHeaderComponent;
@@ -267,12 +275,14 @@ Template Reference Variables são como dar um nome a algo no template para poder
 @Component({
   selector: 'app-example',
   standalone: true,
+{% raw %}
   template: `
     <input #inputRef type="text" (input)="onInput(inputRef.value)">
     <button (click)="inputRef.focus()">Focar Input</button>
     <app-child #childRef></app-child>
     <button (click)="childRef.someMethod()">Chamar Filho</button>
   `
+{% endraw %}
 })
 export class ExampleComponent {
   onInput(value: string): void {
@@ -301,6 +311,7 @@ Comunicação via serviços é como usar um sistema de correio central. Componen
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -323,10 +334,12 @@ export class MessageService {
 @Component({
   selector: 'app-sender',
   standalone: true,
+{% raw %}
   template: `
     <input #input type="text">
     <button (click)="send(input.value)">Enviar</button>
   `
+{% endraw %}
 })
 export class SenderComponent {
   constructor(private messageService: MessageService) {}
@@ -339,6 +352,7 @@ export class SenderComponent {
 @Component({
   selector: 'app-receiver',
   standalone: true,
+{% raw %}
   template: `<p>{{ message }}</p>`
 })
 export class ReceiverComponent implements OnInit, OnDestroy {
@@ -357,7 +371,9 @@ export class ReceiverComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 }
+{% endraw %}
 ```
+{% endraw %}
 
 ---
 
@@ -402,11 +418,13 @@ Smart Component (Container)
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 @Component({
   selector: 'app-product-list-smart',
   standalone: true,
   imports: [ProductListDumbComponent],
+{% raw %}
   template: `
     <app-product-list-dumb
       [products]="products$ | async"
@@ -415,6 +433,7 @@ Smart Component (Container)
       (refresh)="loadProducts()">
     </app-product-list-dumb>
   `
+{% endraw %}
 })
 export class ProductListSmartComponent implements OnInit {
   products$ = new BehaviorSubject<Product[]>([]);
@@ -444,6 +463,7 @@ export class ProductListSmartComponent implements OnInit {
 @Component({
   selector: 'app-product-list-dumb',
   standalone: true,
+{% raw %}
   template: `
     @if (loading) {
       <p>Carregando...</p>
@@ -458,6 +478,7 @@ export class ProductListSmartComponent implements OnInit {
       <button (click)="refresh.emit()">Atualizar</button>
     }
   `
+{% endraw %}
 })
 export class ProductListDumbComponent {
   @Input() products: Product[] = [];
@@ -470,6 +491,7 @@ export class ProductListDumbComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -491,6 +513,7 @@ Master/Detail é como uma lista de contatos (Master) e detalhes do contato selec
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 @Injectable({
   providedIn: 'root'
@@ -510,6 +533,7 @@ export class SelectionService {
 @Component({
   selector: 'app-master',
   standalone: true,
+{% raw %}
   template: `
     <ul>
       @for (item of items; track item.id) {
@@ -519,6 +543,7 @@ export class SelectionService {
       }
     </ul>
   `
+{% endraw %}
 })
 export class MasterComponent {
   items: Item[] = [];
@@ -535,6 +560,7 @@ export class MasterComponent {
 @Component({
   selector: 'app-detail',
   standalone: true,
+{% raw %}
   template: `
     @if (selectedItem) {
       <h2>{{ selectedItem.name }}</h2>
@@ -543,6 +569,7 @@ export class MasterComponent {
       <p>Selecione um item</p>
     }
   `
+{% endraw %}
 })
 export class DetailComponent implements OnInit, OnDestroy {
   selectedItem: Item | null = null;
@@ -561,6 +588,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -577,6 +605,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   selector: 'app-parent',
   standalone: true,
   imports: [ChildComponent],
+{% raw %}
   template: `
     <app-child 
       [data]="parentData"
@@ -584,6 +613,7 @@ export class DetailComponent implements OnInit, OnDestroy {
     </app-child>
     <p>Dados recebidos: {{ receivedData }}</p>
   `
+{% endraw %}
 })
 export class ParentComponent {
   parentData = 'Dados do pai';
@@ -597,6 +627,7 @@ export class ParentComponent {
 @Component({
   selector: 'app-child',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <p>Dados recebidos: {{ data }}</p>
@@ -604,6 +635,7 @@ export class ParentComponent {
       <button (click)="sendData()">Enviar</button>
     </div>
   `
+{% endraw %}
 })
 export class ChildComponent {
   @Input() data: string = '';

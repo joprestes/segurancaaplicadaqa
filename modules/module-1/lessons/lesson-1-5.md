@@ -162,6 +162,7 @@ Vantagens:
 
 **Exemplo Prático**:
 
+{% raw %}
 ```html
 @for (product of products; track product.id) {
   <div class="product-card">
@@ -172,6 +173,7 @@ Vantagens:
   <p>Nenhum produto disponível</p>
 }
 ```
+{% endraw %}
 
 ---
 
@@ -211,15 +213,25 @@ Sintaxe `@switch`:
 
 ### Pipes Embutidos
 
+{% raw %}
 **Definição**: Pipes são funções que transformam dados para exibição no template usando a sintaxe `{{ value | pipe }}`.
+{% endraw %}
 
 **Explicação Detalhada**:
 
 Pipes embutidos principais:
+{% raw %}
 - **DatePipe**: Formata datas (`{{ date | date:'short' }}`)
+{% endraw %}
+{% raw %}
 - **CurrencyPipe**: Formata moedas (`{{ price | currency:'BRL' }}`)
+{% endraw %}
+{% raw %}
 - **DecimalPipe**: Formata números (`{{ number | number:'1.2-2' }}`)
+{% endraw %}
+{% raw %}
 - **PercentPipe**: Formata percentuais (`{{ ratio | percent }}`)
+{% endraw %}
 - **AsyncPipe**: Subscribe automaticamente em Observables
 - **UpperCasePipe / LowerCasePipe**: Transforma texto
 - **JsonPipe**: Converte para JSON (útil para debug)
@@ -251,6 +263,7 @@ export class PipesComponent {
 }
 ```
 
+{% raw %}
 ```html
 <p>Preço: {{ price | currency:'BRL':'symbol':'1.2-2' }}</p>
 <p>Data: {{ date | date:'dd/MM/yyyy' }}</p>
@@ -258,6 +271,7 @@ export class PipesComponent {
 <p>Nome: {{ userName | titlecase }}</p>
 <p>Debug: {{ userData | json }}</p>
 ```
+{% endraw %}
 
 ---
 
@@ -310,12 +324,14 @@ export class FilterPipe implements PipeTransform {
 }
 ```
 
+{% raw %}
 ```html
 <p>{{ longText | truncate:50 }}</p>
 <div *ngFor="let item of items | filter:isActive">
   {{ item.name }}
 </div>
 ```
+{% endraw %}
 
 ---
 
@@ -337,6 +353,7 @@ AsyncPipe é como um assistente que monitora uma caixa de correio. Quando chega 
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { Observable, interval } from 'rxjs';
@@ -347,10 +364,12 @@ import { CommonModule } from '@angular/common';
   selector: 'app-async-demo',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <p>Timer: {{ timer$ | async }}</p>
     <p>Data: {{ date$ | async | date:'medium' }}</p>
   `
+{% endraw %}
 })
 export class AsyncDemoComponent implements OnInit {
   timer$!: Observable<number>;
@@ -362,6 +381,7 @@ export class AsyncDemoComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -373,6 +393,7 @@ export class AsyncDemoComponent implements OnInit {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -388,6 +409,7 @@ interface Task {
   selector: 'app-task-manager',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="task-manager">
       <h2>Gerenciador de Tarefas</h2>
@@ -423,6 +445,7 @@ interface Task {
       }
     </div>
   `
+{% endraw %}
 })
 export class TaskManagerComponent {
   tasks: Task[] = [
@@ -439,6 +462,7 @@ export class TaskManagerComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -513,7 +537,9 @@ export class HighlightPipe implements PipeTransform {
 
 3. **Use AsyncPipe para Observables**
    - **Por quê**: Previne memory leaks automaticamente
+{% raw %}
    - **Exemplo**: `{{ data$ | async }}`
+{% endraw %}
 
 4. **Mantenha pipes pure quando possível**
    - **Por quê**: Melhor performance

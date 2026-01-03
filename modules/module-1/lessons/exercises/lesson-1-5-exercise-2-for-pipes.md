@@ -65,27 +65,35 @@ Crie um componente `ProductListComponent` com:
 
 ### Dica 1: CurrencyPipe
 
+{% raw %}
 ```html
 {{ price | currency:'BRL':'symbol':'1.2-2' }}
 ```
+{% endraw %}
 
 ### Dica 2: DatePipe
 
+{% raw %}
 ```html
 {{ date | date:'dd/MM/yyyy' }}
 ```
+{% endraw %}
 
 ### Dica 3: PercentPipe
 
+{% raw %}
 ```html
 {{ discount | percent:'1.0-2' }}
 ```
+{% endraw %}
 
 ### Dica 4: Encadeamento
 
+{% raw %}
 ```html
 {{ value | pipe1 | pipe2 }}
 ```
+{% endraw %}
 
 ---
 
@@ -153,6 +161,7 @@ export class ProductListComponent {
 ```
 
 **product-list.component.html**
+{% raw %}
 ```html
 <div class="product-list">
   <h2>Lista de Produtos</h2>
@@ -198,6 +207,7 @@ export class ProductListComponent {
   </div>
 </div>
 ```
+{% endraw %}
 
 **product-list.component.css**
 ```css

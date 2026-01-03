@@ -63,6 +63,7 @@ Crie:
 ### Abordagem Recomendada
 
 **calculator-signal.component.ts**
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -168,6 +169,7 @@ export class CalculatorSignalComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

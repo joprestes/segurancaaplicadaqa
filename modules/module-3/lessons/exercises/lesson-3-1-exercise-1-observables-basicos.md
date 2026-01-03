@@ -65,6 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **observable-demo.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -190,6 +191,7 @@ export class ObservableDemoComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

@@ -271,6 +271,7 @@ export class TaskService {
 ```
 
 **task-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -281,6 +282,7 @@ import { TaskService, Task } from './task.service';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, FormsModule],
+{% raw %}
   template: `
     <div class="task-list">
       <h2>Gerenciador de Tarefas</h2>
@@ -317,6 +319,7 @@ import { TaskService, Task } from './task.service';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   private taskService = inject(TaskService);
@@ -348,6 +351,7 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

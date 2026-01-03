@@ -63,6 +63,7 @@ Crie:
 ### Abordagem Recomendada
 
 **interop.component.ts**
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -165,6 +166,7 @@ export class InteropComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

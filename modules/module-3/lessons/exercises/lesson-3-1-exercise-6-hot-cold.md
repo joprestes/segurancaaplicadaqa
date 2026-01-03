@@ -65,6 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **hot-cold-demo.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -193,6 +194,7 @@ export class HotColdDemoComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

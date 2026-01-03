@@ -94,6 +94,7 @@ onClick(): void {
 
 ### Dica 4: Classes Dinâmicas no Template
 
+{% raw %}
 ```html
 <button 
   [class.btn-primary]="variant === 'primary'"
@@ -102,6 +103,7 @@ onClick(): void {
   {{ label }}
 </button>
 ```
+{% endraw %}
 
 ### Dica 5: Usar ngClass
 
@@ -228,6 +230,7 @@ import { ButtonComponent } from './button/button.component';
   selector: 'app-root',
   standalone: true,
   imports: [ButtonComponent],
+{% raw %}
   template: `
     <app-button 
       label="Clique Aqui"
@@ -251,6 +254,7 @@ import { ButtonComponent } from './button/button.component';
       (clicked)="onDelete()">
     </app-button>
   `
+{% endraw %}
 })
 export class AppComponent {
   isDeleting: boolean = false;

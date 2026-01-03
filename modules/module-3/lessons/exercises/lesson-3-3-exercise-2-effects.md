@@ -171,6 +171,7 @@ bootstrapApplication(AppComponent, {
 ```
 
 **user-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -184,6 +185,7 @@ import { User } from './user.model';
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Usuários</h2>
@@ -204,6 +206,7 @@ import { User } from './user.model';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class UserListComponent implements OnInit {
   users$: Observable<User[]>;
@@ -225,6 +228,7 @@ export class UserListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

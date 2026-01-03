@@ -231,6 +231,7 @@ Template HTML                  Component Class
 
 **Exemplo Prático**:
 
+{% raw %}
 ```html
 <div class="product-card">
   <h2>{{ product.name }}</h2>
@@ -243,6 +244,7 @@ Template HTML                  Component Class
   <img [src]="product.imageUrl" [alt]="product.name">
 </div>
 ```
+{% endraw %}
 
 ---
 
@@ -398,6 +400,7 @@ card.component.ts
 @Component({
   selector: 'app-card',
   standalone: true,
+{% raw %}
   template: `
     <div class="card">
       <div class="card-header">
@@ -411,6 +414,7 @@ card.component.ts
       </div>
     </div>
   `
+{% endraw %}
 })
 export class CardComponent {}
 ```
@@ -434,6 +438,7 @@ app.component.html
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -450,6 +455,7 @@ interface Product {
   selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="product-card" [class.out-of-stock]="!product.inStock">
       <img [src]="product.imageUrl" [alt]="product.name">
@@ -463,6 +469,7 @@ interface Product {
     </div>
   `,
   styles: [`
+{% endraw %}
     .product-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -483,6 +490,7 @@ export class ProductCardComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação**:
 
@@ -501,6 +509,7 @@ export class ProductCardComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
@@ -508,12 +517,14 @@ import { interval, Subscription } from 'rxjs';
 @Component({
   selector: 'app-timer',
   standalone: true,
+{% raw %}
   template: `
     <div class="timer">
       <h2>Timer: {{ seconds }}s</h2>
       <p>Status: {{ status }}</p>
     </div>
   `
+{% endraw %}
 })
 export class TimerComponent implements OnInit, OnDestroy {
   @Input() initialSeconds: number = 0;
@@ -536,6 +547,7 @@ export class TimerComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 **Explicação**:
 

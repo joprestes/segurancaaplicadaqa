@@ -114,6 +114,7 @@ export class ProductFacade {
 ```
 
 **product-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -124,6 +125,7 @@ import { Product } from './product.model';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Produtos (Facade Pattern)</h2>
@@ -147,6 +149,7 @@ import { Product } from './product.model';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class ProductListComponent implements OnInit {
   constructor(public facade: ProductFacade) {}
@@ -164,6 +167,7 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

@@ -77,6 +77,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-users',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <h2>Usuários</h2>
@@ -91,6 +92,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
       }
     </div>
   `
+{% endraw %}
 })
 export class UsersComponent {
   private http = inject(HttpClient);
@@ -130,6 +132,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-search',
   standalone: true,
+{% raw %}
   template: `
     <div>
       <input 
@@ -143,6 +146,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class SearchComponent {
   searchTerm = signal('');
@@ -217,6 +221,7 @@ export class HybridComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -235,6 +240,7 @@ interface User {
   selector: 'app-user-search',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Busca de Usuários</h2>
@@ -261,6 +267,7 @@ interface User {
       <p>Total encontrado: {{ userCount() }}</p>
     </div>
   `
+{% endraw %}
 })
 export class UserSearchComponent {
   private http = inject(HttpClient);
@@ -291,6 +298,7 @@ export class UserSearchComponent {
   error = signal<string | null>(null);
 }
 ```
+{% endraw %}
 
 ---
 

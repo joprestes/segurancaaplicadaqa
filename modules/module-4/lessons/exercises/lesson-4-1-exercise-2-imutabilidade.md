@@ -62,6 +62,7 @@ Crie:
 ### Abordagem Recomendada
 
 **item-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -77,6 +78,7 @@ interface Item {
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
+{% raw %}
   template: `
     <div>
       <h2>Lista de Itens (OnPush + Imutabilidade)</h2>
@@ -103,6 +105,7 @@ interface Item {
       <p>Total: {{ items().length }} | Completos: {{ completedCount() }}</p>
     </div>
   `
+{% endraw %}
 })
 export class ItemListComponent {
   items = signal<Item[]>([]);
@@ -151,6 +154,7 @@ export class ItemListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

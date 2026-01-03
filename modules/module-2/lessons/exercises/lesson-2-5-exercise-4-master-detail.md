@@ -124,6 +124,7 @@ import { Product } from './product.model';
   selector: 'app-product-item',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div 
       class="product-item" 
@@ -135,6 +136,7 @@ import { Product } from './product.model';
     </div>
   `,
   styles: [`
+{% endraw %}
     .product-item {
       padding: 1rem;
       border: 1px solid #ccc;
@@ -183,6 +185,7 @@ import { ProductItemComponent } from './product-item.component';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule, ProductItemComponent],
+{% raw %}
   template: `
     <div class="product-list">
       <h2>Produtos</h2>
@@ -199,6 +202,7 @@ import { ProductItemComponent } from './product-item.component';
       }
     </div>
   `
+{% endraw %}
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
@@ -237,6 +241,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 ```
 
 **product-detail.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -248,6 +253,7 @@ import { Product } from './product.model';
   selector: 'app-product-detail',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div class="product-detail">
       @if (product) {
@@ -264,6 +270,7 @@ import { Product } from './product.model';
     </div>
   `,
   styles: [`
+{% endraw %}
     .product-detail {
       padding: 1rem;
       border: 1px solid #ccc;
@@ -313,6 +320,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 **app.component.ts**
 ```typescript
@@ -324,6 +332,7 @@ import { ProductDetailComponent } from './products/product-detail.component';
   selector: 'app-root',
   standalone: true,
   imports: [ProductListComponent, ProductDetailComponent],
+{% raw %}
   template: `
     <div class="app-container">
       <h1>Master/Detail - Produtos</h1>
@@ -338,6 +347,7 @@ import { ProductDetailComponent } from './products/product-detail.component';
     </div>
   `,
   styles: [`
+{% endraw %}
     .app-container {
       max-width: 1200px;
       margin: 0 auto;

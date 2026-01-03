@@ -327,6 +327,7 @@ bootstrapApplication(AppComponent, {
 ```
 
 **task-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -338,6 +339,7 @@ import { TaskFormComponent } from './task-form.component';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule, TaskFormComponent],
+{% raw %}
   template: `
     <div>
       <h2>Tarefas (NgRx Completo)</h2>
@@ -382,6 +384,7 @@ import { TaskFormComponent } from './task-form.component';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   constructor(public facade: TaskFacade) {}
@@ -407,6 +410,7 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

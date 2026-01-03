@@ -217,6 +217,7 @@ export class TaskRepository implements ITaskRepository {
 ```
 
 **presentation/components/task-list/task-list.component.ts**
+{% raw %}
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -227,6 +228,7 @@ import { Task } from '../../../domain/entities/task.entity';
   selector: 'app-task-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Tarefas</h2>
@@ -243,6 +245,7 @@ import { Task } from '../../../domain/entities/task.entity';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   tasks = signal<Task[]>([]);
@@ -261,6 +264,7 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **app.config.ts**
 ```typescript

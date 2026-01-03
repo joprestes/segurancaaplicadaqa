@@ -175,7 +175,7 @@ export class FixedComponent implements OnInit, OnDestroy {
 
 ### No código:
 
-```typescript
+```
 import { Subscription } from 'rxjs';
 
 export class DebugComponent {
@@ -198,11 +198,11 @@ export class DebugComponent {
 
 ## 3. Usar RxJS Spy (Opcional)
 
-```bash
+```
 npm install rxjs-spy
 ```
 
-```typescript
+```
 import { create } from 'rxjs-spy';
 const spy = create();
 

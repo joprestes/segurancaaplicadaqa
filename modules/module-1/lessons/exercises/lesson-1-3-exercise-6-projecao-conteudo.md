@@ -228,6 +228,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-exemplo-uso',
   standalone: true,
   imports: [CardComponent, CommonModule],
+{% raw %}
   template: `
     <h1>Exemplos de Uso do Card Component</h1>
     
@@ -267,6 +268,7 @@ import { CommonModule } from '@angular/common';
       </div>
     </app-card>
   `
+{% endraw %}
 })
 export class ExemploUsoComponent {
   lastUpdate: string = new Date().toLocaleDateString();

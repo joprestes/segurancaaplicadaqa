@@ -376,6 +376,7 @@ export class LifecycleDemoComponent implements
 ```
 
 **app.component.ts** (exemplo de uso)
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { LifecycleDemoComponent } from './lifecycle-demo/lifecycle-demo.component';
@@ -408,6 +409,7 @@ export class AppComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

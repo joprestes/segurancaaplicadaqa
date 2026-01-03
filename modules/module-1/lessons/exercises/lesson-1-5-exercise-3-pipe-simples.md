@@ -146,6 +146,7 @@ export class CapitalizePipe implements PipeTransform {
 ```
 
 **exemplo-uso.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CapitalizePipe } from './capitalize.pipe';
@@ -155,6 +156,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-exemplo-uso',
   standalone: true,
   imports: [CapitalizePipe, CommonModule],
+{% raw %}
   template: `
     <div class="capitalize-examples">
       <h2>Exemplos de Capitalize Pipe</h2>
@@ -185,6 +187,7 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
   `
+{% endraw %}
 })
 export class ExemploUsoComponent {
   userName: string = 'maria da silva';
@@ -194,6 +197,7 @@ export class ExemploUsoComponent {
   alreadyCapitalized: string = 'João Silva';
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

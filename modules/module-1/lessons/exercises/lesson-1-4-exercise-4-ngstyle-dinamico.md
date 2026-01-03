@@ -139,6 +139,7 @@ export class ColorPickerComponent {
 ```
 
 **color-picker.component.html**
+{% raw %}
 ```html
 <div class="color-picker">
   <h2>Seletor de Cores e Estilos</h2>
@@ -200,6 +201,7 @@ export class ColorPickerComponent {
   </div>
 </div>
 ```
+{% endraw %}
 
 **color-picker.component.css**
 ```css

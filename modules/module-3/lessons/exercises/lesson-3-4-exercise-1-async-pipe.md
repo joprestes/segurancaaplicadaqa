@@ -85,6 +85,7 @@ export class UserService {
 ```
 
 **user-list.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -96,6 +97,7 @@ import { User } from './user.model';
   selector: 'app-user-list',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Usuários (async pipe)</h2>
@@ -113,6 +115,7 @@ import { User } from './user.model';
       <p>Total: {{ (users$ | async)?.length || 0 }}</p>
     </div>
   `
+{% endraw %}
 })
 export class UserListComponent {
   users$: Observable<User[]>;
@@ -122,6 +125,7 @@ export class UserListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

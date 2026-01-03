@@ -68,6 +68,7 @@ Crie:
 ### Abordagem Recomendada
 
 **complete-register.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -80,6 +81,7 @@ import { passwordStrengthValidator } from './custom-validators';
   selector: 'app-complete-register',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <h2>Cadastro Completo</h2>
@@ -177,6 +179,7 @@ import { passwordStrengthValidator } from './custom-validators';
       </button>
     </form>
   `
+{% endraw %}
 })
 export class CompleteRegisterComponent {
   registerForm: FormGroup;
@@ -271,6 +274,7 @@ export class CompleteRegisterComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

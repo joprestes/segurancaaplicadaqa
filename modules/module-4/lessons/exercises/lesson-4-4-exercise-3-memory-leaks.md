@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **leaky-component.component.ts** (COM LEAK)
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -103,8 +104,10 @@ export class LeakyComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **fixed-component.component.ts** (CORRIGIDO)
+{% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -150,6 +153,7 @@ export class FixedComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% endraw %}
 
 **detection-guide.md**
 ```markdown

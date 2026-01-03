@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **contact-form.component.ts**
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -73,6 +74,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-contact-form',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
+{% raw %}
   template: `
     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
       <div>
@@ -98,6 +100,7 @@ import { CommonModule } from '@angular/common';
       </div>
     </form>
   `
+{% endraw %}
 })
 export class ContactFormComponent {
   contactForm = new FormGroup({
@@ -130,6 +133,7 @@ export class ContactFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

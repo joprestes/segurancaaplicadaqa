@@ -159,6 +159,7 @@ export class ContactFormComponent {
 ```
 
 **contact-form.component.html**
+{% raw %}
 ```html
 <div class="contact-form">
   <h2>Formulário de Contato</h2>
@@ -239,6 +240,7 @@ export class ContactFormComponent {
   </div>
 </div>
 ```
+{% endraw %}
 
 **contact-form.component.css**
 ```css

@@ -165,6 +165,7 @@ export class ProductListComponent implements OnInit {
 ```
 
 **product-list.component.html**
+{% raw %}
 ```html
 <div class="product-list">
   <h2>Lista de Produtos</h2>
@@ -192,6 +193,7 @@ export class ProductListComponent implements OnInit {
   </div>
 </div>
 ```
+{% endraw %}
 
 **product.service.ts** (se não existir)
 ```typescript

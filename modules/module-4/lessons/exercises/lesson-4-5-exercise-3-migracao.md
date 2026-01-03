@@ -109,6 +109,7 @@ Crie:
 ```
 
 **before-migration.component.ts** (ANTES)
+{% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -119,6 +120,7 @@ import { Observable } from 'rxjs';
   selector: 'app-before',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Antes da Migração</h2>
@@ -128,6 +130,7 @@ import { Observable } from 'rxjs';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class BeforeComponent implements OnInit {
   count = 0;
@@ -144,6 +147,7 @@ export class BeforeComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **after-migration.component.ts** (DEPOIS)
 ```typescript
@@ -157,6 +161,7 @@ import { interval } from 'rxjs';
   selector: 'app-after',
   standalone: true,
   imports: [CommonModule],
+{% raw %}
   template: `
     <div>
       <h2>Depois da Migração</h2>
@@ -168,6 +173,7 @@ import { interval } from 'rxjs';
       </ul>
     </div>
   `
+{% endraw %}
 })
 export class AfterComponent {
   private http = inject(HttpClient);
@@ -194,24 +200,24 @@ export class AfterComponent {
 ## 1. Converter Propriedades para Signals
 
 Antes:
-```typescript
+```
 count = 0;
 ```
 
 Depois:
-```typescript
+```
 count = signal(0);
 ```
 
 ## 2. Converter Observables para Signals
 
 Antes:
-```typescript
+```
 users$ = this.http.get('/api/users');
 ```
 
 Depois:
-```typescript
+```
 users = toSignal(
   this.http.get('/api/users'),
   { initialValue: [] }
@@ -221,13 +227,13 @@ users = toSignal(
 ## 3. Atualizar Templates
 
 Antes:
-```html
+```
 <p>{{ count }}</p>
 <li *ngFor="let user of users$ | async">{{ user.name }}</li>
 ```
 
 Depois:
-```html
+```
 <p>{{ count() }}</p>
 @for (user of users(); track user.id) {
   <li>{{ user.name }}</li>
@@ -236,7 +242,7 @@ Depois:
 
 ## 4. Habilitar Zoneless
 
-```typescript
+```
 bootstrapApplication(AppComponent, {
   providers: [
     provideExperimentalZonelessChangeDetection()
