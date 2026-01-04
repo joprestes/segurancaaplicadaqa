@@ -62,6 +62,33 @@ Crie:
 ### Abordagem Recomendada
 
 **counter-default.component.ts** (Original)
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-counter-default',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Contador (Default)</h2>
+      <p>Valor: {{ count }}</p>
+      <button (click)="increment()">Incrementar</button>
+      <button (click)="decrement()">Decrementar</button>
+    </div>
+  `
+})
+export class CounterDefaultComponent {
+  count = 0;
+  
+  increment(): void {
+    this.count++;
+  }
+  
+  decrement(): void {
+    this.count--;
+  }
+}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -93,6 +120,35 @@ export class CounterDefaultComponent {
 ```
 
 **counter-onpush.component.ts** (Convertido)
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-counter-onpush',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <h2>Contador (OnPush)</h2>
+      <p>Valor: {{ count() }}</p>
+      <button (click)="increment()">Incrementar</button>
+      <button (click)="decrement()">Decrementar</button>
+    </div>
+  `
+})
+export class CounterOnPushComponent {
+  count = signal(0);
+  
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+  
+  decrement(): void {
+    this.count.update(v => v - 1);
+  }
+}
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -123,6 +179,7 @@ export class CounterOnPushComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

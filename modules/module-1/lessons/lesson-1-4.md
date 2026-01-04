@@ -47,7 +47,9 @@ Data binding é fundamental no Angular. Sem entender completamente como dados fl
 
 ## Conceitos Teóricos
 
+{% raw %}
 ### Interpolação ({{ }})
+{% endraw %}
 
 **Definição**: Interpolação é a forma mais simples de exibir dados do componente no template usando a sintaxe `{{ expression }}`.
 
@@ -57,17 +59,28 @@ Interpolação converte expressões em strings e as exibe no template. Suporta:
 - Variáveis simples: `{{ name }}`
 {% raw %}
 - Expressões: `{{ 1 + 1 }}`
-{% endraw %}
 - Chamadas de método: `{{ getFullName() }}`
+{% endraw %}
 - Propriedades aninhadas: `{{ user.address.city }}`
 
 **Analogia**:
 
+{% raw %}
 Interpolação é como preencher um formulário em branco. O template é o formulário, e `{{ }}` são os campos que serão preenchidos com dados do componente.
+{% endraw %}
 
 **Visualização**:
 
 {% raw %}
+Component                    Template
+┌────────────────┐            ┌─────────────┐
+│ name = "João"  │  ────────→ │ {{ name }}  │
+│ age = 30       │  ────────→ │ {{ age }}   │
+└────────────────┘            └─────────────┘
+                              ↓
+{% endraw %}
+                          "João"
+                          "30"
 ```
 Component                    Template
 ┌────────────────┐            ┌─────────────┐
@@ -82,6 +95,15 @@ Component                    Template
 
 **Exemplo Prático**:
 
+export class UserComponent {
+  userName: string = 'João Silva';
+  userAge: number = 30;
+  isActive: boolean = true;
+  
+  getDisplayName(): string {
+    return `${this.userName} (${this.userAge})`;
+  }
+}
 ```typescript
 export class UserComponent {
   userName: string = 'João Silva';
@@ -95,6 +117,10 @@ export class UserComponent {
 ```
 
 {% raw %}
+<h1>{{ userName }}</h1>
+<p>Idade: {{ userAge }}</p>
+<p>Status: {{ isActive ? 'Ativo' : 'Inativo' }}</p>
+<p>{{ getDisplayName() }}</p>
 ```html
 <h1>{{ userName }}</h1>
 <p>Idade: {{ userAge }}</p>
@@ -122,6 +148,11 @@ Property binding é como configurar um aparelho. Você define as configurações
 
 **Visualização**:
 
+Component                    Template
+┌─────────────┐            ┌─────────────┐
+│ imageUrl    │  ────────→ │ [src]="..." │
+│ isDisabled  │  ────────→ │ [disabled]  │
+└─────────────┘            └─────────────┘
 ```
 Component                    Template
 ┌─────────────┐            ┌─────────────┐
@@ -132,6 +163,11 @@ Component                    Template
 
 **Exemplo Prático**:
 
+export class ImageComponent {
+  imageUrl: string = 'https://example.com/image.jpg';
+  isDisabled: boolean = false;
+  buttonText: string = 'Clique aqui';
+}
 ```typescript
 export class ImageComponent {
   imageUrl: string = 'https://example.com/image.jpg';
@@ -140,6 +176,9 @@ export class ImageComponent {
 }
 ```
 
+<img [src]="imageUrl" [alt]="buttonText">
+<button [disabled]="isDisabled">{{ buttonText }}</button>
+<input [value]="buttonText" [readonly]="isDisabled">
 ```html
 <img [src]="imageUrl" [alt]="buttonText">
 <button [disabled]="isDisabled">{{ buttonText }}</button>
@@ -166,6 +205,11 @@ Event binding é como instalar um botão de emergência. Quando alguém pression
 
 **Visualização**:
 
+Template                    Component
+┌─────────────┐            ┌─────────────┐
+│ (click)     │  ────────→ │ onClick()   │
+│ (keyup)     │  ────────→ │ onKeyUp()   │
+└─────────────┘            └─────────────┘
 ```
 Template                    Component
 ┌─────────────┐            ┌─────────────┐
@@ -176,6 +220,22 @@ Template                    Component
 
 **Exemplo Prático**:
 
+export class ButtonComponent {
+  clickCount: number = 0;
+  
+  onClick(): void {
+    this.clickCount++;
+    console.log('Botão clicado!');
+  }
+  
+  onKeyUp(event: KeyboardEvent): void {
+    console.log('Tecla pressionada:', event.key);
+  }
+  
+  onMouseEnter(): void {
+    console.log('Mouse entrou');
+  }
+}
 ```typescript
 export class ButtonComponent {
   clickCount: number = 0;
@@ -195,6 +255,10 @@ export class ButtonComponent {
 }
 ```
 
+<button (click)="onClick()">Clique aqui</button>
+<input (keyup)="onKeyUp($event)" placeholder="Digite algo">
+<div (mouseenter)="onMouseEnter()">Passe o mouse</div>
+<p>Cliques: {{ clickCount }}</p>
 ```html
 <button (click)="onClick()">Clique aqui</button>
 <input (keyup)="onKeyUp($event)" placeholder="Digite algo">
@@ -222,6 +286,10 @@ Two-way binding é como um espelho mágico que reflete e modifica simultaneament
 
 **Visualização**:
 
+Component  ←──────────────→  Template
+┌─────────┐                ┌─────────────┐
+│ name    │  ←───────────→ │ [(ngModel)] │
+└─────────┘                └─────────────┘
 ```
 Component  ←──────────────→  Template
 ┌─────────┐                ┌─────────────┐
@@ -231,6 +299,13 @@ Component  ←──────────────→  Template
 
 **Exemplo Prático**:
 
+import { FormsModule } from '@angular/forms';
+
+export class FormComponent {
+  userName: string = '';
+  userEmail: string = '';
+  isSubscribed: boolean = false;
+}
 ```typescript
 import { FormsModule } from '@angular/forms';
 
@@ -241,6 +316,13 @@ export class FormComponent {
 }
 ```
 
+<input [(ngModel)]="userName" placeholder="Nome">
+<input [(ngModel)]="userEmail" placeholder="Email">
+<input type="checkbox" [(ngModel)]="isSubscribed"> Inscrever-se
+
+<p>Nome: {{ userName }}</p>
+<p>Email: {{ userEmail }}</p>
+<p>Inscrito: {{ isSubscribed }}</p>
 ```html
 <input [(ngModel)]="userName" placeholder="Nome">
 <input [(ngModel)]="userEmail" placeholder="Email">
@@ -273,6 +355,20 @@ Binding de classes é como trocar de roupa dinamicamente. Você pode adicionar o
 
 **Exemplo Prático**:
 
+export class StyledComponent {
+  isActive: boolean = true;
+  isDisabled: boolean = false;
+  textColor: string = 'blue';
+  fontSize: number = 16;
+  
+  getClasses(): {[key: string]: boolean} {
+    return {
+      'active': this.isActive,
+      'disabled': this.isDisabled,
+      'highlight': this.isActive && !this.isDisabled
+    };
+  }
+}
 ```typescript
 export class StyledComponent {
   isActive: boolean = true;
@@ -290,6 +386,10 @@ export class StyledComponent {
 }
 ```
 
+<div [ngClass]="getClasses()">Conteúdo</div>
+<div [ngClass]="{'active': isActive, 'error': !isActive}">Status</div>
+<div [ngStyle]="{'color': textColor, 'font-size': fontSize + 'px'}">Texto</div>
+<div [style.color]="textColor" [style.font-size.px]="fontSize">Texto 2</div>
 ```html
 <div [ngClass]="getClasses()">Conteúdo</div>
 <div [ngClass]="{'active': isActive, 'error': !isActive}">Status</div>
@@ -317,6 +417,11 @@ Diretivas estruturais são como instruções de construção. `*ngIf` decide se 
 
 **Visualização**:
 
+*ngIf                    *ngFor
+┌─────────┐            ┌─────────┐
+│ if true │  → Exibe   │ for item│  → Repete
+│ if false│  → Remove  │ in list │     elemento
+└─────────┘            └─────────┘
 ```
 *ngIf                    *ngFor
 ┌─────────┐            ┌─────────┐
@@ -327,6 +432,11 @@ Diretivas estruturais são como instruções de construção. `*ngIf` decide se 
 
 **Exemplo Prático**:
 
+export class ListComponent {
+  items: string[] = ['Item 1', 'Item 2', 'Item 3'];
+  showList: boolean = true;
+  selectedValue: string = 'option1';
+}
 ```typescript
 export class ListComponent {
   items: string[] = ['Item 1', 'Item 2', 'Item 3'];
@@ -335,6 +445,21 @@ export class ListComponent {
 }
 ```
 
+{% raw %}
+<div *ngIf="showList">
+  <ul>
+    <li *ngFor="let item of items; let i = index">
+      {{ i + 1 }}. {{ item }}
+    </li>
+  </ul>
+</div>
+
+<div [ngSwitch]="selectedValue">
+  <p *ngSwitchCase="'option1'">Opção 1 selecionada</p>
+  <p *ngSwitchCase="'option2'">Opção 2 selecionada</p>
+  <p *ngSwitchDefault>Nenhuma opção selecionada</p>
+</div>
+{% raw %}
 ```html
 <div *ngIf="showList">
   <ul>
@@ -350,6 +475,7 @@ export class ListComponent {
   <p *ngSwitchDefault>Nenhuma opção selecionada</p>
 </div>
 ```
+{% endraw %}
 
 ---
 
@@ -367,6 +493,14 @@ Diretivas de atributo principais:
 
 **Exemplo Prático**:
 
+export class AttributeDirectiveComponent {
+  isHighlighted: boolean = false;
+  currentColor: string = 'blue';
+  
+  toggleHighlight(): void {
+    this.isHighlighted = !this.isHighlighted;
+  }
+}
 ```typescript
 export class AttributeDirectiveComponent {
   isHighlighted: boolean = false;
@@ -378,6 +512,11 @@ export class AttributeDirectiveComponent {
 }
 ```
 
+<div 
+  [ngClass]="{'highlight': isHighlighted, 'active': true}"
+  [ngStyle]="{'background-color': currentColor}">
+  Conteúdo estilizado
+</div>
 ```html
 <div 
   [ngClass]="{'highlight': isHighlighted, 'active': true}"
@@ -406,6 +545,30 @@ Diretivas customizadas são como extensões personalizadas. Você cria ferrament
 
 **Exemplo Prático**:
 
+import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]',
+  standalone: true
+})
+export class HighlightDirective {
+  @Input() appHighlight: string = 'yellow';
+  @Input() defaultColor: string = 'transparent';
+  
+  @HostBinding('style.backgroundColor') backgroundColor: string = '';
+  
+  ngOnInit(): void {
+    this.backgroundColor = this.defaultColor;
+  }
+  
+  @HostListener('mouseenter') onMouseEnter(): void {
+    this.backgroundColor = this.appHighlight;
+  }
+  
+  @HostListener('mouseleave') onMouseLeave(): void {
+    this.backgroundColor = this.defaultColor;
+  }
+}
 ```typescript
 import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 
@@ -433,6 +596,9 @@ export class HighlightDirective {
 }
 ```
 
+<p [appHighlight]="'yellow'" [defaultColor]="'lightblue'">
+  Passe o mouse sobre mim
+</p>
 ```html
 <p [appHighlight]="'yellow'" [defaultColor]="'lightblue'">
   Passe o mouse sobre mim
@@ -450,6 +616,75 @@ export class HighlightDirective {
 **Código**:
 
 {% raw %}
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+interface User {
+  name: string;
+  email: string;
+  age: number;
+  subscribe: boolean;
+}
+
+@Component({
+  selector: 'app-user-form',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  template: `
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label>Nome:</label>
+        <input [(ngModel)]="user.name" name="name" required>
+      </div>
+      
+      <div>
+        <label>Email:</label>
+        <input [(ngModel)]="user.email" type="email" name="email" required>
+      </div>
+      
+      <div>
+        <label>Idade:</label>
+        <input [(ngModel)]="user.age" type="number" name="age" min="18">
+      </div>
+      
+      <div>
+        <label>
+          <input type="checkbox" [(ngModel)]="user.subscribe" name="subscribe">
+          Receber newsletter
+        </label>
+      </div>
+      
+      <button type="submit" [disabled]="!isValid()">Enviar</button>
+    </form>
+    
+    <div *ngIf="submitted">
+      <h3>Dados enviados:</h3>
+      <pre>{{ user | json }}</pre>
+    </div>
+  `
+})
+export class UserFormComponent {
+  user: User = {
+    name: '',
+    email: '',
+    age: 18,
+    subscribe: false
+  };
+  
+  submitted: boolean = false;
+  
+  isValid(): boolean {
+    return this.user.name.length > 0 && 
+           this.user.email.includes('@') && 
+           this.user.age >= 18;
+  }
+  
+  onSubmit(): void {
+    this.submitted = true;
+    console.log('Formulário enviado:', this.user);
+  }
+}
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -532,6 +767,110 @@ export class UserFormComponent {
 **Código**:
 
 {% raw %}
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+  priority: 'low' | 'medium' | 'high';
+}
+
+@Component({
+  selector: 'app-task-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="task-list">
+      <input 
+        [(ngModel)]="searchTerm" 
+        placeholder="Buscar tarefas..."
+        (input)="filterTasks()">
+      
+      <div class="filters">
+        <button 
+          *ngFor="let filter of filters"
+          [class.active]="activeFilter === filter"
+          (click)="setFilter(filter)">
+          {{ filter }}
+        </button>
+      </div>
+      
+      <ul>
+        <li 
+          *ngFor="let task of filteredTasks; trackBy: trackByTaskId"
+          [ngClass]="{
+            'completed': task.completed,
+            'high-priority': task.priority === 'high',
+            'medium-priority': task.priority === 'medium',
+            'low-priority': task.priority === 'low'
+          }"
+          (click)="toggleTask(task.id)">
+          <span>{{ task.title }}</span>
+          <span [ngSwitch]="task.priority">
+            <span *ngSwitchCase="'high'" class="badge high">Alta</span>
+            <span *ngSwitchCase="'medium'" class="badge medium">Média</span>
+            <span *ngSwitchDefault class="badge low">Baixa</span>
+          </span>
+        </li>
+      </ul>
+      
+      <p *ngIf="filteredTasks.length === 0">Nenhuma tarefa encontrada</p>
+    </div>
+  `
+})
+export class TaskListComponent {
+  tasks: Task[] = [
+    { id: 1, title: 'Tarefa 1', completed: false, priority: 'high' },
+    { id: 2, title: 'Tarefa 2', completed: true, priority: 'medium' },
+    { id: 3, title: 'Tarefa 3', completed: false, priority: 'low' }
+  ];
+  
+  filteredTasks: Task[] = [];
+  searchTerm: string = '';
+  activeFilter: string = 'all';
+  filters: string[] = ['all', 'active', 'completed'];
+  
+  ngOnInit(): void {
+    this.filterTasks();
+  }
+  
+  filterTasks(): void {
+    let filtered = this.tasks;
+    
+    if (this.searchTerm) {
+      filtered = filtered.filter(t => 
+        t.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    }
+    
+    if (this.activeFilter === 'active') {
+      filtered = filtered.filter(t => !t.completed);
+    } else if (this.activeFilter === 'completed') {
+      filtered = filtered.filter(t => t.completed);
+    }
+    
+    this.filteredTasks = filtered;
+  }
+  
+  setFilter(filter: string): void {
+    this.activeFilter = filter;
+    this.filterTasks();
+  }
+  
+  toggleTask(id: number): void {
+    const task = this.tasks.find(t => t.id === id);
+    if (task) {
+      task.completed = !task.completed;
+      this.filterTasks();
+    }
+  }
+  
+  trackByTaskId(index: number, task: Task): number {
+    return task.id;
+  }
+}
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';

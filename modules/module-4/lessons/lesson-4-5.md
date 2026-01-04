@@ -61,6 +61,12 @@ Zone.js é como um assistente que observa tudo que acontece e avisa quando algo 
 
 **Visualização**:
 
+Async Operation ──Zone.js──→ Change Detection ──→ Update View
+    │                              │
+    ├── setTimeout                 │
+    ├── Promise                    │
+    ├── Event                      │
+    └── HTTP                       │
 ```
 Async Operation ──Zone.js──→ Change Detection ──→ Update View
     │                              │
@@ -72,6 +78,22 @@ Async Operation ──Zone.js──→ Change Detection ──→ Update View
 
 **Exemplo Prático**:
 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-zone',
+  standalone: true,
+  template: `<p>{{ count }}</p>`
+})
+export class ZoneComponent {
+  count = 0;
+  
+  constructor() {
+    setTimeout(() => {
+      this.count++;
+    }, 1000);
+  }
+}
 ```typescript
 import { Component } from '@angular/core';
 
@@ -112,6 +134,29 @@ runOutsideAngular() é como trabalhar em um escritório silencioso onde ninguém
 
 **Exemplo Prático**:
 
+import { Component, NgZone } from '@angular/core';
+
+@Component({
+  selector: 'app-ngzone',
+  standalone: true,
+  template: `<p>{{ count }}</p>`
+})
+export class NgZoneComponent {
+  count = 0;
+  
+  constructor(private ngZone: NgZone) {}
+  
+  heavyOperation(): void {
+    this.ngZone.runOutsideAngular(() => {
+      for (let i = 0; i < 1000000; i++) {
+        this.count = i;
+      }
+      this.ngZone.run(() => {
+        this.count = 1000000;
+      });
+    });
+  }
+}
 ```typescript
 import { Component, NgZone } from '@angular/core';
 
@@ -155,6 +200,15 @@ NoopNgZone:
 
 **Exemplo Prático**:
 
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection()
+  ]
+});
 ```typescript
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
@@ -189,6 +243,34 @@ Zoneless apps são como carros elétricos - mais eficientes, mais modernos, mas 
 
 **Exemplo Prático**:
 
+import { Component, signal, ChangeDetectorRef } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+
+@Component({
+  selector: 'app-zoneless',
+  standalone: true,
+  template: `
+    <div>
+      <p>{{ count() }}</p>
+      <button (click)="increment()">Increment</button>
+    </div>
+  `
+})
+export class ZonelessComponent {
+  count = signal(0);
+  
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+}
+
+bootstrapApplication(ZonelessComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection()
+  ]
+});
+{% raw %}
 ```typescript
 import { Component, signal, ChangeDetectorRef } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -218,6 +300,7 @@ bootstrapApplication(ZonelessComponent, {
   ]
 });
 ```
+{% endraw %}
 
 ---
 
@@ -236,6 +319,34 @@ Migração:
 
 **Exemplo Prático**:
 
+import { Component, signal, computed, effect } from '@angular/core';
+
+@Component({
+  selector: 'app-migrated',
+  standalone: true,
+  template: `
+    <div>
+      <p>{{ count() }}</p>
+      <p>{{ doubleCount() }}</p>
+      <button (click)="increment()">Increment</button>
+    </div>
+  `
+})
+export class MigratedComponent {
+  count = signal(0);
+  doubleCount = computed(() => this.count() * 2);
+  
+  constructor() {
+    effect(() => {
+      console.log('Count changed:', this.count());
+    });
+  }
+  
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+}
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect } from '@angular/core';
 
@@ -265,6 +376,7 @@ export class MigratedComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -276,6 +388,30 @@ export class MigratedComponent {
 
 **Código**:
 
+import { Component, signal, computed } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  template: `
+    <div>
+      <h1>Zoneless App</h1>
+      <router-outlet></router-outlet>
+    </div>
+  `
+})
+export class AppComponent {}
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection(),
+    provideRouter(routes)
+  ]
+});
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';

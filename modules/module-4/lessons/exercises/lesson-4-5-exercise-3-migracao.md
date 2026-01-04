@@ -64,6 +64,47 @@ Crie:
 ### Abordagem Recomendada
 
 **migration-plan.md**
+# Plano de Migração para Zoneless
+
+## 1. Análise
+
+### Componentes Identificados
+- AppComponent (root)
+- CounterComponent
+- UserListComponent
+- ProductListComponent
+- CartComponent
+
+### Dependências de Zone.js
+- setTimeout/setInterval
+- Event listeners
+- HTTP requests
+- Observables
+
+## 2. Estratégia
+
+### Fase 1: Preparação
+- Converter para Signals onde possível
+- Remover dependências explícitas de Zone.js
+- Adicionar change detection manual quando necessário
+
+### Fase 2: Migração Gradual
+- Migrar componentes novos primeiro
+- Migrar componentes simples
+- Migrar componentes complexos
+
+### Fase 3: Finalização
+- Habilitar zoneless
+- Testar extensivamente
+- Corrigir problemas
+
+## 3. Checklist
+
+- [ ] Todos componentes usam Signals
+- [ ] Observables convertidos para Signals
+- [ ] Change detection manual adicionada quando necessário
+- [ ] Testes atualizados
+- [ ] Performance verificada
 ```markdown
 # Plano de Migração para Zoneless
 
@@ -110,6 +151,40 @@ Crie:
 
 **before-migration.component.ts** (ANTES)
 {% raw %}
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-before',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Antes da Migração</h2>
+      <p>Count: {{ count }}</p>
+      <ul>
+        <li *ngFor="let user of users$ | async">{{ user.name }}</li>
+      </ul>
+    </div>
+  `
+{% endraw %}
+})
+export class BeforeComponent implements OnInit {
+  count = 0;
+  users$: Observable<any[]>;
+  
+  constructor(private http: HttpClient) {
+    this.users$ = this.http.get<any[]>('/api/users');
+  }
+  
+  ngOnInit(): void {
+    setInterval(() => {
+      this.count++;
+    }, 1000);
+  }
+}
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -148,6 +223,47 @@ export class BeforeComponent implements OnInit {
 ```
 
 **after-migration.component.ts** (DEPOIS)
+import { Component, signal, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { interval } from 'rxjs';
+
+@Component({
+  selector: 'app-after',
+  standalone: true,
+  imports: [CommonModule],
+{% raw %}
+  template: `
+    <div>
+      <h2>Depois da Migração</h2>
+      <p>Count: {{ count() }}</p>
+      <ul>
+        @for (user of users(); track user.id) {
+          <li>{{ user.name }}</li>
+        }
+      </ul>
+    </div>
+  `
+{% endraw %}
+})
+export class AfterComponent {
+  private http = inject(HttpClient);
+  
+  count = signal(0);
+  
+  users = toSignal(
+    this.http.get<any[]>('/api/users'),
+    { initialValue: [] }
+  );
+  
+  constructor() {
+    interval(1000).subscribe(() => {
+      this.count.update(v => v + 1);
+    });
+  }
+}
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -190,8 +306,14 @@ export class AfterComponent {
   }
 }
 ```
+{% endraw %}
 
 **migration-steps.md**
+# Passos de Migração
+
+## 1. Converter Propriedades para Signals
+
+Antes:
 ```markdown
 # Passos de Migração
 
@@ -200,11 +322,17 @@ export class AfterComponent {
 Antes:
 ```
 count = 0;
+
+Depois:
 ```
 
 Depois:
 ```
 count = signal(0);
+
+## 2. Converter Observables para Signals
+
+Antes:
 ```
 
 ## 2. Converter Observables para Signals
@@ -212,6 +340,8 @@ count = signal(0);
 Antes:
 ```
 users$ = this.http.get('/api/users');
+
+Depois:
 ```
 
 Depois:
@@ -220,6 +350,10 @@ users = toSignal(
   this.http.get('/api/users'),
   { initialValue: [] }
 );
+
+## 3. Atualizar Templates
+
+Antes:
 ```
 
 ## 3. Atualizar Templates
@@ -228,14 +362,21 @@ Antes:
 ```
 <p>{{ count }}</p>
 <li *ngFor="let user of users$ | async">{{ user.name }}</li>
+
+Depois:
 ```
 
 Depois:
 ```
+{% raw %}
 <p>{{ count() }}</p>
+{% endraw %}
 @for (user of users(); track user.id) {
   <li>{{ user.name }}</li>
 }
+
+## 4. Habilitar Zoneless
+
 ```
 
 ## 4. Habilitar Zoneless
@@ -246,6 +387,12 @@ bootstrapApplication(AppComponent, {
     provideExperimentalZonelessChangeDetection()
   ]
 });
+
+## 5. Testar e Corrigir
+
+- Testar todos componentes
+- Verificar change detection
+- Corrigir problemas encontrados
 ```
 
 ## 5. Testar e Corrigir

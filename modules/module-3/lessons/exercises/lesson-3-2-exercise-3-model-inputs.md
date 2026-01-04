@@ -63,6 +63,54 @@ Crie:
 ### Abordagem Recomendada
 
 **counter-model.component.ts**
+import { Component, model } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-counter-model',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="counter">
+      <h3>Contador</h3>
+      <p>Valor: {{ count() }}</p>
+      <div class="buttons">
+        <button (click)="increment()">+</button>
+        <button (click)="decrement()">-</button>
+        <button (click)="reset()">Reset</button>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .counter {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+  `]
+})
+export class CounterModelComponent {
+  count = model<number>(0);
+  
+  increment(): void {
+    this.count.update(value => value + 1);
+  }
+  
+  decrement(): void {
+    this.count.update(value => value - 1);
+  }
+  
+  reset(): void {
+    this.count.set(0);
+  }
+}
+{% raw %}
 ```typescript
 import { Component, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -112,8 +160,44 @@ export class CounterModelComponent {
   }
 }
 ```
+{% endraw %}
 
 **parent-model.component.ts**
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CounterModelComponent } from './counter-model.component';
+
+@Component({
+  selector: 'app-parent-model',
+  standalone: true,
+  imports: [CommonModule, CounterModelComponent],
+  template: `
+    <div>
+      <h2>Parent Component</h2>
+      <p>Valor no pai: {{ parentCount() }}</p>
+      
+      <app-counter-model [(count)]="parentCount"></app-counter-model>
+      
+      <div class="controls">
+        <button (click)="setValue(10)">Definir como 10</button>
+        <button (click)="setValue(0)">Resetar</button>
+        <button (click)="increment()">Incrementar do Pai</button>
+      </div>
+    </div>
+  `
+})
+export class ParentModelComponent {
+  parentCount = signal<number>(5);
+  
+  setValue(value: number): void {
+    this.parentCount.set(value);
+  }
+  
+  increment(): void {
+    this.parentCount.update(value => value + 1);
+  }
+}
+{% raw %}
 ```typescript
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -150,6 +234,7 @@ export class ParentModelComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 
