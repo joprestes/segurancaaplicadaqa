@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.podcast.description | default: site.description }}{% endif %}">
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   {% include google-analytics.html %}
   {% seo %}
+  {% include social-meta.html %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

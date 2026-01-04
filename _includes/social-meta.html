@@ -1,0 +1,48 @@
+{% assign page_title = page.title | default: site.title %}
+{% assign page_description = page.description | default: page.podcast.description | default: site.description %}
+{% assign page_url = page.url | default: '/' | prepend: site.baseurl | prepend: site.url %}
+
+{% if page.podcast and page.podcast.image %}
+  {% assign image_source = page.podcast.image %}
+{% elsif page.image %}
+  {% assign image_source = page.image %}
+{% elsif site.image %}
+  {% assign image_source = site.image %}
+{% else %}
+  {% assign image_source = '/assets/images/podcasts/01-Fundacao_Angular_Tipagem_Encapsulamento_e_Generics.png' %}
+{% endif %}
+
+{% if image_source contains 'http' %}
+  {% assign page_image = image_source %}
+{% else %}
+  {% assign image_first_char = image_source | slice: 0, 1 %}
+  {% unless image_first_char == '/' %}
+    {% assign image_source = image_source | prepend: '/' %}
+  {% endunless %}
+  {% assign page_image = image_source | prepend: site.baseurl | prepend: site.url %}
+{% endif %}
+
+{% assign page_type = 'website' %}
+{% if page.layout == 'lesson' %}
+  {% assign page_type = 'article' %}
+{% endif %}
+
+<meta property="og:type" content="{{ page_type }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_description }}">
+<meta property="og:url" content="{{ page_url }}">
+<meta property="og:image" content="{{ page_image }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ page_title }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="pt_BR">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="{{ page_description }}">
+<meta name="twitter:image" content="{{ page_image }}">
+<meta name="twitter:image:alt" content="{{ page_title }}">
+
+<link rel="canonical" href="{{ page_url }}">
+

@@ -1,4 +1,4 @@
-# 🚀 Angular Expert - Do Básico ao Expert em 5 Dias
+# 🚀 Angular Expert
 
 <div align="center">
 
@@ -16,7 +16,7 @@
 
 ## 📖 Sobre o Curso
 
-**Angular Expert - Do Básico ao Expert em 5 Dias** é um treinamento completo e intensivo que leva você desde os conceitos fundamentais até técnicas avançadas de desenvolvimento Angular. Este curso foi projetado para desenvolvedores que desejam dominar Angular de forma prática e eficiente, construindo conhecimento sólido através de exercícios práticos e projetos reais.
+**Angular Expert** é um treinamento completo e intensivo que leva você desde os conceitos fundamentais até técnicas avançadas de desenvolvimento Angular. Este curso foi projetado para desenvolvedores que desejam dominar Angular de forma prática e eficiente, construindo conhecimento sólido através de exercícios práticos e projetos reais.
 
 ### 🎯 Objetivos do Curso
 

@@ -1,7 +1,14 @@
 title: "Angular Expert"
-description: "Treinamento intensivo e prático de Angular"
+description: "Treinamento intensivo e prático de Angular - Do básico ao expert em 5 dias"
 url: "https://onosendae.github.io"
 baseurl: "/angular"
+author: "Angular Expert"
+twitter:
+  username: "@angular-expert"
+  card: "summary_large_image"
+facebook:
+  app_id: ""
+image: "/assets/images/podcasts/01-Fundacao_Angular_Tipagem_Encapsulamento_e_Generics.png"
 
 markdown: kramdown
 highlighter: rouge
