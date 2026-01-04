@@ -47,8 +47,8 @@ sass:
   style: compressed
 
 google_analytics:
-  id: "G-XXXXXXXXXX"
-  enabled: false
+  id: "G-QGD9NFSVPG"
+  enabled: true
 
 exclude:
   - Gemfile
