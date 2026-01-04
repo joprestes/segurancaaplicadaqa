@@ -84,6 +84,26 @@ export class GlobalService {
     return 'GlobalService (root)';
   }
 }
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GlobalService {
+  private instanceId = Math.random().toString(36).substr(2, 9);
+  
+  constructor() {
+    console.log(`GlobalService criado: ${this.instanceId}`);
+  }
+  
+  getInstanceId(): string {
+    return this.instanceId;
+  }
+  
+  getServiceName(): string {
+    return 'GlobalService (root)';
+  }
+}
 ```typescript
 import { Injectable } from '@angular/core';
 
@@ -108,6 +128,24 @@ export class GlobalService {
 ```
 
 **component.service.ts**
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class ComponentService {
+  private instanceId = Math.random().toString(36).substr(2, 9);
+  
+  constructor() {
+    console.log(`ComponentService criado: ${this.instanceId}`);
+  }
+  
+  getInstanceId(): string {
+    return this.instanceId;
+  }
+  
+  getServiceName(): string {
+    return 'ComponentService (component level)';
+  }
+}
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -161,6 +199,40 @@ import { ChildComponent } from './child.component';
   template: `
     <div class="parent">
       <h2>Componente Pai</h2>
+{% raw %}
+
+      <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
+{% endraw %}
+
+      <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
+
+      <app-child></app-child>
+    </div>
+  `
+})
+export class ParentComponent {
+  constructor(
+    public globalService: GlobalService,
+    public componentService: ComponentService
+  ) {
+    console.log('ParentComponent - GlobalService:', this.globalService.getInstanceId());
+    console.log('ParentComponent - ComponentService:', this.componentService.getInstanceId());
+  }
+}
+{% raw %}
+import { Component } from '@angular/core';
+import { GlobalService } from './global.service';
+import { ComponentService } from './component.service';
+import { ChildComponent } from './child.component';
+
+@Component({
+  selector: 'app-parent',
+  standalone: true,
+  imports: [ChildComponent],
+  providers: [ComponentService],
+  template: `
+    <div class="parent">
+      <h2>Componente Pai</h2>
       <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
       <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
       <app-child></app-child>
@@ -176,7 +248,6 @@ export class ParentComponent {
     console.log('ParentComponent - ComponentService:', this.componentService.getInstanceId());
   }
 }
-{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { GlobalService } from './global.service';
@@ -220,6 +291,40 @@ import { ComponentService } from './component.service';
   template: `
     <div class="child">
       <h3>Componente Filho</h3>
+{% raw %}
+
+      <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
+{% endraw %}
+
+      <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
+
+      <p class="note">
+        GlobalService: Mesma instância (root)<br>
+        ComponentService: Mesma instância do pai (herdado)
+      </p>
+    </div>
+  `
+})
+export class ChildComponent {
+  constructor(
+    public globalService: GlobalService,
+    public componentService: ComponentService
+  ) {
+    console.log('ChildComponent - GlobalService:', this.globalService.getInstanceId());
+    console.log('ChildComponent - ComponentService:', this.componentService.getInstanceId());
+  }
+}
+{% raw %}
+import { Component } from '@angular/core';
+import { GlobalService } from './global.service';
+import { ComponentService } from './component.service';
+
+@Component({
+  selector: 'app-child',
+  standalone: true,
+  template: `
+    <div class="child">
+      <h3>Componente Filho</h3>
       <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
       <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
       <p class="note">
@@ -238,7 +343,6 @@ export class ChildComponent {
     console.log('ChildComponent - ComponentService:', this.componentService.getInstanceId());
   }
 }
-{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { GlobalService } from './global.service';

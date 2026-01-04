@@ -77,6 +77,20 @@ bootstrapApplication(AppComponent, {
     provideHttpClient()
   ]
 });
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+});
 ```typescript
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
@@ -111,7 +125,11 @@ import { HeaderComponent } from './header/header.component';
         <router-outlet></router-outlet>
       </main>
       <footer>
+{% raw %}
+
         <p>Versão: {{ version() }}</p>
+{% endraw %}
+
       </footer>
     </div>
   `
@@ -121,6 +139,31 @@ export class AppComponent {
   version = signal('1.0.0');
 }
 {% raw %}
+import { Component, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, HeaderComponent],
+  template: `
+    <div class="app">
+      <app-header [title]="appTitle()"></app-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <footer>
+        <p>Versão: {{ version() }}</p>
+      </footer>
+    </div>
+  `
+})
+export class AppComponent {
+  appTitle = signal('Zoneless App');
+  version = signal('1.0.0');
+}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -151,6 +194,73 @@ export class AppComponent {
 {% endraw %}
 
 **counter.component.ts**
+import { Component, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-counter',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="counter">
+      <h2>Contador (Zoneless)</h2>
+{% raw %}
+
+      <p>Valor: {{ count() }}</p>
+{% endraw %}
+
+      <p>Dobro: {{ doubleCount() }}</p>
+
+      <div class="buttons">
+        <button (click)="increment()">+</button>
+        <button (click)="decrement()">-</button>
+        <button (click)="reset()">Reset</button>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .counter {
+      padding: 2rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: 2rem auto;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    button {
+      flex: 1;
+      padding: 0.75rem;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  `]
+})
+export class CounterComponent {
+  count = signal(0);
+  doubleCount = computed(() => this.count() * 2);
+  
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+  
+  decrement(): void {
+    this.count.update(v => v - 1);
+  }
+  
+  reset(): void {
+    this.count.set(0);
+  }
+}
+{% raw %}
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -212,7 +322,6 @@ export class CounterComponent {
     this.count.set(0);
   }
 }
-{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -309,7 +418,11 @@ interface User {
         }
       </ul>
       
+{% raw %}
+
       <p>Total: {{ userCount() }}</p>
+{% endraw %}
+
     </div>
   `
 })
@@ -335,6 +448,61 @@ export class UserListComponent {
   }
 }
 {% raw %}
+import { Component, signal, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Usuários (Zoneless)</h2>
+      <button (click)="loadUsers()">Carregar Usuários</button>
+      
+      @if (loading()) {
+        <p>Carregando...</p>
+      }
+      
+      <ul>
+        @for (user of users(); track user.id) {
+          <li>{{ user.name }} - {{ user.email }}</li>
+        }
+      </ul>
+      
+      <p>Total: {{ userCount() }}</p>
+    </div>
+  `
+})
+export class UserListComponent {
+  private http = inject(HttpClient);
+  
+  loading = signal(false);
+  users = signal<User[]>([]);
+  
+  userCount = computed(() => this.users().length);
+  
+  loadUsers(): void {
+    this.loading.set(true);
+    this.http.get<User[]>('/api/users').subscribe({
+      next: (users) => {
+        this.users.set(users);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+      }
+    });
+  }
+}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';

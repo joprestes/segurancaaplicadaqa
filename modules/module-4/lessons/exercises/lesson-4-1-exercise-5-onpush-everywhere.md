@@ -86,6 +86,28 @@ import { FooterComponent } from './footer/footer.component';
   `
 })
 export class AppComponent {}
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, HeaderComponent, FooterComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div class="app">
+      <app-header></app-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <app-footer></app-footer>
+    </div>
+  `
+})
+export class AppComponent {}
 ```typescript
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -122,7 +144,11 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header>
+{% raw %}
+
       <h1>{{ title() }}</h1>
+{% endraw %}
+
       <nav>
         <a routerLink="/home">Home</a>
         <a routerLink="/about">About</a>
@@ -134,6 +160,27 @@ export class HeaderComponent {
   title = signal('My App');
 }
 {% raw %}
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-header',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <header>
+      <h1>{{ title() }}</h1>
+      <nav>
+        <a routerLink="/home">Home</a>
+        <a routerLink="/about">About</a>
+      </nav>
+    </header>
+  `
+})
+export class HeaderComponent {
+  title = signal('My App');
+}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -176,7 +223,11 @@ interface User {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
+{% raw %}
+
       <h2>{{ title() }}</h2>
+{% endraw %}
+
       <ul>
         @for (user of users(); track user.id) {
           <li>{{ user.name }} - {{ user.email }}</li>
@@ -190,6 +241,35 @@ export class UserListComponent {
   title = signal('Usuários');
 }
 {% raw %}
+import { Component, ChangeDetectionStrategy, Input, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <h2>{{ title() }}</h2>
+      <ul>
+        @for (user of users(); track user.id) {
+          <li>{{ user.name }} - {{ user.email }}</li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class UserListComponent {
+  @Input() users = signal<User[]>([]);
+  title = signal('Usuários');
+}
 ```typescript
 import { Component, ChangeDetectionStrategy, Input, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -224,6 +304,33 @@ export class UserListComponent {
 {% endraw %}
 
 **migration-checklist.md**
+# Checklist de Migração para OnPush Everywhere
+
+## 1. Auditoria
+- [ ] Listar todos componentes
+- [ ] Identificar componentes que podem usar OnPush
+- [ ] Identificar dependências
+
+## 2. Conversão
+- [ ] Adicionar ChangeDetectionStrategy.OnPush
+- [ ] Converter propriedades para Signals
+- [ ] Garantir imutabilidade
+- [ ] Usar trackBy em listas
+
+## 3. Testes
+- [ ] Testar cada componente
+- [ ] Verificar change detection
+- [ ] Validar funcionalidade
+
+## 4. Otimização
+- [ ] Usar markForCheck() quando necessário
+- [ ] Otimizar operações de array
+- [ ] Verificar performance
+
+## 5. Documentação
+- [ ] Documentar mudanças
+- [ ] Criar guia de boas práticas
+- [ ] Treinar equipe
 # Checklist de Migração para OnPush Everywhere
 
 ## 1. Auditoria

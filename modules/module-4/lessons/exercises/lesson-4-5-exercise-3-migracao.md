@@ -185,84 +185,9 @@ export class BeforeComponent implements OnInit {
     }, 1000);
   }
 }
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-@Component({
-  selector: 'app-before',
-  standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div>
-      <h2>Antes da Migração</h2>
-      <p>Count: {{ count }}</p>
-      <ul>
-        <li *ngFor="let user of users$ | async">{{ user.name }}</li>
-      </ul>
-    </div>
-  `
-{% endraw %}
-})
-export class BeforeComponent implements OnInit {
-  count = 0;
-  users$: Observable<any[]>;
-  
-  constructor(private http: HttpClient) {
-    this.users$ = this.http.get<any[]>('/api/users');
-  }
-  
-  ngOnInit(): void {
-    setInterval(() => {
-      this.count++;
-    }, 1000);
-  }
-}
 ```
 
 **after-migration.component.ts** (DEPOIS)
-import { Component, signal, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { interval } from 'rxjs';
-
-@Component({
-  selector: 'app-after',
-  standalone: true,
-  imports: [CommonModule],
-{% raw %}
-  template: `
-    <div>
-      <h2>Depois da Migração</h2>
-      <p>Count: {{ count() }}</p>
-      <ul>
-        @for (user of users(); track user.id) {
-          <li>{{ user.name }}</li>
-        }
-      </ul>
-    </div>
-  `
-{% endraw %}
-})
-export class AfterComponent {
-  private http = inject(HttpClient);
-  
-  count = signal(0);
-  
-  users = toSignal(
-    this.http.get<any[]>('/api/users'),
-    { initialValue: [] }
-  );
-  
-  constructor() {
-    interval(1000).subscribe(() => {
-      this.count.update(v => v + 1);
-    });
-  }
-}
 {% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
@@ -275,7 +200,6 @@ import { interval } from 'rxjs';
   selector: 'app-after',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Depois da Migração</h2>
@@ -287,7 +211,6 @@ import { interval } from 'rxjs';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class AfterComponent {
   private http = inject(HttpClient);

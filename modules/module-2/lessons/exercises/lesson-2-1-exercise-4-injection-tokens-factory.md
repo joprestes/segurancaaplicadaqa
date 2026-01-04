@@ -81,6 +81,22 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
   timeout: 5000,
   retries: 3
 };
+import { InjectionToken } from '@angular/core';
+
+export interface ApiConfig {
+  baseUrl: string;
+  timeout: number;
+  retries: number;
+  apiKey?: string;
+}
+
+export const API_CONFIG = new InjectionToken<ApiConfig>('API_CONFIG');
+
+export const DEFAULT_API_CONFIG: ApiConfig = {
+  baseUrl: 'https://api.example.com',
+  timeout: 5000,
+  retries: 3
+};
 ```typescript
 import { InjectionToken } from '@angular/core';
 
@@ -101,6 +117,44 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
 ```
 
 **api.service.ts**
+import { Injectable, Inject, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { API_CONFIG, ApiConfig } from './api-config';
+
+@Injectable({
+  providedIn: 'root',
+  useFactory: (http: HttpClient, config: ApiConfig) => {
+    return new ApiService(http, config);
+  },
+  deps: [HttpClient, API_CONFIG]
+})
+export class ApiService {
+  constructor(
+    private http: HttpClient,
+    @Inject(API_CONFIG) private config: ApiConfig
+  ) {
+    console.log('ApiService criado com config:', this.config);
+  }
+  
+  getBaseUrl(): string {
+    return this.config.baseUrl;
+  }
+  
+  getTimeout(): number {
+    return this.config.timeout;
+  }
+  
+  get<T>(endpoint: string): Observable<T> {
+    const url = `${this.config.baseUrl}${endpoint}`;
+    return this.http.get<T>(url);
+  }
+  
+  post<T>(endpoint: string, data: any): Observable<T> {
+    const url = `${this.config.baseUrl}${endpoint}`;
+    return this.http.post<T>(url, data);
+  }
+}
 import { Injectable, Inject, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -195,6 +249,20 @@ export const appConfig: ApplicationConfig = {
     }
   ]
 };
+import { ApplicationConfig, provideZoneJsChangeDetection } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { API_CONFIG, DEFAULT_API_CONFIG } from './api-config';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneJsChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(),
+    {
+      provide: API_CONFIG,
+      useValue: DEFAULT_API_CONFIG
+    }
+  ]
+};
 ```typescript
 import { ApplicationConfig, provideZoneJsChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
@@ -234,6 +302,41 @@ import { API_CONFIG, ApiConfig } from './api-config';
   template: `
     <div>
       <h2>Feature Component</h2>
+{% raw %}
+
+      <p>API URL: {{ apiService.getBaseUrl() }}</p>
+{% endraw %}
+
+      <p>Timeout: {{ apiService.getTimeout() }}ms</p>
+
+    </div>
+  `
+})
+export class FeatureComponent {
+  apiService = inject(ApiService);
+}
+{% raw %}
+import { Component } from '@angular/core';
+import { ApiService } from './api.service';
+import { API_CONFIG, ApiConfig } from './api-config';
+
+@Component({
+  selector: 'app-feature',
+  standalone: true,
+  providers: [
+    {
+      provide: API_CONFIG,
+      useValue: {
+        baseUrl: 'https://api.feature.com',
+        timeout: 10000,
+        retries: 5,
+        apiKey: 'feature-key'
+      }
+    }
+  ],
+  template: `
+    <div>
+      <h2>Feature Component</h2>
       <p>API URL: {{ apiService.getBaseUrl() }}</p>
       <p>Timeout: {{ apiService.getTimeout() }}ms</p>
     </div>
@@ -242,7 +345,6 @@ import { API_CONFIG, ApiConfig } from './api-config';
 export class FeatureComponent {
   apiService = inject(ApiService);
 }
-{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { ApiService } from './api.service';

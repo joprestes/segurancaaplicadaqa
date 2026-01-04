@@ -73,7 +73,11 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="counter">
       <h2>Contador</h2>
+{% raw %}
+
       <p>Valor: {{ count() }}</p>
+{% endraw %}
+
       <button (click)="increment()">+</button>
       <button (click)="decrement()">-</button>
       <button (click)="reset()">Reset</button>
@@ -96,6 +100,38 @@ export class CounterComponent {
   }
 }
 {% raw %}
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-counter',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="counter">
+      <h2>Contador</h2>
+      <p>Valor: {{ count() }}</p>
+      <button (click)="increment()">+</button>
+      <button (click)="decrement()">-</button>
+      <button (click)="reset()">Reset</button>
+    </div>
+  `
+})
+export class CounterComponent {
+  count = signal(0);
+  
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+  
+  decrement(): void {
+    this.count.update(v => v - 1);
+  }
+  
+  reset(): void {
+    this.count.set(0);
+  }
+}
 ```typescript
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -133,6 +169,51 @@ export class CounterComponent {
 {% endraw %}
 
 **counter.component.spec.ts**
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CounterComponent } from './counter.component';
+
+describe('CounterComponent', () => {
+  let component: CounterComponent;
+  let fixture: ComponentFixture<CounterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [CounterComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CounterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should initialize with count 0', () => {
+    expect(component.count()).toBe(0);
+  });
+
+  it('should increment count', () => {
+    component.increment();
+    expect(component.count()).toBe(1);
+    
+    component.increment();
+    expect(component.count()).toBe(2);
+  });
+
+  it('should decrement count', () => {
+    component.count.set(5);
+    component.decrement();
+    expect(component.count()).toBe(4);
+  });
+
+  it('should reset count to 0', () => {
+    component.count.set(10);
+    component.reset();
+    expect(component.count()).toBe(0);
+  });
+});
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CounterComponent } from './counter.component';
 
@@ -227,6 +308,16 @@ describe('CounterComponent', () => {
 ```
 
 **jest.config.js**
+module.exports = {
+  preset: 'jest-preset-angular',
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  testMatch: ['**/*.spec.ts'],
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/**/*.module.ts'
+  ]
+};
 module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
