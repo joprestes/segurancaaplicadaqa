@@ -19,6 +19,7 @@ exercises:
   - "lesson-2-3-exercise-7"
 podcast:
   file: "assets/podcasts/02.3-Dominando_os_Formularios_Reativos_do_Angular.m4a"
+  image: "assets/images/podcasts/02.3-Dominando_os_Formularios_Reativos_do_Angular.png"
   title: "Dominando os Formulários Reativos do Angular"
   description: "Formulários reativos são uma das funcionalidades mais poderosas do Angular."
   duration: "60-75 minutos"

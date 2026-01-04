@@ -15,6 +15,7 @@ exercises:
   - "lesson-4-5-exercise-3"
 podcast:
   file: "assets/podcasts/04.5-Zone.m4a"
+  image: "assets/images/podcasts/04.5-Zone.png"
   title: "Zone.js e Zoneless Apps"
   description: "Zone.js é o motor da change detection tradicional do Angular."
   duration: "50-65 minutos"

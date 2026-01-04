@@ -17,6 +17,7 @@ exercises:
   - "lesson-4-2-exercise-5"
 podcast:
   file: "assets/podcasts/04.2-Lazy_Loading_e_Code_Splitting_na_Web.m4a"
+  image: "assets/images/podcasts/04.2-Lazy_Loading_e_Code_Splitting_na_Web.png"
   title: "Lazy Loading e Code Splitting na Web"
   description: "Otimize o carregamento inicial da sua aplicação com lazy loading avançado."
   duration: "55-70 minutos"

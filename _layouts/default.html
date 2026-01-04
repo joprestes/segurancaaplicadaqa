@@ -23,6 +23,14 @@
     "inLanguage": "pt-BR"
   }
   </script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
 </head>
 <body>
   {% include header.html %}
@@ -44,6 +52,7 @@
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/progress-tracker.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/analytics.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
   <script>
     window.siteData = {
       modules: {{ site.data.modules.modules | jsonify }},

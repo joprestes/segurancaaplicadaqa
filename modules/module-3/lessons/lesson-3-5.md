@@ -15,6 +15,7 @@ exercises:
   - "lesson-3-5-exercise-3"
 podcast:
   file: "assets/podcasts/03.5-toSignal_e_toObservable_as_pontes_do_Angular.m4a"
+  image: "assets/images/podcasts/03.5-toSignal_e_toObservable_as_pontes_do_Angular.png"
   title: "toSignal e toObservable - As Pontes do Angular"
   description: "Angular oferece funções para integrar Signals com Observables."
   duration: "40-50 minutos"

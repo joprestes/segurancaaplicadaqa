@@ -18,6 +18,7 @@ exercises:
   - "lesson-3-2-exercise-6"
 podcast:
   file: "assets/podcasts/03.2-Angular_Signals_O_Guia_Completo_e_Pratico.m4a"
+  image: "assets/images/podcasts/03.2-Angular_Signals_O_Guia_Completo_e_Pratico.png"
   title: "Angular Signals - O Guia Completo e Prático"
   description: "Signals são a nova forma reativa do Angular."
   duration: "60-75 minutos"

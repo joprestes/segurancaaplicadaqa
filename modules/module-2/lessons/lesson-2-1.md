@@ -17,6 +17,7 @@ exercises:
   - "lesson-2-1-exercise-5"
 podcast:
   file: "assets/podcasts/02.1-Servicos_e_Injecao_de_Dependencia_no_Angular.m4a"
+  image: "assets/images/podcasts/02.1-Servicos_e_Injecao_de_Dependencia_no_Angular.png"
   title: "Serviços e Injeção de Dependência no Angular"
   description: "Descubra como os serviços são o coração da arquitetura Angular."
   duration: "50-65 minutos"

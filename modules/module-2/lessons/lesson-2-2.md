@@ -18,6 +18,7 @@ exercises:
   - "lesson-2-2-exercise-6"
 podcast:
   file: "assets/podcasts/02.2-SilencioRouter_Guards_Resolvers_Lazy_Loading.m4a"
+  image: "assets/images/podcasts/02.2-SilencioRouter_Guards_Resolvers_Lazy_Loading.png"
   title: "Router, Guards, Resolvers e Lazy Loading"
   description: "Domine o sistema de roteamento avançado do Angular."
   duration: "55-70 minutos"

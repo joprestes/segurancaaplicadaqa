@@ -17,6 +17,7 @@ exercises:
   - "lesson-2-4-exercise-5"
 podcast:
   file: "assets/podcasts/02.4-HttpClient_e_Interceptors_no_Angular.m4a"
+  image: "assets/images/podcasts/02.4-HttpClient_e_Interceptors_no_Angular.png"
   title: "HttpClient e Interceptors no Angular"
   description: "Aprenda a consumir APIs REST de forma profissional com HttpClient."
   duration: "50-65 minutos"

@@ -1,17 +1,9 @@
 <div class="podcast-player" id="podcast-player">
   <div class="podcast-info">
     {% if include.podcast %}
-      {% if include.podcast.image %}
-        <div class="podcast-image-container">
-          <img src="{{ include.podcast.image | relative_url }}" alt="{{ include.podcast.title }}" class="podcast-image" />
-        </div>
-      {% endif %}
       <h3>{{ include.podcast.title }}</h3>
       <p class="podcast-description">{{ include.podcast.description }}</p>
     {% else %}
-      <div class="podcast-image-container" id="podcast-image-placeholder" style="display: none;">
-        <img src="" alt="" class="podcast-image" id="podcast-image-element" />
-      </div>
       <h3 id="podcast-title-placeholder">Carregando podcast...</h3>
       <p class="podcast-description" id="podcast-description-placeholder"></p>
     {% endif %}

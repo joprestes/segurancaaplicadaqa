@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'theme';
 
 .breadcrumbs {
   margin-bottom: $spacing-md;
@@ -20,14 +21,16 @@
     
     &:not(:last-child)::after {
       content: " / ";
-      color: $text-light;
+      color: var(--color-text-secondary);
       margin-left: $spacing-xs;
+      @include theme-transition(color);
     }
   }
   
   a {
-    color: $primary-color;
+    color: var(--color-primary);
     text-decoration: none;
+    @include theme-transition(color);
     
     &:hover {
       text-decoration: underline;
@@ -35,8 +38,9 @@
   }
   
   li[aria-current="page"] {
-    color: $text-light;
+    color: var(--color-text-secondary);
     font-weight: normal;
+    @include theme-transition(color);
   }
 }
 

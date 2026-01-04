@@ -21,6 +21,18 @@ layout: default
   {% endif %}
 </div>
 
+<div class="podcast-banner-container" id="podcast-banner-container">
+  {% if page.podcast and page.podcast.image %}
+    <div class="podcast-banner">
+      <img src="{{ page.podcast.image | relative_url }}" alt="{{ page.podcast.title }}" class="podcast-banner-image" id="podcast-banner-image" />
+    </div>
+  {% else %}
+    <div class="podcast-banner" id="podcast-banner-placeholder" style="display: none;">
+      <img src="" alt="" class="podcast-banner-image" id="podcast-banner-image-placeholder" />
+    </div>
+  {% endif %}
+</div>
+
 <article class="lesson-content">
   <header>
     <h1>{{ page.title }}</h1>

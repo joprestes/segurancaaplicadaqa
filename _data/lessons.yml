@@ -132,6 +132,7 @@ lessons:
     prerequisites: ["lesson-2-4"]
     podcast:
       file: "assets/podcasts/02.5-Comunicacao_entre_Componentes_Input_Output_ViewChild.m4a"
+      image: "assets/images/podcasts/02.5-Comunicacao_entre_Componentes_Input_Output_ViewChild.png"
       title: "Comunicação entre Componentes - Input, Output, ViewChild"
       description: "Domine todos os padrões de comunicação entre componentes no Angular."
       duration: "45-60 minutos"
@@ -266,6 +267,7 @@ lessons:
     prerequisites: ["lesson-4-3"]
     podcast:
       file: "assets/podcasts/04.4-Profiling_Angular_Otimizacao_Como_Fazer.m4a"
+      image: "assets/images/podcasts/04.4-Profiling_Angular_Otimizacao_Como_Fazer.png"
       title: "Profiling Angular - Otimização Como Fazer"
       description: "Aprenda a identificar gargalos de performance usando Angular DevTools."
       duration: "55-70 minutos"
@@ -280,6 +282,7 @@ lessons:
     prerequisites: ["lesson-4-4"]
     podcast:
       file: "assets/podcasts/04.5-Zone.m4a"
+      image: "assets/images/podcasts/04.5-Zone.png"
       title: "Zone.js e Zoneless Apps"
       description: "Zone.js é o motor da change detection tradicional do Angular."
       duration: "50-65 minutos"
@@ -294,6 +297,7 @@ lessons:
     prerequisites: ["lesson-4-5"]
     podcast:
       file: "assets/podcasts/05.1-Testes_Unitarios_Integracao_E2E_Angular.m4a"
+      image: "assets/images/podcasts/05.1-Testes_Unitarios_Integracao_E2E_Angular.png"
       title: "Testes Unitários, Integração e E2E no Angular"
       description: "Testes são essenciais para aplicações profissionais."
       duration: "70-85 minutos"

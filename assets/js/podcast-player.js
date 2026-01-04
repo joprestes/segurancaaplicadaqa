@@ -131,6 +131,8 @@ class PodcastPlayer {
         this.updateUI();
       });
     }
+    
+    this.initScrollHandler();
   }
   
   initElements() {
@@ -146,10 +148,12 @@ class PodcastPlayer {
     this.podcastInfo = document.querySelector('.podcast-info');
     this.podcastTitleEl = document.querySelector('.podcast-info h3');
     this.podcastDescriptionEl = document.querySelector('.podcast-description');
-    this.podcastImageContainer = document.querySelector('.podcast-image-container');
-    this.podcastImageEl = document.querySelector('.podcast-image');
-    this.podcastImagePlaceholder = document.getElementById('podcast-image-placeholder');
-    this.podcastImageElement = document.getElementById('podcast-image-element');
+    this.podcastBannerContainer = document.getElementById('podcast-banner-container');
+    this.podcastBannerImage = document.getElementById('podcast-banner-image');
+    this.podcastBannerPlaceholder = document.getElementById('podcast-banner-placeholder');
+    this.podcastBannerImagePlaceholder = document.getElementById('podcast-banner-image-placeholder');
+    this.lastScrollY = window.scrollY;
+    this.initImageZoom();
   }
   
   bindEvents() {
@@ -236,10 +240,60 @@ class PodcastPlayer {
       }
     });
 
-    if (this.audio.readyState >= 2) {
+    if (this.audio && this.audio.readyState >= 2) {
       this.duration = this.audio.duration;
       this.updateDurationDisplay();
     }
+    
+    this.initScrollHandler();
+  }
+  
+  initScrollHandler() {
+  }
+  
+  initImageZoom() {
+    const images = [
+      this.podcastBannerImage,
+      this.podcastBannerImagePlaceholder
+    ].filter(img => img !== null);
+    
+    if (images.length === 0) return;
+    
+    let zoomModal = document.getElementById('image-zoom-modal');
+    if (!zoomModal) {
+      zoomModal = document.createElement('div');
+      zoomModal.id = 'image-zoom-modal';
+      zoomModal.className = 'image-zoom-modal';
+      const zoomedImg = document.createElement('img');
+      zoomedImg.className = 'zoomed-image';
+      zoomModal.appendChild(zoomedImg);
+      document.body.appendChild(zoomModal);
+      
+      zoomModal.addEventListener('click', (e) => {
+        if (e.target === zoomModal || e.target === zoomedImg) {
+          zoomModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && zoomModal.classList.contains('active')) {
+          zoomModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+    
+    const zoomedImg = zoomModal.querySelector('.zoomed-image');
+    
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        zoomedImg.src = img.src;
+        zoomedImg.alt = img.alt || 'Imagem ampliada';
+        zoomModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
   }
 
   findLessonUrlByPodcast(audioFile) {
@@ -459,9 +513,9 @@ class PodcastPlayer {
         }
       }
     }
-    if (this.podcastImageEl || this.podcastImageElement) {
-      const imgEl = this.podcastImageEl || this.podcastImageElement;
-      const containerEl = this.podcastImageContainer || this.podcastImagePlaceholder;
+    if (this.podcastBannerImage || this.podcastBannerImagePlaceholder) {
+      const imgEl = this.podcastBannerImage || this.podcastBannerImagePlaceholder;
+      const containerEl = this.podcastBannerContainer || this.podcastBannerPlaceholder;
       
       if (this.podcastImage) {
         imgEl.src = this.podcastImage;
@@ -469,6 +523,10 @@ class PodcastPlayer {
         if (containerEl) {
           containerEl.style.display = 'block';
         }
+        if (this.podcastBannerContainer) {
+          this.podcastBannerContainer.classList.remove('hidden');
+        }
+        this.initImageZoom();
       } else {
         const globalState = sessionStorage.getItem('podcast-global-state');
         if (globalState) {
@@ -481,6 +539,12 @@ class PodcastPlayer {
               if (containerEl) {
                 containerEl.style.display = 'block';
               }
+              if (this.podcastBannerContainer) {
+                this.podcastBannerContainer.classList.remove('hidden');
+              }
+              this.initImageZoom();
+            } else if (containerEl) {
+              containerEl.style.display = 'none';
             }
           } catch (e) {
             if (containerEl) {
@@ -491,6 +555,10 @@ class PodcastPlayer {
           containerEl.style.display = 'none';
         }
       }
+    }
+    
+    if (this.podcastImage || (this.podcastBannerImage && this.podcastBannerImage.src)) {
+      this.initImageZoom();
     }
   }
   

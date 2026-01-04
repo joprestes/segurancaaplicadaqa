@@ -1,0 +1,122 @@
+:root {
+  /* Backgrounds - Baseado em Material Design Light e GitHub Light */
+  --color-bg-primary: #ffffff;        /* Branco puro */
+  --color-bg-secondary: #f6f8fa;      /* GitHub Light surface - cinza muito claro */
+  --color-surface: #ffffff;           /* Surface padrão - branco */
+  --color-surface-elevated: #ffffff;  /* Surface elevada - branco com sombra */
+  
+  /* Textos - Alto contraste para acessibilidade WCAG AA */
+  --color-text-primary: #24292f;      /* GitHub Light text - quase preto */
+  --color-text-secondary: #57606a;    /* Texto secundário - cinza médio */
+  --color-text-tertiary: #8c959f;     /* Texto terciário - cinza claro */
+  --color-text-inverse: #ffffff;     /* Texto inverso - branco */
+  
+  /* Bordas - Contraste sutil mas visível */
+  --color-border: #d0d7de;            /* GitHub Light border - cinza claro */
+  --color-border-subtle: #eaeef2;    /* Borda sutil - cinza muito claro */
+  
+  /* Azul primário - Baseado em GitHub Light */
+  --color-primary: #0969da;           /* GitHub blue - azul vibrante */
+  --color-primary-hover: #0860ca;     /* Hover mais escuro */
+  --color-primary-light: rgba(9, 105, 218, 0.1); /* Light com opacidade */
+  --color-primary-dark: #0550ae;      /* Azul mais escuro para header */
+  
+  /* Secondary - Cinza */
+  --color-secondary: #656d76;         /* Cinza médio */
+  --color-secondary-hover: #57606a;   /* Hover mais escuro */
+  
+  /* Success - Verde acessível */
+  --color-success: #1a7f37;           /* GitHub green - verde escuro */
+  --color-success-hover: #2ea043;     /* Hover mais claro */
+  --color-success-light: rgba(26, 127, 55, 0.1);
+  
+  /* Error - Vermelho acessível */
+  --color-error: #cf222e;              /* GitHub red - vermelho */
+  --color-error-hover: #a40e26;       /* Hover mais escuro */
+  --color-error-light: rgba(207, 34, 46, 0.1);
+  
+  /* Warning - Laranja/Amarelo */
+  --color-warning: #9a6700;            /* GitHub warning - amarelo escuro */
+  --color-warning-hover: #bf8700;     /* Hover mais claro */
+  
+  /* Sombras - Sutis no light mode */
+  --color-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --color-shadow-md: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --color-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+  
+  /* Overlays */
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-overlay-dark: rgba(0, 0, 0, 0.9);
+  
+  /* Markdown specific colors */
+  --color-code-bg: #f6f8fa;
+  --color-code-text: #0969da;
+  --color-code-block-bg: #f6f8fa;
+  --color-code-block-border: #d0d7de;
+  
+  /* Visualization containers */
+  --color-visualization-bg: #ffffff;
+  --color-visualization-border: #d0d7de;
+}
+
+[data-theme="dark"] {
+  /* Backgrounds - Baseado em GitHub Dark e Material Design Dark */
+  --color-bg-primary: #0d1117;        /* GitHub Dark base - quase preto */
+  --color-bg-secondary: #161b22;      /* GitHub Dark surface - cinza muito escuro */
+  --color-surface: #1c2128;           /* Surface elevada - cinza escuro */
+  --color-surface-elevated: #22272e;  /* Surface mais elevada - cinza médio-escuro */
+  
+  /* Textos - Alto contraste para acessibilidade WCAG AA */
+  --color-text-primary: #e6edf3;      /* Texto principal - quase branco */
+  --color-text-secondary: #8b949e;    /* Texto secundário - cinza claro */
+  --color-text-tertiary: #6e7681;    /* Texto terciário - cinza médio */
+  --color-text-inverse: #0d1117;      /* Texto inverso - preto */
+  
+  /* Bordas - Contraste sutil mas visível */
+  --color-border: #30363d;            /* Borda padrão - cinza escuro */
+  --color-border-subtle: #21262d;     /* Borda sutil - cinza muito escuro */
+  
+  /* Azul primário - Baseado em GitHub e VS Code Dark */
+  --color-primary: #58a6ff;           /* GitHub blue - azul vibrante e acessível */
+  --color-primary-hover: #79c0ff;     /* Hover mais claro */
+  --color-primary-light: rgba(88, 166, 255, 0.15); /* Light com opacidade */
+  --color-primary-dark: #1f6feb;       /* Azul mais escuro para header */
+  
+  /* Secondary - Cinza azulado */
+  --color-secondary: #21262d;         /* Cinza escuro azulado */
+  --color-secondary-hover: #30363d;   /* Hover mais claro */
+  
+  /* Success - Verde acessível */
+  --color-success: #3fb950;           /* GitHub green */
+  --color-success-hover: #56d364;     /* Hover mais claro */
+  --color-success-light: rgba(63, 185, 80, 0.15);
+  
+  /* Error - Vermelho acessível */
+  --color-error: #f85149;              /* GitHub red */
+  --color-error-hover: #ff6b6b;       /* Hover mais claro */
+  --color-error-light: rgba(248, 81, 73, 0.15);
+  
+  /* Warning - Laranja/Amarelo */
+  --color-warning: #d29922;            /* GitHub warning */
+  --color-warning-hover: #e3b341;     /* Hover mais claro */
+  
+  /* Sombras - Mais pronunciadas no dark mode */
+  --color-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --color-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --color-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+  
+  /* Overlays */
+  --color-overlay: rgba(0, 0, 0, 0.75);
+  --color-overlay-dark: rgba(0, 0, 0, 0.95);
+  
+  /* Markdown specific colors */
+  --color-code-bg: #161b22;
+  --color-code-text: #79c0ff;
+  --color-code-block-bg: #161b22;
+  --color-code-block-border: #30363d;
+  
+  /* Visualization containers */
+  --color-visualization-bg: #1c2128;
+  --color-visualization-border: #30363d;
+}
+

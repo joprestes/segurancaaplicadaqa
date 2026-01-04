@@ -18,6 +18,7 @@ exercises:
   - "lesson-5-1-exercise-6"
 podcast:
   file: "assets/podcasts/05.1-Testes_Unitarios_Integracao_E2E_Angular.m4a"
+  image: "assets/images/podcasts/05.1-Testes_Unitarios_Integracao_E2E_Angular.png"
   title: "Testes Unitários, Integração e E2E no Angular"
   description: "Testes são essenciais para aplicações profissionais."
   duration: "70-85 minutos"

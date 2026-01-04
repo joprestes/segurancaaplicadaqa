@@ -20,6 +20,7 @@ exercises:
   - "lesson-3-1-exercise-8"
 podcast:
   file: "assets/podcasts/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.m4a"
+  image: "assets/images/podcasts/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.png"
   title: "RxJS Operators, Observables, SwitchMap e Busca Perfeita"
   description: "RxJS é fundamental para Angular moderno."
   duration: "65-80 minutos"

@@ -1,44 +1,77 @@
 @import 'variables';
+@import 'theme';
 
 .podcast-player-container {
   position: sticky;
   top: 0;
-  background: $background-color;
+  background: var(--color-surface);
   padding: $spacing-md;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--color-shadow-sm);
   z-index: 100;
+  margin-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  @include theme-transition-all;
+}
+
+.podcast-banner-container {
   margin-bottom: $spacing-xl;
-  border-radius: 8px;
+  margin-top: 0;
+  
+  .podcast-banner {
+    width: 100%;
+    
+    .podcast-banner-image {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      cursor: zoom-in;
+    }
+  }
+}
+
+.image-zoom-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-overlay-dark);
+  z-index: 10000;
+  cursor: zoom-out;
+  align-items: center;
+  justify-content: center;
+  
+  &.active {
+    display: flex;
+  }
+  
+  .zoomed-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+  }
 }
 
 .podcast-player {
   .podcast-info {
     margin-bottom: $spacing-md;
     
-    .podcast-image-container {
-      margin-bottom: $spacing-md;
-      text-align: center;
-      
-      .podcast-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        max-height: 300px;
-        object-fit: contain;
-      }
-    }
-    
     h3 {
       margin: 0 0 $spacing-xs 0;
       font-size: $font-size-h3;
-      color: $text-color;
+      color: var(--color-text-primary);
+      @include theme-transition(color);
     }
     
     .podcast-description {
       margin: 0;
-      color: $text-light;
+      color: var(--color-text-secondary);
       font-size: $font-size-small;
+      @include theme-transition(color);
     }
   }
   
@@ -50,8 +83,8 @@
     
     .play-button,
     .pause-button {
-      background: $primary-color;
-      color: white;
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
       border: none;
       border-radius: 50%;
       width: 48px;
@@ -61,10 +94,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s;
+      transition: background-color 0.2s;
       
       &:hover {
-        background: darken($primary-color, 10%);
+        background: var(--color-primary-hover);
       }
     }
     
@@ -72,25 +105,28 @@
       flex: 1;
       min-width: 200px;
       height: 4px;
-      background: $border-color;
+      background: var(--color-border);
       border-radius: 2px;
       cursor: pointer;
       position: relative;
+      @include theme-transition(background-color);
       
       .progress {
         height: 100%;
-        background: $primary-color;
+        background: var(--color-primary);
         border-radius: 2px;
         transition: width 0.1s;
+        @include theme-transition(background-color);
         width: 0%;
       }
     }
     
     .time-display {
       font-size: $font-size-small;
-      color: $text-light;
+      color: var(--color-text-secondary);
       min-width: 100px;
       white-space: nowrap;
+      @include theme-transition(color);
     }
     
     .speed-control,
@@ -101,14 +137,18 @@
       
       label {
         font-size: $font-size-small;
-        color: $text-light;
+        color: var(--color-text-secondary);
+        @include theme-transition(color);
       }
       
       select {
         padding: $spacing-xs $spacing-sm;
-        border: 1px solid $border-color;
+        border: 1px solid var(--color-border);
         border-radius: 4px;
         font-size: $font-size-small;
+        background: var(--color-surface);
+        color: var(--color-text-primary);
+        @include theme-transition-all;
       }
       
       input[type="range"] {
@@ -122,11 +162,11 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: $primary-color;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   padding: $spacing-md $spacing-lg;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: var(--color-shadow-md);
   display: none;
   z-index: 1000;
   
@@ -142,6 +182,14 @@
 }
 
 @media (max-width: $breakpoint-mobile) {
+  .podcast-banner-container {
+    .podcast-banner {
+      .podcast-banner-image {
+        max-height: 250px;
+      }
+    }
+  }
+  
   .podcast-player {
     .player-controls {
       flex-direction: column;
@@ -150,6 +198,13 @@
       .progress-bar {
         min-width: 100%;
       }
+    }
+  }
+  
+  .image-zoom-modal {
+    .zoomed-image {
+      max-width: 95%;
+      max-height: 95%;
     }
   }
 }

@@ -10,6 +10,7 @@ prerequisites: []
 exercises: []
 podcast:
   file: "assets/podcasts/01-Fundacao_Angular_Tipagem_Encapsulamento_e_Generics.m4a"
+  image: "assets/images/podcasts/01-Fundacao_Angular_Tipagem_Encapsulamento_e_Generics.png"
   title: "Fundação Angular: Tipagem, Encapsulamento e Generics"
   description: "Neste episódio, exploramos os fundamentos essenciais do Angular moderno."
   duration: "45-60 minutos"

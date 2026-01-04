@@ -16,6 +16,7 @@ exercises:
   - "lesson-3-4-exercise-4"
 podcast:
   file: "assets/podcasts/03.4-Combatendo_Memory_Leaks_com_Async_Pipe.m4a"
+  image: "assets/images/podcasts/03.4-Combatendo_Memory_Leaks_com_Async_Pipe.png"
   title: "Combatendo Memory Leaks com Async Pipe"
   description: "Memory leaks são um problema comum em aplicações Angular reativas."
   duration: "50-65 minutos"
