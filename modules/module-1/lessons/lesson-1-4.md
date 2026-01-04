@@ -72,15 +72,6 @@ Interpolação é como preencher um formulário em branco. O template é o formu
 **Visualização**:
 
 {% raw %}
-Component                    Template
-┌────────────────┐            ┌─────────────┐
-│ name = "João"  │  ────────→ │ {{ name }}  │
-│ age = 30       │  ────────→ │ {{ age }}   │
-└────────────────┘            └─────────────┘
-                              ↓
-{% endraw %}
-                          "João"
-                          "30"
 ```
 Component                    Template
 ┌────────────────┐            ┌─────────────┐
@@ -88,10 +79,10 @@ Component                    Template
 │ age = 30       │  ────────→ │ {{ age }}   │
 └────────────────┘            └─────────────┘
                               ↓
-{% endraw %}
                           "João"
                           "30"
 ```
+{% endraw %}
 
 **Exemplo Prático**:
 
@@ -459,6 +450,7 @@ export class ListComponent {
   <p *ngSwitchCase="'option2'">Opção 2 selecionada</p>
   <p *ngSwitchDefault>Nenhuma opção selecionada</p>
 </div>
+{% endraw %}
 {% raw %}
 ```html
 <div *ngIf="showList">
