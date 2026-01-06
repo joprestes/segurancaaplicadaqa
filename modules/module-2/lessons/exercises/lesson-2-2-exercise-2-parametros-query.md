@@ -89,7 +89,7 @@ export interface Product {
 ```
 
 **product-list.component.ts**
-{% raw %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -131,7 +131,6 @@ import { Product } from './product.model';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [
@@ -179,7 +178,7 @@ export class ProductListComponent implements OnInit {
 ```
 
 **product-detail.component.ts**
-{% raw %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -208,7 +207,6 @@ import { Product } from './product.model';
       }
     </div>
   `
-{% endraw %}
 })
 export class ProductDetailComponent implements OnInit {
   product: Product | null = null;

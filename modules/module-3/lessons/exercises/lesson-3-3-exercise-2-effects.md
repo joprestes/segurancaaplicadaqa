@@ -171,6 +171,7 @@ bootstrapApplication(AppComponent, {
 ```
 
 **user-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -205,7 +206,6 @@ import { User } from './user.model';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class UserListComponent implements OnInit {
   users$: Observable<User[]>;
@@ -227,6 +227,60 @@ export class UserListComponent implements OnInit {
   }
 }
 ```
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loadUsers } from './store/user.actions';
+import { selectAllUsers, selectLoading, selectError } from './store/user.selectors';
+import { User } from './user.model';
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Usuários</h2>
+      <button (click)="load()">Carregar Usuários</button>
+      
+      @if (loading$ | async) {
+        <p>Carregando...</p>
+      }
+      
+      @if (error$ | async) {
+        <p class="error">{{ error$ | async }}</p>
+      }
+      
+      <ul>
+        @for (user of users$ | async; track user.id) {
+          <li>{{ user.name }} - {{ user.email }}</li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class UserListComponent implements OnInit {
+  users$: Observable<User[]>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
+  
+  constructor(private store: Store) {
+    this.users$ = this.store.select(selectAllUsers);
+    this.loading$ = this.store.select(selectLoading);
+    this.error$ = this.store.select(selectError);
+  }
+  
+  ngOnInit(): void {
+    this.load();
+  }
+  
+  load(): void {
+    this.store.dispatch(loadUsers());
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

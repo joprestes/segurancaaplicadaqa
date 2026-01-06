@@ -709,6 +709,7 @@ export class DeferLoadingAdvancedComponent {
 
 **Exemplo com Tratamento de Erro Avançado**:
 
+{% raw %}
 ```typescript
 import { Component, signal } from '@angular/core';
 
@@ -777,6 +778,7 @@ export class DeferErrorHandlingComponent {
   }
 }
 ```
+{% endraw %}
 
 **Boas Práticas para @loading e @error**:
 
@@ -988,6 +990,7 @@ Cada sensor (trigger) é otimizado para diferentes cenários, e você escolhe o 
 
 **Exemplo Prático Completo com Todos os Triggers**:
 
+{% raw %}
 ```typescript
 import { Component, signal } from '@angular/core';
 
@@ -1129,6 +1132,148 @@ export class DeferTriggersCompleteComponent {
   }
 }
 ```
+{% raw %}
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-defer-triggers-complete',
+  standalone: true,
+  template: `
+    <div class="container">
+      <h1>Demonstração de Triggers</h1>
+      
+      <section class="demo-section">
+        <h2>1. on viewport</h2>
+        <p>Role para baixo para carregar automaticamente</p>
+        @defer (on viewport) {
+          <app-heavy-component></app-heavy-component>
+        } @placeholder {
+          <div class="placeholder">Conteúdo será carregado quando visível</div>
+        }
+      </section>
+      
+      <section class="demo-section">
+        <h2>2. on timer</h2>
+        <p>Anúncio será carregado após 3 segundos</p>
+        @defer (on timer(3s)) {
+          <app-ad-banner></app-ad-banner>
+        } @placeholder {
+          <div class="placeholder">Aguardando 3 segundos...</div>
+        }
+      </section>
+      
+      <section class="demo-section">
+        <h2>3. on idle</h2>
+        <p>Analytics carregado quando navegador está ocioso</p>
+        @defer (on idle) {
+          <app-analytics></app-analytics>
+        } @placeholder {
+          <div class="placeholder">Aguardando navegador ficar ocioso...</div>
+        }
+      </section>
+      
+      <section class="demo-section">
+        <h2>4. on interaction</h2>
+        <button #loadModal class="load-button">
+          Abrir Modal Pesado
+        </button>
+        @defer (on interaction(loadModal)) {
+          <app-heavy-modal></app-heavy-modal>
+        } @placeholder {
+          <div class="placeholder">Clique no botão para carregar modal</div>
+        }
+      </section>
+      
+      <section class="demo-section">
+        <h2>5. on hover</h2>
+        <div #hoverTarget class="hover-target">
+          Passe o mouse aqui
+        </div>
+        @defer (on hover(hoverTarget)) {
+          <app-preview-card></app-preview-card>
+        } @placeholder {
+          <div class="placeholder">Passe o mouse sobre o card acima</div>
+        }
+      </section>
+      
+      <section class="demo-section">
+        <h2>6. when condition</h2>
+        <button (click)="toggleLoad()">
+          {{ shouldLoad() ? 'Desabilitar' : 'Habilitar' }} Carregamento
+        </button>
+        @defer (when shouldLoad()) {
+          <app-conditional-component></app-conditional-component>
+        } @placeholder {
+          <div class="placeholder">Clique no botão para habilitar carregamento</div>
+        }
+      </section>
+      
+      <section class="demo-section">
+        <h2>7. Combined triggers</h2>
+        <p>Carrega quando visível OU após 5 segundos</p>
+        @defer (on viewport, on timer(5s)) {
+          <app-combined-component></app-combined-component>
+        } @placeholder {
+          <div class="placeholder">Aguardando viewport ou timer...</div>
+        }
+      </section>
+    </div>
+  `,
+  styles: [`
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .demo-section {
+      margin: 3rem 0;
+      padding: 2rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    
+    .placeholder {
+      padding: 2rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+      text-align: center;
+      color: #666;
+    }
+    
+    .load-button {
+      padding: 0.75rem 1.5rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .hover-target {
+      padding: 2rem;
+      background: #e3f2fd;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    
+    .hover-target:hover {
+      background: #bbdefb;
+    }
+  `]
+})
+export class DeferTriggersCompleteComponent {
+  shouldLoad = signal(false);
+  
+  toggleLoad(): void {
+    this.shouldLoad.set(!this.shouldLoad());
+  }
+}
+```
+{% endraw %}
 
 **Tabela Comparativa de Triggers**:
 

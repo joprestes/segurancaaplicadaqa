@@ -118,6 +118,7 @@ export const selectProductStats = createSelector(
 ```
 
 **product-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -167,7 +168,6 @@ import { Product } from './product.model';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class ProductListComponent implements OnInit {
   products$: Observable<Product[]>;
@@ -191,6 +191,77 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loadProducts } from './store/product.actions';
+import { 
+  selectAllProducts, 
+  selectLoading, 
+  selectExpensiveProducts,
+  selectProductStats
+} from './store/product.selectors';
+import { Product } from './product.model';
+
+@Component({
+  selector: 'app-product-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Produtos</h2>
+      <button (click)="load()">Carregar</button>
+      
+      @if (loading$ | async) {
+        <p>Carregando...</p>
+      }
+      
+      <div class="stats">
+        <p>Total: {{ (stats$ | async)?.count }}</p>
+        <p>Preço Total: R$ {{ (stats$ | async)?.totalPrice }}</p>
+        <p>Preço Médio: R$ {{ (stats$ | async)?.averagePrice }}</p>
+      </div>
+      
+      <h3>Todos os Produtos</h3>
+      <ul>
+        @for (product of products$ | async; track product.id) {
+          <li>{{ product.name }} - R$ {{ product.price }}</li>
+        }
+      </ul>
+      
+      <h3>Produtos Caros (> R$ 100)</h3>
+      <ul>
+        @for (product of expensiveProducts$ | async; track product.id) {
+          <li>{{ product.name }} - R$ {{ product.price }}</li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class ProductListComponent implements OnInit {
+  products$: Observable<Product[]>;
+  expensiveProducts$: Observable<Product[]>;
+  stats$: Observable<any>;
+  loading$: Observable<boolean>;
+  
+  constructor(private store: Store) {
+    this.products$ = this.store.select(selectAllProducts);
+    this.expensiveProducts$ = this.store.select(selectExpensiveProducts);
+    this.stats$ = this.store.select(selectProductStats);
+    this.loading$ = this.store.select(selectLoading);
+  }
+  
+  ngOnInit(): void {
+    this.load();
+  }
+  
+  load(): void {
+    this.store.dispatch(loadProducts());
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

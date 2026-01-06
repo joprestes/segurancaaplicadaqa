@@ -220,7 +220,6 @@ interface Product {
       </div>
     </div>
   `
-{% endraw %}
 })
 export class ExemploUsoComponent {
   products: Product[] = [
@@ -255,6 +254,7 @@ export class ExemploUsoComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

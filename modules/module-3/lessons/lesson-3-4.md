@@ -107,6 +107,7 @@ Assim como o assistente cuida de tudo relacionado à revista sem você precisar 
 
 **Visualização**:
 
+{% raw %}
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    Component Lifecycle                   │
@@ -147,6 +148,47 @@ Assim como o assistente cuida de tudo relacionado à revista sem você precisar 
 │  ✅ No leaks                                            │
 └─────────────────────────────────────────────────────────┘
 ```
+{% raw %}
+┌─────────────────────────────────────────────────────────┐
+│                    Component Lifecycle                   │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          │ ngOnInit()
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│  Template: {{ data$ | async }}                          │
+│                                                         │
+│  ┌──────────────┐         ┌──────────────┐            │
+│  │   Observable │────────▶│  async pipe  │            │
+│  │   (data$)    │         │              │            │
+│  └──────────────┘         └──────┬───────┘            │
+│                                   │                    │
+│                                   │ subscribe()        │
+│                                   │                    │
+│                          ┌────────▼────────┐           │
+│                          │   Subscription  │           │
+│                          │   (managed)     │           │
+│                          └─────────────────┘           │
+│                                   │                    │
+│                                   │ value changes      │
+│                                   ▼                    │
+│                          ┌─────────────────┐           │
+│                          │ Change Detection │           │
+│                          │   markForCheck() │           │
+│                          └─────────────────┘           │
+└─────────────────────────────────────────────────────────┘
+                          │
+                          │ ngOnDestroy()
+                          ▼
+┌─────────────────────────────────────────────────────────┐
+│  async pipe automatically calls:                        │
+│  subscription.unsubscribe()                             │
+│                                                         │
+│  ✅ Memory freed                                        │
+│  ✅ No leaks                                            │
+└─────────────────────────────────────────────────────────┘
+```
+{% endraw %}
 
 **Exemplo Prático**:
 
@@ -1204,29 +1246,29 @@ export class FixedComponent implements OnInit, OnDestroy {
 2. **Use takeUntil pattern para múltiplas subscriptions**
    - **Por quê**: Cleanup centralizado e simples, padrão consistente em toda aplicação
    - **Exemplo**: 
-     ```typescript
+```
      private destroy$ = new Subject<void>();
      this.service.getData().pipe(takeUntil(this.destroy$)).subscribe();
-     ```
+```
    - **Benefício**: Um único ponto de controle, fácil adicionar novas subscriptions
 
 3. **Implemente ngOnDestroy sempre que criar subscriptions manualmente**
    - **Por quê**: Garante cleanup adequado de todos os recursos
    - **Exemplo**: 
-     ```typescript
+```
      ngOnDestroy(): void {
        this.destroy$.next();
        this.destroy$.complete();
      }
-     ```
+```
    - **Benefício**: Previne leaks mesmo em casos complexos
 
 4. **Monitore subscriptions em desenvolvimento**
    - **Por quê**: Detecta leaks cedo, antes de chegar em produção
    - **Exemplo**: 
-     ```typescript
+```
      console.log('Active subscriptions:', this.subscriptions.length);
-     ```
+```
    - **Benefício**: Identifica problemas rapidamente durante desenvolvimento
 
 5. **Use OnPush change detection quando possível**
@@ -1237,20 +1279,20 @@ export class FixedComponent implements OnInit, OnDestroy {
 6. **Armazene referências a event handlers**
    - **Por quê**: Necessário para remover listeners corretamente
    - **Exemplo**: 
-     ```typescript
+```
      private handler = (event) => { ... };
      element.addEventListener('click', this.handler);
      ngOnDestroy() { element.removeEventListener('click', this.handler); }
-     ```
+```
    - **Benefício**: Permite cleanup correto de event listeners
 
 7. **Cancele timers nativos explicitamente**
    - **Por quê**: setInterval e setTimeout não são gerenciados pelo Angular
    - **Exemplo**: 
-     ```typescript
+```
      private timer = setInterval(() => {}, 1000);
      ngOnDestroy() { clearInterval(this.timer); }
-     ```
+```
    - **Benefício**: Previne timers executando após destruição
 
 8. **Use finalize operator para logging**
@@ -1275,123 +1317,123 @@ export class FixedComponent implements OnInit, OnDestroy {
    - **Sintoma**: Memória aumenta continuamente, aplicação fica lenta
    - **Solução**: Sempre usar async pipe ou takeUntil
    - **Exemplo Ruim**:
-     ```typescript
+```
      ngOnInit() {
        this.service.getData().subscribe(data => this.data = data);
      }
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      ngOnInit() {
        this.service.getData()
          .pipe(takeUntil(this.destroy$))
          .subscribe(data => this.data = data);
      }
-     ```
+```
 
 2. **Criar subscriptions em loops**
    - **Problema**: Múltiplas subscriptions desnecessárias, difícil gerenciar
    - **Sintoma**: Muitas subscriptions ativas, performance degradada
    - **Solução**: Usar operators como mergeMap, switchMap, combineLatest
    - **Exemplo Ruim**:
-     ```typescript
+```
      items.forEach(item => {
        this.service.getData(item.id).subscribe();
      });
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      from(items).pipe(
        mergeMap(item => this.service.getData(item.id)),
        takeUntil(this.destroy$)
      ).subscribe();
-     ```
+```
 
 3. **Ignorar ngOnDestroy quando necessário**
    - **Problema**: Recursos não liberados, event listeners ativos, timers rodando
    - **Sintoma**: Comportamento estranho após navegação, múltiplas execuções
    - **Solução**: Sempre implementar quando criar recursos manualmente
    - **Exemplo Ruim**:
-     ```typescript
+```
      ngOnInit() {
        window.addEventListener('resize', this.handleResize);
      }
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      ngOnInit() {
        window.addEventListener('resize', this.handleResize);
      }
      ngOnDestroy() {
        window.removeEventListener('resize', this.handleResize);
      }
-     ```
+```
 
 4. **Usar subscribe dentro de subscribe (nested subscriptions)**
    - **Problema**: Dificulta cleanup, pode causar leaks se não gerenciado
    - **Sintoma**: Subscriptions aninhadas difíceis de rastrear
    - **Solução**: Usar operators como switchMap, mergeMap, concatMap
    - **Exemplo Ruim**:
-     ```typescript
+```
      this.service.getUsers().subscribe(users => {
        users.forEach(user => {
          this.service.getDetails(user.id).subscribe();
        });
      });
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      this.service.getUsers().pipe(
        switchMap(users => forkJoin(users.map(u => this.service.getDetails(u.id)))),
        takeUntil(this.destroy$)
      ).subscribe();
-     ```
+```
 
 5. **Não completar destroy$ Subject**
    - **Problema**: Subject pode continuar emitindo, causando comportamento inesperado
    - **Sintoma**: Subscriptions podem continuar ativas mesmo após destroy
    - **Solução**: Sempre chamar both next() e complete()
    - **Exemplo Ruim**:
-     ```typescript
+```
      ngOnDestroy() {
        this.destroy$.next();
      }
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      ngOnDestroy() {
        this.destroy$.next();
        this.destroy$.complete();
      }
-     ```
+```
 
 6. **Criar novos Observables a cada change detection**
    - **Problema**: Múltiplas subscriptions desnecessárias, performance ruim
    - **Sintoma**: Muitas subscriptions criadas rapidamente
    - **Solução**: Criar Observable uma vez, reutilizar
    - **Exemplo Ruim**:
-     ```typescript
+```
      get users$() {
        return this.http.get('/api/users');
      }
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      users$ = this.http.get('/api/users');
-     ```
+```
 
 7. **Não remover event listeners de window/document**
    - **Problema**: Listeners persistem após destruição, causam leaks
    - **Sintoma**: Eventos continuam sendo processados após navegação
    - **Solução**: Sempre remover em ngOnDestroy
    - **Exemplo Ruim**:
-     ```typescript
+```
      ngOnInit() {
        window.addEventListener('scroll', this.handleScroll);
      }
-     ```
+```
    - **Exemplo Correto**:
-     ```typescript
+```
      private handleScroll = () => { ... };
      ngOnInit() {
        window.addEventListener('scroll', this.handleScroll);
@@ -1399,7 +1441,7 @@ export class FixedComponent implements OnInit, OnDestroy {
      ngOnDestroy() {
        window.removeEventListener('scroll', this.handleScroll);
      }
-     ```
+```
 
 ---
 

@@ -233,6 +233,7 @@ Imagine um **sistema de notificações de emergência** em um prédio:
 
 **Fluxo de Reatividade**:
 
+{% raw %}
 ```
 1. Signal criado: count = signal(0)
    └─> Valor inicial: 0
@@ -253,6 +254,7 @@ Imagine um **sistema de notificações de emergência** em um prédio:
    └─> double recalcula: 5 * 2 = 10
    └─> template atualiza view: mostra 5
 ```
+{% endraw %}
 
 **Exemplo Prático Completo**:
 
@@ -835,6 +837,7 @@ Imagine um **sistema de videoconferência com compartilhamento de tela**:
 
 **Exemplo Prático Completo**:
 
+{% raw %}
 ```typescript
 import { Component, model, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -915,6 +918,7 @@ export class ParentComponent {
   doubleCounter = computed(() => this.counter() * 2);
 }
 ```
+{% endraw %}
 
 **Model Input com Validação**:
 
@@ -1031,6 +1035,7 @@ Imagine um **formulário de papel inteligente**:
 
 **Exemplo Prático Completo**:
 
+{% raw %}
 ```typescript
 import { Component, model, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -1154,6 +1159,7 @@ export class SignalFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Signal Forms com Validação Avançada**:
 
@@ -1300,6 +1306,7 @@ Imagine uma **cidade moderna com diferentes sistemas de transporte**:
 
 **Exemplo Prático Completo**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -1438,6 +1445,7 @@ export class SignalFirstComponent {
   }
 }
 ```
+{% endraw %}
 
 **Signal-First Service Pattern**:
 
@@ -1514,6 +1522,7 @@ function Counter() {
 
 **Angular Signals**:
 
+{% raw %}
 ```typescript
 export class CounterComponent {
   count = signal(0);
@@ -1522,6 +1531,15 @@ export class CounterComponent {
   template = `<div>{{ count() }} - {{ double() }}</div>`;
 }
 ```
+{% raw %}
+export class CounterComponent {
+  count = signal(0);
+  double = computed(() => this.count() * 2);
+  
+  template = `<div>{{ count() }} - {{ double() }}</div>`;
+}
+```
+{% endraw %}
 
 **Comparação Detalhada**:
 
@@ -1614,6 +1632,7 @@ export class CounterComponent {
 
 **Angular Signals**:
 
+{% raw %}
 ```typescript
 export class CounterComponent {
   count = signal(0);
@@ -1622,6 +1641,15 @@ export class CounterComponent {
   template = `<div>{{ count() }} - {{ double() }}</div>`;
 }
 ```
+{% raw %}
+export class CounterComponent {
+  count = signal(0);
+  double = computed(() => this.count() * 2);
+  
+  template = `<div>{{ count() }} - {{ double() }}</div>`;
+}
+```
+{% endraw %}
 
 **Comparação Detalhada**:
 
@@ -1687,6 +1715,7 @@ export class CounterComponent {
 
 **Antes (Observable)**:
 
+{% raw %}
 ```typescript
 export class CounterService {
   private countSubject = new BehaviorSubject<number>(0);
@@ -1707,9 +1736,31 @@ export class CounterComponent {
   template = `<div>{{ count$ | async }}</div>`;
 }
 ```
+{% raw %}
+export class CounterService {
+  private countSubject = new BehaviorSubject<number>(0);
+  count$ = this.countSubject.asObservable();
+  
+  setCount(value: number): void {
+    this.countSubject.next(value);
+  }
+  
+  getCount(): number {
+    return this.countSubject.value;
+  }
+}
+
+export class CounterComponent {
+  count$ = this.service.count$;
+  
+  template = `<div>{{ count$ | async }}</div>`;
+}
+```
+{% endraw %}
 
 **Depois (Signal)**:
 
+{% raw %}
 ```typescript
 export class CounterService {
   count = signal<number>(0);
@@ -1725,11 +1776,13 @@ export class CounterComponent {
   template = `<div>{{ count() }}</div>`;
 }
 ```
+{% endraw %}
 
 #### Padrão 2: combineLatest → computed()
 
 **Antes (Observable)**:
 
+{% raw %}
 ```typescript
 export class ShoppingCartComponent {
   items$ = new BehaviorSubject<Item[]>([]);
@@ -1744,9 +1797,25 @@ export class ShoppingCartComponent {
   template = `<div>{{ total$ | async }}</div>`;
 }
 ```
+{% raw %}
+export class ShoppingCartComponent {
+  items$ = new BehaviorSubject<Item[]>([]);
+  discount$ = new BehaviorSubject<number>(0);
+  
+  total$ = combineLatest([this.items$, this.discount$]).pipe(
+    map(([items, discount]) => 
+      items.reduce((sum, item) => sum + item.price, 0) * (1 - discount)
+    )
+  );
+  
+  template = `<div>{{ total$ | async }}</div>`;
+}
+```
+{% endraw %}
 
 **Depois (Signal)**:
 
+{% raw %}
 ```typescript
 export class ShoppingCartComponent {
   items = signal<Item[]>([]);
@@ -1759,6 +1828,7 @@ export class ShoppingCartComponent {
   template = `<div>{{ total() }}</div>`;
 }
 ```
+{% endraw %}
 
 #### Padrão 3: HTTP Observable → toSignal()
 
@@ -1936,6 +2006,7 @@ export class UserListComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -2042,6 +2113,113 @@ export class TodoSignalComponent {
   }
 }
 ```
+{% raw %}
+import { Component, signal, computed, effect } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
+
+@Component({
+  selector: 'app-todo-signal',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Todo List (Signals)</h2>
+      
+      <input 
+        #input
+        (keyup.enter)="addTodo(input.value); input.value = ''"
+        placeholder="Nova tarefa">
+      
+      <div>
+        <button (click)="filter.set('all')">Todas</button>
+        <button (click)="filter.set('active')">Ativas</button>
+        <button (click)="filter.set('completed')">Completas</button>
+      </div>
+      
+      <p>Total: {{ totalTodos() }} | Ativas: {{ activeTodos() }} | Completas: {{ completedTodos() }}</p>
+      
+      <ul>
+        @for (todo of filteredTodos(); track todo.id) {
+          <li>
+            <input 
+              type="checkbox" 
+              [checked]="todo.completed"
+              (change)="toggleTodo(todo.id)">
+            <span [class.completed]="todo.completed">{{ todo.text }}</span>
+            <button (click)="removeTodo(todo.id)">Remover</button>
+          </li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class TodoSignalComponent {
+  todos = signal<Todo[]>([]);
+  filter = signal<'all' | 'active' | 'completed'>('all');
+  
+  totalTodos = computed(() => this.todos().length);
+  activeTodos = computed(() => 
+    this.todos().filter(t => !t.completed).length
+  );
+  completedTodos = computed(() => 
+    this.todos().filter(t => t.completed).length
+  );
+  
+  filteredTodos = computed(() => {
+    const todos = this.todos();
+    const filter = this.filter();
+    
+    switch (filter) {
+      case 'active':
+        return todos.filter(t => !t.completed);
+      case 'completed':
+        return todos.filter(t => t.completed);
+      default:
+        return todos;
+    }
+  });
+  
+  private nextId = 0;
+  
+  constructor() {
+    effect(() => {
+      const todos = this.todos();
+      localStorage.setItem('todos', JSON.stringify(todos));
+    });
+    
+    const saved = localStorage.getItem('todos');
+    if (saved) {
+      this.todos.set(JSON.parse(saved));
+    }
+  }
+  
+  addTodo(text: string): void {
+    if (text.trim()) {
+      this.todos.update(todos => [
+        ...todos,
+        { id: this.nextId++, text: text.trim(), completed: false }
+      ]);
+    }
+  }
+  
+  toggleTodo(id: number): void {
+    this.todos.update(todos =>
+      todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t)
+    );
+  }
+  
+  removeTodo(id: number): void {
+    this.todos.update(todos => todos.filter(t => t.id !== id));
+  }
+}
+```
+{% endraw %}
 
 ---
 
@@ -2051,6 +2229,7 @@ export class TodoSignalComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect } from '@angular/core';
 
@@ -2229,6 +2408,185 @@ export class ShoppingCartComponent {
   }
 }
 ```
+{% raw %}
+import { Component, signal, computed, effect } from '@angular/core';
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+@Component({
+  selector: 'app-shopping-cart',
+  standalone: true,
+  template: `
+    <div>
+      <h2>Carrinho de Compras</h2>
+      
+      @if (items().length === 0) {
+        <p>Carrinho vazio</p>
+      } @else {
+        <ul>
+          @for (item of items(); track item.id) {
+            <li>
+              <span>{{ item.name }} - R$ {{ item.price.toFixed(2) }}</span>
+              <div>
+                <button (click)="decreaseQuantity(item.id)">-</button>
+                <span>{{ item.quantity }}</span>
+                <button (click)="increaseQuantity(item.id)">+</button>
+                <button (click)="removeItem(item.id)">Remover</button>
+              </div>
+            </li>
+          }
+        </ul>
+        
+        <div>
+          <p>Subtotal: R$ {{ subtotal().toFixed(2) }}</p>
+          <p>Desconto ({{ (discount() * 100).toFixed(0) }}%): -R$ {{ discountAmount().toFixed(2) }}</p>
+          <p>Frete: R$ {{ shipping().toFixed(2) }}</p>
+          <p><strong>Total: R$ {{ total().toFixed(2) }}</strong></p>
+        </div>
+        
+        <div>
+          <label>Cupom de desconto:</label>
+          <input 
+            [value]="couponCode()" 
+            (input)="couponCode.set($any($event.target).value)"
+            placeholder="Digite o cupom">
+          <button (click)="applyCoupon()">Aplicar</button>
+          @if (couponError()) {
+            <p class="error">{{ couponError() }}</p>
+          }
+        </div>
+        
+        <button (click)="checkout()" [disabled]="!canCheckout()">
+          Finalizar Compra
+        </button>
+      }
+    </div>
+  `
+})
+export class ShoppingCartComponent {
+  items = signal<CartItem[]>([]);
+  discount = signal<number>(0);
+  shipping = signal<number>(10);
+  couponCode = signal<string>('');
+  couponError = signal<string | null>(null);
+  
+  subtotal = computed(() => 
+    this.items().reduce(
+      (sum, item) => sum + (item.price * item.quantity), 
+      0
+    )
+  );
+  
+  discountAmount = computed(() => 
+    this.subtotal() * this.discount()
+  );
+  
+  total = computed(() => 
+    this.subtotal() - this.discountAmount() + this.shipping()
+  );
+  
+  itemCount = computed(() => 
+    this.items().reduce((sum, item) => sum + item.quantity, 0)
+  );
+  
+  canCheckout = computed(() => 
+    this.items().length > 0 && this.total() > 0
+  );
+  
+  constructor() {
+    effect(() => {
+      const items = this.items();
+      localStorage.setItem('cart', JSON.stringify(items));
+    });
+    
+    const saved = localStorage.getItem('cart');
+    if (saved) {
+      try {
+        this.items.set(JSON.parse(saved));
+      } catch (e) {
+        console.error('Erro ao carregar carrinho:', e);
+      }
+    }
+  }
+  
+  addItem(item: Omit<CartItem, 'quantity'>): void {
+    this.items.update(items => {
+      const existing = items.find(i => i.id === item.id);
+      if (existing) {
+        return items.map(i => 
+          i.id === item.id 
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        );
+      }
+      return [...items, { ...item, quantity: 1 }];
+    });
+  }
+  
+  increaseQuantity(id: number): void {
+    this.items.update(items =>
+      items.map(item =>
+        item.id === id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  }
+  
+  decreaseQuantity(id: number): void {
+    this.items.update(items =>
+      items.map(item =>
+        item.id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      ).filter(item => !(item.id === id && item.quantity === 0))
+    );
+  }
+  
+  removeItem(id: number): void {
+    this.items.update(items => items.filter(item => item.id !== id));
+  }
+  
+  applyCoupon(): void {
+    const code = this.couponCode().toUpperCase();
+    const coupons: Record<string, number> = {
+      'DESC10': 0.1,
+      'DESC20': 0.2,
+      'FRETEGRATIS': 0
+    };
+    
+    if (coupons[code]) {
+      this.discount.set(coupons[code]);
+      if (code === 'FRETEGRATIS') {
+        this.shipping.set(0);
+      }
+      this.couponError.set(null);
+    } else {
+      this.couponError.set('Cupom inválido');
+    }
+  }
+  
+  checkout(): void {
+    if (this.canCheckout()) {
+      console.log('Checkout:', {
+        items: this.items(),
+        total: this.total(),
+        discount: this.discountAmount()
+      });
+      this.items.set([]);
+      this.discount.set(0);
+      this.shipping.set(10);
+      this.couponCode.set('');
+    }
+  }
+}
+```
+{% endraw %}
 
 ---
 
@@ -2238,6 +2596,7 @@ export class ShoppingCartComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -2310,6 +2669,7 @@ export class SearchComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -2319,6 +2679,7 @@ export class SearchComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect } from '@angular/core';
 
@@ -2419,6 +2780,7 @@ export class ThemeSwitcherComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 

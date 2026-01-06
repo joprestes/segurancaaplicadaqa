@@ -166,6 +166,108 @@ export class InteropComponent {
   }
 }
 ```
+{% raw %}
+import { Component, signal, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
+@Component({
+  selector: 'app-interop',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Integração Signals + Observables</h2>
+      
+      <div class="section">
+        <h3>1. Observable → Signal (toSignal)</h3>
+        <button (click)="loadProducts()">Carregar Produtos</button>
+        <ul>
+          @for (product of products(); track product.id) {
+            <li>{{ product.name }} - R$ {{ product.price }}</li>
+          }
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h3>2. Signal → Observable (toObservable)</h3>
+        <input 
+          [value]="searchTerm()" 
+          (input)="searchTerm.set($any($event.target).value)"
+          placeholder="Buscar...">
+        <p>Termo buscado: {{ searchTerm() }}</p>
+        <p>Resultados: {{ searchResults().length }}</p>
+        <ul>
+          @for (result of searchResults(); track result.id) {
+            <li>{{ result.name }}</li>
+          }
+        </ul>
+      </div>
+      
+      <div class="section">
+        <h3>3. Computed Signal</h3>
+        <p>Total de produtos: {{ productCount() }}</p>
+        <p>Preço total: R$ {{ totalPrice() }}</p>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  `]
+})
+export class InteropComponent {
+  private http = inject(HttpClient);
+  
+  searchTerm = signal('');
+  
+  products = toSignal(
+    this.http.get<Product[]>('/api/products'),
+    { initialValue: [] }
+  );
+  
+  searchResults = toSignal(
+    toObservable(this.searchTerm).pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(term => {
+        if (!term.trim()) {
+          return of([]);
+        }
+        return this.http.get<Product[]>(`/api/products/search?q=${term}`);
+      })
+    ),
+    { initialValue: [] }
+  );
+  
+  productCount = computed(() => this.products().length);
+  
+  totalPrice = computed(() => 
+    this.products().reduce((sum, p) => sum + p.price, 0)
+  );
+  
+  loadProducts(): void {
+    this.products = toSignal(
+      this.http.get<Product[]>('/api/products'),
+      { initialValue: [] }
+    );
+  }
+}
+```
 {% endraw %}
 
 **Explicação da Solução**:

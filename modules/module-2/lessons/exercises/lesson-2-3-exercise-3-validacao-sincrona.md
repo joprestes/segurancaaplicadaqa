@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **register-form.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -137,7 +138,6 @@ import { CommonModule } from '@angular/common';
     </form>
   `,
   styles: [`
-{% endraw %}
     .field {
       margin-bottom: 1rem;
     }
@@ -241,6 +241,7 @@ export class RegisterFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

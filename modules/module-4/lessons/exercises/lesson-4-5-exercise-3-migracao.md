@@ -188,8 +188,9 @@ export class BeforeComponent implements OnInit {
 ```
 
 **after-migration.component.ts** (DEPOIS)
+
 {% raw %}
-```typescript
+```
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -228,8 +229,8 @@ export class AfterComponent {
     });
   }
 }
-```
 {% endraw %}
+```
 
 **migration-steps.md**
 # Passos de Migração
@@ -237,7 +238,7 @@ export class AfterComponent {
 ## 1. Converter Propriedades para Signals
 
 Antes:
-```markdown
+```
 # Passos de Migração
 
 ## 1. Converter Propriedades para Signals
@@ -287,23 +288,18 @@ Antes:
 <li *ngFor="let user of users$ | async">{{ user.name }}</li>
 
 Depois:
-```
-
-Depois:
-```
 {% raw %}
+```
 <p>{{ count() }}</p>
-{% endraw %}
 @for (user of users(); track user.id) {
   <li>{{ user.name }}</li>
 }
-
-## 4. Habilitar Zoneless
-
 ```
+{% endraw %}
 
 ## 4. Habilitar Zoneless
 
+{% raw %}
 ```
 bootstrapApplication(AppComponent, {
   providers: [
@@ -317,6 +313,7 @@ bootstrapApplication(AppComponent, {
 - Verificar change detection
 - Corrigir problemas encontrados
 ```
+{% endraw %}
 
 ## 5. Testar e Corrigir
 
@@ -379,3 +376,5 @@ bootstrapApplication(AppComponent, {
 - [x] Casos de teste cobrem cenários principais
 - [x] Referências úteis estão incluídas
 
+
+```

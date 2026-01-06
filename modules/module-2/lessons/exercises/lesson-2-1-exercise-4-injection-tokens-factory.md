@@ -303,10 +303,7 @@ import { API_CONFIG, ApiConfig } from './api-config';
     <div>
       <h2>Feature Component</h2>
 {% raw %}
-
       <p>API URL: {{ apiService.getBaseUrl() }}</p>
-{% endraw %}
-{% raw %}
       <p>Timeout: {{ apiService.getTimeout() }}ms</p>
 {% endraw %}
 
@@ -338,14 +335,17 @@ import { API_CONFIG, ApiConfig } from './api-config';
   template: `
     <div>
       <h2>Feature Component</h2>
+{% raw %}
       <p>API URL: {{ apiService.getBaseUrl() }}</p>
       <p>Timeout: {{ apiService.getTimeout() }}ms</p>
+{% endraw %}
     </div>
   `
 })
 export class FeatureComponent {
   apiService = inject(ApiService);
 }
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { ApiService } from './api.service';

@@ -74,7 +74,6 @@ import { CommonModule } from '@angular/common';
     <div class="counter">
       <h2>Contador</h2>
 {% raw %}
-
       <p>Valor: {{ count() }}</p>
 {% endraw %}
 
@@ -110,7 +109,9 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="counter">
       <h2>Contador</h2>
+{% raw %}
       <p>Valor: {{ count() }}</p>
+{% endraw %}
       <button (click)="increment()">+</button>
       <button (click)="decrement()">-</button>
       <button (click)="reset()">Reset</button>
@@ -132,6 +133,7 @@ export class CounterComponent {
     this.count.set(0);
   }
 }
+{% raw %}
 ```typescript
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';

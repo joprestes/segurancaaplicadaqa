@@ -96,6 +96,11 @@ interface User {
   {{ user.isFollowing ? 'Seguindo' : 'Seguir' }}
 </button>
 ```
+{% raw %}
+<button [class.following]="user.isFollowing">
+  {{ user.isFollowing ? 'Seguindo' : 'Seguir' }}
+</button>
+```
 {% endraw %}
 
 ### Dica 4: *ngFor para Estatísticas
@@ -182,6 +187,55 @@ export class UserProfileComponent {
 **user-profile.component.html**
 {% raw %}
 ```html
+<div class="user-profile">
+  <div class="profile-header">
+    <img 
+      [src]="user.avatar" 
+      [alt]="user.name"
+      class="avatar"
+      [class.online]="user.isFollowing">
+    
+    <div class="profile-info">
+      <h2>{{ user.name }}</h2>
+      <p class="email">{{ user.email }}</p>
+      <p class="location">{{ getLocationText() }}</p>
+      <p class="age">{{ getAgeText() }}</p>
+    </div>
+
+    <div class="profile-actions">
+      <button 
+        [class.btn-following]="user.isFollowing"
+        [class.btn-follow]="!user.isFollowing"
+        (click)="onFollowToggle()">
+        {{ user.isFollowing ? 'Seguindo' : 'Seguir' }}
+      </button>
+      
+      <button 
+        class="btn-edit"
+        (click)="onEditProfile()">
+        Editar Perfil
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-bio" *ngIf="user.bio">
+    <h3>Sobre</h3>
+    <p>{{ user.bio }}</p>
+  </div>
+
+  <div class="profile-statistics">
+    <div 
+      *ngFor="let stat of statistics" 
+      class="stat-item"
+      [attr.data-label]="stat.label">
+      <span class="stat-icon">{{ stat.icon }}</span>
+      <span class="stat-label">{{ stat.label }}</span>
+      <span class="stat-value">{{ stat.value }}</span>
+    </div>
+  </div>
+</div>
+```
+{% raw %}
 <div class="user-profile">
   <div class="profile-header">
     <img 

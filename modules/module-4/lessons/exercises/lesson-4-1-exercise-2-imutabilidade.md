@@ -62,6 +62,7 @@ Crie:
 ### Abordagem Recomendada
 
 **item-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
@@ -104,7 +105,6 @@ interface Item {
       <p>Total: {{ items().length }} | Completos: {{ completedCount() }}</p>
     </div>
   `
-{% endraw %}
 })
 export class ItemListComponent {
   items = signal<Item[]>([]);
@@ -153,6 +153,95 @@ export class ItemListComponent {
   }
 }
 ```
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Item {
+  id: number;
+  name: string;
+  completed: boolean;
+}
+
+@Component({
+  selector: 'app-item-list',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <h2>Lista de Itens (OnPush + Imutabilidade)</h2>
+      
+      <input 
+        #input
+        (keyup.enter)="addItem(input.value); input.value = ''"
+        placeholder="Novo item">
+      
+      <ul>
+        @for (item of items(); track item.id) {
+          <li>
+            <input 
+              type="checkbox" 
+              [checked]="item.completed"
+              (change)="toggleItem(item.id)">
+            <span [class.completed]="item.completed">{{ item.name }}</span>
+            <button (click)="updateItem(item.id, 'Updated')">Atualizar</button>
+            <button (click)="removeItem(item.id)">Remover</button>
+          </li>
+        }
+      </ul>
+      
+      <p>Total: {{ items().length }} | Completos: {{ completedCount() }}</p>
+    </div>
+  `
+})
+export class ItemListComponent {
+  items = signal<Item[]>([]);
+  
+  completedCount = signal(0);
+  
+  addItem(name: string): void {
+    if (name.trim()) {
+      const newItem: Item = {
+        id: Date.now(),
+        name: name.trim(),
+        completed: false
+      };
+      
+      this.items.update(items => [...items, newItem]);
+      this.updateCompletedCount();
+    }
+  }
+  
+  toggleItem(id: number): void {
+    this.items.update(items =>
+      items.map(item => 
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
+    this.updateCompletedCount();
+  }
+  
+  updateItem(id: number, newName: string): void {
+    this.items.update(items =>
+      items.map(item => 
+        item.id === id ? { ...item, name: newName } : item
+      )
+    );
+  }
+  
+  removeItem(id: number): void {
+    this.items.update(items => items.filter(item => item.id !== id));
+    this.updateCompletedCount();
+  }
+  
+  private updateCompletedCount(): void {
+    this.completedCount.set(
+      this.items().filter(item => item.completed).length
+    );
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

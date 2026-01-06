@@ -327,6 +327,7 @@ bootstrapApplication(AppComponent, {
 ```
 
 **task-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -383,7 +384,6 @@ import { TaskFormComponent } from './task-form.component';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   constructor(public facade: TaskFacade) {}
@@ -409,6 +409,86 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TaskFacade } from './store/task.facade';
+import { Task } from './task.model';
+import { TaskFormComponent } from './task-form.component';
+
+@Component({
+  selector: 'app-task-list',
+  standalone: true,
+  imports: [CommonModule, TaskFormComponent],
+  template: `
+    <div>
+      <h2>Tarefas (NgRx Completo)</h2>
+      <button (click)="load()">Carregar</button>
+      
+      @if (facade.loading$ | async) {
+        <p>Carregando...</p>
+      }
+      
+      @if (facade.error$ | async) {
+        <p class="error">{{ facade.error$ | async }}</p>
+      }
+      
+      <app-task-form (taskAdded)="add($event)"></app-task-form>
+      
+      <h3>Ativas ({{ (facade.activeTasks$ | async)?.length }})</h3>
+      <ul>
+        @for (task of facade.activeTasks$ | async; track task.id) {
+          <li>
+            <input 
+              type="checkbox" 
+              [checked]="task.completed"
+              (change)="toggle(task.id)">
+            {{ task.title }}
+            <button (click)="delete(task.id)">Deletar</button>
+          </li>
+        }
+      </ul>
+      
+      <h3>Completas ({{ (facade.completedTasks$ | async)?.length }})</h3>
+      <ul>
+        @for (task of facade.completedTasks$ | async; track task.id) {
+          <li>
+            <input 
+              type="checkbox" 
+              [checked]="task.completed"
+              (change)="toggle(task.id)">
+            {{ task.title }}
+            <button (click)="delete(task.id)">Deletar</button>
+          </li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class TaskListComponent implements OnInit {
+  constructor(public facade: TaskFacade) {}
+  
+  ngOnInit(): void {
+    this.load();
+  }
+  
+  load(): void {
+    this.facade.loadTasks();
+  }
+  
+  add(task: Omit<Task, 'id'>): void {
+    this.facade.addTask(task);
+  }
+  
+  toggle(id: number): void {
+    this.facade.toggleTask(id);
+  }
+  
+  delete(id: number): void {
+    this.facade.deleteTask(id);
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

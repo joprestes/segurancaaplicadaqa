@@ -217,6 +217,7 @@ export class TaskRepository implements ITaskRepository {
 ```
 
 **presentation/components/task-list/task-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
@@ -244,7 +245,6 @@ import { Task } from '../../../domain/entities/task.entity';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   tasks = signal<Task[]>([]);
@@ -263,6 +263,50 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
+import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GetTasksUseCase } from '../../../application/use-cases/get-tasks.use-case';
+import { Task } from '../../../domain/entities/task.entity';
+
+@Component({
+  selector: 'app-task-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Tarefas</h2>
+      <ul>
+        @for (task of tasks(); track task.id) {
+          <li>
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description }}</p>
+            <span [class.completed]="task.completed">
+              {{ task.completed ? 'Concluída' : 'Pendente' }}
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class TaskListComponent implements OnInit {
+  tasks = signal<Task[]>([]);
+  
+  constructor(private getTasksUseCase: GetTasksUseCase) {}
+  
+  ngOnInit(): void {
+    this.loadTasks();
+  }
+  
+  loadTasks(): void {
+    this.getTasksUseCase.execute().subscribe({
+      next: (tasks) => this.tasks.set(tasks),
+      error: (error) => console.error('Error loading tasks:', error)
+    });
+  }
+}
+```
+{% endraw %}
 
 **app.config.ts**
 ```typescript

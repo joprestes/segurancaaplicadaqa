@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **shopping-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -98,7 +99,6 @@ import { CommonModule } from '@angular/common';
     </form>
   `,
   styles: [`
-{% endraw %}
     .item-row {
       display: flex;
       gap: 1rem;
@@ -162,6 +162,102 @@ export class ShoppingListComponent {
   }
 }
 ```
+import { Component } from '@angular/core';
+import { FormArray, FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-shopping-list',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
+  template: `
+    <form [formGroup]="shoppingForm" (ngSubmit)="onSubmit()">
+      <h2>Lista de Compras</h2>
+      
+      <div formArrayName="items">
+        @for (item of items.controls; track $index) {
+          <div [formGroupName]="$index" class="item-row">
+            <input formControlName="name" placeholder="Nome do item">
+            <input formControlName="quantity" type="number" placeholder="Quantidade" min="1">
+            <button type="button" (click)="removeItem($index)">Remover</button>
+          </div>
+        }
+      </div>
+      
+      <button type="button" (click)="addItem()">Adicionar Item</button>
+      <button type="submit" [disabled]="shoppingForm.invalid">Salvar Lista</button>
+      
+      <div *ngIf="submitted">
+        <h3>Lista salva:</h3>
+        <pre>{{ submittedData | json }}</pre>
+      </div>
+    </form>
+  `,
+  styles: [`
+    .item-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    
+    .item-row input {
+      flex: 1;
+      padding: 0.5rem;
+    }
+  `]
+})
+export class ShoppingListComponent {
+  shoppingForm: FormGroup;
+  submitted = false;
+  submittedData: any = null;
+  
+  constructor(private fb: FormBuilder) {
+    this.shoppingForm = this.fb.group({
+      items: this.fb.array([])
+    });
+  }
+  
+  get items(): FormArray {
+    return this.shoppingForm.get('items') as FormArray;
+  }
+  
+  addItem(): void {
+    const itemGroup = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      quantity: [1, [Validators.required, Validators.min(1)]]
+    });
+    
+    this.items.push(itemGroup);
+  }
+  
+  removeItem(index: number): void {
+    if (this.items.length > 0) {
+      this.items.removeAt(index);
+    }
+  }
+  
+  onSubmit(): void {
+    if (this.shoppingForm.valid) {
+      this.submittedData = this.shoppingForm.value;
+      this.submitted = true;
+      console.log('Shopping list:', this.shoppingForm.value);
+    } else {
+      this.shoppingForm.markAllAsTouched();
+    }
+  }
+  
+  getItemControl(index: number, controlName: string): FormControl {
+    return this.items.at(index).get(controlName) as FormControl;
+  }
+  
+  hasError(index: number, controlName: string): boolean {
+    const control = this.getItemControl(index, controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

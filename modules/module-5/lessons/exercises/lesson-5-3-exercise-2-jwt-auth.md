@@ -266,6 +266,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 ```
 
 **login.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -317,7 +318,6 @@ import { AuthService } from './auth.service';
       </form>
     </div>
   `
-{% endraw %}
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
@@ -352,6 +352,90 @@ export class LoginComponent {
   }
 }
 ```
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  template: `
+    <div class="login-container">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h2>Login</h2>
+        
+        <div class="form-group">
+          <label>Email</label>
+          <input 
+            type="email" 
+            formControlName="email"
+            placeholder="seu@email.com">
+          @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+            <span class="error">Email é obrigatório</span>
+          }
+        </div>
+        
+        <div class="form-group">
+          <label>Senha</label>
+          <input 
+            type="password" 
+            formControlName="password"
+            placeholder="Senha">
+          @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+            <span class="error">Senha é obrigatória</span>
+          }
+        </div>
+        
+        @if (errorMessage()) {
+          <div class="error-message">{{ errorMessage() }}</div>
+        }
+        
+        <button 
+          type="submit" 
+          [disabled]="loginForm.invalid || loading()">
+          {{ loading() ? 'Entrando...' : 'Entrar' }}
+        </button>
+      </form>
+    </div>
+  `
+})
+export class LoginComponent {
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  
+  loading = signal(false);
+  errorMessage = signal<string | null>(null);
+  
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
+  
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    
+    this.loading.set(true);
+    this.errorMessage.set(null);
+    
+    this.authService.login(this.loginForm.value as any).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Erro ao fazer login');
+        this.loading.set(false);
+      }
+    });
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

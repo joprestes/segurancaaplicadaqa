@@ -159,7 +159,6 @@ import { CommonModule } from '@angular/common';
     <div>
       <h2>Contador (OnPush)</h2>
 {% raw %}
-
       <p>Valor: {{ count() }}</p>
 {% endraw %}
 
@@ -191,7 +190,9 @@ import { CommonModule } from '@angular/common';
   template: `
     <div>
       <h2>Contador (OnPush)</h2>
+{% raw %}
       <p>Valor: {{ count() }}</p>
+{% endraw %}
       <button (click)="increment()">Incrementar</button>
       <button (click)="decrement()">Decrementar</button>
     </div>
@@ -208,6 +209,7 @@ export class CounterOnPushComponent {
     this.count.update(v => v - 1);
   }
 }
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';

@@ -218,6 +218,7 @@ export class StatusComponent {
 ```
 
 **exemplo-uso.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { StatusComponent } from './status/status.component';
@@ -226,7 +227,6 @@ import { StatusComponent } from './status/status.component';
   selector: 'app-exemplo-uso',
   standalone: true,
   imports: [StatusComponent],
-{% raw %}
   template: `
     <div class="status-examples">
       <h2>Exemplos de Status</h2>
@@ -240,7 +240,6 @@ import { StatusComponent } from './status/status.component';
       <app-status status="error" label="Falha na Conexão" [showIcon]="false"></app-status>
     </div>
   `
-{% endraw %}
 })
 export class ExemploUsoComponent {}
 ```

@@ -103,6 +103,7 @@ export const adminRoutes: Routes = [
 ```
 
 **admin/admin.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -112,7 +113,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-admin',
   standalone: true,
   imports: [RouterModule, CommonModule],
-{% raw %}
   template: `
     <div class="admin-layout">
       <nav>
@@ -128,7 +128,6 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   styles: [`
-{% endraw %}
     .admin-layout {
       display: flex;
     }
@@ -149,6 +148,7 @@ export class AdminComponent {}
 ```
 
 **admin/user-management/user-management.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -157,19 +157,18 @@ import { CommonModule } from '@angular/common';
   selector: 'app-user-management',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h1>Gerenciamento de Usuários</h1>
       <p>Lista de usuários aqui...</p>
     </div>
   `
-{% endraw %}
 })
 export class UserManagementComponent {}
 ```
 
 **admin/settings/settings.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -178,14 +177,12 @@ import { CommonModule } from '@angular/common';
   selector: 'app-settings',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h1>Configurações</h1>
       <p>Configurações do sistema aqui...</p>
     </div>
   `
-{% endraw %}
 })
 export class SettingsComponent {}
 ```
@@ -203,6 +200,7 @@ export const productRoutes: Routes = [
 ```
 
 **products/product-list/product-list.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -212,7 +210,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-product-list',
   standalone: true,
   imports: [CommonModule, RouterModule],
-{% raw %}
   template: `
     <div>
       <h1>Produtos</h1>
@@ -222,13 +219,12 @@ import { RouterModule } from '@angular/router';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class ProductListComponent {}
 ```
 
 **products/product-detail/product-detail.component.ts**
-{% raw %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -243,7 +239,6 @@ import { CommonModule } from '@angular/common';
       <h1>Detalhes do Produto {{ productId }}</h1>
     </div>
   `
-{% endraw %}
 })
 export class ProductDetailComponent implements OnInit {
   productId: string | null = null;

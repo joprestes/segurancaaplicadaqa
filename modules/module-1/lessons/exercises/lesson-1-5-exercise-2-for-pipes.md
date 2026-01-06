@@ -207,6 +207,51 @@ export class ProductListComponent {
   </div>
 </div>
 ```
+{% raw %}
+<div class="product-list">
+  <h2>Lista de Produtos</h2>
+  
+  <div class="products-grid">
+    @for (product of products; track product.id) {
+      <div class="product-card">
+        <h3>{{ product.name }}</h3>
+        <p class="category">{{ product.category }}</p>
+        
+        <div class="pricing">
+          <p class="original-price" *ngIf="product.discount > 0">
+            De: <span class="strikethrough">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</span>
+          </p>
+          <p class="final-price">
+            Por: <strong>{{ calculateFinalPrice(product) | currency:'BRL':'symbol':'1.2-2' }}</strong>
+          </p>
+          @if (product.discount > 0) {
+            <span class="discount-badge">
+              {{ product.discount | percent:'1.0-0' }} OFF
+            </span>
+          }
+        </div>
+        
+        <p class="release-date">
+          Lançado em: {{ product.releaseDate | date:'dd/MM/yyyy' }}
+        </p>
+        
+        <p class="release-time">
+          {{ product.releaseDate | date:'short' }}
+        </p>
+      </div>
+    } @empty {
+      <p class="empty-message">Nenhum produto disponível</p>
+    }
+  </div>
+  
+  <div class="summary">
+    <h3>Resumo</h3>
+    <p>Total de produtos: {{ products.length }}</p>
+    <p>Valor total: {{ getTotalValue() | currency:'BRL':'symbol':'1.2-2' }}</p>
+    <p>Desconto médio: {{ getAverageDiscount() | percent:'1.0-2' }}</p>
+  </div>
+</div>
+```
 {% endraw %}
 
 **product-list.component.css**

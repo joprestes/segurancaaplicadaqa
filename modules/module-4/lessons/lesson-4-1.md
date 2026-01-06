@@ -845,6 +845,7 @@ Angular funciona exatamente assim: trackBy fornece o "número único" (ID) que p
 
 **Exemplo Prático Completo**:
 
+{% raw %}
 ```typescript
 interface Product {
   id: number;
@@ -910,6 +911,72 @@ export class TrackByComponent {
   }
 }
 ```
+{% raw %}
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+}
+
+@Component({
+  selector: 'app-trackby',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <h2>Products ({{ products().length }})</h2>
+      <button (click)="refreshProducts()">Refresh</button>
+      <button (click)="addProduct()">Add Product</button>
+      <ul>
+        @for (product of products(); track trackByProductId($index, product)) {
+          <li>
+            <strong>{{ product.name }}</strong> - 
+            {{ product.price | currency }} - 
+            {{ product.category }}
+          </li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class TrackByComponent {
+  products = signal<Product[]>([]);
+  
+  constructor() {
+    this.loadProducts();
+  }
+  
+  trackByProductId(index: number, product: Product): number {
+    return product.id;
+  }
+  
+  loadProducts(): void {
+    this.products.set([
+      { id: 1, name: 'Laptop', price: 999, category: 'Electronics' },
+      { id: 2, name: 'Mouse', price: 25, category: 'Accessories' },
+      { id: 3, name: 'Keyboard', price: 75, category: 'Accessories' }
+    ]);
+  }
+  
+  refreshProducts(): void {
+    this.products.update(products => [...products]);
+  }
+  
+  addProduct(): void {
+    this.products.update(products => [
+      ...products,
+      { 
+        id: Date.now(), 
+        name: `Product ${products.length + 1}`, 
+        price: Math.random() * 100,
+        category: 'New'
+      }
+    ]);
+  }
+}
+```
+{% endraw %}
 
 **Análise do Exemplo**:
 - `trackByProductId` retorna `product.id` como identificador único
@@ -1042,6 +1109,7 @@ export class TrackByComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, Input, ChangeDetectionStrategy, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -1209,6 +1277,7 @@ export class UserListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação**:
 - Usa OnPush strategy para performance otimizada
@@ -1226,6 +1295,7 @@ export class UserListComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, Input, signal } from '@angular/core';
 import { Observable, interval, Subject } from 'rxjs';
@@ -1383,6 +1453,164 @@ export class StockTrackerComponent implements OnInit, OnDestroy {
   }
 }
 ```
+{% raw %}
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, Input, signal } from '@angular/core';
+import { Observable, interval, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+interface StockPrice {
+  symbol: string;
+  price: number;
+  change: number;
+  timestamp: Date;
+}
+
+@Component({
+  selector: 'app-stock-tracker',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div class="stock-tracker">
+      <h2>Stock Tracker (OnPush + Observables)</h2>
+      
+      <div class="controls">
+        <button (click)="startTracking()" [disabled]="isTracking()">
+          Start Tracking
+        </button>
+        <button (click)="stopTracking()" [disabled]="!isTracking()">
+          Stop Tracking
+        </button>
+        <button (click)="toggleDetached()">
+          {{ isDetached() ? 'Reattach' : 'Detach' }}
+        </button>
+      </div>
+      
+      <div class="status">
+        <p>Status: {{ isTracking() ? 'Tracking' : 'Stopped' }}</p>
+        <p>Detached: {{ isDetached() ? 'Yes' : 'No' }}</p>
+        <p>Updates: {{ updateCount() }}</p>
+      </div>
+      
+      <div class="stocks">
+        @for (stock of stocks(); track stock.symbol) {
+          <div class="stock-item">
+            <span class="symbol">{{ stock.symbol }}</span>
+            <span class="price" [class.positive]="stock.change > 0" 
+                              [class.negative]="stock.change < 0">
+              ${{ stock.price.toFixed(2) }}
+            </span>
+            <span class="change">
+              {{ stock.change > 0 ? '+' : '' }}{{ stock.change.toFixed(2) }}
+            </span>
+            <span class="timestamp">
+              {{ stock.timestamp | date:'HH:mm:ss' }}
+            </span>
+          </div>
+        }
+      </div>
+    </div>
+  `,
+  styles: [`
+    .stock-tracker { padding: 20px; }
+    .controls { display: flex; gap: 10px; margin-bottom: 20px; }
+    .status { margin-bottom: 20px; }
+    .stocks { display: flex; flex-direction: column; gap: 10px; }
+    .stock-item { 
+      display: flex; 
+      gap: 20px; 
+      padding: 10px; 
+      border: 1px solid #ddd; 
+      border-radius: 4px;
+    }
+    .symbol { font-weight: bold; min-width: 80px; }
+    .price { min-width: 100px; }
+    .positive { color: green; }
+    .negative { color: red; }
+  `]
+})
+export class StockTrackerComponent implements OnInit, OnDestroy {
+  stocks = signal<StockPrice[]>([]);
+  isTracking = signal<boolean>(false);
+  isDetached = signal<boolean>(false);
+  updateCount = signal<number>(0);
+  
+  private destroy$ = new Subject<void>();
+  private stockSymbols = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA'];
+  
+  constructor(private cdr: ChangeDetectorRef) {}
+  
+  ngOnInit(): void {
+    this.initializeStocks();
+  }
+  
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  
+  initializeStocks(): void {
+    const initialStocks: StockPrice[] = this.stockSymbols.map(symbol => ({
+      symbol,
+      price: Math.random() * 1000,
+      change: 0,
+      timestamp: new Date()
+    }));
+    this.stocks.set(initialStocks);
+  }
+  
+  startTracking(): void {
+    if (this.isTracking()) return;
+    
+    this.isTracking.set(true);
+    
+    interval(1000)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.updateStocks();
+        
+        if (this.isDetached()) {
+          this.cdr.detectChanges();
+        } else {
+          this.cdr.markForCheck();
+        }
+        
+        this.updateCount.update(count => count + 1);
+      });
+  }
+  
+  stopTracking(): void {
+    this.isTracking.set(false);
+    this.destroy$.next();
+  }
+  
+  updateStocks(): void {
+    this.stocks.update(stocks =>
+      stocks.map(stock => {
+        const change = (Math.random() - 0.5) * 10;
+        const newPrice = Math.max(0, stock.price + change);
+        
+        return {
+          ...stock,
+          price: newPrice,
+          change: change,
+          timestamp: new Date()
+        };
+      })
+    );
+  }
+  
+  toggleDetached(): void {
+    if (this.isDetached()) {
+      this.cdr.reattach();
+      this.isDetached.set(false);
+    } else {
+      this.cdr.detach();
+      this.isDetached.set(true);
+    }
+  }
+}
+```
+{% endraw %}
 
 **Explicação**:
 - Componente OnPush que atualiza via Observable
@@ -1399,6 +1627,7 @@ export class StockTrackerComponent implements OnInit, OnDestroy {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, Input, signal } from '@angular/core';
 
@@ -1493,6 +1722,101 @@ export class DummyComponentOnPush {
   @Input() data!: string;
 }
 ```
+{% raw %}
+import { Component, ChangeDetectionStrategy, Input, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-performance-demo',
+  standalone: true,
+  template: `
+    <div class="performance-demo">
+      <h2>Performance Comparison</h2>
+      
+      <div class="controls">
+        <button (click)="triggerChangeDetection()">
+          Trigger Change Detection
+        </button>
+        <button (click)="addComponent()">Add Component</button>
+        <button (click)="clearComponents()">Clear</button>
+      </div>
+      
+      <div class="stats">
+        <p>Total Components: {{ componentCount() }}</p>
+        <p>Change Detection Cycles: {{ cycles() }}</p>
+        <p>Last Update: {{ lastUpdate() | date:'HH:mm:ss.SSS' }}</p>
+      </div>
+      
+      <div class="components">
+        @for (id of componentIds(); track id) {
+          <app-dummy-component [id]="id" [data]="sharedData()" />
+        }
+      </div>
+    </div>
+  `
+})
+export class PerformanceDemoComponent {
+  componentIds = signal<number[]>([]);
+  sharedData = signal<string>('Initial Data');
+  cycles = signal<number>(0);
+  lastUpdate = signal<Date>(new Date());
+  
+  componentCount = signal<number>(0);
+  
+  constructor() {
+    setInterval(() => {
+      this.cycles.update(c => c + 1);
+      this.lastUpdate.set(new Date());
+    }, 100);
+  }
+  
+  triggerChangeDetection(): void {
+    this.sharedData.update(data => `Updated: ${Date.now()}`);
+  }
+  
+  addComponent(): void {
+    this.componentIds.update(ids => [...ids, Date.now()]);
+    this.componentCount.set(this.componentIds().length);
+  }
+  
+  clearComponents(): void {
+    this.componentIds.set([]);
+    this.componentCount.set(0);
+  }
+}
+
+@Component({
+  selector: 'app-dummy-component',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.Default,
+  template: `
+    <div class="dummy">
+      <span>Component {{ id }}</span>
+      <span>{{ data }}</span>
+    </div>
+  `
+})
+export class DummyComponentDefault {
+  @Input() id!: number;
+  @Input() data!: string;
+}
+
+@Component({
+  selector: 'app-dummy-component-onpush',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div class="dummy">
+      <span>Component {{ id }}</span>
+      <span>{{ data }}</span>
+    </div>
+  `
+})
+export class DummyComponentOnPush {
+  @Input() id!: number;
+  @Input() data!: string;
+}
+```
+{% endraw %}
 
 **Explicação**:
 - Demonstra diferença visual de performance
@@ -1654,6 +1978,7 @@ export class ObservableComponent {
 ```
 
 **Alternativa com async pipe**:
+{% raw %}
 ```typescript
 @Component({
   template: `{{ data$ | async }}`
@@ -1662,6 +1987,15 @@ export class AsyncComponent {
   data$ = this.service.getData();
 }
 ```
+{% raw %}
+@Component({
+  template: `{{ data$ | async }}`
+})
+export class AsyncComponent {
+  data$ = this.service.getData();
+}
+```
+{% endraw %}
 
 ---
 

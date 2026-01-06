@@ -200,10 +200,7 @@ import { ChildComponent } from './child.component';
     <div class="parent">
       <h2>Componente Pai</h2>
 {% raw %}
-
       <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
-{% endraw %}
-{% raw %}
       <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
 {% endraw %}
 
@@ -234,8 +231,10 @@ import { ChildComponent } from './child.component';
   template: `
     <div class="parent">
       <h2>Componente Pai</h2>
+{% raw %}
       <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
       <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
+{% endraw %}
       <app-child></app-child>
     </div>
   `
@@ -249,6 +248,7 @@ export class ParentComponent {
     console.log('ParentComponent - ComponentService:', this.componentService.getInstanceId());
   }
 }
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { GlobalService } from './global.service';
@@ -293,10 +293,7 @@ import { ComponentService } from './component.service';
     <div class="child">
       <h3>Componente Filho</h3>
 {% raw %}
-
       <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
-{% endraw %}
-{% raw %}
       <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
 {% endraw %}
 
@@ -327,8 +324,10 @@ import { ComponentService } from './component.service';
   template: `
     <div class="child">
       <h3>Componente Filho</h3>
+{% raw %}
       <p>GlobalService ID: {{ globalService.getInstanceId() }}</p>
       <p>ComponentService ID: {{ componentService.getInstanceId() }}</p>
+{% endraw %}
       <p class="note">
         GlobalService: Mesma instância (root)<br>
         ComponentService: Mesma instância do pai (herdado)
@@ -345,6 +344,7 @@ export class ChildComponent {
     console.log('ChildComponent - ComponentService:', this.componentService.getInstanceId());
   }
 }
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { GlobalService } from './global.service';

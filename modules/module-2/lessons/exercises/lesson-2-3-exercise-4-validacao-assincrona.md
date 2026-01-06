@@ -103,6 +103,7 @@ export function emailExistsValidator(userService: UserService): AsyncValidatorFn
 ```
 
 **register-async.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -146,7 +147,6 @@ import { emailExistsValidator } from './email-exists.validator';
     </form>
   `,
   styles: [`
-{% endraw %}
     .field {
       margin-bottom: 1rem;
     }
@@ -237,6 +237,7 @@ export class RegisterAsyncComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

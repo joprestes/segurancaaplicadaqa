@@ -136,7 +136,7 @@ export class CalculatorService {
 ```
 
 **calculator.component.ts**
-{% raw %}
+
 ```typescript
 import { Component } from '@angular/core';
 import { CalculatorService } from './calculator.service';
@@ -173,7 +173,6 @@ import { CommonModule } from '@angular/common';
     </div>
   `,
   styles: [`
-{% endraw %}
     .calculator {
       max-width: 400px;
       margin: 0 auto;

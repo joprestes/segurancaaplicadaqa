@@ -1424,6 +1424,7 @@ export class AuthService {
 
 **Uso no Componente**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { AuthService } from './auth.service';
@@ -1445,6 +1446,28 @@ export class HeaderComponent {
   }
 }
 ```
+{% raw %}
+import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+
+@Component({
+  selector: 'app-header',
+  template: `
+    <div *ngIf="authService.isAuthenticated$ | async">
+      Welcome, {{ (authService.currentUser$ | async)?.name }}!
+      <button (click)="logout()">Logout</button>
+    </div>
+  `
+})
+export class HeaderComponent {
+  constructor(public authService: AuthService) {}
+  
+  logout() {
+    this.authService.logout();
+  }
+}
+```
+{% endraw %}
 
 ---
 
@@ -1507,7 +1530,7 @@ export class DashboardService {
 2. **Use takeUntil para múltiplas subscriptions**
    - **Por quê**: Facilita cleanup de múltiplas subscriptions
    - **Exemplo**: 
-   ```typescript
+```
    private destroy$ = new Subject<void>();
    
    this.data$.pipe(
@@ -1518,7 +1541,7 @@ export class DashboardService {
      this.destroy$.next();
      this.destroy$.complete();
    }
-   ```
+```
    - **Benefício**: Evita memory leaks, código mais organizado
 
 3. **Use shareReplay para dados compartilhados**

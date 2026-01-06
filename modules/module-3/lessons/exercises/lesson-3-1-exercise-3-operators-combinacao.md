@@ -65,7 +65,7 @@ Crie:
 ### Abordagem Recomendada
 
 **combination-demo.component.ts**
-{% raw %}
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -113,7 +113,6 @@ import { take, map } from 'rxjs/operators';
       </section>
     </div>
   `
-{% endraw %}
 })
 export class CombinationDemoComponent {
   combineLatestResult: string = '';

@@ -229,6 +229,75 @@ export class DashboardComponent {
   </section>
 </div>
 ```
+{% raw %}
+<div class="dashboard" [ngClass]="getThemeClasses()" [ngStyle]="getThemeStyles()">
+  <header class="dashboard-header">
+    <h1>Dashboard de {{ userName }}</h1>
+    <div class="header-controls">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        placeholder="Buscar atividades..."
+        name="search">
+      <button (click)="toggleViewMode()">
+        Modo: {{ viewMode === 'grid' ? 'Grade' : 'Lista' }}
+      </button>
+      <button (click)="toggleTheme()">
+        Tema: {{ theme === 'light' ? 'Claro' : 'Escuro' }}
+      </button>
+    </div>
+  </header>
+  
+  <section class="metrics">
+    <h2>Métricas</h2>
+    <div [ngClass]="{'metrics-grid': viewMode === 'grid', 'metrics-list': viewMode === 'list'}">
+      <div 
+        *ngFor="let metric of metrics; trackBy: trackByLabel"
+        class="metric-card"
+        [ngClass]="{'positive': metric.change > 0, 'negative': metric.change < 0}">
+        <span class="metric-icon">{{ metric.icon }}</span>
+        <div class="metric-content">
+          <h3>{{ metric.label }}</h3>
+          <p class="metric-value">{{ metric.value | number }}</p>
+          <span 
+            class="metric-change"
+            [ngStyle]="{'color': metric.change > 0 ? 'green' : 'red'}">
+            {{ metric.change > 0 ? '+' : '' }}{{ metric.change }}%
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="activities">
+    <h2>Atividades Recentes</h2>
+    <div [ngSwitch]="filteredActivities.length">
+      <div *ngSwitchCase="0" class="empty-state">
+        <p>Nenhuma atividade encontrada</p>
+      </div>
+      <ul *ngSwitchDefault [ngClass]="{'activity-list': true, 'list-view': viewMode === 'list'}">
+        <li 
+          *ngFor="let activity of filteredActivities; trackBy: trackById"
+          [ngClass]="getActivityClass(activity.type)">
+          <span class="activity-icon">
+            <span [ngSwitch]="activity.type">
+              <span *ngSwitchCase="'success'">✓</span>
+              <span *ngSwitchCase="'info'">ℹ</span>
+              <span *ngSwitchCase="'warning'">⚠</span>
+              <span *ngSwitchDefault>✗</span>
+            </span>
+          </span>
+          <div class="activity-content">
+            <p class="activity-title">{{ activity.title }}</p>
+            <span class="activity-time">{{ activity.time }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</div>
+```
 {% endraw %}
 
 **dashboard.component.css**

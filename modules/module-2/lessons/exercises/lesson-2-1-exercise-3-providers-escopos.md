@@ -265,10 +265,7 @@ import { ComponentScopedService } from './component-scoped.service';
       <div class="service-info">
         <h3>RootService (providedIn: 'root')</h3>
 {% raw %}
-
         <p>ID: {{ rootService.getInstanceId() }}</p>
-{% endraw %}
-{% raw %}
         <p>{{ rootService.getScope() }}</p>
 {% endraw %}
 
@@ -277,10 +274,7 @@ import { ComponentScopedService } from './component-scoped.service';
       <div class="service-info">
         <h3>AnyService (providedIn: 'any')</h3>
 {% raw %}
-
         <p>ID: {{ anyService.getInstanceId() }}</p>
-{% endraw %}
-{% raw %}
         <p>{{ anyService.getScope() }}</p>
 {% endraw %}
 
@@ -289,10 +283,7 @@ import { ComponentScopedService } from './component-scoped.service';
       <div class="service-info">
         <h3>ComponentScopedService (component providers)</h3>
 {% raw %}
-
         <p>ID: {{ componentService.getInstanceId() }}</p>
-{% endraw %}
-{% raw %}
         <p>{{ componentService.getScope() }}</p>
 {% endraw %}
 
@@ -325,20 +316,26 @@ import { ComponentScopedService } from './component-scoped.service';
       
       <div class="service-info">
         <h3>RootService (providedIn: 'root')</h3>
+{% raw %}
         <p>ID: {{ rootService.getInstanceId() }}</p>
         <p>{{ rootService.getScope() }}</p>
+{% endraw %}
       </div>
       
       <div class="service-info">
         <h3>AnyService (providedIn: 'any')</h3>
+{% raw %}
         <p>ID: {{ anyService.getInstanceId() }}</p>
         <p>{{ anyService.getScope() }}</p>
+{% endraw %}
       </div>
       
       <div class="service-info">
         <h3>ComponentScopedService (component providers)</h3>
+{% raw %}
         <p>ID: {{ componentService.getInstanceId() }}</p>
         <p>{{ componentService.getScope() }}</p>
+{% endraw %}
       </div>
       
       <app-demo-child></app-demo-child>
@@ -352,6 +349,7 @@ export class DemoComponent {
     public componentService: ComponentScopedService
   ) {}
 }
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { RootService } from './root.service';
@@ -412,12 +410,11 @@ import { ComponentScopedService } from './component-scoped.service';
     <div class="child-demo">
       <h3>Componente Filho</h3>
 {% raw %}
-
       <p>RootService ID: {{ rootService.getInstanceId() }} (mesmo)</p>
-{% endraw %}
-{% raw %}
       <p>AnyService ID: {{ anyService.getInstanceId() }} (mesmo se mesmo módulo)</p>
+{% endraw %}
 
+{% raw %}
       <p>ComponentScopedService ID: {{ componentService.getInstanceId() }} (novo)</p>
 {% endraw %}
 
@@ -444,9 +441,11 @@ import { ComponentScopedService } from './component-scoped.service';
   template: `
     <div class="child-demo">
       <h3>Componente Filho</h3>
+{% raw %}
       <p>RootService ID: {{ rootService.getInstanceId() }} (mesmo)</p>
       <p>AnyService ID: {{ anyService.getInstanceId() }} (mesmo se mesmo módulo)</p>
       <p>ComponentScopedService ID: {{ componentService.getInstanceId() }} (novo)</p>
+{% endraw %}
     </div>
   `
 })
@@ -457,6 +456,7 @@ export class DemoChildComponent {
     public componentService: ComponentScopedService
   ) {}
 }
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { RootService } from './root.service';

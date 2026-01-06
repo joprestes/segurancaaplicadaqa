@@ -145,7 +145,6 @@ import { CommonModule } from '@angular/common';
   template: `
     <header>
 {% raw %}
-
       <h1>{{ title() }}</h1>
 {% endraw %}
 
@@ -170,7 +169,9 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header>
+{% raw %}
       <h1>{{ title() }}</h1>
+{% endraw %}
       <nav>
         <a routerLink="/home">Home</a>
         <a routerLink="/about">About</a>
@@ -181,6 +182,7 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   title = signal('My App');
 }
+{% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -224,7 +226,6 @@ interface User {
   template: `
     <div>
 {% raw %}
-
       <h2>{{ title() }}</h2>
 {% endraw %}
 
@@ -257,6 +258,39 @@ interface User {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
+{% raw %}
+      <h2>{{ title() }}</h2>
+{% endraw %}
+      <ul>
+        @for (user of users(); track user.id) {
+          <li>{{ user.name }} - {{ user.email }}</li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class UserListComponent {
+  @Input() users = signal<User[]>([]);
+  title = signal('Usuários');
+}
+{% raw %}
+```typescript
+import { Component, ChangeDetectionStrategy, Input, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
       <h2>{{ title() }}</h2>
       <ul>
         @for (user of users(); track user.id) {
@@ -270,7 +304,8 @@ export class UserListComponent {
   @Input() users = signal<User[]>([]);
   title = signal('Usuários');
 }
-```typescript
+```
+{% raw %}
 import { Component, ChangeDetectionStrategy, Input, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

@@ -56,4 +56,5 @@ exclude:
   - node_modules
   - vendor
   - README.md
+  - backups
 

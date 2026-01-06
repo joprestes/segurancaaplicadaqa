@@ -460,6 +460,7 @@ Template HTML                  Component Class
 
 **Exemplo Prático**:
 
+{% raw %}
 ```html
 <div class="product-card">
   <h2>{{ product.name }}</h2>
@@ -472,6 +473,19 @@ Template HTML                  Component Class
   <img [src]="product.imageUrl" [alt]="product.name">
 </div>
 ```
+{% raw %}
+<div class="product-card">
+  <h2>{{ product.name }}</h2>
+  <p class="price">{{ product.price | currency }}</p>
+  <button 
+    [disabled]="!product.inStock"
+    (click)="addToCart()">
+    Adicionar ao Carrinho
+  </button>
+  <img [src]="product.imageUrl" [alt]="product.name">
+</div>
+```
+{% endraw %}
 
 ---
 
@@ -1005,6 +1019,7 @@ defineProps<{ product: Product }>();
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -1054,6 +1069,56 @@ export class ProductCardComponent {
   }
 }
 ```
+{% raw %}
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  inStock: boolean;
+}
+
+@Component({
+  selector: 'app-product-card',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="product-card" [class.out-of-stock]="!product.inStock">
+      <img [src]="product.imageUrl" [alt]="product.name">
+      <h3>{{ product.name }}</h3>
+      <p class="price">{{ product.price | currency:'BRL' }}</p>
+      <button 
+        [disabled]="!product.inStock"
+        (click)="onAddToCart()">
+        {{ product.inStock ? 'Adicionar ao Carrinho' : 'Indisponível' }}
+      </button>
+    </div>
+  `,
+  styles: [`
+    .product-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      max-width: 300px;
+    }
+    .out-of-stock {
+      opacity: 0.6;
+    }
+  `]
+})
+export class ProductCardComponent {
+  @Input() product!: Product;
+  @Output() addToCart = new EventEmitter<Product>();
+
+  onAddToCart(): void {
+    this.addToCart.emit(this.product);
+  }
+}
+```
+{% endraw %}
 
 **Explicação**:
 
@@ -1124,7 +1189,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 1. **Sempre use Standalone Components em novos projetos**
    - **Por quê**: Simplifica arquitetura, reduz boilerplate, melhora performance e é o padrão moderno do Angular
    - **Exemplo Bom**:
-     ```typescript
+```
      @Component({
        selector: 'app-product',
        standalone: true,
@@ -1132,33 +1197,33 @@ export class TimerComponent implements OnInit, OnDestroy {
        templateUrl: './product.component.html'
      })
      export class ProductComponent {}
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      @Component({
        selector: 'app-product',
        templateUrl: './product.component.html'
      })
      export class ProductComponent {}
      // Precisa ser declarado em NgModule
-     ```
+```
    - **Benefícios**: Menos arquivos, código mais limpo, melhor tree-shaking
 
 2. **Use ViewEncapsulation.Emulated (padrão)**
    - **Por quê**: Isola estilos sem complexidade do Shadow DOM, funciona em todos os navegadores
    - **Exemplo Bom**:
-     ```typescript
+```
      @Component({
        encapsulation: ViewEncapsulation.Emulated
      })
-     ```
+```
    - **Quando usar None**: Apenas quando realmente precisa de estilos globais
    - **Quando usar ShadowDom**: Apenas quando precisa isolamento completo e suporta navegadores modernos
 
 3. **Limpe subscriptions em ngOnDestroy**
    - **Por quê**: Previne memory leaks, especialmente crítico com observables e timers
    - **Exemplo Bom**:
-     ```typescript
+```
      export class TimerComponent implements OnDestroy {
        private subscription = new Subscription();
        
@@ -1172,20 +1237,20 @@ export class TimerComponent implements OnInit, OnDestroy {
          this.subscription.unsubscribe();
        }
      }
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      ngOnInit() {
        interval(1000).subscribe(() => { /* ... */ });
        // Sem unsubscribe - memory leak!
      }
-     ```
+```
    - **Alternativa**: Use `takeUntilDestroyed()` (Angular 16+)
 
 4. **Use ng-content para componentes wrapper**
    - **Por quê**: Cria componentes reutilizáveis e flexíveis, permite composição
    - **Exemplo Bom**:
-     ```typescript
+```
      @Component({
        template: `
          <div class="card">
@@ -1196,66 +1261,68 @@ export class TimerComponent implements OnInit, OnDestroy {
        `
      })
      export class CardComponent {}
-     ```
+```
    - **Benefícios**: Flexibilidade, reutilização, composição
 
 5. **Use ChangeDetectionStrategy.OnPush para performance**
    - **Por quê**: Reduz verificações de mudanças, melhora performance significativamente
    - **Exemplo Bom**:
-     ```typescript
+```
      @Component({
        changeDetection: ChangeDetectionStrategy.OnPush,
        // ...
      })
-     ```
+```
    - **Quando usar**: Componentes que recebem dados via `@Input` ou signals
    - **Benefícios**: Menos ciclos de detecção, melhor performance
 
 6. **Organize imports de forma clara**
    - **Por quê**: Facilita manutenção e leitura do código
    - **Exemplo Bom**:
-     ```typescript
+```
      imports: [
        CommonModule,
        FormsModule,
        ProductCardComponent,
        CurrencyPipe
      ]
-     ```
+```
    - **Padrão**: Agrupe por tipo (módulos, componentes, pipes)
 
 7. **Use inject() ao invés de constructor DI quando possível**
    - **Por quê**: Mais limpo, funciona em funções, melhor para testes
    - **Exemplo Bom**:
-     ```typescript
+```
      export class ProductComponent {
        private productService = inject(ProductService);
      }
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      constructor(private productService: ProductService) {}
-     ```
+```
    - **Nota**: `inject()` só funciona em contexto de injeção
 
 8. **Mantenha templates simples**
    - **Por quê**: Facilita manutenção, testes e debugging
    - **Exemplo Bom**:
-     ```html
+```
      <div *ngIf="isLoading">Carregando...</div>
      <div *ngIf="!isLoading">{{ product.name }}</div>
-     ```
+```
    - **Exemplo Ruim**:
-     ```html
+{% raw %}
+```
      <div>{{ isLoading ? 'Carregando...' : product.name }}</div>
      <!-- Lógica complexa no template -->
-     ```
+```
+{% endraw %}
    - **Regra**: Se a lógica tem mais de uma linha, mova para método
 
 9. **Use interfaces para @Input e @Output**
    - **Por quê**: Type safety, documentação, melhor autocomplete
    - **Exemplo Bom**:
-     ```typescript
+```
      interface ProductInput {
        id: number;
        name: string;
@@ -1263,13 +1330,13 @@ export class TimerComponent implements OnInit, OnDestroy {
      
      @Input() product!: ProductInput;
      @Output() selected = new EventEmitter<ProductInput>();
-     ```
+```
    - **Benefícios**: Type checking, documentação inline
 
 10. **Separe lógica complexa em serviços**
     - **Por quê**: Componentes devem ser focados em apresentação
     - **Exemplo Bom**:
-      ```typescript
+```
       export class ProductComponent {
         private productService = inject(ProductService);
         
@@ -1277,7 +1344,7 @@ export class TimerComponent implements OnInit, OnDestroy {
           this.productService.getProduct(id).subscribe(/* ... */);
         }
       }
-      ```
+```
     - **Regra**: Se método tem mais de 10 linhas, considere mover para serviço
 
 ### ❌ Anti-padrões Comuns
@@ -1285,78 +1352,80 @@ export class TimerComponent implements OnInit, OnDestroy {
 1. **Não esqueça de limpar recursos em ngOnDestroy**
    - **Problema**: Memory leaks, performance degradada, bugs difíceis de rastrear
    - **Exemplo Ruim**:
-     ```typescript
+```
      ngOnInit() {
        this.timer = setInterval(() => {
          this.counter++;
        }, 1000);
        // Nunca limpa - memory leak!
      }
-     ```
+```
    - **Solução**: Sempre limpe em `ngOnDestroy`
    - **Exemplo Correto**:
-     ```typescript
+```
      ngOnDestroy() {
        if (this.timer) {
          clearInterval(this.timer);
        }
      }
-     ```
+```
    - **Impacto**: Aplicação pode travar após uso prolongado
 
 2. **Não use NgModules desnecessariamente**
    - **Problema**: Complexidade desnecessária, mais arquivos, pior performance
    - **Exemplo Ruim**:
-     ```typescript
+```
      @NgModule({
        declarations: [SimpleComponent],
        imports: [CommonModule],
        exports: [SimpleComponent]
      })
      export class SimpleComponentModule {}
-     ```
+```
    - **Solução**: Use Standalone Components
    - **Exemplo Correto**:
-     ```typescript
+```
      @Component({
        standalone: true,
        imports: [CommonModule]
      })
      export class SimpleComponent {}
-     ```
+```
    - **Impacto**: Código mais complexo, difícil manutenção
 
 3. **Não misture lógica complexa no template**
    - **Problema**: Dificulta manutenção, testes e debugging
    - **Exemplo Ruim**:
-     ```html
+{% raw %}
+```
      <div>{{ users.filter(u => u.active).map(u => u.name).join(', ') }}</div>
-     ```
+```
+{% endraw %}
    - **Solução**: Mova lógica para método ou getter
    - **Exemplo Correto**:
-     ```typescript
+```
      get activeUserNames(): string {
        return this.users
          .filter(u => u.active)
          .map(u => u.name)
          .join(', ');
      }
-     ```
-     ```html
+```
+```
      <div>{{ activeUserNames }}</div>
-     ```
+```
    - **Impacto**: Templates difíceis de ler e manter
 
 4. **Não use any em @Input e @Output**
    - **Problema**: Perde type safety, erros em runtime
    - **Exemplo Ruim**:
-     ```typescript
+```
      @Input() data: any;
      @Output() event = new EventEmitter<any>();
-     ```
+```
    - **Solução**: Use interfaces ou tipos específicos
    - **Exemplo Correto**:
-     ```typescript
+```
      interface ProductData {
        id: number;
        name: string;
@@ -1364,16 +1433,16 @@ export class TimerComponent implements OnInit, OnDestroy {
      
      @Input() data!: ProductData;
      @Output() event = new EventEmitter<ProductData>();
-     ```
+```
    - **Impacto**: Bugs difíceis de detectar, perda de autocomplete
 
 5. **Não ignore erros de compilação do Angular**
    - **Problema**: Pode causar bugs em runtime, comportamento inesperado
    - **Exemplo Ruim**:
-     ```typescript
+```
      // @ts-ignore
      this.undefinedProperty.value;
-     ```
+```
    - **Solução**: Corrija os tipos ou use type guards
    - **Impacto**: Aplicação pode quebrar em produção
 
@@ -1387,20 +1456,20 @@ export class TimerComponent implements OnInit, OnDestroy {
 7. **Não use ViewChild sem verificação**
    - **Problema**: Pode ser undefined, causa erros em runtime
    - **Exemplo Ruim**:
-     ```typescript
+```
      @ViewChild('element') element!: ElementRef;
      
      ngAfterViewInit() {
        this.element.nativeElement.focus(); // Pode ser undefined!
      }
-     ```
+```
    - **Solução**: Use verificação ou optional chaining
    - **Exemplo Correto**:
-     ```typescript
+```
      ngAfterViewInit() {
        this.element?.nativeElement?.focus();
      }
-     ```
+```
    - **Impacto**: Aplicação pode quebrar se elemento não existir
 
 ---
@@ -1582,7 +1651,9 @@ Crie um componente `CardComponent` que usa `ng-content` com múltiplos slots (he
 - **Componentes Angular**: Classes TypeScript decoradas com `@Component` que controlam partes da UI
 - **Standalone Components**: Componentes auto-suficientes que não requerem NgModules (padrão desde Angular 17)
 - **Anatomia de Componente**: Classe TypeScript (lógica) + Template HTML (estrutura) + Estilos CSS (aparência)
+{% raw %}
 - **Templates e Sintaxe**: Interpolação `{{ }}`, Property Binding `[]`, Event Binding `()`, Two-way Binding `[()]`
+{% endraw %}
 - **ViewEncapsulation**: Controla isolamento de estilos (Emulated padrão, None, ShadowDom)
 - **Ciclo de Vida**: 9 hooks principais desde criação até destruição (constructor → ngOnInit → ngOnDestroy)
 - **Projeção de Conteúdo**: `ng-content` permite inserir HTML externo em componentes

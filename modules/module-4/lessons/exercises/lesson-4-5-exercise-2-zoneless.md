@@ -126,7 +126,6 @@ import { HeaderComponent } from './header/header.component';
       </main>
       <footer>
 {% raw %}
-
         <p>Versão: {{ version() }}</p>
 {% endraw %}
 
@@ -155,7 +154,9 @@ import { HeaderComponent } from './header/header.component';
         <router-outlet></router-outlet>
       </main>
       <footer>
+{% raw %}
         <p>Versão: {{ version() }}</p>
+{% endraw %}
       </footer>
     </div>
   `
@@ -164,6 +165,7 @@ export class AppComponent {
   appTitle = signal('Zoneless App');
   version = signal('1.0.0');
 }
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -205,10 +207,7 @@ import { CommonModule } from '@angular/common';
     <div class="counter">
       <h2>Contador (Zoneless)</h2>
 {% raw %}
-
       <p>Valor: {{ count() }}</p>
-{% endraw %}
-{% raw %}
       <p>Dobro: {{ doubleCount() }}</p>
 {% endraw %}
 
@@ -272,8 +271,10 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="counter">
       <h2>Contador (Zoneless)</h2>
+{% raw %}
       <p>Valor: {{ count() }}</p>
       <p>Dobro: {{ doubleCount() }}</p>
+{% endraw %}
       <div class="buttons">
         <button (click)="increment()">+</button>
         <button (click)="decrement()">-</button>
@@ -323,6 +324,7 @@ export class CounterComponent {
     this.count.set(0);
   }
 }
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -420,7 +422,6 @@ interface User {
       </ul>
       
 {% raw %}
-
       <p>Total: {{ userCount() }}</p>
 {% endraw %}
 
@@ -479,6 +480,65 @@ interface User {
         }
       </ul>
       
+{% raw %}
+      <p>Total: {{ userCount() }}</p>
+{% endraw %}
+    </div>
+  `
+})
+export class UserListComponent {
+  private http = inject(HttpClient);
+  
+  loading = signal(false);
+  users = signal<User[]>([]);
+  
+  userCount = computed(() => this.users().length);
+  
+  loadUsers(): void {
+    this.loading.set(true);
+    this.http.get<User[]>('/api/users').subscribe({
+      next: (users) => {
+        this.users.set(users);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.loading.set(false);
+      }
+    });
+  }
+}
+{% raw %}
+```typescript
+import { Component, signal, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Usuários (Zoneless)</h2>
+      <button (click)="loadUsers()">Carregar Usuários</button>
+      
+      @if (loading()) {
+        <p>Carregando...</p>
+      }
+      
+      <ul>
+        @for (user of users(); track user.id) {
+          <li>{{ user.name }} - {{ user.email }}</li>
+        }
+      </ul>
+      
       <p>Total: {{ userCount() }}</p>
     </div>
   `
@@ -504,7 +564,8 @@ export class UserListComponent {
     });
   }
 }
-```typescript
+```
+{% raw %}
 import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';

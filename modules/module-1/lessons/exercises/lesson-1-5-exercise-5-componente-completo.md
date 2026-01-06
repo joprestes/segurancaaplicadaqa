@@ -315,6 +315,128 @@ export class TransactionListComponent implements OnInit {
   </div>
 </div>
 ```
+{% raw %}
+<div class="transaction-list">
+  <h2>Transações Financeiras</h2>
+  
+  <div class="filters">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm"
+      (input)="applyFilters()"
+      placeholder="Buscar transações...">
+    
+    <select [(ngModel)]="filterType" (change)="applyFilters()">
+      <option value="all">Todos os tipos</option>
+      <option value="income">Receitas</option>
+      <option value="expense">Despesas</option>
+      <option value="transfer">Transferências</option>
+    </select>
+    
+    <select [(ngModel)]="filterCategory" (change)="applyFilters()">
+      <option value="all">Todas as categorias</option>
+      @for (category of getCategories(); track category) {
+        <option [value]="category">{{ category }}</option>
+      }
+    </select>
+  </div>
+  
+  <div class="summary">
+    <div class="summary-item">
+      <span class="label">Receitas:</span>
+      <span class="value income">{{ getTotalIncome() | currency:'BRL':'symbol':'1.2-2' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="label">Despesas:</span>
+      <span class="value expense">{{ getTotalExpenses() | currency:'BRL':'symbol':'1.2-2' }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="label">Saldo:</span>
+      <span class="value" [class.positive]="getBalance() >= 0" [class.negative]="getBalance() < 0">
+        {{ getBalance() | currency:'BRL':'symbol':'1.2-2' }}
+      </span>
+    </div>
+  </div>
+  
+  @if (filteredTransactions.length === 0) {
+    <div class="empty-state">
+      <p>Nenhuma transação encontrada</p>
+    </div>
+  } @else {
+    <div class="transactions">
+      @for (transaction of filteredTransactions; track transaction.id) {
+        <div class="transaction-card" [class.income]="transaction.type === 'income'" 
+             [class.expense]="transaction.type === 'expense'"
+             [class.transfer]="transaction.type === 'transfer'">
+          <div class="transaction-header">
+            <h3>{{ transaction.description }}</h3>
+            <span class="amount" [class.positive]="transaction.amount > 0" 
+                  [class.negative]="transaction.amount < 0">
+              {{ transaction.amount | currency:'BRL':'symbol':'1.2-2' }}
+            </span>
+          </div>
+          
+          <div class="transaction-details">
+            <div class="detail-item">
+              <span class="label">Tipo:</span>
+              <span class="type-badge">
+                @switch (transaction.type) {
+                  @case ('income') {
+                    <span class="badge income">💰 {{ transaction.type | transactionType }}</span>
+                  }
+                  @case ('expense') {
+                    <span class="badge expense">💸 {{ transaction.type | transactionType }}</span>
+                  }
+                  @default {
+                    <span class="badge transfer">🔄 {{ transaction.type | transactionType }}</span>
+                  }
+                }
+              </span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="label">Categoria:</span>
+              <span>{{ transaction.category }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="label">Data:</span>
+              <span>{{ transaction.date | date:'dd/MM/yyyy' }}</span>
+            </div>
+            
+            <div class="detail-item">
+              <span class="label">Hora:</span>
+              <span>{{ transaction.date | date:'HH:mm' }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  
+  <div class="statistics">
+    <h3>Estatísticas</h3>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total de Transações</span>
+        <span class="stat-value">{{ filteredTransactions.length }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Média de Receitas</span>
+        <span class="stat-value">
+          {{ getTotalIncome() / (filteredTransactions.filter(t => t.type === 'income').length || 1) | currency:'BRL' }}
+        </span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Média de Despesas</span>
+        <span class="stat-value">
+          {{ getTotalExpenses() / (filteredTransactions.filter(t => t.type === 'expense').length || 1) | currency:'BRL' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+```
 {% endraw %}
 
 **transaction-list.component.css**

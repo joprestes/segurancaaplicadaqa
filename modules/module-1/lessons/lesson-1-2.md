@@ -1079,23 +1079,23 @@ const productRepository = new Repository<Product>();
 1. **Sempre use tipos explícitos em funções públicas**
    - **Por quê**: Melhora legibilidade, previne erros e serve como documentação
    - **Exemplo Bom**:
-     ```typescript
+```
      function getUser(id: number): User | null {
        return users.find(u => u.id === id) || null;
      }
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      function getUser(id) {
        return users.find(u => u.id === id) || null;
      }
-     ```
+```
    - **Benefícios**: Autocomplete melhor, erros detectados mais cedo, código auto-documentado
 
 2. **Use interfaces para estruturas de dados**
    - **Por quê**: Facilita manutenção, reutilização e garante consistência
    - **Exemplo Bom**:
-     ```typescript
+```
      interface User {
        id: number;
        name: string;
@@ -1105,19 +1105,19 @@ const productRepository = new Repository<Product>();
      function createUser(data: User): User {
        return { ...data };
      }
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      function createUser(data: { id: number; name: string; email: string }): any {
        return data;
      }
-     ```
+```
    - **Benefícios**: Reutilização, consistência, fácil refatoração
 
 3. **Evite `any` quando possível - use `unknown`**
    - **Por quê**: `any` desabilita type checking completamente, `unknown` força verificação
    - **Exemplo Bom**:
-     ```typescript
+```
      function processValue(value: unknown): void {
        if (typeof value === "string") {
          console.log(value.toUpperCase());
@@ -1125,39 +1125,39 @@ const productRepository = new Repository<Product>();
          console.log(value.toFixed(2));
        }
      }
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      function processValue(value: any): void {
        console.log(value.toUpperCase());
      }
-     ```
+```
    - **Benefícios**: Type safety mantido, erros detectados em compile-time
 
 4. **Use generics para código reutilizável**
    - **Por quê**: Mantém type safety em código genérico, evita duplicação
    - **Exemplo Bom**:
-     ```typescript
+```
      class Repository<T extends Identifiable> {
        findById(id: number): T | undefined {
          return this.items.find(item => item.id === id);
        }
      }
-     ```
+```
    - **Exemplo Ruim**:
-     ```typescript
+```
      class UserRepository {
        findById(id: number): any {
          return this.users.find(u => u.id === id);
        }
      }
-     ```
+```
    - **Benefícios**: Reutilização sem perder type safety
 
 5. **Use utility types para transformações de tipo**
    - **Por quê**: Cria tipos derivados de forma segura e expressiva
    - **Exemplo Bom**:
-     ```typescript
+```
      interface User {
        id: number;
        name: string;
@@ -1168,23 +1168,23 @@ const productRepository = new Repository<Product>();
      type CreateUserDto = Omit<User, 'id'>;
      type UpdateUserDto = Partial<Pick<User, 'name' | 'email'>>;
      type PublicUser = Omit<User, 'password'>;
-     ```
+```
    - **Benefícios**: Tipos seguros para diferentes operações, evita duplicação
 
 6. **Use const assertions para valores literais**
    - **Por quê**: Preserva tipos literais ao invés de tipos amplos
    - **Exemplo Bom**:
-     ```typescript
+```
      const status = "pending" as const;
      const colors = ["red", "green", "blue"] as const;
      type Color = typeof colors[number];
-     ```
+```
    - **Benefícios**: Tipos mais precisos, melhor type checking
 
 7. **Use type guards para narrowing**
    - **Por quê**: TypeScript pode inferir tipos mais específicos após verificações
    - **Exemplo Bom**:
-     ```typescript
+```
      function isUser(value: unknown): value is User {
        return typeof value === "object" &&
               value !== null &&
@@ -1197,26 +1197,26 @@ const productRepository = new Repository<Product>();
          console.log(value.name);
        }
      }
-     ```
+```
    - **Benefícios**: Type narrowing seguro, código mais seguro
 
 8. **Organize tipos em arquivos separados**
    - **Por quê**: Facilita manutenção e reutilização
    - **Exemplo Bom**:
-     ```typescript
+```
      types/user.types.ts
      export interface User { ... }
      export type UserId = number;
      
      services/user.service.ts
      import { User, UserId } from '../types/user.types';
-     ```
+```
    - **Benefícios**: Organização clara, fácil de encontrar tipos
 
 9. **Use readonly para imutabilidade**
    - **Por quê**: Previne modificações acidentais
    - **Exemplo Bom**:
-     ```typescript
+```
      interface Config {
        readonly apiUrl: string;
        readonly timeout: number;
@@ -1226,13 +1226,13 @@ const productRepository = new Repository<Product>();
        apiUrl: "https://api.example.com",
        timeout: 5000
      };
-     ```
+```
    - **Benefícios**: Previne bugs, código mais seguro
 
 10. **Habilite strict mode no tsconfig.json**
     - **Por quê**: Máxima type safety, detecta mais erros
     - **Exemplo Bom**:
-      ```json
+```
       {
         "compilerOptions": {
           "strict": true,
@@ -1241,7 +1241,7 @@ const productRepository = new Repository<Product>();
           "strictFunctionTypes": true
         }
       }
-      ```
+```
     - **Benefícios**: Código mais seguro, menos bugs em runtime
 
 ### ❌ Anti-padrões Comuns
@@ -1249,61 +1249,61 @@ const productRepository = new Repository<Product>();
 1. **Não use `any` desnecessariamente**
    - **Problema**: Remove type safety completamente, permite qualquer operação
    - **Exemplo Ruim**:
-     ```typescript
+```
      function process(data: any): any {
        return data.someProperty.anotherProperty.value;
      }
-     ```
+```
    - **Solução**: Use tipos específicos ou `unknown` com type guards
    - **Exemplo Correto**:
-     ```typescript
+```
      function process(data: unknown): string {
        if (typeof data === "object" && data !== null && "value" in data) {
          return String(data.value);
        }
        throw new Error("Invalid data");
      }
-     ```
+```
    - **Impacto**: Bugs em runtime, perda de autocomplete, código inseguro
 
 2. **Não ignore erros de tipo com `@ts-ignore`**
    - **Problema**: Esconde problemas reais que devem ser corrigidos
    - **Exemplo Ruim**:
-     ```typescript
+```
      // @ts-ignore
      const result = someFunction();
-     ```
+```
    - **Solução**: Corrija os tipos ou use type assertions quando necessário
    - **Exemplo Correto**:
-     ```typescript
+```
      const result = someFunction() as ExpectedType;
-     ```
+```
    - **Impacto**: Bugs escondidos, código frágil, dificulta manutenção
 
 3. **Não misture tipos em arrays sem union types**
    - **Problema**: Dificulta manutenção e pode causar erros
    - **Exemplo Ruim**:
-     ```typescript
+```
      const items: any[] = [1, "text", { id: 1 }];
-     ```
+```
    - **Solução**: Use union types ou arrays tipados
    - **Exemplo Correto**:
-     ```typescript
+```
      const items: (string | number)[] = [1, "text", 2];
      const users: User[] = [{ id: 1, name: "João" }];
-     ```
+```
    - **Impacto**: Erros em runtime, código difícil de entender
 
 4. **Não use type assertions sem necessidade**
    - **Problema**: Bypassa verificação de tipos, pode causar erros
    - **Exemplo Ruim**:
-     ```typescript
+```
      const user = data as User;
      console.log(user.name);
-     ```
+```
    - **Solução**: Use type guards ou validação
    - **Exemplo Correto**:
-     ```typescript
+```
      function isUser(data: unknown): data is User {
        return typeof data === "object" &&
               data !== null &&
@@ -1314,13 +1314,13 @@ const productRepository = new Repository<Product>();
      if (isUser(data)) {
        console.log(data.name);
      }
-     ```
+```
    - **Impacto**: Erros em runtime, código inseguro
 
 5. **Não crie interfaces muito grandes**
    - **Problema**: Dificulta manutenção e reutilização
    - **Exemplo Ruim**:
-     ```typescript
+```
      interface User {
        id: number;
        name: string;
@@ -1333,10 +1333,10 @@ const productRepository = new Repository<Product>();
        preferences: object;
        settings: object;
      }
-     ```
+```
    - **Solução**: Divida em interfaces menores e componha
    - **Exemplo Correto**:
-     ```typescript
+```
      interface Address {
        street: string;
        city: string;
@@ -1356,19 +1356,19 @@ const productRepository = new Repository<Product>();
        address: Address;
        preferences: UserPreferences;
      }
-     ```
+```
    - **Impacto**: Código difícil de manter, baixa reutilização
 
 6. **Não use tipos inline complexos repetidamente**
    - **Problema**: Duplicação, difícil de manter
    - **Exemplo Ruim**:
-     ```typescript
+```
      function process(data: { id: number; name: string; email: string }): void {}
      function validate(data: { id: number; name: string; email: string }): boolean {}
-     ```
+```
    - **Solução**: Extraia para interface ou type alias
    - **Exemplo Correto**:
-     ```typescript
+```
      interface UserData {
        id: number;
        name: string;
@@ -1377,24 +1377,24 @@ const productRepository = new Repository<Product>();
      
      function process(data: UserData): void {}
      function validate(data: UserData): boolean {}
-     ```
+```
    - **Impacto**: Duplicação de código, difícil refatoração
 
 7. **Não ignore null/undefined sem verificação**
    - **Problema**: Pode causar erros em runtime
    - **Exemplo Ruim**:
-     ```typescript
+```
      function getName(user: User | null): string {
        return user.name;
      }
-     ```
+```
    - **Solução**: Use optional chaining ou verificação explícita
    - **Exemplo Correto**:
-     ```typescript
+```
      function getName(user: User | null): string {
        return user?.name ?? "Unknown";
      }
-     ```
+```
    - **Impacto**: Runtime errors, aplicação quebra
 
 ---

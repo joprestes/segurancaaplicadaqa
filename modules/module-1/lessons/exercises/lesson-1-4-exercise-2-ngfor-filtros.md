@@ -210,6 +210,40 @@ export class ProductListComponent implements OnInit {
   </div>
 </div>
 ```
+{% raw %}
+<div class="product-list">
+  <h2>Lista de Produtos</h2>
+  
+  <div class="filters">
+    <label>Filtrar por categoria:</label>
+    <div class="filter-buttons">
+      <button 
+        *ngFor="let category of categories"
+        [class.active]="selectedCategory === category"
+        (click)="filterByCategory(category)">
+        {{ category === 'all' ? 'Todos' : category }}
+      </button>
+    </div>
+    <p class="product-count">
+      Mostrando {{ getProductCount() }} de {{ products.length }} produtos
+    </p>
+  </div>
+  
+  <div class="products-grid" *ngIf="filteredProducts.length > 0">
+    <div 
+      *ngFor="let product of filteredProducts; trackBy: trackByProductId"
+      class="product-card">
+      <h3>{{ product.name }}</h3>
+      <p class="category">{{ product.category }}</p>
+      <p class="price">{{ product.price | currency:'BRL' }}</p>
+    </div>
+  </div>
+  
+  <div class="empty-message" *ngIf="filteredProducts.length === 0">
+    <p>Nenhum produto encontrado nesta categoria.</p>
+  </div>
+</div>
+```
 {% endraw %}
 
 **product-list.component.css**

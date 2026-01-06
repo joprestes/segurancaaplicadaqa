@@ -511,7 +511,9 @@ export class UserComponent { }
 └─────────────────────────────────────────────────────────┘
 ```
 
+{% raw %}
 **Exemplo**: `{{ price | currency:'BRL' | uppercase }}`
+{% endraw %}
 - `price` (100) → `currency` → "R$ 100,00" → `uppercase` → "R$ 100,00"
 
 **Analogia**: Pipes são como estações de tratamento de água:
@@ -638,6 +640,7 @@ export class UserComponent { }
 
 **Visualização Completa da Arquitetura Angular**:
 
+{% raw %}
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │                    Angular Application Architecture                      │
@@ -697,6 +700,7 @@ export class UserComponent { }
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
+{% endraw %}
 
 **Analogia Completa da Arquitetura**:
 

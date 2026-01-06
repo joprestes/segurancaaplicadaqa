@@ -109,7 +109,7 @@ Depois:
 
 ### Componente Antigo (Antes)
 
-{% raw %}
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -148,7 +148,6 @@ interface User {
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class UserListComponent {
   users: User[] = [
@@ -165,7 +164,7 @@ export class UserListComponent {
 
 ### Componente Migrado (Depois)
 
-{% raw %}
+
 ```typescript
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -218,7 +217,6 @@ interface User {
       }
     </div>
   `
-{% endraw %}
 })
 export class UserListComponent {
   users: User[] = [

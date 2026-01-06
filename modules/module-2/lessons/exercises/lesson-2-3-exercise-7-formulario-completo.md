@@ -68,6 +68,7 @@ Crie:
 ### Abordagem Recomendada
 
 **complete-register.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -178,7 +179,6 @@ import { passwordStrengthValidator } from './custom-validators';
       </button>
     </form>
   `
-{% endraw %}
 })
 export class CompleteRegisterComponent {
   registerForm: FormGroup;
@@ -273,6 +273,7 @@ export class CompleteRegisterComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

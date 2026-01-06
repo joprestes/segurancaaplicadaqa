@@ -186,7 +186,6 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
   `
-{% endraw %}
 })
 export class ExemploUsoComponent {
   userName: string = 'maria da silva';
@@ -196,6 +195,7 @@ export class ExemploUsoComponent {
   alreadyCapitalized: string = 'João Silva';
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

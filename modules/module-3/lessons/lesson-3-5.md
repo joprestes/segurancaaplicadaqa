@@ -203,6 +203,7 @@ export class UsersComponent {
 
 **Exemplo Prático Avançado com Error Handling**:
 
+{% raw %}
 ```typescript
 import { Component, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -242,6 +243,7 @@ export class UsersSafeComponent {
   );
 }
 ```
+{% endraw %}
 
 **Casos de Uso Comuns**:
 
@@ -365,6 +367,7 @@ export class SearchComponent {
 
 **Exemplo Prático Avançado com Múltiplos Operadores**:
 
+{% raw %}
 ```typescript
 import { Component, signal, inject, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -449,6 +452,91 @@ export class AdvancedSearchComponent {
   }
 }
 ```
+{% raw %}
+import { Component, signal, inject, effect } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged, switchMap, catchError, retry } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
+@Component({
+  selector: 'app-advanced-search',
+  standalone: true,
+  template: `
+    <div>
+      <input 
+        [value]="searchTerm()" 
+        (input)="searchTerm.set($any($event.target).value)"
+        placeholder="Buscar produtos...">
+      
+      @if (loading()) {
+        <p>Buscando...</p>
+      }
+      
+      @if (error()) {
+        <p class="error">{{ error() }}</p>
+      }
+      
+      <div>
+        <p>Encontrados: {{ results().length }} produtos</p>
+        <ul>
+          @for (product of results(); track product.id) {
+            <li>{{ product.name }} - R$ {{ product.price }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  `
+})
+export class AdvancedSearchComponent {
+  private http = inject(HttpClient);
+  
+  searchTerm = signal('');
+  loading = signal(false);
+  error = signal<string | null>(null);
+  
+  results = toSignal(
+    toObservable(this.searchTerm).pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(term => {
+        if (!term.trim()) {
+          return of([]);
+        }
+        
+        this.loading.set(true);
+        this.error.set(null);
+        
+        return this.http.get<Product[]>(`/api/products/search?q=${term}`).pipe(
+          retry(2),
+          catchError(err => {
+            this.error.set('Erro ao buscar produtos');
+            return of([]);
+          })
+        );
+      })
+    ),
+    { initialValue: [] }
+  );
+  
+  constructor() {
+    effect(() => {
+      if (this.searchTerm().length > 0) {
+        this.loading.set(this.results().length === 0 && !this.error());
+      } else {
+        this.loading.set(false);
+      }
+    });
+  }
+}
+```
+{% endraw %}
 
 **Casos de Uso Comuns**:
 
@@ -556,6 +644,7 @@ Pense em **Signals como uma geladeira** e **Observables como um restaurante com 
 
 **Exemplo Prático Híbrido**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -660,6 +749,111 @@ export class HybridComponent {
   );
 }
 ```
+{% raw %}
+import { Component, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+}
+
+@Component({
+  selector: 'app-hybrid-component',
+  standalone: true,
+  template: `
+    <div>
+      <h2>Gerenciamento de Usuários</h2>
+      
+      <div>
+        <label>Filtro:</label>
+        <input 
+          [value]="filter()" 
+          (input)="filter.set($any($event.target).value)"
+          placeholder="Filtrar por nome...">
+      </div>
+      
+      <div>
+        <label>Ordenar por:</label>
+        <select [value]="sortBy()" (change)="sortBy.set($any($event.target).value)">
+          <option value="name">Nome</option>
+          <option value="email">Email</option>
+          <option value="role">Função</option>
+        </select>
+      </div>
+      
+      @if (loading()) {
+        <p>Carregando usuários...</p>
+      }
+      
+      <ul>
+        @for (user of filteredUsers(); track user.id) {
+          <li>
+            {{ user.name }} - {{ user.email }} ({{ user.role }})
+          </li>
+        }
+      </ul>
+      
+      <p>Total: {{ userCount() }} usuários</p>
+    </div>
+  `
+})
+export class HybridComponent {
+  private http = inject(HttpClient);
+  
+  filter = signal('');
+  sortBy = signal<'name' | 'email' | 'role'>('name');
+  
+  users = toSignal(
+    this.http.get<User[]>('/api/users'),
+    { initialValue: [] }
+  );
+  
+  loading = computed(() => {
+    return this.users().length === 0 && this.filter().length === 0;
+  });
+  
+  filteredUsers = computed(() => {
+    const allUsers = this.users();
+    const filterValue = this.filter().toLowerCase();
+    const sortField = this.sortBy();
+    
+    let filtered = allUsers.filter(user => 
+      user.name.toLowerCase().includes(filterValue) ||
+      user.email.toLowerCase().includes(filterValue)
+    );
+    
+    filtered.sort((a, b) => {
+      if (a[sortField] < b[sortField]) return -1;
+      if (a[sortField] > b[sortField]) return 1;
+      return 0;
+    });
+    
+    return filtered;
+  });
+  
+  userCount = computed(() => this.filteredUsers().length);
+  
+  searchResults = toSignal(
+    toObservable(this.filter).pipe(
+      debounceTime(300),
+      switchMap(term => {
+        if (!term.trim()) {
+          return of([]);
+        }
+        return this.http.get<User[]>(`/api/users/search?q=${term}`);
+      })
+    ),
+    { initialValue: [] }
+  );
+}
+```
+{% endraw %}
 
 **Decisão em Árvore**:
 
@@ -706,6 +900,7 @@ Precisa de reatividade?
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -915,6 +1110,7 @@ export class UserSearchComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação**:
 
@@ -937,6 +1133,7 @@ Este exemplo demonstra:
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject, OnInit, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -1094,6 +1291,164 @@ export class DashboardComponent implements OnInit {
   }
 }
 ```
+{% raw %}
+import { Component, signal, computed, inject, OnInit, effect } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { interval, of } from 'rxjs';
+import { switchMap, catchError } from 'rxjs/operators';
+
+interface DashboardData {
+  users: number;
+  orders: number;
+  revenue: number;
+  activeUsers: number;
+}
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  template: `
+    <div class="dashboard">
+      <h1>Dashboard</h1>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Total de Usuários</h3>
+          <p class="stat-value">{{ stats().users | number }}</p>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Pedidos Hoje</h3>
+          <p class="stat-value">{{ stats().orders | number }}</p>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Receita</h3>
+          <p class="stat-value">{{ stats().revenue | currency:'BRL' }}</p>
+        </div>
+        
+        <div class="stat-card">
+          <h3>Usuários Ativos</h3>
+          <p class="stat-value">{{ stats().activeUsers | number }}</p>
+          <p class="stat-change" [class.positive]="activeUsersChange() > 0">
+            {{ activeUsersChange() > 0 ? '+' : '' }}{{ activeUsersChange() }}%
+          </p>
+        </div>
+      </div>
+      
+      @if (loading()) {
+        <div class="loading">Carregando dados...</div>
+      }
+      
+      @if (lastUpdate()) {
+        <p class="last-update">Última atualização: {{ lastUpdate() | date:'short' }}</p>
+      }
+    </div>
+  `,
+  styles: [`
+    .dashboard {
+      padding: 20px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+    
+    .stat-card {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .stat-value {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    
+    .stat-change {
+      font-size: 0.9em;
+      color: #666;
+    }
+    
+    .stat-change.positive {
+      color: #28a745;
+    }
+    
+    .last-update {
+      text-align: center;
+      color: #666;
+      font-size: 0.9em;
+    }
+  `]
+})
+export class DashboardComponent implements OnInit {
+  private http = inject(HttpClient);
+  
+  refreshInterval = signal(30000);
+  lastUpdate = signal<Date | null>(null);
+  
+  httpData = toSignal(
+    this.http.get<DashboardData>('/api/dashboard/stats'),
+    { initialValue: { users: 0, orders: 0, revenue: 0, activeUsers: 0 } }
+  );
+  
+  realTimeData = toSignal(
+    interval(this.refreshInterval()).pipe(
+      switchMap(() => 
+        this.http.get<{ activeUsers: number }>('/api/dashboard/realtime').pipe(
+          catchError(() => of({ activeUsers: 0 }))
+        )
+      )
+    ),
+    { initialValue: { activeUsers: 0 } }
+  );
+  
+  stats = computed(() => {
+    const http = this.httpData();
+    const realtime = this.realTimeData();
+    
+    return {
+      users: http.users,
+      orders: http.orders,
+      revenue: http.revenue,
+      activeUsers: realtime.activeUsers || http.activeUsers
+    };
+  });
+  
+  previousActiveUsers = signal(0);
+  activeUsersChange = computed(() => {
+    const current = this.stats().activeUsers;
+    const previous = this.previousActiveUsers();
+    
+    if (previous === 0) return 0;
+    
+    const change = ((current - previous) / previous) * 100;
+    this.previousActiveUsers.set(current);
+    
+    return Math.round(change * 10) / 10;
+  });
+  
+  loading = computed(() => {
+    return this.stats().users === 0 && this.stats().orders === 0;
+  });
+  
+  ngOnInit() {
+    effect(() => {
+      const stats = this.stats();
+      if (stats.users > 0 || stats.orders > 0) {
+        this.lastUpdate.set(new Date());
+      }
+    });
+  }
+}
+```
+{% endraw %}
 
 ---
 
@@ -1103,6 +1458,7 @@ export class DashboardComponent implements OnInit {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, inject, effect } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -1259,6 +1615,7 @@ export class UserFormComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -1345,8 +1702,10 @@ export class UserFormComponent {
 
 6. **Não use AsyncPipe com Signals**
    - **Problema**: Desnecessário, Signals já são reativos no template
+{% raw %}
    - **Exemplo Ruim**: `{{ signal$ | async }}` quando `signal()` já funciona
    - **Solução**: Use Signals diretamente no template: `{{ signal() }}`
+{% endraw %}
 
 7. **Não ignore cleanup de subscriptions**
    - **Problema**: Memory leaks, performance degradada

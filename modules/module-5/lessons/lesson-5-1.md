@@ -763,6 +763,7 @@ Testar um componente é como testar um aparelho eletrônico completo:
 
 **Exemplo Prático Completo**:
 
+{% raw %}
 ```typescript
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, signal, input, output, EventEmitter } from '@angular/core';
@@ -880,6 +881,7 @@ describe('CounterComponent', () => {
   });
 });
 ```
+{% endraw %}
 
 **Seletores Úteis para Queries**:
 

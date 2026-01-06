@@ -184,7 +184,7 @@ export class ProductService {
 ```
 
 **product-list.component.ts**
-{% raw %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -223,7 +223,6 @@ import { ErrorMessage } from './error-handler.service';
     </div>
   `,
   styles: [`
-{% endraw %}
     .error {
       color: #f44336;
       padding: 1rem;

@@ -1644,6 +1644,7 @@ ngOnInit() {
 ```
 
 **Solução**:
+{% raw %}
 ```typescript
 data$ = this.http.get<Data>('/api/data');
 
@@ -1663,6 +1664,26 @@ ngOnDestroy() {
   this.destroy$.complete();
 }
 ```
+{% raw %}
+data$ = this.http.get<Data>('/api/data');
+
+// Template: {{ data$ | async }}
+
+// Ou com takeUntil:
+private destroy$ = new Subject<void>();
+
+ngOnInit() {
+  this.http.get<Data>('/api/data')
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(data => this.data = data);
+}
+
+ngOnDestroy() {
+  this.destroy$.next();
+  this.destroy$.complete();
+}
+```
+{% endraw %}
 
 #### 4. Não Use Any para Tipos de Resposta
 

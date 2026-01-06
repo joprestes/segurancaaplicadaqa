@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **contact-form.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -99,7 +100,6 @@ import { CommonModule } from '@angular/common';
       </div>
     </form>
   `
-{% endraw %}
 })
 export class ContactFormComponent {
   contactForm = new FormGroup({
@@ -132,6 +132,7 @@ export class ContactFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

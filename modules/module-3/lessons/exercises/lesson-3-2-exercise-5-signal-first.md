@@ -65,6 +65,8 @@ Crie:
 ### Abordagem Recomendada
 
 **task.service.ts**
+
+{% raw %}
 ```typescript
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -152,6 +154,7 @@ export class TaskService {
 ```
 
 **task-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
@@ -193,7 +196,6 @@ import { TaskFormComponent } from './task-form.component';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent {
   filter = signal<'all' | 'active' | 'completed'>('all');
@@ -229,8 +231,10 @@ export class TaskListComponent {
   }
 }
 ```
+{% endraw %}
 
 **task-item.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, Input } from '@angular/core';
@@ -256,7 +260,6 @@ import { Task } from './task.service';
     </li>
   `,
   styles: [`
-{% endraw %}
     li {
       display: flex;
       align-items: center;
@@ -283,8 +286,60 @@ export class TaskItemComponent {
   @Output() delete = new EventEmitter<void>();
 }
 ```
+{% raw %}
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Task } from './task.service';
+
+@Component({
+  selector: 'app-task-item',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <li [class.completed]="task.completed">
+      <input 
+        type="checkbox" 
+        [checked]="task.completed"
+        (change)="toggle.emit()">
+      <div class="task-content">
+        <h4>{{ task.title }}</h4>
+        <p>{{ task.description }}</p>
+        <small>{{ task.createdAt | date:'short' }}</small>
+      </div>
+      <button (click)="delete.emit()">Deletar</button>
+    </li>
+  `,
+  styles: [`
+    li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    
+    li.completed {
+      opacity: 0.6;
+      text-decoration: line-through;
+    }
+    
+    .task-content {
+      flex: 1;
+    }
+  `]
+})
+export class TaskItemComponent {
+  @Input({ required: true }) task!: Task;
+  @Output() toggle = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<void>();
+}
+```
+{% endraw %}
 
 **task-form.component.ts**
+
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -294,7 +349,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-task-form',
   standalone: true,
   imports: [CommonModule, FormsModule],
-{% raw %}
   template: `
     <form (ngSubmit)="onSubmit()">
       <input 
@@ -309,7 +363,6 @@ import { FormsModule } from '@angular/forms';
       <button type="submit" [disabled]="!isValid()">Adicionar</button>
     </form>
   `
-{% endraw %}
 })
 export class TaskFormComponent {
   title = signal<string>('');

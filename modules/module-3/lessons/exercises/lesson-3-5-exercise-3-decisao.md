@@ -63,6 +63,8 @@ Crie:
 ### Abordagem Recomendada
 
 **signals-examples.component.ts**
+
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -71,7 +73,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-signals-examples',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>Casos de Uso: Signals</h2>
@@ -99,7 +100,6 @@ import { CommonModule } from '@angular/common';
       </div>
     </div>
   `
-{% endraw %}
 })
 export class SignalsExamplesComponent {
   count = signal(0);
@@ -120,8 +120,10 @@ export class SignalsExamplesComponent {
   }
 }
 ```
+{% endraw %}
 
 **observables-examples.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, inject } from '@angular/core';
@@ -166,7 +168,6 @@ import { debounceTime, map, switchMap } from 'rxjs/operators';
       </div>
     </div>
   `
-{% endraw %}
 })
 export class ObservablesExamplesComponent {
   private http = inject(HttpClient);
@@ -197,6 +198,79 @@ export class ObservablesExamplesComponent {
   }
 }
 ```
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Observable, interval, fromEvent } from 'rxjs';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-observables-examples',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Casos de Uso: Observables</h2>
+      
+      <div class="example">
+        <h3>1. Operações HTTP</h3>
+        <button (click)="loadData()">Carregar</button>
+        <ul>
+          @for (item of data$ | async; track item.id) {
+            <li>{{ item.name }}</li>
+          }
+        </ul>
+      </div>
+      
+      <div class="example">
+        <h3>2. Eventos do Usuário</h3>
+        <input #input placeholder="Digite...">
+        <p>Valor com debounce: {{ debouncedValue$ | async }}</p>
+      </div>
+      
+      <div class="example">
+        <h3>3. Timers e Intervalos</h3>
+        <p>Tempo: {{ timer$ | async }}</p>
+      </div>
+      
+      <div class="example">
+        <h3>4. Streams Complexos</h3>
+        <button #button>Clique</button>
+        <p>Cliques: {{ clickCount$ | async }}</p>
+      </div>
+    </div>
+  `
+})
+export class ObservablesExamplesComponent {
+  private http = inject(HttpClient);
+  
+  data$: Observable<any[]>;
+  debouncedValue$: Observable<string>;
+  timer$: Observable<number>;
+  clickCount$: Observable<number>;
+  
+  constructor() {
+    this.data$ = this.http.get<any[]>('/api/data');
+    
+    this.debouncedValue$ = fromEvent(document.querySelector('input')!, 'input').pipe(
+      debounceTime(300),
+      map((e: any) => e.target.value)
+    );
+    
+    this.timer$ = interval(1000);
+    
+    this.clickCount$ = fromEvent(document.querySelector('button')!, 'click').pipe(
+      map(() => 1),
+      switchMap(() => interval(1000))
+    );
+  }
+  
+  loadData(): void {
+    this.data$ = this.http.get<any[]>('/api/data');
+  }
+}
+```
+{% endraw %}
 
 **decision-guide.md**
 ```markdown

@@ -128,6 +128,7 @@ bootstrapApplication(AppComponent, {
 ```
 
 **counter.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -154,7 +155,6 @@ import { selectCounter } from './store/counter.selectors';
       </div>
     </div>
   `
-{% endraw %}
 })
 export class CounterComponent {
   count$: Observable<number>;
@@ -180,6 +180,7 @@ export class CounterComponent {
   }
 }
 ```
+{% endraw %}
 
 **counter.selectors.ts**
 ```typescript

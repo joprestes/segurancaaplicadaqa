@@ -222,6 +222,7 @@ export class ButtonComponent {
 ```
 
 **app.component.ts** (exemplo de uso)
+
 ```typescript
 import { Component } from '@angular/core';
 import { ButtonComponent } from './button/button.component';
@@ -230,7 +231,6 @@ import { ButtonComponent } from './button/button.component';
   selector: 'app-root',
   standalone: true,
   imports: [ButtonComponent],
-{% raw %}
   template: `
     <app-button 
       label="Clique Aqui"
@@ -254,7 +254,6 @@ import { ButtonComponent } from './button/button.component';
       (clicked)="onDelete()">
     </app-button>
   `
-{% endraw %}
 })
 export class AppComponent {
   isDeleting: boolean = false;

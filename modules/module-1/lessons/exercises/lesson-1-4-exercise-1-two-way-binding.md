@@ -240,6 +240,86 @@ export class ContactFormComponent {
   </div>
 </div>
 ```
+{% raw %}
+<div class="contact-form">
+  <h2>Formulário de Contato</h2>
+  
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nome *</label>
+      <input 
+        id="name"
+        type="text" 
+        [(ngModel)]="contact.name" 
+        name="name"
+        required
+        placeholder="Seu nome">
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        id="email"
+        type="email" 
+        [(ngModel)]="contact.email" 
+        name="email"
+        required
+        placeholder="seu@email.com">
+    </div>
+    
+    <div class="form-group">
+      <label for="phone">Telefone</label>
+      <input 
+        id="phone"
+        type="tel" 
+        [(ngModel)]="contact.phone" 
+        name="phone"
+        placeholder="(00) 00000-0000">
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Mensagem *</label>
+      <textarea 
+        id="message"
+        [(ngModel)]="contact.message" 
+        name="message"
+        required
+        rows="5"
+        placeholder="Sua mensagem..."></textarea>
+    </div>
+    
+    <button 
+      type="submit" 
+      [disabled]="!isValid()"
+      [class.disabled]="!isValid()">
+      Enviar
+    </button>
+    
+    <button 
+      type="button" 
+      (click)="resetForm()"
+      class="btn-secondary">
+      Limpar
+    </button>
+  </form>
+  
+  <div class="preview" *ngIf="contact.name || contact.email">
+    <h3>Preview em Tempo Real</h3>
+    <div class="preview-content">
+      <p><strong>Nome:</strong> {{ contact.name || '(vazio)' }}</p>
+      <p><strong>Email:</strong> {{ contact.email || '(vazio)' }}</p>
+      <p><strong>Telefone:</strong> {{ contact.phone || '(vazio)' }}</p>
+      <p><strong>Mensagem:</strong></p>
+      <p class="message-preview">{{ contact.message || '(vazio)' }}</p>
+    </div>
+  </div>
+  
+  <div class="submitted-message" *ngIf="submitted">
+    <h3>✅ Formulário Enviado com Sucesso!</h3>
+    <pre>{{ contact | json }}</pre>
+  </div>
+</div>
+```
 {% endraw %}
 
 **contact-form.component.css**

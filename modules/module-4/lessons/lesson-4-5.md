@@ -804,6 +804,7 @@ NoopNgZone é como remover o sistema automático de irrigação de um jardim:
 
 **Exemplo Prático**:
 
+{% raw %}
 ```typescript
 import { Component, signal, ChangeDetectorRef } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -848,6 +849,7 @@ bootstrapApplication(NoopZoneDemoComponent, {
   ]
 });
 ```
+{% endraw %}
 
 **Pontos Importantes**:
 - Event handlers (`click`) funcionam automaticamente
@@ -946,6 +948,7 @@ Zoneless apps são como a transição de carros com transmissão automática par
 
 **Visualização**:
 
+{% raw %}
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │              Zoneless Architecture                                │
@@ -1028,9 +1031,11 @@ Comparison: Zone.js vs Zoneless
 │ Event Handlers      │ Auto-detected    │ Auto-detected          │
 └─────────────────────────────────────────────────────────────────┘
 ```
+{% endraw %}
 
 **Exemplo Prático Completo**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed, effect } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -1138,6 +1143,114 @@ bootstrapApplication(AppComponent, {
   ]
 });
 ```
+{% raw %}
+import { Component, signal, computed, effect } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';
+
+@Component({
+  selector: 'app-zoneless-root',
+  standalone: true,
+  template: `
+    <div>
+      <h1>Zoneless Angular App</h1>
+      <nav>
+        <a routerLink="/home">Home</a>
+        <a routerLink="/counter">Counter</a>
+        <a routerLink="/data">Data</a>
+      </nav>
+      <router-outlet></router-outlet>
+    </div>
+  `
+})
+export class AppComponent {}
+
+@Component({
+  selector: 'app-counter',
+  standalone: true,
+  template: `
+    <div>
+      <h2>Counter: {{ count() }}</h2>
+      <p>Double: {{ doubleCount() }}</p>
+      <p>Is Even: {{ isEven() }}</p>
+      <button (click)="increment()">Increment</button>
+      <button (click)="decrement()">Decrement</button>
+      <button (click)="reset()">Reset</button>
+    </div>
+  `
+})
+export class CounterComponent {
+  count = signal(0);
+  doubleCount = computed(() => this.count() * 2);
+  isEven = computed(() => this.count() % 2 === 0);
+
+  constructor() {
+    effect(() => {
+      console.log('Count changed to:', this.count());
+    });
+  }
+
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+
+  decrement(): void {
+    this.count.update(v => v - 1);
+  }
+
+  reset(): void {
+    this.count.set(0);
+  }
+}
+
+@Component({
+  selector: 'app-data',
+  standalone: true,
+  template: `
+    <div>
+      <h2>Data Component</h2>
+      <p>Status: {{ status() }}</p>
+      <p>Data: {{ data() | json }}</p>
+      <button (click)="loadData()" [disabled]="loading()">
+        Load Data
+      </button>
+    </div>
+  `
+})
+export class DataComponent {
+  status = signal<'idle' | 'loading' | 'loaded' | 'error'>('idle');
+  data = signal<any>(null);
+  loading = computed(() => this.status() === 'loading');
+
+  constructor(private http: HttpClient) {}
+
+  loadData(): void {
+    this.status.set('loading');
+    
+    this.http.get('/api/data').subscribe({
+      next: (response) => {
+        this.data.set(response);
+        this.status.set('loaded');
+      },
+      error: () => {
+        this.status.set('error');
+      }
+    });
+  }
+}
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+});
+```
+{% endraw %}
 
 **Pontos-Chave**:
 - Todos os componentes usam Signals
@@ -1434,6 +1547,7 @@ export class UserProfileComponent {
 ```
 
 **Depois (zoneless)**:
+{% raw %}
 ```typescript
 @Component({
   selector: 'app-user-profile',
@@ -1464,6 +1578,7 @@ export class UserProfileComponent {
   }
 }
 ```
+{% endraw %}
 
 **Mudanças Principais**:
 1. `user` → `user = signal<User>(...)`
@@ -1519,6 +1634,7 @@ export class UserProfileComponent {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
@@ -1687,6 +1803,175 @@ bootstrapApplication(AppComponent, {
   ]
 });
 ```
+{% raw %}
+import { Component, signal, computed } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideRouter, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  template: `
+    <div>
+      <nav>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <a routerLink="/counter" routerLinkActive="active">Counter</a>
+        <a routerLink="/todos" routerLinkActive="active">Todos</a>
+      </nav>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  `,
+  styles: [`
+    nav {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f0f0f0;
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+    a.active {
+      background: #007bff;
+      color: white;
+    }
+  `]
+})
+export class AppComponent {}
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  template: `
+    <div>
+      <h1>Welcome to Zoneless Angular</h1>
+      <p>This app uses zoneless change detection with Signals.</p>
+    </div>
+  `
+})
+export class HomeComponent {}
+
+@Component({
+  selector: 'app-counter',
+  standalone: true,
+  template: `
+    <div>
+      <h2>Counter: {{ count() }}</h2>
+      <p>Double: {{ doubleCount() }}</p>
+      <p>Triple: {{ tripleCount() }}</p>
+      <button (click)="increment()">+</button>
+      <button (click)="decrement()">-</button>
+      <button (click)="reset()">Reset</button>
+    </div>
+  `
+})
+export class CounterComponent {
+  count = signal(0);
+  doubleCount = computed(() => this.count() * 2);
+  tripleCount = computed(() => this.count() * 3);
+
+  increment(): void {
+    this.count.update(v => v + 1);
+  }
+
+  decrement(): void {
+    this.count.update(v => v - 1);
+  }
+
+  reset(): void {
+    this.count.set(0);
+  }
+}
+
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+@Component({
+  selector: 'app-todos',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Todos</h2>
+      <input 
+        #input
+        (keyup.enter)="addTodo(input.value); input.value = ''"
+        placeholder="Add todo..."
+      />
+      <ul>
+        <li *ngFor="let todo of todos()">
+          <input 
+            type="checkbox" 
+            [checked]="todo.completed"
+            (change)="toggleTodo(todo.id)"
+          />
+          <span [class.completed]="todo.completed">
+            {{ todo.title }}
+          </span>
+          <button (click)="removeTodo(todo.id)">Delete</button>
+        </li>
+      </ul>
+      <p>Total: {{ todos().length }} | Completed: {{ completedCount() }}</p>
+    </div>
+  `,
+  styles: [`
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  `]
+})
+export class TodosComponent {
+  todos = signal<Todo[]>([]);
+  completedCount = computed(() => 
+    this.todos().filter(t => t.completed).length
+  );
+
+  addTodo(title: string): void {
+    if (title.trim()) {
+      const newTodo: Todo = {
+        id: Date.now(),
+        title: title.trim(),
+        completed: false
+      };
+      this.todos.update(todos => [...todos, newTodo]);
+    }
+  }
+
+  toggleTodo(id: number): void {
+    this.todos.update(todos =>
+      todos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  }
+
+  removeTodo(id: number): void {
+    this.todos.update(todos => todos.filter(todo => todo.id !== id));
+  }
+}
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideExperimentalZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+});
+```
+{% endraw %}
 
 **Explicação**:
 - Aplicação completa com roteamento funcionando sem Zone.js
@@ -1787,6 +2072,7 @@ export class ChartComponent implements AfterViewInit {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Injectable, signal, computed } from '@angular/core';
 
@@ -1871,6 +2157,7 @@ export class ThemeToggleComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação**:
 - Estado global gerenciado com Signals

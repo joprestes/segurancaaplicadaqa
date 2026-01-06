@@ -64,7 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **user-list-observable.component.ts** (Original)
-{% raw %}
+
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -96,7 +96,6 @@ interface User {
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class UserListObservableComponent implements OnInit, OnDestroy {
   users$: Observable<User[]>;
@@ -134,6 +133,7 @@ export class UserListObservableComponent implements OnInit, OnDestroy {
 ```
 
 **user-list-signal.component.ts** (Migrado)
+
 ```typescript
 import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -150,7 +150,6 @@ interface User {
   selector: 'app-user-list-signal',
   standalone: true,
   imports: [CommonModule],
-{% raw %}
   template: `
     <div>
       <h2>User List (Signal)</h2>
@@ -165,7 +164,6 @@ interface User {
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class UserListSignalComponent {
   private http = inject(HttpClient);

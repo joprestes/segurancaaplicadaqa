@@ -271,6 +271,128 @@ export class ValidatedFormComponent {
   </div>
 </form>
 ```
+{% raw %}
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="form-container">
+    <h2>Formulário com Validação Visual</h2>
+    
+    <div class="form-group">
+      <label for="name">Nome *</label>
+      <input 
+        id="name"
+        type="text"
+        name="name"
+        [(ngModel)]="formData.name"
+        required
+        minlength="3"
+        [ngClass]="getFieldClasses('name', form)"
+        [ngStyle]="getFieldStyles('name', form)"
+        placeholder="Seu nome">
+      <span 
+        class="error-message"
+        *ngIf="form.controls['name']?.invalid && form.controls['name']?.touched">
+        {{ getErrorMessage('name', form) }}
+      </span>
+      <span 
+        class="success-icon"
+        *ngIf="form.controls['name']?.valid && form.controls['name']?.touched">
+        ✓
+      </span>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        id="email"
+        type="email"
+        name="email"
+        [(ngModel)]="formData.email"
+        required
+        email
+        [ngClass]="getFieldClasses('email', form)"
+        [ngStyle]="getFieldStyles('email', form)"
+        placeholder="seu@email.com">
+      <span 
+        class="error-message"
+        *ngIf="form.controls['email']?.invalid && form.controls['email']?.touched">
+        {{ getErrorMessage('email', form) }}
+      </span>
+      <span 
+        class="success-icon"
+        *ngIf="form.controls['email']?.valid && form.controls['email']?.touched">
+        ✓
+      </span>
+    </div>
+    
+    <div class="form-group">
+      <label for="password">Senha *</label>
+      <input 
+        id="password"
+        type="password"
+        name="password"
+        [(ngModel)]="formData.password"
+        required
+        minlength="6"
+        [ngClass]="getFieldClasses('password', form)"
+        [ngStyle]="getFieldStyles('password', form)"
+        placeholder="Mínimo 6 caracteres">
+      <span 
+        class="error-message"
+        *ngIf="form.controls['password']?.invalid && form.controls['password']?.touched">
+        {{ getErrorMessage('password', form) }}
+      </span>
+      <span 
+        class="success-icon"
+        *ngIf="form.controls['password']?.valid && form.controls['password']?.touched">
+        ✓
+      </span>
+    </div>
+    
+    <div class="form-group">
+      <label for="confirmPassword">Confirmar Senha *</label>
+      <input 
+        id="confirmPassword"
+        type="password"
+        name="confirmPassword"
+        [(ngModel)]="formData.confirmPassword"
+        required
+        [ngClass]="getFieldClasses('confirmPassword', form)"
+        [ngStyle]="getFieldStyles('confirmPassword', form)"
+        [class.field-match]="passwordsMatch(form) && formData.confirmPassword.length > 0"
+        [class.field-mismatch]="!passwordsMatch(form) && formData.confirmPassword.length > 0"
+        placeholder="Confirme sua senha">
+      <span 
+        class="error-message"
+        *ngIf="form.controls['confirmPassword']?.invalid && form.controls['confirmPassword']?.touched">
+        {{ getErrorMessage('confirmPassword', form) }}
+      </span>
+      <span 
+        class="error-message"
+        *ngIf="!passwordsMatch(form) && formData.confirmPassword.length > 0">
+        Senhas não coincidem
+      </span>
+      <span 
+        class="success-icon"
+        *ngIf="passwordsMatch(form) && formData.confirmPassword.length > 0">
+        ✓
+      </span>
+    </div>
+    
+    <button 
+      type="submit"
+      [disabled]="!form.valid || !passwordsMatch(form)"
+      [ngClass]="{'btn-disabled': !form.valid || !passwordsMatch(form)}">
+      Enviar
+    </button>
+    
+    <div class="form-status" *ngIf="form.touched">
+      <p [ngClass]="{'status-valid': form.valid, 'status-invalid': form.invalid}">
+        Status: {{ form.valid ? 'Válido' : 'Inválido' }}
+      </p>
+    </div>
+  </div>
+</form>
+```
 {% endraw %}
 
 **validated-form.component.css**

@@ -268,7 +268,7 @@ Fluxo de Compilação Detalhado:
 
 **Exemplo Prático**:
 
-```typescript
+```
 export class ControlFlowComponent {
   isLoggedIn: boolean = true;
   items: string[] = ['Item 1', 'Item 2', 'Item 3'];
@@ -276,7 +276,7 @@ export class ControlFlowComponent {
 }
 ```
 
-```html
+```
 @if (isLoggedIn) {
   <p>Bem-vindo!</p>
 } @else {
@@ -321,7 +321,7 @@ Sintaxe `@if`:
 
 **Exemplo Prático**:
 
-```html
+```
 @if (user) {
   <div class="user-profile">
     <h2>{{ user.name }}</h2>
@@ -427,10 +427,12 @@ Sintaxe `@for`:
 
 **Exemplo com Variáveis Especiais**:
 
-```html
+```
 @for (item of items; track item.id; let i = $index; let isFirst = $first) {
   <div [class.first]="isFirst">
+{% raw %}
     Item {{ i + 1 }}: {{ item.name }}
+{% endraw %}
   </div>
 }
 ```
@@ -455,11 +457,13 @@ Vantagens sobre *ngFor:
 
 **Exemplo Prático**:
 
-```html
+```
 @for (product of products; track product.id) {
   <div class="product-card">
     <h3>{{ product.name }}</h3>
+{% raw %}
     <p>{{ product.price | currency }}</p>
+{% endraw %}
   </div>
 } @empty {
   <p>Nenhum produto disponível</p>
@@ -485,7 +489,7 @@ Sintaxe `@switch`:
 
 **Exemplo Prático**:
 
-```html
+```
 @switch (userRole) {
   @case ('admin') {
     <button>Gerenciar Usuários</button>
@@ -498,6 +502,7 @@ Sintaxe `@switch`:
     <button>Ver Conteúdo</button>
   }
 }
+{% raw %}
 ```
 
 ---
@@ -524,6 +529,33 @@ Pipes são como filtros de água. Você coloca água suja (dados brutos) e sai �
 **Visualização**:
 
 ```
+{% raw %}
+
+---
+
+### Pipes Embutidos
+
+**Definição**: Pipes são funções que transformam dados para exibição no template usando a sintaxe `{{ value | pipe }}`.
+
+**Explicação Detalhada**:
+
+Pipes embutidos principais:
+- **DatePipe**: Formata datas (`{{ date | date:'short' }}`)
+- **CurrencyPipe**: Formata moedas (`{{ price | currency:'BRL' }}`)
+- **DecimalPipe**: Formata números (`{{ number | number:'1.2-2' }}`)
+- **PercentPipe**: Formata percentuais (`{{ ratio | percent }}`)
+- **AsyncPipe**: Subscribe automaticamente em Observables
+- **UpperCasePipe / LowerCasePipe**: Transforma texto
+- **JsonPipe**: Converte para JSON (útil para debug)
+
+**Analogia**:
+
+Pipes são como filtros de água. Você coloca água suja (dados brutos) e sai água limpa (dados formatados). Cada pipe é um tipo diferente de filtro.
+
+**Visualização**:
+
+```
+{% endraw %}
 Dados Brutos          Pipe              Dados Formatados
 ┌──────────┐         ┌──────────┐         ┌──────────────┐
 │ 1234.56  │  ────→  │currenc   │  ────→  │ R$ 1.234,56  │
@@ -534,7 +566,7 @@ Dados Brutos          Pipe              Dados Formatados
 
 **Exemplo Prático**:
 
-```typescript
+```
 export class PipesComponent {
   price: number = 1234.56;
   date: Date = new Date();
@@ -544,12 +576,14 @@ export class PipesComponent {
 }
 ```
 
-```html
+```
+{% raw %}
 <p>Preço: {{ price | currency:'BRL':'symbol':'1.2-2' }}</p>
 <p>Data: {{ date | date:'dd/MM/yyyy' }}</p>
 <p>Percentual: {{ percentage | percent:'1.0-2' }}</p>
 <p>Nome: {{ userName | titlecase }}</p>
 <p>Debug: {{ userData | json }}</p>
+{% endraw %}
 ```
 
 ---
@@ -592,7 +626,9 @@ Pipes customizados são criados com:
 │                     ▼                                           │
 │  ┌──────────────────────────────────────────────────────────┐  │
 │  │  Uso no Template                                         │  │
+{% raw %}
 │  │  {{ value | pipeName:arg1:arg2 }}                       │  │
+{% endraw %}
 │  │                    │                                       │  │
 │  │                    ▼                                       │  │
 │  │  transform(value, arg1, arg2) é chamado                  │  │
@@ -657,7 +693,7 @@ Pipes customizados são criados com:
 
 **Exemplo: Pure Pipe (Recomendado)**:
 
-```typescript
+```
 @Pipe({
   name: 'truncate',
   standalone: true,
@@ -674,7 +710,7 @@ export class TruncatePipe implements PipeTransform {
 
 **Exemplo: Impure Pipe (Use com Cuidado)**:
 
-```typescript
+```
 @Pipe({
   name: 'filter',
   standalone: true,
@@ -693,14 +729,14 @@ export class FilterPipe implements PipeTransform {
 Impure pipes devem ser evitados quando possível. Se você precisa filtrar uma lista, considere:
 
 1. **Melhor Abordagem**: Filtrar no componente antes de passar para o template
-```typescript
+```
 get filteredItems() {
   return this.items.filter(item => item.active);
 }
 ```
 
 2. **Alternativa**: Usar computed signals (Angular 16+)
-```typescript
+```
 filteredItems = computed(() => 
   this.items().filter(item => item.active)
 );
@@ -733,7 +769,7 @@ Pipes customizados são como ferramentas personalizadas em uma oficina:
 
 **Exemplo Prático**:
 
-```typescript
+```
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -761,8 +797,10 @@ export class FilterPipe implements PipeTransform {
 }
 ```
 
-```html
+```
+{% raw %}
 <p>{{ longText | truncate:50 }}</p>
+{% endraw %}
 <div *ngFor="let item of items | filter:isActive">
   {{ item.name }}
 </div>
@@ -788,7 +826,9 @@ AsyncPipe funciona como um gerenciador automático de assinaturas:
 │  ┌──────────────────────────────────────────────────────────┐  │
 │  │  1. Inicialização (ngOnInit)                            │  │
 │  │                                                           │  │
+{% raw %}
 │  │  Template: {{ data$ | async }}                           │  │
+{% endraw %}
 │  │                    │                                       │  │
 │  │                    ▼                                       │  │
 │  │  AsyncPipe detecta Observable/Promise                     │  │
@@ -871,7 +911,7 @@ AsyncPipe funciona como um gerenciador automático de assinaturas:
 
 **Exemplo: Tratamento de Estados com AsyncPipe**:
 
-```typescript
+```
 export class UserComponent {
   user$ = this.userService.getUser().pipe(
     catchError(error => {
@@ -887,7 +927,7 @@ export class UserComponent {
 }
 ```
 
-```html
+```
 @if (loading$ | async) {
   <p>Carregando usuário...</p>
 } @else if (user$ | async; as user) {
@@ -902,7 +942,7 @@ export class UserComponent {
 
 **Uso com Múltiplos Observables**:
 
-```typescript
+```
 export class DashboardComponent {
   stats$ = combineLatest([
     this.userService.getUsers(),
@@ -918,7 +958,7 @@ export class DashboardComponent {
 }
 ```
 
-```html
+```
 @if (stats$ | async; as stats) {
   <div class="dashboard">
     <div>Usuários: {{ stats.totalUsers }}</div>
@@ -926,6 +966,7 @@ export class DashboardComponent {
     <div>Produtos: {{ stats.totalProducts }}</div>
   </div>
 }
+{% raw %}
 ```
 
 **Vantagens do AsyncPipe**:
@@ -954,7 +995,37 @@ Você só precisa dizer "monitore esta caixa" (`{{ data$ | async }}`) e o assist
 
 **Exemplo Prático**:
 
-```typescript
+```
+{% raw %}
+
+**Vantagens do AsyncPipe**:
+
+1. **Prevenção de Memory Leaks**: Unsubscribe automático quando componente é destruído
+2. **Código Mais Limpo**: Não precisa gerenciar subscriptions manualmente
+3. **Change Detection Automático**: Atualiza template automaticamente quando valores mudam
+4. **Type Safety**: Melhor suporte TypeScript com `as` syntax
+5. **Menos Erros**: Impossível esquecer unsubscribe
+
+**Analogia Detalhada**:
+
+AsyncPipe é como um assistente pessoal inteligente que monitora múltiplas caixas de correio:
+
+- **Subscribe Manual**: É como você mesmo checando a caixa de correio manualmente. Você precisa lembrar de checar, precisa lembrar de parar de checar quando não precisa mais, e se esquecer, as cartas se acumulam (memory leaks).
+
+- **AsyncPipe**: É como ter um assistente que:
+  - Monitora automaticamente todas as caixas de correio (Observables)
+  - Te avisa imediatamente quando chega algo novo (onNext)
+  - Organiza tudo para você (atualiza template)
+  - Para de monitorar automaticamente quando você não precisa mais (unsubscribe no ngOnDestroy)
+  - Nunca esquece de limpar (prevenção de memory leaks)
+  - Funciona mesmo se você tiver múltiplas caixas (múltiplos Observables)
+
+Você só precisa dizer "monitore esta caixa" (`{{ data$ | async }}`) e o assistente cuida de tudo automaticamente.
+
+**Exemplo Prático**:
+
+```
+{% endraw %}
 import { Component, OnInit } from '@angular/core';
 import { Observable, interval } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -965,8 +1036,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
+{% raw %}
     <p>Timer: {{ timer$ | async }}</p>
     <p>Data: {{ date$ | async | date:'medium' }}</p>
+{% endraw %}
   `
 })
 export class AsyncDemoComponent implements OnInit {
@@ -990,7 +1063,7 @@ export class AsyncDemoComponent implements OnInit {
 
 **Código**:
 
-```typescript
+```
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -1065,7 +1138,7 @@ export class TaskManagerComponent {
 
 **Código Completo**:
 
-```typescript
+```
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
@@ -1180,21 +1253,25 @@ export class MaskPipe implements PipeTransform {
 
 **Uso no Template**:
 
-```html
+```
 <div class="user-card">
+{% raw %}
   <div class="avatar">{{ user.name | initials }}</div>
+{% endraw %}
   <h3>{{ user.name }}</h3>
+{% raw %}
   <p>Membro desde {{ user.joinDate | timeAgo }}</p>
   <p>Arquivo: {{ file.size | fileSize }}</p>
   <p>{{ itemCount | pluralize:'item':'itens' }}</p>
   <p>Cartão: {{ creditCard | mask:4 }}</p>
+{% endraw %}
   <div [innerHTML]="description | highlight:searchTerm"></div>
 </div>
 ```
 
 **Exemplo de Uso Avançado - Pipe com Múltiplos Parâmetros**:
 
-```typescript
+```
 @Pipe({
   name: 'formatCurrency',
   standalone: true
@@ -1217,9 +1294,11 @@ export class FormatCurrencyPipe implements PipeTransform {
 }
 ```
 
-```html
+```
+{% raw %}
 <p>Preço: {{ price | formatCurrency:'USD':'en-US' }}</p>
 <p>Preço BR: {{ price | formatCurrency:'BRL':'pt-BR':2:2 }}</p>
+{% endraw %}
 ```
 
 ---
@@ -1244,7 +1323,7 @@ export class FormatCurrencyPipe implements PipeTransform {
 
 **Exemplos Comparativos**:
 
-```html
+```
 <!-- Diretivas Estruturais (Antigo) -->
 <div *ngIf="user; else loading">
   {{ user.name }}
@@ -1263,7 +1342,9 @@ export class FormatCurrencyPipe implements PipeTransform {
 }
 
 @for (item of items; track item.id) {
+{% raw %}
   <div>{{ $index }}: {{ item }}</div>
+{% endraw %}
 } @empty {
   <div>Lista vazia</div>
 }
@@ -1285,7 +1366,7 @@ export class FormatCurrencyPipe implements PipeTransform {
 
 **Renderização Condicional**:
 
-```html
+```
 <!-- Angular Control Flow -->
 @if (user) {
   <div>{{ user.name }}</div>
@@ -1311,7 +1392,7 @@ export class FormatCurrencyPipe implements PipeTransform {
 
 **Iteração**:
 
-```html
+```
 <!-- Angular Control Flow -->
 @for (item of items; track item.id) {
   <div>{{ item.name }}</div>
@@ -1376,13 +1457,14 @@ export class FormatCurrencyPipe implements PipeTransform {
 3. **Use @empty para estados vazios**
    - **Por quê**: Sintaxe mais clara e integrada
    - **Exemplo Bom**: 
-     ```html
+```
      @for (item of items; track item.id) {
        <div>{{ item }}</div>
      } @empty {
        <p>Nenhum item encontrado</p>
      }
-     ```
+{% raw %}
+```
    - **Benefícios**: Código mais limpo, sem necessidade de `*ngIf` separado
 
 4. **Use AsyncPipe para Observables**
@@ -1430,11 +1512,62 @@ export class FormatCurrencyPipe implements PipeTransform {
 3. **Não faça subscribe manual em Observables no template**
    - **Problema**: Memory leaks, código verboso, difícil manutenção
    - **Exemplo Ruim**: 
-     ```typescript
+```
+{% raw %}
+   - **Benefícios**: Código mais limpo, sem necessidade de `*ngIf` separado
+
+4. **Use AsyncPipe para Observables**
+   - **Por quê**: Previne memory leaks automaticamente, gerencia subscribe/unsubscribe
+   - **Exemplo Bom**: `{{ data$ | async }}`
+   - **Exemplo Ruim**: Subscribe manual no componente
+   - **Benefícios**: Sem memory leaks, código mais limpo
+
+5. **Mantenha pipes pure quando possível**
+   - **Por quê**: Melhor performance, recalcula apenas quando entrada muda
+   - **Exemplo Bom**: `pure: true` (padrão)
+   - **Exemplo Ruim**: `pure: false` sem necessidade
+   - **Benefícios**: Performance muito melhor, menos recálculos
+
+6. **Use pipes para transformação, não para lógica complexa**
+   - **Por quê**: Pipes devem ser simples e reutilizáveis
+   - **Exemplo Bom**: `{{ price | currency }}` (transformação simples)
+   - **Exemplo Ruim**: Pipe com lógica de negócio complexa
+   - **Benefícios**: Código mais testável, pipes reutilizáveis
+
+7. **Combine pipes quando necessário**
+   - **Por quê**: Permite transformações em cascata
+   - **Exemplo Bom**: `{{ date$ | async | date:'short' }}`
+   - **Benefícios**: Flexibilidade, código declarativo
+
+8. **Migre gradualmente de diretivas para Control Flow**
+   - **Por quê**: Permite migração incremental sem quebrar código existente
+   - **Estratégia**: Migre componente por componente
+   - **Benefícios**: Migração segura, sem riscos
+
+### ❌ Anti-padrões Comuns
+
+1. **Não misture Control Flow com diretivas estruturais no mesmo componente**
+   - **Problema**: Pode causar confusão, inconsistência, problemas de performance
+   - **Exemplo Ruim**: Misturar `@if` com `*ngIf` no mesmo componente
+   - **Solução**: Escolha um padrão e mantenha consistente em todo componente
+   - **Impacto**: Código confuso, difícil manutenção
+
+2. **Não use pipes impure desnecessariamente**
+   - **Problema**: Performance ruim, recalcula a cada change detection
+   - **Exemplo Ruim**: `pure: false` quando pipe é determinístico
+   - **Solução**: Use pure pipes sempre que possível, apenas use impure quando realmente necessário
+   - **Impacto**: Performance degradada, aplicação lenta
+
+3. **Não faça subscribe manual em Observables no template**
+   - **Problema**: Memory leaks, código verboso, difícil manutenção
+   - **Exemplo Ruim**: 
+```
+{% endraw %}
      ngOnInit() {
        this.data$.subscribe(value => this.data = value);
      }
-     ```
+{% raw %}
+```
    - **Solução**: Use AsyncPipe `{{ data$ | async }}`
    - **Impacto**: Memory leaks, bugs difíceis de rastrear
 
@@ -1519,7 +1652,8 @@ Crie um componente de lista de transações financeiras que usa @for, @if, @swit
 
 **Código Completo**:
 
-```typescript
+```
+{% endraw %}
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
@@ -1554,16 +1688,22 @@ interface Transaction {
           <div class="summary-item">
             <span>Total:</span>
             <span [class.positive]="total() >= 0" [class.negative]="total() < 0">
+{% raw %}
               {{ total() | formatCurrency }}
+{% endraw %}
             </span>
           </div>
           <div class="summary-item">
             <span>Receitas:</span>
+{% raw %}
             <span class="positive">{{ income() | formatCurrency }}</span>
+{% endraw %}
           </div>
           <div class="summary-item">
             <span>Despesas:</span>
+{% raw %}
             <span class="negative">{{ expenses() | formatCurrency }}</span>
+{% endraw %}
           </div>
         </div>
         
@@ -1604,12 +1744,16 @@ interface Transaction {
                   } @else if (transaction.type === 'expense') {
                     <span>-</span>
                   }
+{% raw %}
                   {{ transaction.amount | formatCurrency }}
+{% endraw %}
                 </div>
                 
                 <div class="details">
                   <span class="category">{{ transaction.category }}</span>
+{% raw %}
                   <span class="date">{{ transaction.date | timeAgo }}</span>
+{% endraw %}
                 </div>
               </div>
               
@@ -1843,3 +1987,5 @@ Antes de considerar esta aula completa:
 **Aula Anterior**: [Aula 1.4: Data Binding e Diretivas Modernas](./lesson-1-4-data-binding.md)  
 **Próximo Módulo**: [Módulo 2: Desenvolvimento Intermediário](../modules/module-2-desenvolvimento-intermediario.md)  
 **Voltar ao Módulo**: [Módulo 1: Fundamentos Acelerados](../modules/module-1-fundamentos-acelerados.md)
+
+```

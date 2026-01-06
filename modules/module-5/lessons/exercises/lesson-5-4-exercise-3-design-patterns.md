@@ -265,18 +265,17 @@ export class TaskManagementFacade {
 **Uso dos Patterns**:
 
 **payment.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { PaymentProcessorFactory } from './payment-processor.factory';
 
 @Component({
   selector: 'app-payment',
-{% raw %}
   template: `
     <button (click)="payWithCredit()">Pay with Credit Card</button>
     <button (click)="payWithPayPal()">Pay with PayPal</button>
   `
-{% endraw %}
 })
 export class PaymentComponent {
   constructor(private factory: PaymentProcessorFactory) {}
@@ -298,13 +297,13 @@ export class PaymentComponent {
 ```
 
 **task-list.component.ts**
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { TaskManagementFacade } from './task-management.facade';
 
 @Component({
   selector: 'app-task-list',
-{% raw %}
   template: `
     <div>
       @for (task of facade.tasks(); track task.id) {
@@ -312,7 +311,6 @@ import { TaskManagementFacade } from './task-management.facade';
       }
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   constructor(public facade: TaskManagementFacade) {}

@@ -119,6 +119,7 @@ export function passwordMatchValidator(passwordControlName: string, confirmPassw
 ```
 
 **password-form.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -186,7 +187,6 @@ import { passwordStrengthValidator, passwordMatchValidator } from './custom-vali
     </form>
   `,
   styles: [`
-{% endraw %}
     .field {
       margin-bottom: 1.5rem;
     }
@@ -271,6 +271,7 @@ export class PasswordFormComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

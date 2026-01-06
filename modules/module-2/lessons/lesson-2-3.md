@@ -1122,6 +1122,7 @@ const rules = {
 
 **Código Completo**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
@@ -1242,6 +1243,7 @@ export class RegisterComponent {
 
 **Template HTML Completo**:
 
+{% raw %}
 ```html
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
@@ -1310,6 +1312,75 @@ export class RegisterComponent {
   </div>
 </form>
 ```
+{% raw %}
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Nome Completo</label>
+    <input 
+      id="name" 
+      type="text" 
+      formControlName="name"
+      [class.error]="showError('name')"
+      [class.valid]="registerForm.get('name')?.valid && registerForm.get('name')?.touched">
+    @if (showError('name')) {
+      <span class="error-message">{{ getError('name') }}</span>
+    }
+  </div>
+  
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input 
+      id="email" 
+      type="email" 
+      formControlName="email"
+      [class.error]="showError('email')"
+      [class.valid]="registerForm.get('email')?.valid && registerForm.get('email')?.touched">
+    @if (showError('email')) {
+      <span class="error-message">{{ getError('email') }}</span>
+    }
+  </div>
+  
+  <div class="form-group">
+    <label for="password">Senha</label>
+    <input 
+      id="password" 
+      type="password" 
+      formControlName="password"
+      [class.error]="showError('password')"
+      [class.valid]="registerForm.get('password')?.valid && registerForm.get('password')?.touched">
+    @if (showError('password')) {
+      <span class="error-message">{{ getError('password') }}</span>
+    }
+  </div>
+  
+  <div class="form-group">
+    <label for="confirmPassword">Confirmar Senha</label>
+    <input 
+      id="confirmPassword" 
+      type="password" 
+      formControlName="confirmPassword"
+      [class.error]="showError('confirmPassword')"
+      [class.valid]="registerForm.get('confirmPassword')?.valid && registerForm.get('confirmPassword')?.touched">
+    @if (showError('confirmPassword')) {
+      <span class="error-message">{{ getError('confirmPassword') }}</span>
+    }
+  </div>
+  
+  <button 
+    type="submit" 
+    [disabled]="registerForm.invalid"
+    [class.disabled]="registerForm.invalid">
+    Registrar
+  </button>
+  
+  <div class="form-status">
+    <p>Status: {{ registerForm.status }}</p>
+    <p>Válido: {{ registerForm.valid ? 'Sim' : 'Não' }}</p>
+    <p>Tocado: {{ registerForm.touched ? 'Sim' : 'Não' }}</p>
+  </div>
+</form>
+```
+{% endraw %}
 
 **Explicação Detalhada**:
 
@@ -1348,6 +1419,7 @@ Form inválido. Erros: {
 
 **Código Completo**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
@@ -1506,6 +1578,165 @@ export class ProductFormComponent {
   }
 }
 ```
+{% raw %}
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, CommonModule } from '@angular/forms';
+
+interface Supplier {
+  name: string;
+  email: string;
+  phone: string;
+}
+
+@Component({
+  selector: 'app-product-form',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
+  template: `
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Nome do Produto</label>
+        <input formControlName="productName">
+        @if (showError('productName')) {
+          <span class="error">{{ getError('productName') }}</span>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea formControlName="description"></textarea>
+      </div>
+      
+      <div class="suppliers-section">
+        <h3>Fornecedores</h3>
+        
+        <div formArrayName="suppliers">
+          @for (supplier of suppliers.controls; track $index) {
+            <div [formGroupName]="$index" class="supplier-group">
+              <h4>Fornecedor {{ $index + 1 }}</h4>
+              
+              <div class="form-group">
+                <label>Nome</label>
+                <input formControlName="name">
+                @if (showSupplierError($index, 'name')) {
+                  <span class="error">{{ getSupplierError($index, 'name') }}</span>
+                }
+              </div>
+              
+              <div class="form-group">
+                <label>Email</label>
+                <input formControlName="email" type="email">
+                @if (showSupplierError($index, 'email')) {
+                  <span class="error">{{ getSupplierError($index, 'email') }}</span>
+                }
+              </div>
+              
+              <div class="form-group">
+                <label>Telefone</label>
+                <input formControlName="phone">
+              </div>
+              
+              <button type="button" (click)="removeSupplier($index)" [disabled]="suppliers.length <= 1">
+                Remover Fornecedor
+              </button>
+            </div>
+          }
+        </div>
+        
+        <button type="button" (click)="addSupplier()">Adicionar Fornecedor</button>
+      </div>
+      
+      <button type="submit" [disabled]="productForm.invalid">
+        Salvar Produto
+      </button>
+    </form>
+  `
+})
+export class ProductFormComponent {
+  productForm: FormGroup;
+  
+  constructor(private fb: FormBuilder) {
+    this.productForm = this.fb.group({
+      productName: ['', [Validators.required, Validators.minLength(3)]],
+      description: [''],
+      suppliers: this.fb.array([
+        this.createSupplierGroup()
+      ])
+    });
+  }
+  
+  get suppliers(): FormArray {
+    return this.productForm.get('suppliers') as FormArray;
+  }
+  
+  createSupplierGroup(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]]
+    });
+  }
+  
+  addSupplier(): void {
+    this.suppliers.push(this.createSupplierGroup());
+  }
+  
+  removeSupplier(index: number): void {
+    if (this.suppliers.length > 1) {
+      this.suppliers.removeAt(index);
+    }
+  }
+  
+  showError(controlName: string): boolean {
+    const control = this.productForm.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+  
+  getError(controlName: string): string {
+    const control = this.productForm.get(controlName);
+    if (!control || !control.errors) return '';
+    
+    if (control.errors['required']) return 'Campo obrigatório';
+    if (control.errors['minlength']) {
+      return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+    }
+    
+    return 'Erro de validação';
+  }
+  
+  showSupplierError(index: number, controlName: string): boolean {
+    const supplierGroup = this.suppliers.at(index) as FormGroup;
+    const control = supplierGroup.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
+  }
+  
+  getSupplierError(index: number, controlName: string): string {
+    const supplierGroup = this.suppliers.at(index) as FormGroup;
+    const control = supplierGroup.get(controlName);
+    if (!control || !control.errors) return '';
+    
+    if (control.errors['required']) return 'Campo obrigatório';
+    if (control.errors['email']) return 'Email inválido';
+    
+    return 'Erro de validação';
+  }
+  
+  onSubmit(): void {
+    if (this.productForm.valid) {
+      const formValue = this.productForm.value;
+      console.log('Produto:', {
+        name: formValue.productName,
+        description: formValue.description,
+        suppliers: formValue.suppliers
+      });
+    } else {
+      this.productForm.markAllAsTouched();
+    }
+  }
+}
+```
+{% endraw %}
 
 **Explicação Detalhada**:
 
@@ -1533,12 +1764,12 @@ export class ProductFormComponent {
 1. **Use FormBuilder para formulários complexos**
    - **Por quê**: Sintaxe mais limpa e menos boilerplate, facilita manutenção
    - **Exemplo**: 
-   ```typescript
+```
    this.fb.group({
      name: ['', Validators.required],
      email: ['', [Validators.required, Validators.email]]
    })
-   ```
+```
    - **Benefício**: Código mais legível e fácil de modificar
 
 2. **Valide no lado do servidor para dados críticos**
@@ -1554,13 +1785,13 @@ export class ProductFormComponent {
 4. **Use Typed Forms quando possível**
    - **Por quê**: Type safety completo, autocomplete melhorado, menos erros em compile-time
    - **Exemplo**: 
-   ```typescript
+```
    interface UserForm {
      name: string;
      email: string;
    }
    form = new FormGroup<UserForm>({ ... })
-   ```
+```
    - **Benefício**: Previne erros de digitação e melhora DX
 
 5. **Organize validators customizados em arquivos separados**
@@ -1571,14 +1802,14 @@ export class ProductFormComponent {
 6. **Use `markAllAsTouched()` antes de mostrar erros no submit**
    - **Por quê**: Garante que todos os erros sejam visíveis quando usuário tenta submeter
    - **Exemplo**: 
-   ```typescript
+```
    onSubmit() {
      if (this.form.invalid) {
        this.form.markAllAsTouched();
        return;
      }
    }
-   ```
+```
    - **Benefício**: Melhor UX, usuário vê todos os problemas de uma vez
 
 7. **Evite validação assíncrona desnecessária**
@@ -1589,9 +1820,9 @@ export class ProductFormComponent {
 8. **Use `patchValue()` para atualizações parciais**
    - **Por quê**: Mais flexível que `setValue()`, não requer todos os campos
    - **Exemplo**: 
-   ```typescript
+```
    this.form.patchValue({ name: 'Novo Nome' });
-   ```
+```
    - **Benefício**: Útil ao carregar dados do servidor parcialmente
 
 9. **Desabilite controles quando apropriado**

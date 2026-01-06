@@ -64,6 +64,7 @@ Crie:
 ### Abordagem Recomendada
 
 **realtime-data.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
@@ -85,7 +86,6 @@ import { DataService } from './data.service';
       <p>Última atualização: {{ lastUpdate | date:'medium' }}</p>
     </div>
   `
-{% endraw %}
 })
 export class RealtimeDataComponent implements OnInit, OnDestroy {
   counter = 0;
@@ -171,6 +171,111 @@ export class RealtimeDataComponent implements OnInit, OnDestroy {
   }
 }
 ```
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Subject, interval } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { DataService } from './data.service';
+
+@Component({
+  selector: 'app-realtime-data',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Dados em Tempo Real</h2>
+      <p>Contador: {{ counter }}</p>
+      <p>Dados: {{ data }}</p>
+      <p>Cliques: {{ clickCount }}</p>
+      <p>Última atualização: {{ lastUpdate | date:'medium' }}</p>
+    </div>
+  `
+})
+export class RealtimeDataComponent implements OnInit, OnDestroy {
+  counter = 0;
+  data = '';
+  clickCount = 0;
+  lastUpdate = new Date();
+  
+  private destroy$ = new Subject<void>();
+  private intervalId?: number;
+  private timeoutId?: number;
+  
+  constructor(private dataService: DataService) {}
+  
+  ngOnInit(): void {
+    this.startInterval();
+    this.startTimeout();
+    this.subscribeToData();
+    this.setupEventListeners();
+  }
+  
+  private startInterval(): void {
+    this.intervalId = window.setInterval(() => {
+      this.counter++;
+      this.lastUpdate = new Date();
+    }, 1000);
+  }
+  
+  private startTimeout(): void {
+    this.timeoutId = window.setTimeout(() => {
+      console.log('Timeout executed');
+    }, 5000);
+  }
+  
+  private subscribeToData(): void {
+    this.dataService.getData()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.data = data;
+        this.lastUpdate = new Date();
+      });
+    
+    interval(2000)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.dataService.refresh();
+      });
+  }
+  
+  @HostListener('window:click', ['$event'])
+  onWindowClick(event: MouseEvent): void {
+    this.clickCount++;
+  }
+  
+  private setupEventListeners(): void {
+    window.addEventListener('resize', this.onResize);
+    window.addEventListener('scroll', this.onScroll);
+  }
+  
+  private onResize = (): void => {
+    console.log('Window resized');
+  };
+  
+  private onScroll = (): void => {
+    console.log('Window scrolled');
+  };
+  
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+    
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+    
+    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('scroll', this.onScroll);
+    
+    this.destroy$.next();
+    this.destroy$.complete();
+    
+    console.log('All resources cleaned up');
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

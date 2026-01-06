@@ -281,6 +281,47 @@ export class LifecycleDemoComponent implements
   </div>
 </div>
 ```
+{% raw %}
+<div class="lifecycle-demo">
+  <div class="demo-controls">
+    <h2>Lifecycle Demo Component</h2>
+    <div class="inputs">
+      <label>
+        User ID: 
+        <input type="number" [value]="userId" (input)="userId = +$any($event.target).value">
+      </label>
+      <label>
+        User Name: 
+        <input type="text" [value]="userName" (input)="userName = $any($event.target).value">
+      </label>
+    </div>
+    <button (click)="clearLogs()">Limpar Logs</button>
+  </div>
+
+  <div class="logs-container">
+    <h3>Logs do Ciclo de Vida ({{ logs.length }})</h3>
+    <div class="logs">
+      <div 
+        *ngFor="let log of logs; trackBy: trackByTimestamp" 
+        class="log-entry"
+        [class]="'log-' + log.hook">
+        <span class="timestamp">{{ log.timestamp }}</span>
+        <span class="hook">{{ log.hook }}</span>
+        <span class="message">{{ log.message }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <h3>Resumo por Hook</h3>
+    <div class="hook-summary">
+      <div *ngFor="let hook of getHooks()" class="summary-item">
+        <strong>{{ hook }}:</strong> {{ getLogsByHook(hook).length }} chamadas
+      </div>
+    </div>
+  </div>
+</div>
+```
 {% endraw %}
 
 **lifecycle-demo.component.css**
@@ -380,6 +421,38 @@ export class LifecycleDemoComponent implements
 **app.component.ts** (exemplo de uso)
 {% raw %}
 ```typescript
+import { Component } from '@angular/core';
+import { LifecycleDemoComponent } from './lifecycle-demo/lifecycle-demo.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [LifecycleDemoComponent],
+  template: `
+    <button (click)="toggleDemo()">
+      {{ showDemo ? 'Destruir' : 'Criar' }} Componente
+    </button>
+    <app-lifecycle-demo 
+      *ngIf="showDemo"
+      [userId]="currentUserId"
+      [userName]="currentUserName">
+    </app-lifecycle-demo>
+  `
+})
+export class AppComponent {
+  showDemo: boolean = true;
+  currentUserId: number = 1;
+  currentUserName: string = 'João';
+
+  toggleDemo(): void {
+    this.showDemo = !this.showDemo;
+    if (this.showDemo) {
+      this.currentUserId++;
+    }
+  }
+}
+```
+{% raw %}
 import { Component } from '@angular/core';
 import { LifecycleDemoComponent } from './lifecycle-demo/lifecycle-demo.component';
 

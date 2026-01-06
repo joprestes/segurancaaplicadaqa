@@ -1181,7 +1181,9 @@ const service = inject('myService');
 
 2. **Não injete serviços diretamente em templates**
    - **Problema**: Dificulta testes, viola separação de responsabilidades
+{% raw %}
    - **Exemplo Ruim**: `{{ userService.getUser().name }}` no template
+{% endraw %}
    - **Solução**: Injete no componente e exponha via propriedades
    - **Impacto**: Testes difíceis, código acoplado
 

@@ -85,6 +85,7 @@ export class UserService {
 ```
 
 **user-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -114,7 +115,6 @@ import { User } from './user.model';
       <p>Total: {{ (users$ | async)?.length || 0 }}</p>
     </div>
   `
-{% endraw %}
 })
 export class UserListComponent {
   users$: Observable<User[]>;
@@ -124,6 +124,43 @@ export class UserListComponent {
   }
 }
 ```
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
+import { UserService } from './user.service';
+import { User } from './user.model';
+
+@Component({
+  selector: 'app-user-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Usuários (async pipe)</h2>
+      
+      @if (users$ | async; as users) {
+        <ul>
+          @for (user of users; track user.id) {
+            <li>{{ user.name }} - {{ user.email }}</li>
+          }
+        </ul>
+      } @else {
+        <p>Carregando...</p>
+      }
+      
+      <p>Total: {{ (users$ | async)?.length || 0 }}</p>
+    </div>
+  `
+})
+export class UserListComponent {
+  users$: Observable<User[]>;
+  
+  constructor(private userService: UserService) {
+    this.users$ = this.userService.getUsers();
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

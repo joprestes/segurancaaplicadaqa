@@ -201,6 +201,67 @@ export class ColorPickerComponent {
   </div>
 </div>
 ```
+{% raw %}
+<div class="color-picker">
+  <h2>Seletor de Cores e Estilos</h2>
+  
+  <div class="controls">
+    <div class="control-group">
+      <label>Cor de Fundo:</label>
+      <input 
+        type="color" 
+        [(ngModel)]="backgroundColor"
+        name="backgroundColor">
+      <span>{{ backgroundColor }}</span>
+    </div>
+    
+    <div class="control-group">
+      <label>Cor do Texto:</label>
+      <input 
+        type="color" 
+        [(ngModel)]="textColor"
+        name="textColor">
+      <span>{{ textColor }}</span>
+    </div>
+    
+    <div class="control-group">
+      <label>Tamanho da Fonte: {{ fontSize }}px</label>
+      <input 
+        type="range" 
+        [(ngModel)]="fontSize"
+        name="fontSize"
+        min="12"
+        max="48"
+        step="2">
+    </div>
+    
+    <div class="control-group">
+      <label>Fonte:</label>
+      <select [(ngModel)]="fontFamily" name="fontFamily">
+        <option value="Arial">Arial</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Times New Roman">Times New Roman</option>
+      </select>
+    </div>
+    
+    <button (click)="resetStyles()">Resetar</button>
+  </div>
+  
+  <div class="preview">
+    <h3>Preview</h3>
+    <div class="preview-content" [ngStyle]="getStyles()">
+      <p>Este é um texto de exemplo que demonstra como os estilos são aplicados dinamicamente.</p>
+      <p>Você pode ver como a cor de fundo, cor do texto, tamanho da fonte e família de fonte mudam em tempo real.</p>
+    </div>
+  </div>
+  
+  <div class="code-output">
+    <h3>Código CSS Gerado</h3>
+    <pre>{{ getStyles() | json }}</pre>
+  </div>
+</div>
+```
 {% endraw %}
 
 **color-picker.component.css**

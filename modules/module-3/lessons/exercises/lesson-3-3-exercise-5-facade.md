@@ -114,6 +114,7 @@ export class ProductFacade {
 ```
 
 **product-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -148,7 +149,6 @@ import { Product } from './product.model';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class ProductListComponent implements OnInit {
   constructor(public facade: ProductFacade) {}
@@ -166,6 +166,56 @@ export class ProductListComponent implements OnInit {
   }
 }
 ```
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ProductFacade } from './store/product.facade';
+import { Product } from './product.model';
+
+@Component({
+  selector: 'app-product-list',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div>
+      <h2>Produtos (Facade Pattern)</h2>
+      <button (click)="load()">Carregar</button>
+      
+      @if (facade.loading$ | async) {
+        <p>Carregando...</p>
+      }
+      
+      @if (facade.error$ | async) {
+        <p class="error">{{ facade.error$ | async }}</p>
+      }
+      
+      <ul>
+        @for (product of facade.products$ | async; track product.id) {
+          <li>
+            {{ product.name }} - R$ {{ product.price }}
+            <button (click)="delete(product.id)">Deletar</button>
+          </li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class ProductListComponent implements OnInit {
+  constructor(public facade: ProductFacade) {}
+  
+  ngOnInit(): void {
+    this.load();
+  }
+  
+  load(): void {
+    this.facade.loadProducts();
+  }
+  
+  delete(id: number): void {
+    this.facade.deleteProduct(id);
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

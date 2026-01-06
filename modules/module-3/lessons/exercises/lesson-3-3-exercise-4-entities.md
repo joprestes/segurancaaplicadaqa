@@ -156,7 +156,7 @@ export const selectActiveUsers = createSelector(
 ```
 
 **user-list.component.ts**
-{% raw %}
+
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -190,7 +190,6 @@ import { User } from './user.model';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class UserListComponent implements OnInit {
   users$: Observable<User[]>;

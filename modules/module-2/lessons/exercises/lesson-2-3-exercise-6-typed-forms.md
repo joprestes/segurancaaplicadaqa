@@ -82,6 +82,7 @@ export interface UserForm {
 ```
 
 **typed-user-form.component.ts**
+
 {% raw %}
 ```typescript
 import { Component } from '@angular/core';
@@ -154,7 +155,6 @@ import { UserForm } from './user-form.interface';
       </div>
     </form>
   `
-{% endraw %}
 })
 export class TypedUserFormComponent {
   userForm: FormGroup<UserForm>;
@@ -198,6 +198,120 @@ export class TypedUserFormComponent {
   }
 }
 ```
+import { Component } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { UserForm } from './user-form.interface';
+
+@Component({
+  selector: 'app-typed-user-form',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
+  template: `
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <h2>Cadastro de Usuário (Typed)</h2>
+      
+      <div class="field">
+        <label for="name">Nome</label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+      
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email">
+      </div>
+      
+      <div class="field">
+        <label for="age">Idade</label>
+        <input id="age" type="number" formControlName="age">
+      </div>
+      
+      <fieldset formGroupName="address">
+        <legend>Endereço</legend>
+        <div class="field">
+          <label for="street">Rua</label>
+          <input id="street" type="text" formControlName="street">
+        </div>
+        <div class="field">
+          <label for="city">Cidade</label>
+          <input id="city" type="text" formControlName="city">
+        </div>
+        <div class="field">
+          <label for="zipCode">CEP</label>
+          <input id="zipCode" type="text" formControlName="zipCode">
+        </div>
+      </fieldset>
+      
+      <fieldset formGroupName="preferences">
+        <legend>Preferências</legend>
+        <div class="field">
+          <label>
+            <input type="checkbox" formControlName="newsletter">
+            Receber newsletter
+          </label>
+        </div>
+        <div class="field">
+          <label>
+            <input type="checkbox" formControlName="notifications">
+            Receber notificações
+          </label>
+        </div>
+      </fieldset>
+      
+      <button type="submit" [disabled]="userForm.invalid">
+        Cadastrar
+      </button>
+      
+      <div *ngIf="submitted">
+        <h3>Dados cadastrados:</h3>
+        <pre>{{ submittedData | json }}</pre>
+      </div>
+    </form>
+  `
+})
+export class TypedUserFormComponent {
+  userForm: FormGroup<UserForm>;
+  submitted = false;
+  submittedData: UserForm | null = null;
+  
+  constructor(private fb: FormBuilder) {
+    this.userForm = this.fb.group<UserForm>({
+      name: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+      email: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+      age: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(18)] }),
+      address: this.fb.group({
+        street: new FormControl<string>('', { nonNullable: true }),
+        city: new FormControl<string>('', { nonNullable: true }),
+        zipCode: new FormControl<string>('', { nonNullable: true })
+      }),
+      preferences: this.fb.group({
+        newsletter: new FormControl<boolean>(false, { nonNullable: true }),
+        notifications: new FormControl<boolean>(false, { nonNullable: true })
+      })
+    });
+  }
+  
+  onSubmit(): void {
+    if (this.userForm.valid) {
+      const formValue: UserForm = this.userForm.value;
+      this.submittedData = formValue;
+      this.submitted = true;
+      console.log('Form válido:', formValue);
+    } else {
+      this.userForm.markAllAsTouched();
+    }
+  }
+  
+  getFormValue(): UserForm {
+    return this.userForm.value;
+  }
+  
+  getControl<K extends keyof UserForm>(controlName: K): FormControl<UserForm[K]> {
+    return this.userForm.get(controlName) as FormControl<UserForm[K]>;
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

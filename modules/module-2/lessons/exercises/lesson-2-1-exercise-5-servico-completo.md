@@ -318,7 +318,6 @@ import { TaskService, Task } from './task.service';
       </div>
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent implements OnInit {
   private taskService = inject(TaskService);
@@ -350,6 +349,7 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

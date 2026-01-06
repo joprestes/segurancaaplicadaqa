@@ -74,7 +74,6 @@ import { CommonModule } from '@angular/common';
     <div class="counter">
       <h3>Contador</h3>
 {% raw %}
-
       <p>Valor: {{ count() }}</p>
 {% endraw %}
 
@@ -125,7 +124,9 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="counter">
       <h3>Contador</h3>
+{% raw %}
       <p>Valor: {{ count() }}</p>
+{% endraw %}
       <div class="buttons">
         <button (click)="increment()">+</button>
         <button (click)="decrement()">-</button>
@@ -162,6 +163,7 @@ export class CounterModelComponent {
     this.count.set(0);
   }
 }
+{% raw %}
 ```typescript
 import { Component, model } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -226,7 +228,6 @@ import { CounterModelComponent } from './counter-model.component';
     <div>
       <h2>Parent Component</h2>
 {% raw %}
-
       <p>Valor no pai: {{ parentCount() }}</p>
 {% endraw %}
 
@@ -264,7 +265,9 @@ import { CounterModelComponent } from './counter-model.component';
   template: `
     <div>
       <h2>Parent Component</h2>
+{% raw %}
       <p>Valor no pai: {{ parentCount() }}</p>
+{% endraw %}
       
       <app-counter-model [(count)]="parentCount"></app-counter-model>
       
@@ -287,6 +290,7 @@ export class ParentModelComponent {
     this.parentCount.update(value => value + 1);
   }
 }
+{% raw %}
 ```typescript
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';

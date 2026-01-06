@@ -27,6 +27,7 @@ Data binding é um dos conceitos mais fundamentais do Angular desde sua primeira
 
 **Linha do Tempo da Evolução**:
 
+{% raw %}
 ```
 AngularJS (2010) ──────────────────────────────────────────── Angular 17+ (2023+)
  │                                                                  │
@@ -54,6 +55,7 @@ AngularJS (2010) ─────────────────────
             Reatividade moderna                                    │
             Performance otimizada                                  │
 ```
+{% endraw %}
 
 **Por que Data Binding é Essencial?**
 
@@ -70,7 +72,9 @@ Data binding elimina a necessidade de manipulação manual do DOM, que era comum
 
 ### O que você vai aprender
 
+{% raw %}
 - **Interpolação**: Exibir dados do componente no template (`{{ }}`)
+{% endraw %}
 - **Property Binding**: Definir propriedades dinamicamente (`[property]`)
 - **Event Binding**: Responder a eventos do DOM (`(event)`)
 - **Two-Way Data Binding**: Sincronização bidirecional (`[(ngModel)]`)
@@ -105,7 +109,9 @@ Data binding elimina a necessidade de manipulação manual do DOM, que era comum
 
 ## Conceitos Teóricos
 
+{% raw %}
 ### Interpolação ({{ }})
+{% endraw %}
 
 **Definição**: Interpolação é a forma mais simples de exibir dados do componente no template usando a sintaxe `{{ expression }}`.
 
@@ -113,17 +119,23 @@ Data binding elimina a necessidade de manipulação manual do DOM, que era comum
 
 Interpolação converte expressões em strings e as exibe no template. Suporta:
 - Variáveis simples: `{{ name }}`
+{% raw %}
 - Expressões: `{{ 1 + 1 }}`
 - Chamadas de método: `{{ getFullName() }}`
+{% endraw %}
 - Propriedades aninhadas: `{{ user.address.city }}`
 
 **Analogia**:
 
+{% raw %}
 Interpolação é como preencher um formulário em branco. O template é o formulário, e `{{ }}` são os campos que serão preenchidos com dados do componente. Assim como um formulário físico tem campos em branco que você preenche com informações, o template tem expressões `{{ }}` que são automaticamente preenchidas com valores do componente quando a página é renderizada.
+{% endraw %}
 
 **Como Funciona Internamente**:
 
+{% raw %}
 O Angular avalia a expressão dentro de `{{ }}` durante cada ciclo de change detection. Se o valor mudar, o DOM é atualizado automaticamente. Isso é feito de forma eficiente usando o mecanismo de detecção de mudanças do Angular.
+{% endraw %}
 
 **Visualização**:
 
@@ -143,7 +155,9 @@ Component                    Angular Engine              Template
 
 **Fluxo de Execução**:
 
+{% raw %}
 1. Angular compila o template e identifica expressões `{{ }}`
+{% endraw %}
 2. Durante change detection, avalia cada expressão
 3. Compara valor anterior com valor atual
 4. Se diferente, atualiza o DOM apenas naquele ponto específico
@@ -163,12 +177,20 @@ export class UserComponent {
 }
 ```
 
+{% raw %}
 ```html
 <h1>{{ userName }}</h1>
 <p>Idade: {{ userAge }}</p>
 <p>Status: {{ isActive ? 'Ativo' : 'Inativo' }}</p>
 <p>{{ getDisplayName() }}</p>
 ```
+{% raw %}
+<h1>{{ userName }}</h1>
+<p>Idade: {{ userAge }}</p>
+<p>Status: {{ isActive ? 'Ativo' : 'Inativo' }}</p>
+<p>{{ getDisplayName() }}</p>
+```
+{% endraw %}
 
 ---
 
@@ -544,6 +566,7 @@ export class ListComponent {
 }
 ```
 
+{% raw %}
 ```html
 <div *ngIf="showList">
   <ul>
@@ -559,6 +582,22 @@ export class ListComponent {
   <p *ngSwitchDefault>Nenhuma opção selecionada</p>
 </div>
 ```
+{% raw %}
+<div *ngIf="showList">
+  <ul>
+    <li *ngFor="let item of items; let i = index">
+      {{ i + 1 }}. {{ item }}
+    </li>
+  </ul>
+</div>
+
+<div [ngSwitch]="selectedValue">
+  <p *ngSwitchCase="'option1'">Opção 1 selecionada</p>
+  <p *ngSwitchCase="'option2'">Opção 2 selecionada</p>
+  <p *ngSwitchDefault>Nenhuma opção selecionada</p>
+</div>
+```
+{% endraw %}
 
 ---
 
@@ -658,6 +697,7 @@ export class HighlightDirective {
 
 **Código**:
 
+{% raw %}
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -729,6 +769,78 @@ export class UserFormComponent {
   }
 }
 ```
+{% raw %}
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+interface User {
+  name: string;
+  email: string;
+  age: number;
+  subscribe: boolean;
+}
+
+@Component({
+  selector: 'app-user-form',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
+  template: `
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label>Nome:</label>
+        <input [(ngModel)]="user.name" name="name" required>
+      </div>
+      
+      <div>
+        <label>Email:</label>
+        <input [(ngModel)]="user.email" type="email" name="email" required>
+      </div>
+      
+      <div>
+        <label>Idade:</label>
+        <input [(ngModel)]="user.age" type="number" name="age" min="18">
+      </div>
+      
+      <div>
+        <label>
+          <input type="checkbox" [(ngModel)]="user.subscribe" name="subscribe">
+          Receber newsletter
+        </label>
+      </div>
+      
+      <button type="submit" [disabled]="!isValid()">Enviar</button>
+    </form>
+    
+    <div *ngIf="submitted">
+      <h3>Dados enviados:</h3>
+      <pre>{{ user | json }}</pre>
+    </div>
+  `
+})
+export class UserFormComponent {
+  user: User = {
+    name: '',
+    email: '',
+    age: 18,
+    subscribe: false
+  };
+  
+  submitted: boolean = false;
+  
+  isValid(): boolean {
+    return this.user.name.length > 0 && 
+           this.user.email.includes('@') && 
+           this.user.age >= 18;
+  }
+  
+  onSubmit(): void {
+    this.submitted = true;
+    console.log('Formulário enviado:', this.user);
+  }
+}
+```
+{% endraw %}
 
 ---
 
@@ -861,6 +973,7 @@ A nova sintaxe de control flow oferece:
 
 **Comparação: Sintaxe Antiga vs Moderna**:
 
+{% raw %}
 ```html
 <!-- ❌ Sintaxe Antiga (Angular < 17) -->
 <div *ngIf="user">
@@ -907,16 +1020,63 @@ A nova sintaxe de control flow oferece:
   }
 }
 ```
+{% raw %}
+<!-- ❌ Sintaxe Antiga (Angular < 17) -->
+<div *ngIf="user">
+  <p>{{ user.name }}</p>
+</div>
+<div *ngIf="!user">
+  <p>Nenhum usuário</p>
+</div>
+
+<ul>
+  <li *ngFor="let item of items; let i = index; trackBy: trackById">
+    {{ i + 1 }}. {{ item.name }}
+  </li>
+</ul>
+
+<div [ngSwitch]="status">
+  <p *ngSwitchCase="'active'">Ativo</p>
+  <p *ngSwitchCase="'inactive'">Inativo</p>
+  <p *ngSwitchDefault>Desconhecido</p>
+</div>
+
+<!-- ✅ Sintaxe Moderna (Angular 17+) -->
+@if (user) {
+  <p>{{ user.name }}</p>
+} @else {
+  <p>Nenhum usuário</p>
+}
+
+<ul>
+  @for (item of items; track item.id) {
+    <li>{{ $index + 1 }}. {{ item.name }}</li>
+  }
+</ul>
+
+@switch (status) {
+  @case ('active') {
+    <p>Ativo</p>
+  }
+  @case ('inactive') {
+    <p>Inativo</p>
+  }
+  @default {
+    <p>Desconhecido</p>
+  }
+}
+```
+{% endraw %}
 
 **Vantagens da Sintaxe Moderna**:
 
 1. **Type Safety Melhorado**:
-   ```typescript
+```
    // Angular infere que 'user' não é null dentro do bloco @if
    @if (user) {
      <p>{{ user.name }}</p>  // TypeScript sabe que user existe aqui
    }
-   ```
+```
 
 2. **Performance**:
    - Compilador pode otimizar melhor
@@ -1020,7 +1180,9 @@ export class TaskListModernComponent {
 | **Event Binding** | `(click)="handler()"` | `onClick={handler}` | `@click="handler"` | `on:click={handler}` |
 | **Two-Way Binding** | `[(ngModel)]` | Controlled components | `v-model` | `bind:value` |
 | **Classes Dinâmicas** | `[ngClass]` ou `[class]` | `className={...}` | `:class` | `class:active={condition}` |
+{% raw %}
 | **Estilos Dinâmicos** | `[ngStyle]` ou `[style]` | `style={{...}}` | `:style` | `style:color={value}` |
+{% endraw %}
 | **Diretivas Estruturais** | `*ngIf`, `*ngFor` ou `@if`, `@for` | `{condition && <div>}` | `v-if`, `v-for` | `{#if}`, `{#each}` |
 | **Type Safety** | Nativo (TypeScript) | Opcional (TS/Flow) | Opcional (TypeScript) | Nativo (TypeScript) |
 | **Change Detection** | Zone.js ou Signals | Virtual DOM diff | Reactive Proxy | Compile-time |
@@ -1227,7 +1389,9 @@ export class TaskListModernComponent {
 
 | Tipo | Angular | Quando Usar |
 |------|---------|-------------|
+{% raw %}
 | **One-Way (Component → Template)** | `{{ }}`, `[property]` | Padrão, mais performático |
+{% endraw %}
 | **One-Way (Template → Component)** | `(event)` | Interações do usuário |
 | **Two-Way** | `[(ngModel)]` | Formulários simples |
 | **Two-Way Custom** | `[(custom)]` | Componentes customizados |
@@ -1325,6 +1489,7 @@ trackByUserId(index: number, user: User): number {
 
 **3. Evite Funções no Template**:
 
+{% raw %}
 ```typescript
 // ❌ Ruim: Função é chamada a cada change detection
 {{ getFullName() }}
@@ -1332,9 +1497,11 @@ trackByUserId(index: number, user: User): number {
 // ✅ Bom: Getter é cacheado ou computed property
 {{ fullName }}
 ```
+{% endraw %}
 
 **4. Use Async Pipe para Observables**:
 
+{% raw %}
 ```typescript
 // ✅ Bom: Async pipe gerencia subscription
 {{ data$ | async }}
@@ -1344,6 +1511,16 @@ ngOnInit() {
   this.data$.subscribe(data => this.data = data);
 }
 ```
+{% raw %}
+// ✅ Bom: Async pipe gerencia subscription
+{{ data$ | async }}
+
+// ❌ Ruim: Subscription manual
+ngOnInit() {
+  this.data$.subscribe(data => this.data = data);
+}
+```
+{% endraw %}
 
 **5. Use Signals para Reatividade Moderna**:
 
@@ -1367,29 +1544,31 @@ export class UserComponent {
 1. **Use trackBy com *ngFor**
    - **Por quê**: Melhora performance ao evitar re-renderizações desnecessárias
    - **Exemplo Bom**:
-     ```typescript
+```
      trackById(index: number, item: Item): number {
        return item.id;
      }
-     ```
-     ```html
+```
+```
      <div *ngFor="let item of items; trackBy: trackById">
-     ```
+```
    - **Exemplo Ruim**: `*ngFor="let item of items"` (sem trackBy)
    - **Benefícios**: Performance melhorada, menos re-renderizações
 
 2. **Evite lógica complexa no template**
    - **Por quê**: Dificulta manutenção, testes e debugging
    - **Exemplo Bom**:
-     ```typescript
+```
      get displayName(): string {
        return `${this.firstName} ${this.lastName}`.trim();
      }
-     ```
-     ```html
+```
+```
      <p>{{ displayName }}</p>
-     ```
+```
+{% raw %}
    - **Exemplo Ruim**: `{{ firstName + ' ' + lastName }}` (lógica no template)
+{% endraw %}
    - **Benefícios**: Código mais testável, fácil manutenção
 
 3. **Use property binding para propriedades boolean**
@@ -1407,22 +1586,22 @@ export class UserComponent {
 5. **Combine diretivas usando ng-container**
    - **Por quê**: Permite combinar diretivas sem criar elementos extras
    - **Exemplo Bom**:
-     ```html
+```
      <ng-container *ngIf="showList">
        <div *ngFor="let item of items">{{ item }}</div>
      </ng-container>
-     ```
+```
    - **Exemplo Ruim**: Tentar usar `*ngIf` e `*ngFor` no mesmo elemento
    - **Benefícios**: DOM mais limpo, sem elementos desnecessários
 
 6. **Use getters para computações derivadas**
    - **Por quê**: Cache automático, código mais limpo
    - **Exemplo Bom**:
-     ```typescript
+```
      get filteredItems(): Item[] {
        return this.items.filter(item => item.active);
      }
-     ```
+```
    - **Benefícios**: Código mais legível, fácil de testar
 
 7. **Prefira [class] e [style] sobre [ngClass] e [ngStyle] quando simples**
@@ -1434,11 +1613,11 @@ export class UserComponent {
 8. **Use OnPush change detection com binding**
    - **Por quê**: Melhora significativa de performance
    - **Exemplo**: 
-     ```typescript
+```
      @Component({
        changeDetection: ChangeDetectionStrategy.OnPush
      })
-     ```
+```
    - **Benefícios**: Menos ciclos de detecção, melhor performance
    - **Quando usar**: Componentes que recebem dados via `@Input()` ou signals
 
@@ -1451,15 +1630,17 @@ export class UserComponent {
 10. **Evite mutações diretas em listas com *ngFor**
     - **Por quê**: Angular pode não detectar mudanças corretamente
     - **Exemplo Bom**:
-      ```typescript
+```
       this.items = [...this.items, newItem];  // Nova referência
-      ```
+```
     - **Exemplo Ruim**: `this.items.push(newItem);` (mutação direta)
     - **Benefícios**: Change detection funciona corretamente
 
 11. **Use async pipe para observables**
     - **Por quê**: Gerencia subscription automaticamente, evita memory leaks
+{% raw %}
     - **Exemplo Bom**: `{{ data$ | async }}`
+{% endraw %}
     - **Exemplo Ruim**: Subscription manual no componente
     - **Benefícios**: Menos código, sem memory leaks
 
@@ -1491,7 +1672,9 @@ export class UserComponent {
 
 4. **Não use métodos no template para cálculos pesados**
    - **Problema**: Método é chamado a cada ciclo de change detection
+{% raw %}
    - **Exemplo Ruim**: `{{ calculateTotal() }}` (chamado múltiplas vezes)
+{% endraw %}
    - **Solução**: Use getters ou computed properties
    - **Impacto**: Performance ruim, aplicação lenta
 

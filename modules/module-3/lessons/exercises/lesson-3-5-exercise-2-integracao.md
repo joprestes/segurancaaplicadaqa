@@ -63,6 +63,8 @@ Crie:
 ### Abordagem Recomendada
 
 **task.service.ts**
+
+{% raw %}
 ```typescript
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -97,8 +99,10 @@ export class TaskService {
   }
 }
 ```
+{% endraw %}
 
 **task-list.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, signal, computed, inject } from '@angular/core';
@@ -144,7 +148,6 @@ import { TaskService, Task } from './task.service';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class TaskListComponent {
   private taskService = inject(TaskService);
@@ -212,6 +215,7 @@ export class TaskListComponent {
   }
 }
 ```
+{% endraw %}
 
 **Explicação da Solução**:
 

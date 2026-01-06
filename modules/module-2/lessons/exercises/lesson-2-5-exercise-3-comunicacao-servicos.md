@@ -105,6 +105,7 @@ export class MessageService {
 ```
 
 **sender.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -115,7 +116,6 @@ import { MessageService } from './message.service';
   selector: 'app-sender',
   standalone: true,
   imports: [FormsModule, CommonModule],
-{% raw %}
   template: `
     <div class="sender">
       <h3>Enviar Mensagem</h3>
@@ -127,7 +127,6 @@ import { MessageService } from './message.service';
     </div>
   `,
   styles: [`
-{% endraw %}
     .sender {
       padding: 1rem;
       border: 1px solid #ccc;
@@ -165,6 +164,7 @@ export class SenderComponent {
 ```
 
 **receiver.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -194,7 +194,6 @@ import { MessageService, Message } from './message.service';
     </div>
   `,
   styles: [`
-{% endraw %}
     .receiver {
       padding: 1rem;
       border: 1px solid #ccc;
@@ -239,8 +238,81 @@ export class ReceiverComponent implements OnInit, OnDestroy {
   }
 }
 ```
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { MessageService, Message } from './message.service';
+
+@Component({
+  selector: 'app-receiver',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="receiver">
+      <h3>Mensagens Recebidas</h3>
+      @if (messages.length === 0) {
+        <p>Nenhuma mensagem ainda</p>
+      } @else {
+        <ul>
+          @for (message of messages; track message.id) {
+            <li>
+              <strong>{{ message.sender }}:</strong> {{ message.text }}
+              <small>{{ message.timestamp | date:'short' }}</small>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  `,
+  styles: [`
+    .receiver {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    li {
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    
+    small {
+      display: block;
+      color: #666;
+      font-size: 0.875rem;
+    }
+  `]
+})
+export class ReceiverComponent implements OnInit, OnDestroy {
+  messages: Message[] = [];
+  private subscription?: Subscription;
+  
+  constructor(private messageService: MessageService) {}
+  
+  ngOnInit(): void {
+    this.subscription = this.messageService.getMessages().subscribe(
+      messages => {
+        this.messages = messages;
+      }
+    );
+  }
+  
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+}
+```
+{% endraw %}
 
 **parent.component.ts**
+
 ```typescript
 import { Component } from '@angular/core';
 import { SenderComponent } from './sender.component';
@@ -250,7 +322,6 @@ import { ReceiverComponent } from './receiver.component';
   selector: 'app-parent',
   standalone: true,
   imports: [SenderComponent, ReceiverComponent],
-{% raw %}
   template: `
     <div>
       <h2>Comunicação via Serviço</h2>
@@ -258,7 +329,6 @@ import { ReceiverComponent } from './receiver.component';
       <app-receiver></app-receiver>
     </div>
   `
-{% endraw %}
 })
 export class ParentComponent {}
 ```

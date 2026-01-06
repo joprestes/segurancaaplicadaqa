@@ -63,6 +63,7 @@ Crie:
 ### Abordagem Recomendada
 
 **manual-detection.component.ts**
+
 {% raw %}
 ```typescript
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, signal } from '@angular/core';
@@ -100,7 +101,6 @@ import { HttpClient } from '@angular/common/http';
       </ul>
     </div>
   `
-{% endraw %}
 })
 export class ManualDetectionComponent {
   data = signal<string>('Nenhum dado');
@@ -149,6 +149,90 @@ export class ManualDetectionComponent {
   }
 }
 ```
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+@Component({
+  selector: 'app-manual-detection',
+  standalone: true,
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div>
+      <h2>Controle Manual de Change Detection</h2>
+      
+      <div class="controls">
+        <button (click)="loadData()">Carregar Dados</button>
+        <button (click)="updateData()">Atualizar Dados</button>
+        <button (click)="toggleDetection()">
+          {{ isDetached() ? 'Reativar' : 'Desativar' }} Change Detection
+        </button>
+        <button (click)="forceCheck()">Forçar Verificação</button>
+      </div>
+      
+      <div class="status">
+        <p>Status: {{ isDetached() ? 'Desconectado' : 'Conectado' }}</p>
+        <p>Dados: {{ data() }}</p>
+        <p>Última atualização: {{ lastUpdate() | date:'medium' }}</p>
+      </div>
+      
+      <ul>
+        @for (item of items(); track item.id) {
+          <li>{{ item.name }}</li>
+        }
+      </ul>
+    </div>
+  `
+})
+export class ManualDetectionComponent {
+  data = signal<string>('Nenhum dado');
+  items = signal<any[]>([]);
+  lastUpdate = signal<Date>(new Date());
+  isDetached = signal<boolean>(false);
+  
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient
+  ) {}
+  
+  loadData(): void {
+    this.http.get<any[]>('/api/data').subscribe(items => {
+      this.items.set(items);
+      this.data.set(`Carregados ${items.length} itens`);
+      this.lastUpdate.set(new Date());
+      
+      if (this.isDetached()) {
+        this.cdr.markForCheck();
+      }
+    });
+  }
+  
+  updateData(): void {
+    this.data.set('Dados atualizados manualmente');
+    this.lastUpdate.set(new Date());
+    
+    if (this.isDetached()) {
+      this.cdr.markForCheck();
+    }
+  }
+  
+  toggleDetection(): void {
+    if (this.isDetached()) {
+      this.cdr.reattach();
+      this.isDetached.set(false);
+    } else {
+      this.cdr.detach();
+      this.isDetached.set(true);
+    }
+  }
+  
+  forceCheck(): void {
+    this.cdr.detectChanges();
+  }
+}
+```
+{% endraw %}
 
 **Explicação da Solução**:
 

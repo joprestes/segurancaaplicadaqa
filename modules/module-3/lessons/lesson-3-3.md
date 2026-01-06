@@ -356,20 +356,20 @@ Exemplos:
 **Tipos de Actions**:
 
 1. **Command Actions**: Iniciam um processo
-   ```typescript
+```
    loadUsers() // Inicia carregamento
-   ```
+```
 
 2. **Event Actions**: Descrevem algo que aconteceu
-   ```typescript
+```
    loadUsersSuccess({ users }) // Carregamento completou
    loadUsersFailure({ error }) // Carregamento falhou
-   ```
+```
 
 3. **Document Actions**: Descrevem estado atual
-   ```typescript
+```
    setUsers({ users }) // Define usuários diretamente
-   ```
+```
 
 **Analogia Detalhada**:
 

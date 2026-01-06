@@ -191,7 +191,9 @@ Angular implementa proteção XSS em múltiplas camadas:
 
 Proteção XSS é como um sistema de segurança em múltiplas camadas de um banco:
 
+{% raw %}
 **Interpolação Angular (`{{ }}`)** é como a porta principal do banco - ela automaticamente verifica cada pessoa que entra, escaneia bolsas e detecta objetos perigosos. Mesmo que alguém tente entrar com uma arma escondida, o sistema detecta e neutraliza antes que entre no banco.
+{% endraw %}
 
 **DomSanitizer** é como o cofre especial do banco - quando você precisa guardar algo valioso (HTML confiável), você passa por verificações ainda mais rigorosas. O sistema verifica cada item individualmente, remove qualquer coisa suspeita, e só então permite que o conteúdo seja guardado. Mas mesmo assim, o conteúdo nunca pode ser executado como código - apenas exibido de forma segura.
 
@@ -2451,7 +2453,9 @@ export class UserInputComponent {
 **Por quê**: Qualquer conteúdo que vem do usuário pode conter código malicioso. Sanitização previne execução de scripts através de XSS.
 
 **Como implementar**:
+{% raw %}
 - Use interpolação `{{ }}` que sanitiza automaticamente
+{% endraw %}
 - Use `DomSanitizer` para casos especiais com `[innerHTML]`
 - Escolha `SecurityContext` apropriado
 - Valide formato antes de sanitizar (ex: URLs devem ser válidas)

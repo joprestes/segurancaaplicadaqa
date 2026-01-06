@@ -193,6 +193,33 @@ export class ProductListComponent implements OnInit {
   </div>
 </div>
 ```
+{% raw %}
+<div class="product-list">
+  <h2>Lista de Produtos</h2>
+  <p>Total de produtos: {{ getProductCount() }}</p>
+  <p>Preço total: {{ getTotalPrice() | currency:'BRL' }}</p>
+
+  <div class="products">
+    <div 
+      *ngFor="let product of products" 
+      class="product-item"
+      (click)="selectProduct(product.id)"
+      [class.selected]="selectedProduct?.id === product.id">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <p class="price">{{ product.price | currency:'BRL' }}</p>
+      <span class="category">{{ product.category.name }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="selectedProduct" class="selected-product">
+    <h3>Produto Selecionado</h3>
+    <p><strong>Nome:</strong> {{ selectedProduct.name }}</p>
+    <p><strong>Preço:</strong> {{ selectedProduct.price | currency:'BRL' }}</p>
+    <p><strong>Estoque:</strong> {{ selectedProduct.stock }}</p>
+  </div>
+</div>
+```
 {% endraw %}
 
 **product.service.ts** (se não existir)
