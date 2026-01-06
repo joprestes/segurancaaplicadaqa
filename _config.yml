@@ -3,6 +3,7 @@ description: "Treinamento intensivo e prático de Angular - Do básico ao expert
 url: "https://onosendae.github.io"
 baseurl: "/angular"
 author: "Angular Expert"
+encoding: "utf-8"
 twitter:
   username: "@angular-expert"
   card: "summary_large_image"

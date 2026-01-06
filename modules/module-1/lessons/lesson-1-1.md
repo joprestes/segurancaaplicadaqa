@@ -9,14 +9,14 @@ level: "Básico"
 prerequisites: []
 exercises: []
 podcast:
-  file: "assets/podcasts/1.1-Angular_CLI_arquitetura_da_fábrica_moderna.m4a"
-  image: "assets/images/podcasts/1.1-Angular_CLI_arquitetura_da_fábrica_moderna.png"
+  file: "assets/podcasts/1.1-Angular_CLI_arquitetura_da_fabrica_moderna.m4a"
+  image: "assets/images/podcasts/1.1-Angular_CLI_arquitetura_da_fabrica_moderna.png"
   title: "Angular CLI: Arquitetura da Fábrica Moderna"
   description: "Neste episódio, exploramos os fundamentos essenciais do Angular moderno."
   duration: "45-60 minutos"
 video:
-  file: "assets/videos/1.1-Angular_CLI_arquitetura_da_fábrica_moderna.mp4"
-  thumbnail: "assets/images/podcasts/1.1-Angular_CLI_arquitetura_da_fábrica_moderna.png"
+  file: "assets/videos/1.1-Angular_CLI_arquitetura_da_fabrica_moderna.mp4"
+  thumbnail: "assets/images/podcasts/1.1-Angular_CLI_arquitetura_da_fabrica_moderna.png"
   title: "Angular CLI: Arquitetura da Fábrica Moderna"
   description: "Neste episódio, exploramos os fundamentos essenciais do Angular moderno."
   duration: "45-60 minutos"

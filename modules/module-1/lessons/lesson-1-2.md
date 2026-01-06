@@ -9,14 +9,14 @@ level: "Básico a Intermediário"
 prerequisites: []
 exercises: []
 podcast:
-  file: "assets/podcasts/1.2-TypeScript_em_Angular_do_zero_à_injeção.m4a"
-  image: "assets/images/podcasts/1.2-TypeScript_em_Angular_do_zero_à_injeção.png"
+  file: "assets/podcasts/1.2-TypeScript_em_Angular_do_zero_a_injecao.m4a"
+  image: "assets/images/podcasts/1.2-TypeScript_em_Angular_do_zero_a_injecao.png"
   title: "TypeScript em Angular: Do Zero à Injeção"
   description: "Aprenda TypeScript essencial para desenvolvimento Angular eficiente."
   duration: "60-75 minutos"
 video:
-  file: "assets/videos/1.2-TypeScript_em_Angular_do_zero_à_injeção.mp4"
-  thumbnail: "assets/images/podcasts/1.2-TypeScript_em_Angular_do_zero_à_injeção.png"
+  file: "assets/videos/1.2-TypeScript_em_Angular_do_zero_a_injecao.mp4"
+  thumbnail: "assets/images/podcasts/1.2-TypeScript_em_Angular_do_zero_a_injecao.png"
   title: "TypeScript em Angular: Do Zero à Injeção"
   description: "Aprenda TypeScript essencial para desenvolvimento Angular eficiente."
   duration: "60-75 minutos"
