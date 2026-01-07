@@ -2,19 +2,20 @@
 @import 'theme';
 
 .sidebar-navigation {
-  width: $sidebar-width;
-  padding: $spacing-lg;
+  width: 100%;
+  max-width: 100%;
+  padding: 1.125rem;
   background: var(--color-bg-secondary);
   border-right: 1px solid var(--color-border);
-  height: calc(100vh - 80px);
+  height: 100%;
   overflow-y: auto;
-  position: sticky;
-  top: 80px;
+  overflow-x: hidden;
+  box-sizing: border-box;
   @include theme-transition-all;
   
   h2 {
-    font-size: $font-size-h3;
-    margin-bottom: $spacing-md;
+    font-size: 1.1rem;
+    margin-bottom: $spacing-sm;
     color: var(--color-text-primary);
     @include theme-transition(color);
   }
@@ -25,41 +26,173 @@
     margin: 0;
     
     > li {
-      margin-bottom: $spacing-lg;
+      margin-bottom: 0.875rem;
       
-      > a {
-        font-weight: bold;
-        color: var(--color-primary);
-        text-decoration: none;
-        display: block;
-        padding: $spacing-sm;
-        border-radius: 4px;
-        @include theme-transition-all;
+      .module-header {
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
         
-        &:hover {
-          background: var(--color-primary-light);
+        .toggle-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0.125rem 0.25rem;
+          color: var(--color-text-secondary);
+          font-size: 0.7rem;
+          line-height: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 1rem;
+          @include theme-transition-all;
+          
+          &:hover {
+            color: var(--color-primary);
+          }
+          
+          .toggle-icon {
+            display: inline-block;
+            transition: transform 0.2s ease;
+          }
+          
+          &[aria-expanded="false"] .toggle-icon {
+            transform: rotate(-90deg);
+          }
+        }
+        
+        > a {
+          font-weight: bold;
+          color: var(--color-primary);
+          text-decoration: none;
+          flex: 1;
+          padding: 0.375rem $spacing-sm;
+          border-radius: 4px;
+          font-size: 0.95rem;
+          @include theme-transition-all;
+          
+          &:hover {
+            background: var(--color-primary-light);
+          }
         }
       }
       
       .lessons-list {
         list-style: none;
-        padding-left: $spacing-md;
-        margin-top: $spacing-sm;
+        padding-left: 0.875rem;
+        margin-top: $spacing-xs;
+        transition: max-height 0.3s ease, opacity 0.2s ease;
+        overflow: hidden;
+        
+        &.collapsed {
+          max-height: 0;
+          opacity: 0;
+          margin-top: 0;
+        }
         
         li {
-          margin-bottom: $spacing-xs;
+          margin-bottom: 0.125rem;
           
-          a {
-            color: var(--color-text-primary);
-            text-decoration: none;
-            display: block;
-            padding: $spacing-xs $spacing-sm;
-            border-radius: 4px;
-            font-size: $font-size-small;
-            @include theme-transition-all;
+          .lesson-header {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
             
-            &:hover {
-              background: var(--color-primary-light);
+            .toggle-btn {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0.125rem 0.25rem;
+              color: var(--color-text-secondary);
+              font-size: 0.65rem;
+              line-height: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              min-width: 0.875rem;
+              @include theme-transition-all;
+              
+              &:hover {
+                color: var(--color-primary);
+              }
+              
+              .toggle-icon {
+                display: inline-block;
+                transition: transform 0.2s ease;
+              }
+              
+              &[aria-expanded="false"] .toggle-icon {
+                transform: rotate(-90deg);
+              }
+            }
+            
+            > a {
+              color: var(--color-text-primary);
+              text-decoration: none;
+              flex: 1;
+              padding: 0.375rem 0.5rem;
+              border-radius: 4px;
+              font-size: 0.875rem;
+              @include theme-transition-all;
+              
+              &:hover {
+                background: var(--color-primary-light);
+              }
+            }
+          }
+          
+          .exercises-list {
+            list-style: none;
+            padding-left: 0.875rem;
+            margin-top: 0.125rem;
+            max-height: 1000px;
+            transition: max-height 0.3s ease, opacity 0.2s ease;
+            overflow: hidden;
+            
+            &.collapsed {
+              max-height: 0;
+              opacity: 0;
+              margin-top: 0;
+            }
+            
+            li {
+              margin-bottom: 0.125rem;
+              
+              &.lesson-link-item {
+                margin-bottom: 0.25rem;
+                padding-bottom: 0.25rem;
+                border-bottom: 1px solid var(--color-border);
+                
+                a {
+                  color: var(--color-text-primary);
+                  font-size: 0.85rem;
+                  font-weight: 500;
+                  opacity: 1;
+                }
+              }
+              
+              a {
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                display: block;
+                padding: 0.3rem 0.5rem;
+                border-radius: 4px;
+                font-size: 0.8rem;
+                opacity: 0.85;
+                @include theme-transition-all;
+                
+                &:hover {
+                  background: var(--color-primary-light);
+                  opacity: 1;
+                }
+                
+                &.active {
+                  background: var(--color-primary-light);
+                  color: var(--color-primary);
+                  opacity: 1;
+                  font-weight: 500;
+                }
+              }
             }
           }
         }
