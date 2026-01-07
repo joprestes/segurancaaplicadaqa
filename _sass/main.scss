@@ -138,6 +138,7 @@ body {
   background: var(--color-bg-primary);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
   @include theme-transition-all;
 }
 
@@ -219,23 +220,51 @@ body {
   }
 }
 
-.container {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  display: flex;
-  padding: $spacing-lg;
-  gap: $spacing-xl;
-  width: 100%;
+.page-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  min-height: calc(100vh - 80px);
   box-sizing: border-box;
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-.content {
-  flex: 1;
-  min-width: 0;
-  max-width: 100%;
+.sidebar {
+  flex: 0 0 $sidebar-width !important;
+  width: $sidebar-width !important;
+  min-width: $sidebar-width !important;
+  max-width: $sidebar-width !important;
+  position: sticky !important;
+  top: 80px;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main-container .content {
+  max-width: $container-max-width;
+  width: 100%;
+  padding: $spacing-lg;
+  box-sizing: border-box;
+  transform: scale(0.8);
+  transform-origin: top left;
+  margin-bottom: -20%;
   
   h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-primary);
@@ -652,8 +681,27 @@ body {
 }
 
 @media (max-width: $breakpoint-tablet) {
-  .container {
+  .page-wrapper {
     flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    height: auto;
+    align-self: stretch;
+  }
+  
+  .sidebar-navigation {
+    height: auto;
+  }
+  
+  .main-container {
+    width: 100%;
+  }
+  
+  .main-container .content {
     padding: $spacing-md;
   }
   

@@ -215,11 +215,10 @@ class PodcastPlayer {
     });
     
     this.audio.addEventListener('error', (e) => {
-      console.error('Erro ao carregar áudio:', e);
       if (this.audioFile) {
+        console.error('Erro ao carregar áudio:', e);
         this.handleError();
       } else {
-        console.warn('Erro em áudio compartilhado, tentando recuperar estado global');
         const globalState = sessionStorage.getItem('podcast-global-state');
         if (!globalState) {
           this.audio = null;
