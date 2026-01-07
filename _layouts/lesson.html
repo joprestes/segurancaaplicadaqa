@@ -66,21 +66,6 @@ layout: default
   {% include lesson-navigation.html %}
 </nav>
 
-<section class="exercises">
-  <h2>Exercícios Práticos</h2>
-  {% if page.exercises %}
-    {% for exercise_id in page.exercises %}
-      {% assign exercise = site.data.exercises.exercises | where: "id", exercise_id | first %}
-      {% if exercise %}
-        <div class="exercise-card">
-          <h3>{% if exercise.title %}{{ exercise.title }}{% else %}{{ exercise.slug | replace: '-', ' ' | capitalize }}{% endif %}</h3>
-          <a href="{{ exercise.url | relative_url }}">Ver exercício</a>
-        </div>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-</section>
-
 <script src="{{ '/assets/js/podcast-player.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/video-player.js' | relative_url }}"></script>
 

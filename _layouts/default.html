@@ -42,10 +42,12 @@
     </aside>
     
     <div class="main-container">
-      <main class="content">
-        {% include breadcrumbs.html %}
-        {{ content }}
-      </main>
+      <div class="content-wrapper">
+        <main class="content">
+          {% include breadcrumbs.html %}
+          {{ content }}
+        </main>
+      </div>
     </div>
   </div>
   
@@ -56,6 +58,7 @@
   <script src="{{ '/assets/js/progress-tracker.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/analytics.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/fix-content-height.js' | relative_url }}"></script>
   <script>
     window.siteData = {
       modules: {{ site.data.modules.modules | jsonify }},
