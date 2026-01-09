@@ -12,6 +12,8 @@ button,
 .mark-lesson-complete,
 input[type="submit"],
 input[type="button"] {
+  min-height: 44px;  // Touch target mínimo
+  min-width: 44px;   // Touch target mínimo
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover:not(:disabled) {

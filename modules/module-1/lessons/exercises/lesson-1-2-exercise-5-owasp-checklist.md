@@ -5,8 +5,8 @@ slug: "owasp-checklist"
 lesson_id: "lesson-1-2"
 module: "module-1"
 difficulty: "Avançado"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-5-owasp-checklist/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-5-owasp-checklist/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 ---
 
 ## Objetivo

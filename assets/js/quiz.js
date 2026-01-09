@@ -51,7 +51,11 @@ class QuizManager {
     const quizDataElement = document.getElementById('quiz-data');
     
     if (!quizDataElement) {
-      console.warn('Quiz data not found');
+      if (window.Logger) {
+        window.Logger.warn('Quiz data not found');
+      } else {
+        console.warn('Quiz data not found');
+      }
       return;
     }
     
@@ -71,7 +75,11 @@ class QuizManager {
       this.quizData = data;
       this.renderQuestion();
     } catch (e) {
-      console.error('Error parsing quiz data:', e);
+      if (window.Logger) {
+        window.Logger.error('Error parsing quiz data:', e);
+      } else {
+        console.error('Error parsing quiz data:', e);
+      }
       quizContainer.style.display = 'none';
     }
   }
@@ -163,7 +171,8 @@ class QuizManager {
         // Mostrar explicação
         if (explanation) {
           explanation.style.display = 'block';
-          explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          // Não fazer scroll automático - a explicação aparece logo abaixo da pergunta
+          // e o usuário pode rolar naturalmente se necessário
         }
       };
       
@@ -196,8 +205,7 @@ class QuizManager {
         this.currentQuestion++;
         if (this.currentQuestion < this.quizData.questions.length) {
           this.renderQuestion();
-          // Scroll para o topo da nova pergunta
-          document.getElementById('quiz-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Não forçar scroll; manter a posição atual evita pular para o footer
         } else {
           this.showResults();
         }
@@ -324,7 +332,11 @@ class QuizManager {
         try {
           progress = JSON.parse(saved);
         } catch (e) {
-          console.error('Error parsing progress:', e);
+          if (window.Logger) {
+            window.Logger.error('Error parsing progress:', e);
+          } else {
+            console.error('Error parsing progress:', e);
+          }
         }
       }
       

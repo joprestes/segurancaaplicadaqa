@@ -5,8 +5,8 @@ slug: "stride-basico"
 lesson_id: "lesson-1-4"
 module: "module-1"
 difficulty: "Básico"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-1-stride-basico/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/threat-modeling/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-1-stride-basico/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
 ---
 
 ## Objetivo
