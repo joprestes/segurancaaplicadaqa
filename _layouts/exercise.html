@@ -2,6 +2,21 @@
 layout: default
 ---
 
+{% comment %}
+  Construir lesson_url se não estiver definido no front matter
+{% endcomment %}
+{% if page.lesson_url %}
+  {% assign exercise_lesson_url = page.lesson_url %}
+{% else %}
+  {% assign current_lesson = site.data.lessons.lessons | where: "id", page.lesson_id | first %}
+  {% assign current_module = site.data.modules.modules | where: "id", page.module | first %}
+  {% if current_lesson and current_module %}
+    {% assign exercise_lesson_url = '/modules/' | append: current_module.slug | append: '/lessons/' | append: current_lesson.slug | append: '/' %}
+  {% else %}
+    {% assign exercise_lesson_url = '/' %}
+  {% endif %}
+{% endif %}
+
 <article class="exercise-content">
   <header>
     <h1>{{ page.title }}</h1>
@@ -19,6 +34,6 @@ layout: default
 </article>
 
 <nav class="exercise-navigation">
-  <a href="{{ page.lesson_url | relative_url }}">← Voltar para a aula</a>
+  <a href="{{ exercise_lesson_url | relative_url }}">← Voltar para a aula</a>
 </nav>
 

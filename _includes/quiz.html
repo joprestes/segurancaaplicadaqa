@@ -1,0 +1,30 @@
+<div class="quiz-container" id="quiz-container" data-lesson-id="{{ page.lesson_id }}">
+  <div class="quiz-header">
+    <h2>🔍 Quiz: Verifique seu Conhecimento</h2>
+    <p>Responda as 10 perguntas para testar seu aprendizado e descobrir seu nível como detetive de segurança!</p>
+  </div>
+  
+  <div class="quiz-progress">
+    <div class="progress-bar">
+      <div class="progress-fill" id="quiz-progress-fill"></div>
+    </div>
+    <span class="progress-text">Pergunta <span id="current-question-num">1</span> de 10</span>
+  </div>
+  
+  <div class="quiz-content" id="quiz-content">
+    <!-- Renderizado dinamicamente via JavaScript -->
+  </div>
+  
+  <div class="quiz-results" id="quiz-results" style="display: none;">
+    <!-- Resultado final com nota e classificação -->
+  </div>
+</div>
+
+<script type="application/json" id="quiz-data">
+{% assign quiz = site.data.quizzes.quizzes | where: "lesson_id", page.lesson_id | first %}
+{% if quiz %}
+{{ quiz | jsonify }}
+{% else %}
+null
+{% endif %}
+</script>

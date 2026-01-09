@@ -1,0 +1,345 @@
+// ============================================
+// Footer Component - Rodapé Moderno
+// ============================================
+// Componente dedicado para o rodapé do site
+// Melhorias: hierarquia visual, elementos modernos, responsividade
+
+// ============================================
+// Footer Container
+// ============================================
+.site-footer {
+  background: linear-gradient(180deg, #2c2c2c 0%, #1a1a1a 100%);
+  color: var(--color-text-inverse);
+  padding: 4rem $spacing-lg 2rem;
+  margin-top: $spacing-xl;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  @include theme-transition(background-color);
+  
+  // Barra superior animada
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover), var(--color-primary));
+    background-size: 200% 100%;
+    animation: gradientShift 3s ease infinite;
+  }
+  
+  // Dark mode
+  [data-theme="dark"] & {
+    background: linear-gradient(180deg, var(--color-surface-elevated) 0%, var(--color-bg-primary) 100%);
+    border-top-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  // Melhorar contraste e visual
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
+  
+  // ============================================
+  // Footer Content Container
+  // ============================================
+  .footer-content {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 0 $spacing-lg;
+  }
+  
+  // ============================================
+  // Footer Main Section
+  // ============================================
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  
+  // ============================================
+  // Footer Brand Section
+  // ============================================
+  .footer-brand {
+    // Garantir alinhamento consistente
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    .footer-title {
+      font-size: 2rem;
+      font-weight: $font-weight-bold;
+      margin: 0 0 0.5rem 0;
+      padding: 0;
+      color: var(--color-text-inverse);
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.85) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      text-align: left;
+      width: 100%;
+    }
+    
+    .footer-tagline {
+      font-size: 1.0625rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+      font-weight: $font-weight-normal;
+      max-width: 500px;
+      text-align: left;
+      width: 100%;
+    }
+  }
+  
+  // ============================================
+  // Footer Links Section
+  // ============================================
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    
+    .footer-section {
+      h4 {
+        font-size: 0.9375rem;
+        font-weight: $font-weight-bold;
+        margin: 0 0 1.5rem 0;
+        color: var(--color-text-inverse);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        position: relative;
+        padding-bottom: 1rem;
+        
+        // Linha decorativa abaixo do título
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 3px;
+          background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover));
+          border-radius: 2px;
+        }
+      }
+      
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        
+        li {
+          a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: $font-weight-medium;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            padding: 0.25rem 0;
+            
+            // Ícone de seta animado
+            &::before {
+              content: '→';
+              opacity: 0;
+              transform: translateX(-8px);
+              transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+              color: var(--color-primary);
+              font-weight: bold;
+            }
+            
+            &:hover {
+              color: var(--color-text-inverse);
+              transform: translateX(4px);
+              
+              &::before {
+                opacity: 1;
+                transform: translateX(0);
+              }
+            }
+            
+            &:focus-visible {
+              outline: 2px solid var(--color-primary);
+              outline-offset: 4px;
+              border-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // ============================================
+  // Footer Bottom Section
+  // ============================================
+  .footer-bottom {
+    text-align: center;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    
+    p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+    
+    .footer-note {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.875rem;
+      font-style: italic;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ============================================
+// Keyframe Animation
+// ============================================
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+// ============================================
+// Responsividade
+// ============================================
+@media (max-width: $breakpoint-tablet) {
+  .site-footer {
+    padding: 3rem $spacing-lg 1.5rem;
+    
+    .footer-content {
+      gap: 2.5rem;
+    }
+    
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    
+    .footer-brand {
+      text-align: center;
+      
+      .footer-title {
+        font-size: 1.75rem;
+      }
+      
+      .footer-tagline {
+        max-width: 100%;
+        margin: 0 auto;
+      }
+    }
+    
+    .footer-links {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      
+      .footer-section {
+        text-align: center;
+        
+        h4::after {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .site-footer {
+    padding: 2.5rem $spacing-md 1.5rem;
+    
+    .footer-brand {
+      .footer-title {
+        font-size: 1.5rem;
+      }
+      
+      .footer-tagline {
+        font-size: 1rem;
+      }
+    }
+    
+    .footer-links {
+      gap: 2rem;
+      
+      .footer-section {
+        h4 {
+          font-size: 0.875rem;
+          margin-bottom: 1.25rem;
+        }
+        
+        ul {
+          gap: 0.875rem;
+          
+          li a {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+    
+    .footer-bottom {
+      padding-top: 2rem;
+      
+      p {
+        font-size: 0.875rem;
+      }
+      
+      .footer-note {
+        font-size: 0.8125rem;
+      }
+    }
+  }
+}
+
+// ============================================
+// Respeitar Preferências de Acessibilidade
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  .site-footer {
+    &::before {
+      animation: none;
+    }
+    
+    .footer-links .footer-section ul li a {
+      transition: none;
+      
+      &::before {
+        transition: none;
+      }
+      
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+}

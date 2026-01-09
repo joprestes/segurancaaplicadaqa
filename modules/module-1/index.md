@@ -1,9 +1,9 @@
 ---
 layout: module
-title: "Fundamentos Acelerados"
-slug: fundamentos-acelerados
+title: "Módulo 1: Fundamentos de Segurança em QA"
+slug: fundamentos-seguranca-qa
 duration: "8 horas"
-description: "Estabeleça as bases sólidas do Angular"
+description: "Estabeleça as bases sólidas de segurança aplicada à qualidade de software"
 lessons: 
   - "lesson-1-1"
   - "lesson-1-2"
@@ -11,153 +11,100 @@ lessons:
   - "lesson-1-4"
   - "lesson-1-5"
 module: module-1
-permalink: /modules/fundamentos-acelerados/
+permalink: /modules/fundamentos-seguranca-qa/
 ---
 
-## Objetivos do Módulo
+# Módulo 1: Fundamentos de Segurança em QA
 
-Ao final deste módulo, o aluno será capaz de:
+## 🎯 Objetivo do Módulo
 
-1. Configurar ambiente de desenvolvimento Angular completo com Angular CLI
-2. Dominar TypeScript essencial para desenvolvimento Angular
-3. Criar componentes standalone e trabalhar com templates avançados
-4. Implementar data binding avançado (property, event, two-way)
-5. Usar diretivas modernas (estruturais e de atributo)
-6. Aplicar control flow moderno (@if, @for, @switch) do Angular 17+
-7. Criar e usar pipes customizados
+Este módulo estabelece as bases fundamentais de segurança aplicada à qualidade de software. Você aprenderá os conceitos essenciais, frameworks de segurança, e como integrar segurança no processo de QA desde o início do desenvolvimento.
 
----
+## 📚 O que você vai aprender
 
-## Tópicos Cobertos
+### 1. Conceitos Fundamentais
+- O papel da segurança no processo de QA
+- Diferença entre QA tradicional e Security QA
+- CIA Triad: Confidencialidade, Integridade, Disponibilidade
+- Tipos de vulnerabilidades e ameaças
 
-### 1.1 Introdução ao Angular e Configuração (1h)
-- História e evolução do Angular
-- Arquitetura do framework
-- Angular CLI: instalação e comandos essenciais
-- Estrutura de projeto Angular
-- Configuração de editores (VS Code)
-- Primeiro projeto Angular
+### 2. OWASP Top 10
+- Injeção (SQL, NoSQL, LDAP)
+- Broken Authentication
+- Exposição de Dados Sensíveis
+- XML External Entities (XXE)
+- Broken Access Control
+- E mais 5 vulnerabilidades críticas
 
-### 1.2 TypeScript Essencial para Angular (1.5h)
-- Tipos e interfaces
-- Classes e decorators
-- Generics
-- Módulos ES6
-- Tipagem avançada
-- Integração TypeScript + Angular
+### 3. Shift-Left Security
+- Por que segurança deve começar cedo
+- Security requirements desde o início
+- Threat modeling em fase de design
+- Colaboração entre Dev, QA e Security
 
-### 1.3 Componentes Standalone e Templates (2h)
-- Anatomia de um componente
-- Standalone Components (Angular 17+)
-- SCAM Pattern
-- Templates e sintaxe
-- ViewEncapsulation
-- Ciclo de vida dos componentes
-- Projeção de conteúdo (ng-content)
+### 4. Threat Modeling
+- Metodologias: STRIDE, PASTA, DREAD
+- Identificação de ativos e ameaças
+- Análise de riscos
+- Mitigação de riscos
 
-### 1.4 Data Binding e Diretivas Modernas (2h)
-- Interpolação
-- Property Binding
-- Event Binding
-- Two-Way Data Binding
-- Binding de classes e estilos
-- Diretivas estruturais (*ngIf, *ngFor, *ngSwitch)
-- Diretivas de atributo ([ngClass], [ngStyle])
-- Diretivas customizadas
+### 5. Compliance e Regulamentações
+- **LGPD**: Lei Geral de Proteção de Dados
+- **PCI-DSS**: Payment Card Industry Data Security Standard
+- **SOC 2**: Service Organization Control
+- **ISO 27001**: Sistema de Gestão de Segurança da Informação
 
-### 1.5 Control Flow e Pipes (1.5h)
-- Control Flow moderno (@if, @for, @switch)
-- Migração de diretivas estruturais
-- Pipes embutidos (DatePipe, CurrencyPipe, AsyncPipe)
-- Pipes customizados
-- Pure vs Impure pipes
-- Performance de pipes
+## 🎓 Competências que você vai desenvolver
 
----
+Ao final deste módulo, você será capaz de:
 
-## Aulas Planejadas
+✅ Entender o papel crítico da segurança em QA  
+✅ Identificar as 10 principais vulnerabilidades (OWASP Top 10)  
+✅ Aplicar shift-left security em projetos  
+✅ Realizar threat modeling básico  
+✅ Compreender requisitos de compliance por setor  
+✅ Falar a língua da segurança com times DevOps e Security  
 
-1. **Aula 1.1**: Introdução ao Angular e Configuração (1h)
-   - Objetivo: Configurar ambiente e criar primeiro projeto
-   - Exercícios: 3 exercícios práticos
+## 📖 Estrutura das Aulas
 
-2. **Aula 1.2**: TypeScript Essencial para Angular (1.5h)
-   - Objetivo: Dominar TypeScript necessário para Angular
-   - Exercícios: 5 exercícios práticos
+### Aula 1.1: Introdução à Segurança em QA (60 min)
+Compreenda o papel crítico da segurança na qualidade de software e por que QA deve se envolver com segurança desde o início.
 
-3. **Aula 1.3**: Componentes Standalone e Templates (2h)
-   - Objetivo: Criar componentes standalone e trabalhar com templates
-   - Exercícios: 6 exercícios práticos
+### Aula 1.2: OWASP Top 10 (90 min)
+Análise detalhada das 10 principais vulnerabilidades de segurança web. Aprenda a identificá-las em testes.
 
-4. **Aula 1.4**: Data Binding e Diretivas Modernas (2h)
-   - Objetivo: Implementar data binding e usar diretivas
-   - Exercícios: 7 exercícios práticos
+### Aula 1.3: Shift-Left Security (60 min)
+Entenda como integrar segurança desde as fases iniciais do desenvolvimento e o papel de QA nisso.
 
-5. **Aula 1.5**: Control Flow e Pipes (1.5h)
-   - Objetivo: Usar control flow moderno e criar pipes
-   - Exercícios: 5 exercícios práticos
+### Aula 1.4: Threat Modeling (90 min)
+Aprenda técnicas de modelagem de ameaças para identificar riscos de segurança proativamente.
 
-**Total de Aulas**: 5  
-**Total de Exercícios**: 26
+### Aula 1.5: Compliance e Regulamentações (90 min)
+Navegue pelas principais regulamentações de segurança e privacidade aplicáveis a diferentes setores.
 
----
+## 🔗 Conexão com os Próximos Módulos
 
-## Projeto Prático do Módulo
+Este módulo é a base para os demais:
 
-### Projeto: Todo List Básico
+- **Módulo 2**: Você aplicará os conceitos aprendidos em ferramentas práticas (SAST, DAST)
+- **Módulo 3**: Verá como diferentes setores aplicam compliance na prática
+- **Módulo 4**: Integrará segurança em pipelines CI/CD (DevSecOps)
+- **Módulo 5**: Analisará casos reais de aplicação desses conceitos
 
-**Descrição**: Criar uma aplicação de lista de tarefas usando apenas os conceitos fundamentais aprendidos.
+## 📚 Recursos Adicionais
 
-**Requisitos**:
-- Componente standalone principal
-- Lista de tarefas com control flow @for
-- Adicionar/remover tarefas
-- Marcar tarefas como concluídas
-- Filtrar tarefas (ativas/concluídas)
-- Usar pipes para formatação de datas
-- Diretivas customizadas para estilização
+- [OWASP Top 10 - 2021](https://owasp.org/Top10/)
+- [OWASP Testing Guide](https://owasp.org/www-project-web-security-testing-guide/)
+- [Threat Modeling Manifesto](https://www.threatmodelingmanifesto.org/)
+- [LGPD - Lei Completa](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
+- [PCI-DSS Requirements](https://www.pcisecuritystandards.org/)
 
-**Duração Estimada**: 2 horas
+## 💡 Dica de Estudo
+
+Reserve tempo para explorar cada vulnerabilidade OWASP em profundidade. Tente reproduzi-las em ambientes de teste (como OWASP WebGoat ou Juice Shop) para fixar o conhecimento prático.
 
 ---
 
-## Dependências
-
-**Pré-requisitos**:
-- Conhecimento básico de JavaScript ES6+
-- HTML/CSS básico
-- Node.js instalado
-
-**Dependências de Módulos**:
-- Nenhuma (este é o primeiro módulo)
-
-**Prepara para**:
-- Módulo 2: Desenvolvimento Intermediário
-
----
-
-## Recursos Adicionais
-
-- [Angular CLI Documentation](https://angular.io/cli)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [Angular Component Guide](https://angular.io/guide/component-overview)
-- [Angular Control Flow](https://angular.io/guide/control-flow)
-
----
-
-## Checklist de Conclusão
-
-- [ ] Ambiente configurado e funcionando
-- [ ] Primeiro projeto Angular criado
-- [ ] TypeScript essencial dominado
-- [ ] Componentes standalone criados
-- [ ] Data binding implementado
-- [ ] Diretivas modernas aplicadas
-- [ ] Control flow moderno usado
-- [ ] Pipes customizados criados
-- [ ] Projeto prático concluído
-
----
-
-**Próximo Módulo**: [Módulo 2: Desenvolvimento Intermediário](./module-2-desenvolvimento-intermediario.md)
-
+**Duração Total do Módulo**: 8 horas  
+**Nível**: Básico a Intermediário  
+**Pré-requisitos**: Conhecimento básico de QA e desenvolvimento web

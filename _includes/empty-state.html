@@ -1,0 +1,24 @@
+{% comment %}
+  Empty State Component
+  
+  Exibe um estado vazio quando não há conteúdo disponível.
+  
+  Parâmetros:
+    - icon: Ícone/emoji a ser exibido (padrão: '📚')
+    - title: Título do empty state (padrão: 'Nenhum conteúdo')
+    - description: Descrição do empty state (padrão: 'Não há conteúdo disponível no momento.')
+    - action_url: URL para ação (opcional)
+    - action_text: Texto do botão de ação (padrão: 'Voltar')
+    - variant: Variante do empty state ('compact' ou 'inline', opcional)
+{% endcomment %}
+
+<div class="empty-state{% if include.variant %} empty-state--{{ include.variant }}{% endif %}">
+  <div class="empty-state__icon">{{ include.icon | default: '📚' }}</div>
+  <h3 class="empty-state__title">{{ include.title | default: 'Nenhum conteúdo' }}</h3>
+  <p class="empty-state__description">{{ include.description | default: 'Não há conteúdo disponível no momento.' }}</p>
+  {% if include.action_url %}
+  <div class="empty-state__action">
+    <a href="{{ include.action_url }}" class="btn btn-primary">{{ include.action_text | default: 'Voltar' }}</a>
+  </div>
+  {% endif %}
+</div>

@@ -1,0 +1,124 @@
+// ============================================
+// Microinterações e Estados Interativos
+// ============================================
+// Melhorias de hover, focus e estados ativos
+// 100% CSS puro - sem dependências
+
+// ============================================
+// Botões - Hover States Melhorados
+// ============================================
+.btn,
+button,
+.mark-lesson-complete,
+input[type="submit"],
+input[type="button"] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ============================================
+// Links - Underline Animado
+// ============================================
+a:not(.btn):not(button):not(.no-underline) {
+  position: relative;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: width 0.2s ease;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+  
+  // Links que já têm underline não precisam do efeito
+  &[style*="text-decoration: underline"],
+  &[style*="text-decoration:underline"] {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+// ============================================
+// Cards - Hover Elevation
+// ============================================
+.module-card,
+.lesson-card,
+.exercise-card,
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// ============================================
+// Focus States - Acessibilidade
+// ============================================
+// Focus states visíveis para navegação por teclado
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// Remover outline padrão do browser para mouse clicks
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Melhorar focus em elementos interativos específicos
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+select {
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-color: var(--color-primary);
+  }
+}
+
+// ============================================
+// Respeitar Preferências de Acessibilidade
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

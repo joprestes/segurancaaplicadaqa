@@ -6,6 +6,16 @@
 @import 'video-player';
 @import 'progress-tracker';
 @import 'breadcrumbs';
+@import 'module-summary';
+@import 'components/interactions';
+@import 'components/skeleton';
+@import 'components/empty-states';
+@import 'components/hero';
+@import 'components/command-palette';
+@import 'components/toast';
+@import 'components/footer';
+@import 'utilities/transitions';
+@import 'animations/keyframes';
 
 * {
   box-sizing: border-box;
@@ -130,17 +140,92 @@ pre {
 body {
   font-family: $font-family;
   font-size: $font-size-base;
-  line-height: 1.6;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
   color: var(--color-text-primary);
   background: var(--color-bg-primary);
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   @include theme-transition-all;
+  
+  // Gradiente sutil no background (estilo CWI)
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-primary) 0%,
+    var(--color-bg-secondary) 100%
+  );
+  min-height: 100vh;
+}
+
+/* Hierarquia tipográfica - Títulos */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  @include theme-transition(color);
+}
+
+h1 {
+  font-size: $font-size-h1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-lg;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-md;
+  margin-top: $spacing-xl;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: $font-size-h3;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+h4 {
+  font-size: $font-size-h4;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-lg;
+}
+
+h5 {
+  font-size: $font-size-h5;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-md;
+}
+
+h6 {
+  font-size: $font-size-h6;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-md;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: $font-size-small;
 }
 
 .site-header {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
   color: var(--color-text-inverse);
   padding: $spacing-md $spacing-lg;
   box-shadow: var(--color-shadow-sm);
@@ -149,22 +234,70 @@ body {
   z-index: 1000;
   @include theme-transition-all;
   
+  /* Gradiente adicional para dark mode */
+  [data-theme="dark"] & {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  }
+  
   .header-content {
     max-width: $container-max-width;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: $spacing-lg;
+  }
+  
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex: 1;
   }
   
   .site-title {
     margin: 0;
     font-size: $font-size-h2;
+    font-weight: $font-weight-semibold;
+    letter-spacing: -0.01em;
     
     a {
       color: var(--color-text-inverse);
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: $spacing-sm;
+      transition: opacity 0.2s;
+      
+      &:hover {
+        opacity: 0.9;
+      }
     }
+    
+    .brand-icon {
+      font-size: 1.5em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+    
+    .brand-text {
+      display: inline-block;
+    }
+  }
+  
+  .brand-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-text-inverse);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .main-nav {
@@ -270,8 +403,34 @@ body {
   
   p {
     color: var(--color-text-primary);
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-md;
     @include theme-transition(color);
   }
+  
+  /* Textos grandes e pequenos */
+  .text-large {
+    font-size: $font-size-large;
+    line-height: $line-height-relaxed;
+  }
+  
+  .text-small {
+    font-size: $font-size-small;
+    line-height: $line-height-normal;
+  }
+  
+  .text-xs {
+    font-size: $font-size-xs;
+    line-height: $line-height-normal;
+  }
+  
+  /* Pesos de fonte */
+  .font-light { font-weight: $font-weight-light; }
+  .font-normal { font-weight: $font-weight-normal; }
+  .font-medium { font-weight: $font-weight-medium; }
+  .font-semibold { font-weight: $font-weight-semibold; }
+  .font-bold { font-weight: $font-weight-bold; }
   
   a {
     color: var(--color-primary);
@@ -288,7 +447,8 @@ body {
     padding: 0.2em 0.4em;
     border-radius: 3px;
     font-size: 0.9em;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-family: $font-family-mono;
+    font-weight: $font-weight-normal;
     @include theme-transition-all;
   }
   
@@ -318,8 +478,11 @@ body {
       color: var(--color-text-primary) !important;
       padding: 0;
       font-size: 0.9em;
+      font-family: $font-family-mono;
+      font-weight: $font-weight-normal;
       border: none;
       display: block;
+      line-height: $line-height-relaxed;
     }
     
     /* Remover todos os backgrounds de elementos de syntax highlighting */
@@ -578,20 +741,85 @@ body {
   margin: $spacing-xl 0;
   padding: $spacing-lg;
   background: var(--color-bg-secondary);
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: $spacing-xl;
+  min-height: 60px;
   @include theme-transition(background-color);
   
   a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     color: var(--color-primary);
     text-decoration: none;
-    font-weight: bold;
-    @include theme-transition(color);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    transition: all 0.2s ease;
+    @include theme-transition(all);
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: fit-content;
+    max-width: 45%;
     
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
+      background: var(--color-primary);
+      color: var(--color-text-inverse);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+  }
+  
+  // Quando há apenas o link de resumo do módulo, alinha à direita
+  .module-summary-link:only-child {
+    margin-left: auto;
+    margin-right: 0;
+    max-width: none;
+  }
+  
+  // Quando há apenas um link, centralizar
+  a:only-child {
+    margin: 0 auto;
+    max-width: none;
+  }
+  
+  // Botão anterior - sempre à esquerda
+  .prev-lesson {
+    margin-right: auto;
+    margin-left: 0;
+    order: 1;
+    text-align: left;
+  }
+  
+  // Botão próximo - sempre à direita
+  .next-lesson {
+    margin-left: auto;
+    margin-right: 0;
+    order: 2;
+    text-align: right;
+  }
+  
+  // Garantir espaçamento máximo entre os dois botões
+  .prev-lesson + .next-lesson {
+    margin-left: auto;
   }
 }
 
@@ -659,25 +887,8 @@ body {
   }
 }
 
-.site-footer {
-  background: var(--color-secondary);
-  color: var(--color-text-inverse);
-  padding: $spacing-lg;
-  margin-top: $spacing-xl;
-  text-align: center;
-  @include theme-transition(background-color);
+// Footer styles moved to components/_footer.scss
   
-  [data-theme="dark"] & {
-    background: var(--color-surface-elevated);
-  }
-  
-  .footer-content {
-    max-width: $container-max-width;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: $breakpoint-tablet) {
   .page-wrapper {
     flex-direction: column;
   }
@@ -713,7 +924,19 @@ body {
       flex-direction: column;
       gap: $spacing-md;
     }
+    
+    .header-brand {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-sm;
+    }
+    
+    .brand-badge {
+      align-self: flex-start;
+    }
   }
+  
+  // Footer responsive styles moved to components/_footer.scss
 }
 
 @media (max-width: $breakpoint-mobile) {

@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.podcast.description | default: site.description }}{% endif %}">
+  <!-- Google Fonts - Inter: Tipografia moderna e profissional -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/main.css' | relative_url }}">
   {% include google-analytics.html %}
   {% seo %}
@@ -17,9 +21,10 @@
     "description": "{{ site.description }}",
     "provider": {
       "@type": "Organization",
-      "name": "Angular Expert"
+      "name": "CWI Software",
+      "url": "https://www.cwi.com.br"
     },
-    "courseCode": "angular-expert-5-days",
+    "courseCode": "seguranca-qa-cwi",
     "educationalLevel": "Advanced",
     "inLanguage": "pt-BR"
   }
@@ -59,6 +64,10 @@
   <script src="{{ '/assets/js/analytics.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/fix-content-height.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/module-gate.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/skeleton-loader.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/command-palette.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/toast.js' | relative_url }}"></script>
   <script>
     window.siteData = {
       modules: {{ site.data.modules.modules | jsonify }},

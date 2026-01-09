@@ -1,0 +1,59 @@
+// ============================================
+// Transições Globais
+// ============================================
+// Transições suaves para elementos comuns
+// 100% CSS puro - sem dependências
+
+// ============================================
+// Transições Globais (Apenas se não existir)
+// ============================================
+// Aplicar transições suaves apenas para propriedades comuns
+// Evitar aplicar em todos os elementos para melhor performance
+
+// Elementos que devem ter transições suaves
+a,
+button,
+.btn,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+textarea,
+select,
+.card,
+.module-card,
+.lesson-card,
+.exercise-card {
+  transition: color 0.2s ease, 
+              background-color 0.2s ease, 
+              border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              transform 0.2s ease;
+}
+
+// ============================================
+// Exceções - Elementos que NÃO devem ter transição
+// ============================================
+img,
+svg,
+video,
+canvas,
+iframe,
+object,
+embed {
+  transition: none;
+}
+
+// ============================================
+// Respeitar Preferências de Acessibilidade
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,106 @@
+// ============================================
+// Skeleton Screens - Loading States
+// ============================================
+// Animações de shimmer para estados de carregamento
+// 100% CSS puro - sem dependências
+
+// ============================================
+// Keyframe Animation - Shimmer Effect
+// ============================================
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+// ============================================
+// Base Skeleton Class
+// ============================================
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary, #f0f0f0) 0%,
+    var(--color-surface, #f8f8f8) 50%,
+    var(--color-bg-secondary, #f0f0f0) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 4px;
+  display: inline-block;
+  
+  // Dark mode support
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(
+      90deg,
+      var(--color-bg-secondary, #2a2a2a) 0%,
+      var(--color-surface, #333333) 50%,
+      var(--color-bg-secondary, #2a2a2a) 100%
+    );
+  }
+}
+
+// ============================================
+// Skeleton Text Variants
+// ============================================
+.skeleton-text {
+  @extend .skeleton;
+  height: 1em;
+  margin-bottom: 0.5em;
+  
+  &--title {
+    height: 2em;
+    width: 60%;
+    margin-bottom: 1rem;
+  }
+  
+  &--line {
+    width: 100%;
+  }
+  
+  &--short {
+    width: 40%;
+  }
+  
+  &--medium {
+    width: 70%;
+  }
+}
+
+// ============================================
+// Skeleton Card
+// ============================================
+.skeleton-card {
+  @extend .skeleton;
+  height: 200px;
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+// ============================================
+// Skeleton Loader Container
+// ============================================
+.skeleton-loader {
+  padding: 1.5rem;
+  
+  .skeleton-text {
+    margin-bottom: 0.75rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// ============================================
+// Respeitar Preferências de Acessibilidade
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--color-bg-secondary);
+  }
+}

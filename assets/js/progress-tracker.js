@@ -126,6 +126,24 @@ class ProgressTracker {
     });
   }
   
+  saveQuizResult(lessonId, score, classification, answers) {
+    if (!this.progress.quizzes) this.progress.quizzes = {};
+    this.progress.quizzes[lessonId] = {
+      score: score,
+      classification: classification,
+      completed_at: new Date().toISOString(),
+      answers: answers
+    };
+    this.saveProgress();
+    this.updateDisplay();
+    
+    this.trackEvent('quiz_complete', {
+      lesson_id: lessonId,
+      score: score,
+      classification: classification
+    });
+  }
+  
   trackEvent(eventName, parameters) {
     if (typeof gtag !== 'undefined') {
       gtag('event', eventName, parameters);

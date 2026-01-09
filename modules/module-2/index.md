@@ -1,9 +1,9 @@
 ---
 layout: module
-title: "Desenvolvimento Intermediário"
-slug: desenvolvimento-intermediario
+title: "Módulo 2: Testes de Segurança na Prática"
+slug: testes-seguranca-pratica
 duration: "8 horas"
-description: "Construa funcionalidades completas de aplicações reais"
+description: "Aprenda técnicas e ferramentas para testar segurança em aplicações"
 lessons: 
   - "lesson-2-1"
   - "lesson-2-2"
@@ -11,159 +11,134 @@ lessons:
   - "lesson-2-4"
   - "lesson-2-5"
 module: module-2
-permalink: /modules/desenvolvimento-intermediario/
+permalink: /modules/testes-seguranca-pratica/
 ---
 
-## Objetivos do Módulo
+# Módulo 2: Testes de Segurança na Prática
 
-Ao final deste módulo, o aluno será capaz de:
+## 🎯 Objetivo do Módulo
 
-1. Criar serviços e implementar injeção de dependência avançada
-2. Configurar roteamento complexo com guards, resolvers e lazy loading
-3. Desenvolver formulários reativos com validação customizada
-4. Consumir APIs REST com HTTP Client e interceptors
-5. Gerenciar comunicação entre componentes (Input/Output, ViewChild, serviços)
+Neste módulo, você sai da teoria e mergulha nas ferramentas e técnicas práticas de testes de segurança. Aprenda a usar SAST, DAST, SCA, e até pentest básico para identificar vulnerabilidades em aplicações reais.
 
----
+## 🛠️ Ferramentas que você vai dominar
 
-## Tópicos Cobertos
+### SAST (Static Application Security Testing)
+- **SonarQube**: Análise de código e security hotspots
+- **Semgrep**: Rules as code para detecção de vulnerabilidades
+- **Checkmarx**: Scanning completo de código fonte
+- **Bandit** (Python), **Brakeman** (Ruby), **ESLint Security** (JavaScript)
 
-### 2.1 Serviços e Injeção de Dependência (1.5h)
-- Criação de serviços
-- @Injectable decorator
-- Hierarquia de injectors
-- Providers e escopos (root, platform, any)
-- Função inject() (Angular 14+)
-- InjectionTokens
-- Factory providers
-- Optional dependencies
+### DAST (Dynamic Application Security Testing)
+- **OWASP ZAP**: Scanner de vulnerabilidades web
+- **Burp Suite**: Proxy e scanner profissional
+- **Acunetix**: Scanner automatizado
+- **Nikto**: Scanner de servidores web
 
-### 2.2 Roteamento e Navegação Avançada (2h)
-- Configuração de rotas
-- RouterModule e Routes
-- Parâmetros de rota e query parameters
-- Rotas aninhadas
-- Navegação programática
-- Route Guards (CanActivate, CanDeactivate, CanLoad)
-- Resolvers
-- Lazy Loading de módulos
-- Preloading strategies
+### SCA (Software Composition Analysis)
+- **Snyk**: Análise de dependências com fix automático
+- **Dependabot**: Alertas de vulnerabilidades no GitHub
+- **OWASP Dependency-Check**: Scanner open-source
+- **npm audit** / **pip-audit**: Scanners nativos
 
-### 2.3 Formulários Reativos e Validação (2h)
-- FormControl, FormGroup, FormArray
-- FormBuilder
-- Validação síncrona e assíncrona
-- Validators customizados
-- Typed Forms (Angular 14+)
-- Signal Forms (Angular 19+)
-- Formulários dinâmicos
-- Estados de formulário e feedback ao usuário
+### Pentest Tools
+- **Metasploit**: Framework de exploração
+- **Nmap**: Scanner de portas e serviços
+- **SQLMap**: Exploração de SQL Injection
+- **Hydra**: Brute force de autenticação
 
-### 2.4 HTTP Client e Interceptors (1.5h)
-- HttpClient básico
-- Requisições GET, POST, PUT, DELETE
-- Headers e configuração
-- Tratamento de erros
-- HTTP Interceptors
-- Request/Response interceptors
-- Auth interceptors
-- Retry logic e timeout
+## 📚 O que você vai aprender
 
-### 2.5 Comunicação entre Componentes (1h)
-- @Input() e @Output()
-- EventEmitter
-- ViewChild e ViewChildren
-- ContentChild e ContentChildren
-- Template Reference Variables
-- Comunicação via serviços
-- Smart e Dumb Components
-- Padrão Master/Detail
+### 1. SAST - Análise Estática
+- Como funciona análise estática de código
+- Configuração de SonarQube para projetos
+- Interpretação de resultados (True/False positives)
+- Integração no workflow de desenvolvimento
 
----
+### 2. DAST - Análise Dinâmica
+- Diferença entre SAST e DAST
+- Configuração e uso do OWASP ZAP
+- Scanning de aplicações em execução
+- Testes de API com ferramentas DAST
 
-## Aulas Planejadas
+### 3. Pentest Básico
+- Mindset de pentesting para QAs
+- Reconhecimento e enumeração
+- Exploração básica de vulnerabilidades
+- Documentação de findings
 
-1. **Aula 2.1**: Serviços e Injeção de Dependência (1.5h)
-   - Objetivo: Criar serviços e dominar DI
-   - Exercícios: 5 exercícios práticos
+### 4. Automação de Testes de Segurança
+- Scripts para automação de scans
+- Integração com CI/CD
+- Agendamento de testes de segurança
+- Dashboards de segurança
 
-2. **Aula 2.2**: Roteamento e Navegação Avançada (2h)
-   - Objetivo: Implementar roteamento completo
-   - Exercícios: 6 exercícios práticos
+### 5. Análise de Dependências
+- Por que dependências são críticas
+- CVEs e vulnerabilidades conhecidas
+- Atualização segura de dependências
+- Policy enforcement
 
-3. **Aula 2.3**: Formulários Reativos e Validação (2h)
-   - Objetivo: Criar formulários reativos complexos
-   - Exercícios: 7 exercícios práticos
+## 🎓 Competências que você vai desenvolver
 
-4. **Aula 2.4**: HTTP Client e Interceptors (1.5h)
-   - Objetivo: Consumir APIs e criar interceptors
-   - Exercícios: 5 exercícios práticos
+Ao final deste módulo, você será capaz de:
 
-5. **Aula 2.5**: Comunicação entre Componentes (1h)
-   - Objetivo: Gerenciar comunicação entre componentes
-   - Exercícios: 4 exercícios práticos
+✅ Configurar e usar ferramentas SAST em projetos  
+✅ Executar scans DAST em aplicações web  
+✅ Analisar dependências com ferramentas SCA  
+✅ Realizar pentest básico com mindset de segurança  
+✅ Automatizar testes de segurança em pipelines  
+✅ Interpretar e priorizar vulnerabilidades encontradas  
+✅ Colaborar com times de desenvolvimento na correção  
 
-**Total de Aulas**: 5  
-**Total de Exercícios**: 27
+## 📖 Estrutura das Aulas
 
----
+### Aula 2.1: SAST - Testes Estáticos (90 min)
+Mergulhe nos testes estáticos de segurança. Aprenda a usar SonarQube, Semgrep e outras ferramentas.
 
-## Projeto Prático do Módulo
+### Aula 2.2: DAST - Testes Dinâmicos (90 min)
+Aprenda testes dinâmicos com OWASP ZAP, Burp Suite. Configure, execute e interprete scans.
 
-### Projeto: CRUD de Produtos
+### Aula 2.3: Pentest Básico (120 min)
+Introdução ao mindset de pentesting. Técnicas básicas de exploração e ferramentas essenciais.
 
-**Descrição**: Criar uma aplicação completa de CRUD (Create, Read, Update, Delete) de produtos com autenticação básica.
+### Aula 2.4: Automação de Testes de Segurança (120 min)
+Como automatizar SAST, DAST e SCA em pipelines CI/CD com scripts e integrações.
 
-**Requisitos**:
-- Roteamento completo com lazy loading
-- Formulário reativo para criar/editar produtos
-- Validação customizada
-- Serviço HTTP para comunicação com API
-- Interceptor para autenticação
-- Guards para proteger rotas
-- Comunicação entre componentes
-- Lista de produtos com filtros
+### Aula 2.5: Dependency Scanning e SCA (90 min)
+Aprenda a usar Snyk, Dependabot, OWASP Dependency-Check para análise de dependências.
 
-**Duração Estimada**: 3 horas
+## 🔬 Laboratórios Práticos
 
----
+Cada aula inclui exercícios práticos com ambientes de teste:
 
-## Dependências
+- **OWASP WebGoat**: Aplicação vulnerável para prática
+- **OWASP Juice Shop**: Ecommerce vulnerável moderno
+- **DVWA**: Damn Vulnerable Web Application
+- **Repositórios de exemplo**: Código com vulnerabilidades intencionais
 
-**Pré-requisitos**:
-- Módulo 1: Fundamentos Acelerados completo
+## 🔗 Conexão com os Próximos Módulos
 
-**Dependências de Módulos**:
-- Requer conhecimento de componentes, templates e data binding
+- **Módulo 3**: Aplicar essas ferramentas em contextos específicos de cada setor
+- **Módulo 4**: Integrar essas ferramentas em pipelines DevSecOps
+- **Módulo 5**: Ver exemplos reais de uso dessas ferramentas em projetos CWI
 
-**Prepara para**:
-- Módulo 3: Programação Reativa e Estado
+## 📚 Recursos Adicionais
 
----
+- [OWASP ZAP - Getting Started](https://www.zaproxy.org/getting-started/)
+- [SonarQube Security Rules](https://rules.sonarsource.com/)
+- [Snyk Documentation](https://docs.snyk.io/)
+- [Metasploit Unleashed](https://www.offensive-security.com/metasploit-unleashed/)
+- [Burp Suite Learning Path](https://portswigger.net/web-security)
 
-## Recursos Adicionais
+## 💡 Dicas de Estudo
 
-- [Angular Services Guide](https://angular.io/guide/services)
-- [Angular Routing Guide](https://angular.io/guide/router)
-- [Angular Reactive Forms](https://angular.io/guide/reactive-forms)
-- [Angular HTTP Client](https://angular.io/guide/http)
+1. **Instale as ferramentas**: SonarQube local, OWASP ZAP, Snyk CLI
+2. **Pratique em ambientes seguros**: Use DVWA, WebGoat, Juice Shop
+3. **Documente findings**: Crie relatórios de vulnerabilidades encontradas
+4. **Experimente integrações**: Conecte ferramentas com GitHub/GitLab
 
 ---
 
-## Checklist de Conclusão
-
-- [ ] Serviços criados e injetados corretamente
-- [ ] Roteamento configurado com guards
-- [ ] Lazy loading implementado
-- [ ] Formulários reativos criados
-- [ ] Validação customizada implementada
-- [ ] HTTP Client configurado
-- [ ] Interceptors criados
-- [ ] Comunicação entre componentes funcionando
-- [ ] Projeto prático concluído
-
----
-
-**Módulo Anterior**: [Módulo 1: Fundamentos Acelerados](./module-1-fundamentos-acelerados.md)  
-**Próximo Módulo**: [Módulo 3: Programação Reativa e Estado](./module-3-programacao-reativa-estado.md)
-
+**Duração Total do Módulo**: 8 horas  
+**Nível**: Intermediário a Avançado  
+**Pré-requisitos**: Módulo 1 completo, conhecimento de Git e CI/CD básico

@@ -1,6 +1,6 @@
-# Angular Expert 5 Dias - Plataforma de Ensino
+# Segurança em QA - CWI - Plataforma de Ensino
 
-Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios. Suporta podcasts, vídeos, rastreamento de progresso e navegação intuitiva.
+Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios sobre segurança aplicada à qualidade de software. Suporta podcasts, vídeos, rastreamento de progresso e navegação intuitiva.
 
 ## 📋 Índice
 
@@ -36,7 +36,7 @@ bundler --version # Deve estar instalado
 
 ```bash
 git clone <url-do-repositorio>
-cd angular-expert-5-days-site
+cd seguranca-qa-cwi-site
 ```
 
 ### 2. Instale as Dependências
@@ -101,7 +101,7 @@ Após iniciar o servidor, acesse:
 ## 📁 Estrutura do Projeto
 
 ```
-angular-expert-5-days-site/
+seguranca-qa-cwi-site/
 ├── _config.yml              # Configuração principal do Jekyll
 ├── _data/                   # Arquivos de dados YAML
 │   ├── modules.yml          # Definição dos módulos
@@ -571,7 +571,7 @@ Aqui vai o conteúdo da página usando Markdown...
 - **Módulos**: `module-1`, `module-2`, etc.
 - **Aulas**: `lesson-1-1`, `lesson-1-2`, etc. (módulo-aula)
 - **Exercícios**: `lesson-1-1-exercise-1`, `lesson-1-1-exercise-2`, etc.
-- **Slugs**: kebab-case (ex: `introducao-angular`)
+- **Slugs**: kebab-case (ex: `introducao-seguranca-qa`)
 - **Arquivos de mídia**: Seguir padrão `MM.N-titulo.extensao`
 
 ## 🚢 Deploy
@@ -735,4 +735,4 @@ sudo gem install bundler
 
 ---
 
-**Nota**: Este projeto foi originalmente configurado para um curso de Angular, mas pode ser facilmente adaptado para qualquer temática seguindo os passos de personalização acima.
+**Nota**: Este projeto está configurado para o curso de Segurança em QA da CWI, mas pode ser facilmente adaptado para qualquer temática seguindo os passos de personalização acima.

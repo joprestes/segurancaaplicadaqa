@@ -20,6 +20,18 @@
         <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: next_lesson.slug | relative_url }}" class="next-lesson">
           {{ next_lesson.title }} →
         </a>
+      {% else %}
+        {% comment %} Última lição do módulo - mostrar link para resumo {% endcomment %}
+        {% assign next_module = site.data.modules.modules | where: "order", current_module.order | plus: 1 | first %}
+        {% if next_module %}
+          <a href="{{ '/modules/' | append: current_module.slug | append: '/summary/?next_module=' | append: next_module.slug | relative_url }}" class="next-lesson module-summary-link">
+            Ver Resumo do Módulo →
+          </a>
+        {% else %}
+          <a href="{{ '/modules/' | append: current_module.slug | append: '/summary/' | relative_url }}" class="next-lesson module-summary-link">
+            Ver Resumo do Módulo →
+          </a>
+        {% endif %}
       {% endif %}
       
       {% break %}

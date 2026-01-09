@@ -1,0 +1,139 @@
+// ============================================
+// Hero Section - Seção Principal
+// ============================================
+// Hero section para páginas principais
+// 100% CSS puro - sem dependências
+
+// ============================================
+// Hero Container
+// ============================================
+.hero {
+  padding: $spacing-3xl $spacing-lg; // 4rem vertical, 1.5rem horizontal (padrão CWI)
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  color: var(--color-text-inverse);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: $spacing-2xl; // Espaçamento generoso após hero (padrão CWI)
+  
+  // Overlay sutil para melhorar legibilidade
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    pointer-events: none;
+  }
+  
+  // ============================================
+  // Hero Title
+  // ============================================
+  &__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: $spacing-lg; // 1.5rem (mais espaçoso)
+    line-height: 1.2;
+    position: relative;
+    z-index: 1;
+    
+    // Text-fill gradient estilo CWI (opcional, descomente se quiser)
+    // background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    // background-clip: text;
+  }
+  
+  // ============================================
+  // Hero Subtitle
+  // ============================================
+  &__subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    margin-bottom: $spacing-2xl; // 3rem (mais espaçoso, padrão CWI)
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
+  }
+  
+  // ============================================
+  // Hero CTA Container
+  // ============================================
+  &__cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+    
+    .btn {
+      min-width: 150px;
+    }
+  }
+  
+  // ============================================
+  // Variantes
+  // ============================================
+  
+  // Hero compacto
+  &--compact {
+    padding: $spacing-2xl $spacing-lg; // 3rem vertical (mais generoso)
+    
+    .hero__title {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+    }
+    
+    .hero__subtitle {
+      font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+      margin-bottom: 1.5rem;
+    }
+  }
+  
+  // Hero sem gradiente
+  &--flat {
+    background: var(--color-primary);
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  // Hero com imagem de fundo (futuro)
+  &--with-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    &::before {
+      background: rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+// ============================================
+// Responsividade
+// ============================================
+@media (max-width: 768px) {
+  .hero {
+    padding: $spacing-2xl $spacing-md; // 3rem vertical em mobile (mais generoso)
+    
+    &__cta {
+      flex-direction: column;
+      align-items: stretch;
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}

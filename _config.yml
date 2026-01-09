@@ -1,15 +1,15 @@
-title: "Angular Expert"
-description: "Treinamento intensivo e prático de Angular - Do básico ao expert em 5 dias"
+title: "Segurança Aplicada a Qualidade de Software"
+description: "Segurança Aplicada à Qualidade de Software - Teoria e prática para profissionais de QA em diferentes setores"
 url: "https://onosendae.github.io"
-baseurl: "/angular"
-author: "Angular Expert"
+baseurl: "/seguranca-qa"
+author: "CWI Software"
 encoding: "utf-8"
 twitter:
-  username: "@angular-expert"
+  username: "@cwisoftware"
   card: "summary_large_image"
 facebook:
   app_id: ""
-image: "/assets/images/podcasts/01-Fundacao_Angular_Tipagem_Encapsulamento_e_Generics.png"
+image: "/assets/images/security-qa-cover.png"
 
 markdown: kramdown
 highlighter: rouge
@@ -43,6 +43,10 @@ defaults:
       type: "lessons"
     values:
       layout: lesson
+  - scope:
+      path: "modules/*/lessons/exercises"
+    values:
+      layout: exercise
 
 sass:
   style: compressed

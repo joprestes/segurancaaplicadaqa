@@ -1,0 +1,60 @@
+<div class="module-summary-container" id="module-summary-container" data-module-id="{{ page.module }}">
+  <div class="module-summary-header">
+    <h1>🎯 Resumo do Módulo: {{ page.title }}</h1>
+    <p class="module-summary-subtitle">Veja seu desempenho e descubra quem você é como profissional de segurança!</p>
+  </div>
+
+  <div class="module-summary-stats">
+    <div class="summary-stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-content">
+        <div class="stat-value" id="average-score">0%</div>
+        <div class="stat-label">Média Geral</div>
+      </div>
+    </div>
+    
+    <div class="summary-stat-card">
+      <div class="stat-icon">✅</div>
+      <div class="stat-content">
+        <div class="stat-value" id="completed-quizzes">0/0</div>
+        <div class="stat-label">Quizzes Completos</div>
+      </div>
+    </div>
+    
+    <div class="summary-stat-card">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-content">
+        <div class="stat-value" id="classification-title">-</div>
+        <div class="stat-label">Sua Classificação</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="classification-badge" id="classification-badge">
+    <div class="badge-icon" id="badge-icon">🛡️</div>
+    <div class="badge-content">
+      <h2 id="classification-name">Carregando...</h2>
+      <p id="classification-description">Analisando seus resultados...</p>
+    </div>
+  </div>
+
+  <div class="quiz-results-section">
+    <h2>📋 Resultados dos Quizzes</h2>
+    <div class="quiz-results-grid" id="quiz-results-grid">
+      <!-- Cards de resultados serão inseridos aqui via JavaScript -->
+      <!-- Empty state será inserido aqui quando não houver resultados -->
+    </div>
+  </div>
+
+  <div class="module-summary-actions">
+    <button class="btn-primary" id="continue-next-module">
+      Continuar para Próximo Módulo →
+    </button>
+    <button class="btn-secondary" id="review-module">
+      Revisar Módulo
+    </button>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/module-summary.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/module-gate.js' | relative_url }}"></script>

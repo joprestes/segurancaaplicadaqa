@@ -1,0 +1,152 @@
+// ============================================
+// Toast Notifications
+// ============================================
+// Sistema de notificações toast
+// 100% CSS puro - sem dependências
+
+// ============================================
+// Toast Container
+// ============================================
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  pointer-events: none;
+  
+  // Mobile: ajustar posição
+  @media (max-width: 768px) {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+}
+
+// ============================================
+// Toast Item
+// ============================================
+.toast {
+  min-width: 300px;
+  max-width: 400px;
+  padding: 1rem 1.25rem;
+  background: var(--color-surface, #ffffff);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid var(--color-primary, #007bff);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.3s ease forwards;
+  pointer-events: auto;
+  position: relative;
+  
+  // Mobile: largura total
+  @media (max-width: 768px) {
+    min-width: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  // ============================================
+  // Toast Variants
+  // ============================================
+  &--success {
+    border-left-color: var(--color-success, #28a745);
+  }
+  
+  &--error {
+    border-left-color: var(--color-error, #dc3545);
+  }
+  
+  &--warning {
+    border-left-color: var(--color-warning, #ffc107);
+  }
+  
+  &--info {
+    border-left-color: var(--color-primary, #007bff);
+  }
+  
+  // ============================================
+  // Toast Content
+  // ============================================
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  &__title {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+  
+  &__message {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+  }
+  
+  // Toast apenas com mensagem (sem título)
+  &--message-only {
+    .toast__title {
+      display: none;
+    }
+    
+    .toast__message {
+      margin: 0;
+    }
+  }
+}
+
+// ============================================
+// Keyframe Animation
+// ============================================
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+// ============================================
+// Toast Fade Out
+// ============================================
+.toast--fade-out {
+  animation: slideOutDown 0.3s ease forwards;
+}
+
+// ============================================
+// Respeitar Preferências de Acessibilidade
+// ============================================
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .toast--fade-out {
+    animation: none;
+    opacity: 0;
+  }
+}

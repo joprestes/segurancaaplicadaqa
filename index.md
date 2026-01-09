@@ -3,11 +3,19 @@ layout: default
 title: Início
 ---
 
-# Bem-vindo ao Angular Expert 5 Dias
+# Segurança Aplicada à Qualidade de Software
 
-Treinamento intensivo e prático de Angular projetado para levar desenvolvedores do nível básico ao expert em apenas 5 dias.
+Treinamento prático e focado em segurança para profissionais de QA da CWI. Aprenda a integrar segurança no processo de qualidade, com exemplos reais de projetos em diferentes setores: financeiro, educacional, ecommerce e IA.
 
-## Módulos do Curso
+## 🎯 O que você vai aprender
+
+- **Fundamentos de Segurança**: OWASP Top 10, threat modeling, compliance (LGPD, PCI-DSS)
+- **Ferramentas e Técnicas**: SAST, DAST, dependency scanning, pentest básico
+- **Segurança por Setor**: Requisitos específicos para financeiro, educacional, ecommerce e IA
+- **DevSecOps**: Integração de segurança em pipelines CI/CD
+- **Casos Práticos CWI**: Exemplos reais de implementação em clientes
+
+## 📚 Módulos do Curso
 
 {% for module in site.data.modules.modules %}
 ### {{ module.order }}. {{ module.title }}
@@ -19,7 +27,18 @@ Treinamento intensivo e prático de Angular projetado para levar desenvolvedores
 
 {% endfor %}
 
-## Sobre o Curso
+## 💼 Contexto CWI
 
-Este curso utiliza uma metodologia prática e orientada ao framework, onde você aprende Angular usando Angular. Cada conceito é aprendido através de implementação imediata, com projetos que crescem em complexidade ao longo do curso.
+Este curso foi desenvolvido especificamente para profissionais de QA alocados em clientes CWI de diversos segmentos. Você aprenderá não apenas teoria, mas como aplicar segurança no dia a dia dos projetos, com exemplos práticos e contextualizados.
+
+### Setores Cobertos
+
+- **🏦 Financeiro**: Open Banking, PCI-DSS, autenticação forte
+- **📚 Educacional**: LGPD para menores, proteção de dados sensíveis
+- **🛒 Ecommerce**: Prevenção de fraudes, segurança de pagamentos
+- **🤖 IA**: Adversarial attacks, model poisoning, data leakage
+
+## 🚀 Por que Segurança em QA?
+
+Segurança não é responsabilidade exclusiva de DevOps ou times especializados. Como profissional de QA, você está em posição única para identificar vulnerabilidades cedo, prevenir problemas de segurança e garantir que os produtos entregues sejam não apenas funcionais, mas também seguros.
 
