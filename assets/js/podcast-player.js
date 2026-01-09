@@ -70,7 +70,11 @@ class PodcastPlayer {
       
       // Tratar erro de carregamento silenciosamente
       this.audio.addEventListener('error', (e) => {
-        console.warn('Arquivo de áudio não encontrado:', this.audioFile);
+        if (window.Logger) {
+          window.Logger.warn('Arquivo de áudio não encontrado:', this.audioFile);
+        } else {
+          console.warn('Arquivo de áudio não encontrado:', this.audioFile);
+        }
         this.audio = null;
         this.audioFile = null;
         // Ocultar o player se o arquivo não existir
@@ -79,6 +83,11 @@ class PodcastPlayer {
           playerContainer.style.display = 'none';
         }
       }, { once: true });
+      
+      // Validação não-bloqueante (apenas logging)
+      if (typeof window.validateMediaFile === 'function') {
+        window.validateMediaFile(this.audioFile, 'audio');
+      }
       
       this.audio.src = this.audioFile;
       this.manager.setPlayer(this, this.audio, config);
@@ -124,7 +133,11 @@ class PodcastPlayer {
               });
             }
           } catch (e) {
-            console.error('Erro ao recuperar estado global:', e);
+            if (window.Logger) {
+              window.Logger.error('Erro ao recuperar estado global:', e);
+            } else {
+              console.error('Erro ao recuperar estado global:', e);
+            }
             this.audio = null;
           }
         } else {
@@ -141,7 +154,11 @@ class PodcastPlayer {
     
     if (this.audio && this.audio.src && this.isPlaying) {
       this.audio.play().catch((error) => {
-        console.warn('Erro ao retomar reprodução:', error);
+        if (window.Logger) {
+          window.Logger.warn('Erro ao retomar reprodução:', error);
+        } else {
+          console.warn('Erro ao retomar reprodução:', error);
+        }
         this.isPlaying = false;
         this.updateUI();
       });
@@ -211,10 +228,15 @@ class PodcastPlayer {
       this.updateDurationDisplay();
     });
     
+    // Debounce apenas em saveProgress, não em updateProgress visual
+    const debouncedSave = typeof window.debounce === 'function' 
+      ? window.debounce(() => this.saveProgress(), 250)
+      : () => this.saveProgress();
+    
     this.audio.addEventListener('timeupdate', () => {
       this.currentTime = this.audio.currentTime;
-      this.updateProgress();
-      this.saveProgress();
+      this.updateProgress();  // Visual - SEMPRE (sem debounce)
+      debouncedSave();         // Storage - com debounce (se disponível)
     });
     
     this.audio.addEventListener('ended', () => {
@@ -234,14 +256,22 @@ class PodcastPlayer {
         // Não logar erro se o arquivo simplesmente não existe (404)
         const error = this.audio.error;
         if (error && error.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
-          console.warn('Arquivo de áudio não encontrado ou formato não suportado:', this.audioFile);
+          if (window.Logger) {
+            window.Logger.warn('Arquivo de áudio não encontrado ou formato não suportado:', this.audioFile);
+          } else {
+            console.warn('Arquivo de áudio não encontrado ou formato não suportado:', this.audioFile);
+          }
           // Ocultar o player
           const playerContainer = document.querySelector('.podcast-player-container');
           if (playerContainer) {
             playerContainer.style.display = 'none';
           }
         } else {
-          console.error('Erro ao carregar áudio:', e);
+          if (window.Logger) {
+            window.Logger.error('Erro ao carregar áudio:', e);
+          } else {
+            console.error('Erro ao carregar áudio:', e);
+          }
           this.handleError();
         }
       } else {
@@ -346,10 +376,18 @@ class PodcastPlayer {
             }
           }
         } catch (e) {
-          console.warn('Não foi possível recuperar estado do podcast');
+          if (window.Logger) {
+            window.Logger.warn('Não foi possível recuperar estado do podcast');
+          } else {
+            console.warn('Não foi possível recuperar estado do podcast');
+          }
         }
       } else {
-        console.info('Nenhum podcast disponível para esta aula');
+        if (window.Logger) {
+          window.Logger.log('Nenhum podcast disponível para esta aula');
+        } else {
+          console.info('Nenhum podcast disponível para esta aula');
+        }
       }
       return;
     }
@@ -372,7 +410,11 @@ class PodcastPlayer {
         current_time: this.currentTime
       });
     }).catch(error => {
-      console.error('Erro ao reproduzir:', error);
+      if (window.Logger) {
+        window.Logger.error('Erro ao reproduzir:', error);
+      } else {
+        console.error('Erro ao reproduzir:', error);
+      }
       this.handleError();
     });
   }
@@ -462,7 +504,11 @@ class PodcastPlayer {
         return lessonFile === normalizedFile || lessonFile === podcastFile || lesson.podcastFile === podcastFile;
       });
     } catch (e) {
-      console.error('Erro ao buscar aulas do podcast:', e);
+      if (window.Logger) {
+        window.Logger.error('Erro ao buscar aulas do podcast:', e);
+      } else {
+        console.error('Erro ao buscar aulas do podcast:', e);
+      }
       return [];
     }
   }
@@ -655,7 +701,11 @@ class PodcastPlayer {
             this.updateProgress();
           }
         } catch (e) {
-          console.error('Erro ao carregar progresso:', e);
+          if (window.Logger) {
+            window.Logger.error('Erro ao carregar progresso:', e);
+          } else {
+            console.error('Erro ao carregar progresso:', e);
+          }
         }
       }
     } else if (this.audio && this.audio.src) {
@@ -684,7 +734,11 @@ class PodcastPlayer {
             this.updateUI();
           }
         } catch (e) {
-          console.error('Erro ao carregar estado global:', e);
+          if (window.Logger) {
+            window.Logger.error('Erro ao carregar estado global:', e);
+          } else {
+            console.error('Erro ao carregar estado global:', e);
+          }
         }
       }
     } else if (!this.audioFile && !this.audio) {
@@ -708,7 +762,11 @@ class PodcastPlayer {
             this.updateUI();
           }
         } catch (e) {
-          console.warn('Não há podcast global disponível');
+          if (window.Logger) {
+            window.Logger.warn('Não há podcast global disponível');
+          } else {
+            console.warn('Não há podcast global disponível');
+          }
         }
       }
     }
@@ -765,7 +823,11 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       config = JSON.parse(podcastData.textContent);
     } catch (e) {
-      console.error('Erro ao parsear dados do podcast:', e);
+      if (window.Logger) {
+        window.Logger.error('Erro ao parsear dados do podcast:', e);
+      } else {
+        console.error('Erro ao parsear dados do podcast:', e);
+      }
     }
   } else if (lessonData) {
     try {
@@ -777,11 +839,26 @@ document.addEventListener('DOMContentLoaded', () => {
         podcastDescription: null
       };
     } catch (e) {
-      console.error('Erro ao parsear dados da lição:', e);
+      if (window.Logger) {
+        window.Logger.error('Erro ao parsear dados da lição:', e);
+      } else {
+        console.error('Erro ao parsear dados da lição:', e);
+      }
     }
   }
   
   if (config) {
-    window.podcastPlayer = new PodcastPlayer(config);
+    // Se já existe instância válida, reutilizar
+    if (window.podcastPlayer && 
+        window.podcastPlayer instanceof PodcastPlayer &&
+        window.podcastPlayer.lessonId === config.lessonId) {
+      // Reutilizar instância existente
+      if (window.Logger) {
+        window.Logger.log('Reutilizando instância existente de PodcastPlayer');
+      }
+    } else {
+      // Criar nova instância
+      window.podcastPlayer = new PodcastPlayer(config);
+    }
   }
 });

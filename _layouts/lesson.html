@@ -24,11 +24,25 @@ layout: default
 <div class="podcast-banner-container" id="podcast-banner-container">
   {% if page.podcast and page.podcast.image %}
     <div class="podcast-banner">
-      <img src="{{ page.podcast.image | relative_url }}" alt="{{ page.podcast.title }}" class="podcast-banner-image" id="podcast-banner-image" />
+      <img 
+        src="{{ page.podcast.image | relative_url }}" 
+        alt="{{ page.podcast.title }}" 
+        class="podcast-banner-image" 
+        id="podcast-banner-image"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   {% else %}
     <div class="podcast-banner" id="podcast-banner-placeholder" style="display: none;">
-      <img src="" alt="" class="podcast-banner-image" id="podcast-banner-image-placeholder" />
+      <img 
+        src="" 
+        alt="" 
+        class="podcast-banner-image" 
+        id="podcast-banner-image-placeholder"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   {% endif %}
 </div>

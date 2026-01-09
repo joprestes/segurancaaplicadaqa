@@ -2,12 +2,11 @@
   <div class="header-content">
     <div class="header-brand">
       <h1 class="site-title">
-        <a href="{{ '/' | relative_url }}">
-          <span class="brand-icon">🔐</span>
+        <a class="brand-logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}">
+          <img src="{{ '/assets/images/logoQa-preview.png' | relative_url }}" alt="{{ site.title }}" class="brand-logo-image">
           <span class="brand-text">{{ site.title }}</span>
         </a>
       </h1>
-      <span class="brand-badge">CWI Software</span>
     </div>
     <nav class="main-nav">
       <a href="{{ '/' | relative_url }}">Início</a>

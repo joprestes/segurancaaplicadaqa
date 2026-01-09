@@ -7,6 +7,7 @@
 @import 'progress-tracker';
 @import 'breadcrumbs';
 @import 'module-summary';
+@import 'quiz';
 @import 'components/interactions';
 @import 'components/skeleton';
 @import 'components/empty-states';
@@ -19,6 +20,19 @@
 
 * {
   box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
 }
 
 /* Garantir que pre tags sempre usem as cores corretas do tema */
@@ -225,7 +239,7 @@ h6 {
 }
 
 .site-header {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, var(--color-primary-dark) 100%);
   color: var(--color-text-inverse);
   padding: $spacing-md $spacing-lg;
   box-shadow: var(--color-shadow-sm);
@@ -236,7 +250,7 @@ h6 {
   
   /* Gradiente adicional para dark mode */
   [data-theme="dark"] & {
-    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-hover) 50%, var(--color-primary) 100%);
   }
   
   .header-content {
@@ -251,53 +265,62 @@ h6 {
   .header-brand {
     display: flex;
     align-items: center;
-    gap: $spacing-md;
-    flex: 1;
+    min-height: 64px;
+    height: 64px;
   }
   
   .site-title {
     margin: 0;
-    font-size: $font-size-h2;
-    font-weight: $font-weight-semibold;
-    letter-spacing: -0.01em;
+    font-size: 0;
+    height: 100%;
     
-    a {
-      color: var(--color-text-inverse);
-      text-decoration: none;
-      display: flex;
+    .brand-logo {
+      display: inline-flex;
       align-items: center;
-      gap: $spacing-sm;
-      transition: opacity 0.2s;
+      justify-content: flex-start;
+      height: 100%;
+      text-decoration: none;
+      color: var(--color-text-inverse);
+      transition: opacity 0.2s ease;
+      gap: $spacing-md;
       
       &:hover {
         opacity: 0.9;
       }
     }
     
-    .brand-icon {
-      font-size: 1.5em;
-      line-height: 1;
-      display: flex;
+    .brand-logo-image {
+      height: calc(100% - 4px);
+      max-height: 60px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    
+    .logo-placeholder {
+      min-width: 150px;
+      min-height: 48px;
+      border-radius: 14px;
+      border: 2px dashed rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      font-weight: $font-weight-semibold;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
+      padding: 0 $spacing-lg;
     }
     
     .brand-text {
-      display: inline-block;
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      font-weight: $font-weight-semibold;
+      letter-spacing: -0.01em;
+      color: var(--color-text-inverse);
+      white-space: nowrap;
     }
-  }
-  
-  .brand-badge {
-    background: rgba(255, 255, 255, 0.2);
-    color: var(--color-text-inverse);
-    padding: 0.25rem 0.75rem;
-    border-radius: 12px;
-    font-size: $font-size-xs;
-    font-weight: $font-weight-medium;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .main-nav {
@@ -392,9 +415,6 @@ h6 {
   width: 100%;
   padding: $spacing-lg;
   box-sizing: border-box;
-  transform: scale(0.8);
-  transform-origin: top left;
-  margin-bottom: -20%;
   
   h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-primary);
@@ -739,13 +759,14 @@ h6 {
 
 .lesson-navigation {
   margin: $spacing-xl 0;
-  padding: $spacing-lg;
+  padding: $spacing-lg $spacing-lg;
   background: var(--color-bg-secondary);
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: $spacing-xl;
+  width: 100%;
+  box-sizing: border-box;
   min-height: 60px;
   @include theme-transition(background-color);
   
@@ -767,7 +788,6 @@ h6 {
     white-space: nowrap;
     flex-shrink: 0;
     min-width: fit-content;
-    max-width: 45%;
     
     &:hover {
       text-decoration: none;
@@ -792,34 +812,29 @@ h6 {
   .module-summary-link:only-child {
     margin-left: auto;
     margin-right: 0;
-    max-width: none;
   }
   
   // Quando há apenas um link, centralizar
   a:only-child {
     margin: 0 auto;
-    max-width: none;
   }
   
   // Botão anterior - sempre à esquerda
   .prev-lesson {
-    margin-right: auto;
     margin-left: 0;
+    margin-right: auto;
     order: 1;
     text-align: left;
   }
   
   // Botão próximo - sempre à direita
-  .next-lesson {
+  .next-lesson,
+  .module-summary-link {
     margin-left: auto;
     margin-right: 0;
     order: 2;
     text-align: right;
-  }
-  
-  // Garantir espaçamento máximo entre os dois botões
-  .prev-lesson + .next-lesson {
-    margin-left: auto;
+    flex-shrink: 0;
   }
 }
 
@@ -875,6 +890,7 @@ h6 {
     font-size: $font-size-base;
     cursor: pointer;
     transition: background-color 0.2s;
+    min-height: 44px;  // Touch target mínimo
     
     &:hover {
       background: var(--color-success-hover);
@@ -888,7 +904,9 @@ h6 {
 }
 
 // Footer styles moved to components/_footer.scss
-  
+
+// Media query faltando - este bloco estava fora de media query (BUG CORRIGIDO)
+@media (max-width: $breakpoint-tablet) {
   .page-wrapper {
     flex-direction: column;
   }

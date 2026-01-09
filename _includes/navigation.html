@@ -4,8 +4,13 @@
     {% for module in site.data.modules.modules %}
       <li class="module-item">
         <div class="module-header">
-          <button class="toggle-btn module-toggle" aria-label="Expandir ou colapsar módulo" aria-expanded="true">
-            <span class="toggle-icon">▼</span>
+          <button 
+            class="toggle-btn module-toggle" 
+            aria-label="Expandir ou colapsar módulo {{ module.title }}"
+            aria-expanded="true"
+            aria-controls="lessons-list-{{ module.id }}"
+          >
+            <span class="toggle-icon" aria-hidden="true">▼</span>
           </button>
           <a href="{{ '/modules/' | append: module.slug | relative_url }}">
             {{ module.title }}
@@ -17,8 +22,13 @@
             {% if lesson %}
               <li class="lesson-item">
                 <div class="lesson-header">
-                  <button class="toggle-btn lesson-toggle" aria-label="Expandir ou colapsar aula" aria-expanded="false">
-                    <span class="toggle-icon">►</span>
+                  <button 
+                    class="toggle-btn lesson-toggle" 
+                    aria-label="Expandir ou colapsar aula {{ lesson.title }}"
+                    aria-expanded="false"
+                    aria-controls="exercises-list-{{ lesson.id }}"
+                  >
+                    <span class="toggle-icon" aria-hidden="true">►</span>
                   </button>
                   <a href="{{ '/modules/' | append: module.slug | append: '/lessons/' | append: lesson.slug | relative_url }}">
                     {{ lesson.title }}

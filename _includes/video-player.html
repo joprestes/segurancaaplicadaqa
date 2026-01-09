@@ -45,7 +45,14 @@
   </div>
   
   <div class="video-container">
-    <video id="video-element" controls preload="metadata" src="{{ include.video.file | relative_url }}" style="max-width: 100%; width: 100%; height: auto; box-sizing: border-box;">
+    <video 
+      id="video-element" 
+      controls 
+      preload="metadata" 
+      src="{{ include.video.file | relative_url }}" 
+      style="max-width: 100%; width: 100%; height: auto; box-sizing: border-box;"
+      loading="lazy"
+    >
       Seu navegador não suporta o elemento de vídeo.
     </video>
   </div>
