@@ -1,0 +1,514 @@
+quizzes:
+  # ============================================================================
+  # MÓDULO 1: Fundamentos de Segurança em QA
+  # ============================================================================
+  
+  - lesson_id: lesson-1-1
+    questions:
+      - id: q1
+        question: "Qual é a tríade fundamental de segurança da informação?"
+        options:
+          - "Confidencialidade, Integridade, Disponibilidade"
+          - "Autenticação, Autorização, Auditoria"
+          - "Prevenção, Detecção, Resposta"
+          - "Criptografia, Firewall, Antivírus"
+        correct: 0
+        explanation: "A tríade CIA (Confidencialidade, Integridade, Disponibilidade) é a base da segurança da informação."
+      
+      - id: q2
+        question: "Qual é a principal diferença entre QA Tradicional e Security QA?"
+        options:
+          - "Security QA foca apenas em testes de penetração"
+          - "Security QA pensa como atacante e testa casos maliciosos, enquanto QA tradicional foca em funcionalidade"
+          - "Não há diferença, são a mesma coisa"
+          - "Security QA só trabalha em produção"
+        correct: 1
+        explanation: "Security QA complementa QA tradicional pensando em casos de uso maliciosos e vulnerabilidades, não apenas funcionalidade correta."
+      
+      - id: q3
+        question: "O que significa 'Confidencialidade' na tríade CIA?"
+        options:
+          - "Informações não podem ser modificadas"
+          - "Informações só são acessíveis a quem tem autorização"
+          - "Sistemas devem estar sempre disponíveis"
+          - "Dados devem ser criptografados"
+        correct: 1
+        explanation: "Confidencialidade garante que informações só sejam acessíveis a pessoas autorizadas."
+      
+      - id: q4
+        question: "Quando segurança deve ser considerada no ciclo de desenvolvimento?"
+        options:
+          - "Apenas na fase de testes"
+          - "Apenas antes do deploy"
+          - "Desde a fase de requisitos até produção"
+          - "Apenas em produção"
+        correct: 2
+        explanation: "Segurança deve ser considerada desde o início (Shift-Left Security) para reduzir custos e vulnerabilidades."
+      
+      - id: q5
+        question: "Qual é o custo médio de uma violação de dados em 2023?"
+        options:
+          - "US$ 1 milhão"
+          - "US$ 2 milhões"
+          - "US$ 4,45 milhões"
+          - "US$ 10 milhões"
+        correct: 2
+        explanation: "Segundo IBM Security, o custo médio foi de US$ 4,45 milhões em 2023."
+      
+      - id: q6
+        question: "O que significa 'Integridade' na tríade CIA?"
+        options:
+          - "Informações não podem ser modificadas de forma não autorizada"
+          - "Informações devem estar sempre disponíveis"
+          - "Informações devem ser públicas"
+          - "Informações devem ser deletadas após uso"
+        correct: 0
+        explanation: "Integridade garante que informações não sejam modificadas de forma não autorizada."
+      
+      - id: q7
+        question: "Por que QA está em posição única para identificar vulnerabilidades?"
+        options:
+          - "Porque QA conhece os fluxos e pode pensar como usuário E como atacante"
+          - "Porque QA trabalha apenas com segurança"
+          - "Porque QA não precisa conhecer o código"
+          - "Porque QA só testa em produção"
+        correct: 0
+        explanation: "QA conhece os fluxos da aplicação e pode identificar vulnerabilidades pensando tanto como usuário válido quanto como atacante."
+      
+      - id: q8
+        question: "Qual é o modelo CORRETO de segurança no desenvolvimento?"
+        options:
+          - "Dev → QA → Security → Produção (sequencial)"
+          - "Security apenas no final do processo"
+          - "Security integrado desde requisitos até produção (Shift-Left)"
+          - "Security apenas em produção"
+        correct: 2
+        explanation: "O modelo Shift-Left integra segurança desde o início, reduzindo custos e vulnerabilidades."
+      
+      - id: q9
+        question: "O que é 'Disponibilidade' na tríade CIA?"
+        options:
+          - "Informações devem estar sempre públicas"
+          - "Sistemas devem estar acessíveis quando necessário"
+          - "Informações devem ser deletadas regularmente"
+          - "Sistemas devem estar offline para segurança"
+        correct: 1
+        explanation: "Disponibilidade garante que sistemas estejam acessíveis quando necessário."
+      
+      - id: q10
+        question: "Em qual setor um vazamento de dados de menores pode resultar em multas LGPD e processo judicial?"
+        options:
+          - "Financeiro"
+          - "Ecommerce"
+          - "Educacional"
+          - "Tecnologia"
+        correct: 2
+        explanation: "No setor educacional, vazamento de dados de menores pode resultar em multas LGPD severas e processos judiciais."
+
+  - lesson_id: lesson-1-2
+    questions:
+      - id: q1
+        question: "Qual é a vulnerabilidade #1 do OWASP Top 10 2021?"
+        options:
+          - "Broken Access Control"
+          - "Cryptographic Failures"
+          - "Injection"
+          - "Security Misconfiguration"
+        correct: 0
+        explanation: "Broken Access Control é a vulnerabilidade #1 do OWASP Top 10 2021, representando 94% das aplicações testadas."
+      
+      - id: q2
+        question: "O que é SQL Injection?"
+        options:
+          - "Inserção de código SQL malicioso através de inputs do usuário"
+          - "Ataque de negação de serviço"
+          - "Roubo de cookies"
+          - "Ataque de força bruta"
+        correct: 0
+        explanation: "SQL Injection ocorre quando código SQL malicioso é inserido através de inputs do usuário não validados."
+      
+      - id: q3
+        question: "Qual é a melhor forma de prevenir XSS (Cross-Site Scripting)?"
+        options:
+          - "Usar apenas HTTPS"
+          - "Validar e sanitizar todos os inputs do usuário"
+          - "Desabilitar JavaScript"
+          - "Usar apenas cookies HTTPOnly"
+        correct: 1
+        explanation: "A melhor prevenção é validar e sanitizar todos os inputs do usuário, além de usar Content Security Policy (CSP)."
+      
+      - id: q4
+        question: "O que caracteriza Broken Access Control?"
+        options:
+          - "Falta de criptografia"
+          - "Usuários conseguem acessar recursos ou funcionalidades além de suas permissões"
+          - "Senhas fracas"
+          - "Falta de autenticação"
+        correct: 1
+        explanation: "Broken Access Control ocorre quando usuários conseguem acessar recursos ou funcionalidades além de suas permissões autorizadas."
+      
+      - id: q5
+        question: "Qual vulnerabilidade permite que atacantes falsifiquem identidades?"
+        options:
+          - "Injection"
+          - "Broken Authentication"
+          - "Security Misconfiguration"
+          - "Insecure Design"
+        correct: 1
+        explanation: "Broken Authentication permite que atacantes comprometam senhas, tokens ou explotem falhas de implementação para assumir identidades de usuários."
+      
+      - id: q6
+        question: "O que é IDOR (Insecure Direct Object Reference)?"
+        options:
+          - "Ataque de negação de serviço"
+          - "Acesso direto a objetos sem validação de autorização"
+          - "Vazamento de informações"
+          - "Ataque de força bruta"
+        correct: 1
+        explanation: "IDOR ocorre quando uma aplicação fornece acesso direto a objetos baseado em input do usuário sem validação de autorização."
+      
+      - id: q7
+        question: "Qual é o impacto de um ataque de Injection bem-sucedido?"
+        options:
+          - "Apenas perda de dados"
+          - "Pode resultar em perda de dados, negação de serviço ou comprometimento completo do servidor"
+          - "Apenas negação de serviço"
+          - "Apenas comprometimento do cliente"
+        correct: 1
+        explanation: "Injection pode resultar em perda de dados, negação de serviço, comprometimento completo do servidor ou até mesmo comprometimento de outros sistemas."
+      
+      - id: q8
+        question: "O que é Security Misconfiguration?"
+        options:
+          - "Falta de autenticação"
+          - "Configurações de segurança ausentes, incorretas ou desatualizadas"
+          - "Senhas fracas"
+          - "Falta de criptografia"
+        correct: 1
+        explanation: "Security Misconfiguration ocorre quando configurações de segurança estão ausentes, incorretas ou desatualizadas, deixando aplicações vulneráveis."
+      
+      - id: q9
+        question: "Qual vulnerabilidade do OWASP Top 10 está relacionada a componentes com vulnerabilidades conhecidas?"
+        options:
+          - "Vulnerable and Outdated Components"
+          - "Insecure Design"
+          - "Security Logging and Monitoring Failures"
+          - "Server-Side Request Forgery"
+        correct: 0
+        explanation: "Vulnerable and Outdated Components refere-se ao uso de componentes com vulnerabilidades conhecidas que podem comprometer a aplicação."
+      
+      - id: q10
+        question: "Em um contexto CWI Financeiro, qual vulnerabilidade OWASP é mais crítica?"
+        options:
+          - "Broken Access Control (acesso não autorizado a contas)"
+          - "Cryptographic Failures (dados de cartão não criptografados)"
+          - "Injection (SQL Injection em dados financeiros)"
+          - "Todas as acima são críticas"
+        correct: 3
+        explanation: "No contexto financeiro, todas essas vulnerabilidades são críticas: Broken Access Control pode permitir acesso a contas, Cryptographic Failures podem expor dados de cartão, e Injection pode comprometer dados financeiros."
+  
+  - lesson_id: lesson-1-3
+    questions:
+      - id: q1
+        question: "O que significa 'Shift-Left Security'?"
+        options:
+          - "Mover segurança para o final do desenvolvimento"
+          - "Integrar segurança desde as fases iniciais do desenvolvimento (requisitos, design)"
+          - "Apenas fazer testes de segurança"
+          - "Contratar especialistas de segurança"
+        correct: 1
+        explanation: "Shift-Left Security significa integrar segurança desde as fases iniciais do desenvolvimento, não apenas no final."
+      
+      - id: q2
+        question: "Qual é o custo de corrigir uma vulnerabilidade encontrada em produção comparado à fase de requisitos?"
+        options:
+          - "Mesmo custo"
+          - "10x mais caro"
+          - "30-100x mais caro"
+          - "Mais barato"
+        correct: 2
+        explanation: "Corrigir vulnerabilidades em produção pode custar 30-100x mais do que identificá-las e corrigi-las na fase de requisitos."
+      
+      - id: q3
+        question: "Em qual fase do SDLC o Shift-Left Security deve começar?"
+        options:
+          - "Apenas na fase de testes"
+          - "Apenas na fase de desenvolvimento"
+          - "Desde a fase de requisitos"
+          - "Apenas antes do deploy"
+        correct: 2
+        explanation: "Shift-Left Security deve começar desde a fase de requisitos, onde security requirements são definidos."
+      
+      - id: q4
+        question: "Qual é o papel do QA no Shift-Left Security?"
+        options:
+          - "Apenas testar no final"
+          - "Participar de threat modeling, validar security requirements e testar segurança desde o início"
+          - "Apenas validar funcionalidade"
+          - "Não tem papel"
+        correct: 1
+        explanation: "QA deve participar de threat modeling, validar security requirements e testar segurança desde o início do desenvolvimento."
+      
+      - id: q5
+        question: "O que são Security Requirements?"
+        options:
+          - "Requisitos funcionais normais"
+          - "Requisitos específicos de segurança que devem ser implementados (ex: autenticação forte, criptografia)"
+          - "Apenas requisitos de performance"
+          - "Requisitos de design"
+        correct: 1
+        explanation: "Security Requirements são requisitos específicos de segurança que devem ser implementados, como autenticação forte, criptografia, controle de acesso."
+      
+      - id: q6
+        question: "Qual é a diferença entre abordagem tradicional e Shift-Left?"
+        options:
+          - "Não há diferença"
+          - "Tradicional: segurança no final. Shift-Left: segurança desde o início"
+          - "Tradicional: segurança desde o início. Shift-Left: segurança no final"
+          - "Ambas fazem segurança apenas em produção"
+        correct: 1
+        explanation: "Abordagem tradicional deixa segurança para o final, enquanto Shift-Left integra segurança desde o início do desenvolvimento."
+      
+      - id: q7
+        question: "Quais são os benefícios do Shift-Left Security?"
+        options:
+          - "Apenas reduzir custos"
+          - "Reduzir custos, identificar vulnerabilidades cedo, melhorar qualidade e acelerar entrega"
+          - "Apenas acelerar entrega"
+          - "Apenas melhorar qualidade"
+        correct: 1
+        explanation: "Shift-Left Security reduz custos, identifica vulnerabilidades cedo, melhora qualidade e pode até acelerar entrega ao evitar retrabalho."
+      
+      - id: q8
+        question: "Em um projeto CWI, quando Security Requirements devem ser definidos?"
+        options:
+          - "Apenas durante desenvolvimento"
+          - "Durante fase de requisitos, antes de começar desenvolvimento"
+          - "Apenas em produção"
+          - "Apenas durante testes"
+        correct: 1
+        explanation: "Security Requirements devem ser definidos durante a fase de requisitos, antes de começar o desenvolvimento."
+      
+      - id: q9
+        question: "O que é colaboração Dev-QA-Security no contexto Shift-Left?"
+        options:
+          - "Times trabalham isolados"
+          - "Times trabalham juntos desde o início, compartilhando conhecimento de segurança"
+          - "Apenas Security trabalha"
+          - "Apenas Dev trabalha"
+        correct: 1
+        explanation: "Colaboração Dev-QA-Security significa que os times trabalham juntos desde o início, compartilhando conhecimento de segurança."
+      
+      - id: q10
+        question: "Qual métrica indica sucesso do Shift-Left Security?"
+        options:
+          - "Apenas número de vulnerabilidades encontradas"
+          - "Redução de vulnerabilidades em produção, tempo para corrigir vulnerabilidades, custo de correção"
+          - "Apenas tempo de desenvolvimento"
+          - "Apenas custo de desenvolvimento"
+        correct: 1
+        explanation: "Sucesso do Shift-Left é medido por redução de vulnerabilidades em produção, tempo para corrigir vulnerabilidades e custo de correção."
+  
+  - lesson_id: lesson-1-4
+    questions:
+      - id: q1
+        question: "O que é Threat Modeling?"
+        options:
+          - "Apenas testes de segurança"
+          - "Processo estruturado para identificar, documentar e mitigar ameaças antes que sejam exploradas"
+          - "Apenas análise de código"
+          - "Apenas testes de penetração"
+        correct: 1
+        explanation: "Threat Modeling é um processo estruturado para identificar, documentar e mitigar ameaças de segurança antes que sejam exploradas."
+      
+      - id: q2
+        question: "Qual metodologia de Threat Modeling categoriza ameaças em 6 tipos (S-T-R-I-D-E)?"
+        options:
+          - "PASTA"
+          - "STRIDE"
+          - "DREAD"
+          - "OWASP"
+        correct: 1
+        explanation: "STRIDE categoriza ameaças em 6 tipos: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege."
+      
+      - id: q3
+        question: "O que significa 'S' em STRIDE?"
+        options:
+          - "Security"
+          - "Spoofing (falsificar identidade)"
+          - "System"
+          - "Service"
+        correct: 1
+        explanation: "'S' em STRIDE significa Spoofing, que é falsificar identidade (ex: login falso, email spoofing)."
+      
+      - id: q4
+        question: "O que são 'Ativos' em Threat Modeling?"
+        options:
+          - "Apenas servidores"
+          - "Recursos valiosos que precisam ser protegidos (dados, sistemas, funcionalidades, reputação)"
+          - "Apenas dados"
+          - "Apenas código"
+        correct: 1
+        explanation: "Ativos são recursos valiosos que precisam ser protegidos, incluindo dados, sistemas, funcionalidades e reputação."
+      
+      - id: q5
+        question: "O que são 'Pontos de Entrada' em Threat Modeling?"
+        options:
+          - "Apenas APIs"
+          - "Pontos onde atacantes podem interagir com o sistema (APIs, interfaces web, uploads, integrações)"
+          - "Apenas interfaces web"
+          - "Apenas bancos de dados"
+        correct: 1
+        explanation: "Pontos de Entrada são locais onde atacantes podem interagir com o sistema, como APIs, interfaces web, uploads de arquivos e integrações."
+      
+      - id: q6
+        question: "Qual metodologia é usada para PRIORIZAR ameaças baseada em 5 fatores (D-R-E-A-D)?"
+        options:
+          - "STRIDE"
+          - "PASTA"
+          - "DREAD"
+          - "OWASP"
+        correct: 2
+        explanation: "DREAD é usado para priorizar ameaças baseado em: Damage, Reproducibility, Exploitability, Affected Users, Discoverability."
+      
+      - id: q7
+        question: "Em um projeto CWI Financeiro, qual ameaça STRIDE é mais crítica para API de transferências?"
+        options:
+          - "Denial of Service"
+          - "Tampering (alteração de transferências) e Elevation of Privilege (acesso não autorizado)"
+          - "Information Disclosure"
+          - "Repudiation"
+        correct: 1
+        explanation: "Tampering (alteração de transferências) e Elevation of Privilege (acesso não autorizado) são as ameaças mais críticas em APIs financeiras."
+      
+      - id: q8
+        question: "Quando Threat Modeling deve ser realizado?"
+        options:
+          - "Apenas após incidentes"
+          - "Durante fase de design (Shift-Left), quando arquitetura muda, antes de novas funcionalidades críticas"
+          - "Apenas em produção"
+          - "Apenas durante testes"
+        correct: 1
+        explanation: "Threat Modeling deve ser realizado durante fase de design, quando arquitetura muda significativamente, antes de adicionar funcionalidades críticas e após incidentes."
+      
+      - id: q9
+        question: "O que é 'Mitigação' em Threat Modeling?"
+        options:
+          - "Apenas corrigir código"
+          - "Controles para prevenir, detectar ou corrigir ameaças identificadas"
+          - "Apenas testes"
+          - "Apenas documentação"
+        correct: 1
+        explanation: "Mitigação são controles implementados para prevenir, detectar ou corrigir ameaças identificadas no Threat Modeling."
+      
+      - id: q10
+        question: "Qual ferramenta é gratuita e baseada em STRIDE para Threat Modeling?"
+        options:
+          - "Burp Suite"
+          - "OWASP ZAP"
+          - "Microsoft Threat Modeling Tool (TMT)"
+          - "Nessus"
+        correct: 2
+        explanation: "Microsoft Threat Modeling Tool (TMT) é gratuita e baseada em STRIDE, gerando ameaças automaticamente a partir de diagramas de arquitetura."
+  
+  - lesson_id: lesson-1-5
+    questions:
+      - id: q1
+        question: "O que é Compliance em segurança?"
+        options:
+          - "Apenas seguir leis"
+          - "Conformidade com leis, regulamentações, normas e políticas aplicáveis"
+          - "Apenas testes de segurança"
+          - "Apenas documentação"
+        correct: 1
+        explanation: "Compliance é a conformidade com leis, regulamentações, normas e políticas aplicáveis a uma organização ou setor."
+      
+      - id: q2
+        question: "Qual é a multa máxima da LGPD por violação?"
+        options:
+          - "R$ 5 milhões"
+          - "R$ 50 milhões"
+          - "R$ 500 milhões"
+          - "Sem limite"
+        correct: 1
+        explanation: "LGPD pode multar até R$ 50 milhões por violação de dados pessoais."
+      
+      - id: q3
+        question: "Quantos requisitos tem o PCI-DSS?"
+        options:
+          - "5 requisitos"
+          - "10 requisitos"
+          - "12 requisitos"
+          - "15 requisitos"
+        correct: 2
+        explanation: "PCI-DSS tem 12 requisitos organizados em 6 grupos de controle."
+      
+      - id: q4
+        question: "Qual princípio da LGPD garante que dados são usados apenas para propósito específico?"
+        options:
+          - "Adequação"
+          - "Finalidade"
+          - "Necessidade"
+          - "Transparência"
+        correct: 1
+        explanation: "Princípio da Finalidade garante que dados pessoais são usados apenas para propósito específico e informado ao titular."
+      
+      - id: q5
+        question: "Qual requisito PCI-DSS é mais crítico para QA validar em ecommerce?"
+        options:
+          - "Requisito 1 (Firewall)"
+          - "Requisito 3 (Proteger dados armazenados) e Requisito 4 (Criptografar dados em trânsito)"
+          - "Requisito 12 (Política de segurança)"
+          - "Requisito 5 (Antivírus)"
+        correct: 1
+        explanation: "Requisito 3 (proteger dados de cartão armazenados) e Requisito 4 (criptografar dados em trânsito) são os mais críticos para QA validar em ecommerce."
+      
+      - id: q6
+        question: "Quais são os Trust Service Criteria do SOC2?"
+        options:
+          - "Apenas Segurança"
+          - "Segurança, Disponibilidade, Integridade, Confidencialidade, Privacidade"
+          - "Apenas Segurança e Disponibilidade"
+          - "Apenas Privacidade"
+        correct: 1
+        explanation: "SOC2 tem 5 Trust Service Criteria: Segurança, Disponibilidade, Processamento de Integridade, Confidencialidade e Privacidade."
+      
+      - id: q7
+        question: "No setor Educacional, qual proteção especial existe para dados de menores?"
+        options:
+          - "Nenhuma proteção especial"
+          - "Proteção especial LGPD, consentimento dos pais obrigatório, isolamento rigoroso"
+          - "Apenas consentimento dos pais"
+          - "Apenas isolamento"
+        correct: 1
+        explanation: "Dados de menores têm proteção especial na LGPD, exigindo consentimento dos pais/responsáveis e isolamento rigoroso de dados."
+      
+      - id: q8
+        question: "Qual é o papel do QA em auditorias de compliance?"
+        options:
+          - "Apenas observar"
+          - "Preparar evidências, validar controles, documentar não conformidades, participar de auditorias"
+          - "Apenas documentar"
+          - "Não tem papel"
+        correct: 1
+        explanation: "QA prepara evidências, valida controles, documenta não conformidades e participa ativamente de auditorias de compliance."
+      
+      - id: q9
+        question: "Qual nível PCI-DSS requer auditoria anual completa?"
+        options:
+          - "Nível 1 (mais de 6 milhões de transações/ano)"
+          - "Nível 2"
+          - "Nível 3"
+          - "Nível 4"
+        correct: 0
+        explanation: "PCI-DSS Nível 1 (empresas que processam mais de 6 milhões de transações por ano) requer auditoria anual completa."
+      
+      - id: q10
+        question: "Em um projeto CWI multi-setor, qual abordagem de compliance é mais eficiente?"
+        options:
+          - "Criar compliance do zero para cada setor"
+          - "Identificar requisitos comuns (LGPD, segurança) e criar checklists específicos por setor"
+          - "Apenas seguir uma regulamentação"
+          - "Ignorar compliance"
+        correct: 1
+        explanation: "Abordagem eficiente identifica requisitos comuns (como LGPD e segurança básica) e cria checklists específicos por setor, reutilizando testes quando possível."

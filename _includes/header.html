@@ -1,8 +1,14 @@
 <header class="site-header">
   <div class="header-content">
-    <h1 class="site-title">
-      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-    </h1>
+    <div class="header-brand">
+      <h1 class="site-title">
+        <a href="{{ '/' | relative_url }}">
+          <span class="brand-icon">🔐</span>
+          <span class="brand-text">{{ site.title }}</span>
+        </a>
+      </h1>
+      <span class="brand-badge">CWI Software</span>
+    </div>
     <nav class="main-nav">
       <a href="{{ '/' | relative_url }}">Início</a>
       <a href="{{ '/about' | relative_url }}">Sobre</a>

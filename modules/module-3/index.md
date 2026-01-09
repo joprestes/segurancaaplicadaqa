@@ -1,9 +1,9 @@
 ---
 layout: module
-title: "Programação Reativa e Estado"
-slug: programacao-reativa-estado
+title: "Módulo 3: Segurança por Setor"
+slug: seguranca-por-setor
 duration: "8 horas"
-description: "Domine programação reativa e gerenciamento de estado"
+description: "Segurança aplicada em Financeiro, Educacional, Ecommerce e IA"
 lessons: 
   - "lesson-3-1"
   - "lesson-3-2"
@@ -11,152 +11,145 @@ lessons:
   - "lesson-3-4"
   - "lesson-3-5"
 module: module-3
-permalink: /modules/programacao-reativa-estado/
+permalink: /modules/seguranca-por-setor/
 ---
 
-## Objetivos do Módulo
+# Módulo 3: Segurança por Setor
 
-Ao final deste módulo, o aluno será capaz de:
+## 🎯 Objetivo do Módulo
 
-1. Dominar RxJS operators avançados e criar padrões reativos eficientes
-2. Implementar Signals e Signal-First Architecture
-3. Gerenciar estado global com NgRx (Store, Actions, Reducers, Effects, Selectors)
-4. Criar padrões reativos que evitam memory leaks
-5. Integrar Signals com Observables de forma eficiente
+Cada setor tem requisitos únicos de segurança, regulamentações específicas e desafios particulares. Neste módulo, você aprende como adaptar práticas de segurança em QA para diferentes contextos: financeiro, educacional, ecommerce, IA e APIs/microserviços.
 
----
+## 🏢 Setores Abordados
 
-## Tópicos Cobertos
+### 🏦 Financeiro (Fintech)
+- **Regulamentações**: PCI-DSS, Open Banking, BACEN
+- **Desafios**: Autenticação forte, tokenização, transações seguras
+- **Ameaças**: Fraudes financeiras, ataques MITM, credential stuffing
 
-### 3.1 RxJS Operators Avançados (2h)
-- Observables, Observers, Subscriptions
-- Operators de transformação (map, switchMap, mergeMap, concatMap)
-- Operators de combinação (combineLatest, forkJoin)
-- Operators de filtragem (filter, debounceTime, throttleTime)
-- Operators de erro (catchError, retry)
-- Operators de compartilhamento (share, shareReplay)
-- Subjects (Subject, BehaviorSubject, ReplaySubject, AsyncSubject)
-- Hot vs Cold Observables
-- Multicasting
+### 📚 Educacional (EdTech)
+- **Regulamentações**: LGPD (dados de menores), COPPA, FERPA
+- **Desafios**: Privacidade de menores, autenticação em ambientes acadêmicos
+- **Ameaças**: Vazamento de dados acadêmicos, manipulação de notas
 
-### 3.2 Signals e Signal-First Architecture (2h)
-- signal() e computed()
-- effect()
-- Model Inputs (Angular 17+)
-- Signal-based forms
-- Signal-based routing
-- Signal-First Architecture
-- Migração de Observables para Signals
-- Interop Signals com Observables
+### 🛒 Ecommerce
+- **Regulamentações**: PCI-DSS, Lei do Consumidor, LGPD
+- **Desafios**: Segurança de pagamentos, prevenção de fraudes, gestão de sessões
+- **Ameaças**: Card testing, scraping, account takeover
 
-### 3.3 NgRx - Gerenciamento de Estado (2.5h)
-- Introdução ao NgRx
-- Store, Actions, Reducers
-- Effects
-- Selectors
-- Entities
-- Facade Pattern
-- NgRx DevTools
-- Padrões avançados
+### 🤖 Inteligência Artificial
+- **Regulamentações**: AI Act (EU), Frameworks éticos
+- **Desafios**: Model poisoning, adversarial attacks, data leakage
+- **Ameaças**: Manipulação de modelos, inferência de dados sensíveis
 
-### 3.4 Padrões Reativos e Memory Leaks (1h)
-- Memory leaks com Observables
-- takeUntil pattern
-- async pipe
-- Unsubscribe strategies
-- Prevenção de memory leaks
-- Debugging de memory leaks
+### 🔌 APIs e Microserviços
+- **Padrões**: OWASP API Security Top 10
+- **Desafios**: Autenticação distribuída, rate limiting, validação
+- **Ameaças**: API abuse, broken object level authorization
 
-### 3.5 Integração Signals + Observables (0.5h)
-- toSignal() e toObservable()
-- Integração prática
-- Quando usar Signals vs Observables
-- Padrões de integração
+## 📚 O que você vai aprender
 
----
+### Segurança no Setor Financeiro
+- Requisitos PCI-DSS para aplicações
+- Open Banking: OAuth2, mTLS, certificados
+- Testes de transações financeiras
+- Prevenção de fraudes e lavagem de dinheiro
+- Casos CWI de clientes financeiros
 
-## Aulas Planejadas
+### Segurança no Setor Educacional
+- LGPD aplicada a dados de menores
+- Autenticação em ambientes acadêmicos (SSO, SAML)
+- Proteção de dados sensíveis (notas, históricos)
+- Controles de acesso hierárquicos
+- Casos CWI de plataformas educacionais
 
-1. **Aula 3.1**: RxJS Operators Avançados (2h)
-   - Objetivo: Dominar RxJS operators essenciais
-   - Exercícios: 8 exercícios práticos
+### Segurança em Ecommerce
+- PCI-DSS para checkout seguro
+- Tokenização de dados de pagamento
+- Prevenção de fraudes (scoring, device fingerprinting)
+- Testes de fluxos de compra seguros
+- Casos CWI de ecommerce de alta escala
 
-2. **Aula 3.2**: Signals e Signal-First Architecture (2h)
-   - Objetivo: Implementar Signals e Signal-First Architecture
-   - Exercícios: 6 exercícios práticos
+### Segurança em Aplicações de IA
+- Vulnerabilidades específicas de ML/AI
+- Model poisoning e adversarial examples
+- Data privacy em datasets de treinamento
+- Testes de robustez de modelos
+- Casos CWI de aplicações com IA
 
-3. **Aula 3.3**: NgRx - Gerenciamento de Estado (2.5h)
-   - Objetivo: Gerenciar estado global com NgRx
-   - Exercícios: 7 exercícios práticos
+### APIs e Microserviços
+- OWASP API Security Top 10
+- Autenticação JWT/OAuth2
+- Rate limiting e throttling
+- Validação de entrada em APIs
+- Testes de autorização distribuída
 
-4. **Aula 3.4**: Padrões Reativos e Memory Leaks (1h)
-   - Objetivo: Evitar memory leaks e criar padrões seguros
-   - Exercícios: 4 exercícios práticos
+## 🎓 Competências que você vai desenvolver
 
-5. **Aula 3.5**: Integração Signals + Observables (0.5h)
-   - Objetivo: Integrar Signals com Observables
-   - Exercícios: 3 exercícios práticos
+Ao final deste módulo, você será capaz de:
 
-**Total de Aulas**: 5  
-**Total de Exercícios**: 28
+✅ Adaptar testes de segurança para requisitos específicos de cada setor  
+✅ Aplicar PCI-DSS em testes de aplicações financeiras  
+✅ Garantir LGPD em plataformas educacionais  
+✅ Testar segurança de pagamentos em ecommerce  
+✅ Identificar vulnerabilidades específicas de IA  
+✅ Validar segurança de APIs e microserviços  
+✅ Usar frameworks de compliance de cada setor  
 
----
+## 📖 Estrutura das Aulas
 
-## Projeto Prático do Módulo
+### Aula 3.1: Segurança no Setor Financeiro (90 min)
+Requisitos PCI-DSS, Open Banking, autenticação forte. Casos práticos de projetos financeiros CWI.
 
-### Projeto: Gerenciador de Estado Completo
+### Aula 3.2: Segurança no Setor Educacional (90 min)
+LGPD para menores, COPPA, autenticação acadêmica. Casos práticos de plataformas educacionais CWI.
 
-**Descrição**: Criar uma aplicação que demonstra diferentes estratégias de gerenciamento de estado.
+### Aula 3.3: Segurança em Ecommerce (90 min)
+Proteção de pagamentos, prevenção de fraudes, PCI-DSS. Testes em fluxos de compra de clientes CWI.
 
-**Requisitos**:
-- Implementação com Signals puros
-- Implementação com NgRx
-- Comparação de performance
-- Padrões reativos avançados
-- Prevenção de memory leaks
-- Integração Signals + Observables
+### Aula 3.4: Segurança em Aplicações de IA (120 min)
+Vulnerabilidades de ML/AI: model poisoning, adversarial attacks. Como testar segurança em IA.
 
-**Duração Estimada**: 3 horas
+### Aula 3.5: APIs e Microserviços (90 min)
+OWASP API Security Top 10, OAuth2/JWT, rate limiting. Exemplos de arquiteturas distribuídas CWI.
 
----
+## 💼 Casos Práticos CWI
 
-## Dependências
+Cada aula inclui casos reais (anonimizados) de projetos CWI:
 
-**Pré-requisitos**:
-- Módulo 1: Fundamentos Acelerados completo
-- Módulo 2: Desenvolvimento Intermediário completo
+- **Fintech**: Como implementamos autenticação forte em app de investimentos
+- **EdTech**: Garantindo LGPD em plataforma com milhares de alunos menores
+- **Ecommerce**: Prevenindo fraudes em marketplace de alta escala
+- **IA**: Testando segurança de modelo de recomendação
+- **APIs**: Validando segurança em arquitetura de microserviços
 
-**Dependências de Módulos**:
-- Requer conhecimento de serviços, HTTP Client e componentes
+## 🔗 Conexão com os Próximos Módulos
 
-**Prepara para**:
-- Módulo 4: Performance e Otimização
+- **Módulo 4**: Você vai automatizar testes específicos de cada setor em pipelines
+- **Módulo 5**: Vai ver casos práticos completos aplicando tudo que aprendeu
 
----
+## 📚 Recursos Adicionais
 
-## Recursos Adicionais
+### Financeiro
+- [PCI-DSS Requirements](https://www.pcisecuritystandards.org/)
+- [Open Banking Security Guidelines](https://openbanking.org.uk/)
 
-- [RxJS Documentation](https://rxjs.dev/)
-- [Angular Signals Guide](https://angular.io/guide/signals)
-- [NgRx Documentation](https://ngrx.io/)
-- [RxJS Operators Guide](https://rxjs.dev/guide/operators)
+### Educacional
+- [LGPD - Artigos específicos sobre menores](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
+- [FERPA Guidelines](https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html)
 
----
+### Ecommerce
+- [OWASP Payment Processing](https://cheatsheetseries.owasp.org/cheatsheets/Payment_Card_Industry_Data_Security_Standard_Cheat_Sheet.html)
 
-## Checklist de Conclusão
+### IA
+- [OWASP ML Security Top 10](https://owasp.org/www-project-machine-learning-security-top-10/)
+- [Adversarial Robustness Toolbox](https://github.com/Trusted-AI/adversarial-robustness-toolbox)
 
-- [ ] RxJS operators avançados dominados
-- [ ] Signals implementados
-- [ ] Signal-First Architecture aplicada
-- [ ] NgRx configurado e funcionando
-- [ ] Effects e Selectors criados
-- [ ] Memory leaks prevenidos
-- [ ] Padrões reativos seguros implementados
-- [ ] Integração Signals + Observables funcionando
-- [ ] Projeto prático concluído
+### APIs
+- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/)
 
 ---
 
-**Módulo Anterior**: [Módulo 2: Desenvolvimento Intermediário](./module-2-desenvolvimento-intermediario.md)  
-**Próximo Módulo**: [Módulo 4: Performance e Otimização](./module-4-performance-otimizacao.md)
-
+**Duração Total do Módulo**: 8 horas  
+**Nível**: Intermediário a Avançado  
+**Pré-requisitos**: Módulos 1 e 2 completos

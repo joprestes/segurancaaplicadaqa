@@ -1,9 +1,9 @@
 ---
 layout: module
-title: "Práticas Avançadas e Projeto Final"
-slug: praticas-avancadas-projeto-final
+title: "Módulo 5: Casos Práticos CWI"
+slug: casos-praticos-cwi
 duration: "8 horas"
-description: "Consolide conhecimento através de práticas avançadas"
+description: "Cenários reais de segurança em projetos CWI e checklist prático"
 lessons: 
   - "lesson-5-1"
   - "lesson-5-2"
@@ -11,225 +11,305 @@ lessons:
   - "lesson-5-4"
   - "lesson-5-5"
 module: module-5
-permalink: /modules/praticas-avancadas-projeto-final/
+permalink: /modules/casos-praticos-cwi/
 ---
 
-## Objetivos do Módulo
+# Módulo 5: Casos Práticos CWI
 
-Ao final deste módulo, o aluno será capaz de:
+## 🎯 Objetivo do Módulo
 
-1. Criar testes completos (unitários, integração, E2E)
-2. Implementar SSR (Server-Side Rendering) e PWA (Progressive Web Apps)
-3. Aplicar segurança avançada em aplicações Angular
-4. Arquitetar aplicações escaláveis seguindo Clean Architecture
-5. Construir projeto completo end-to-end usando todas as técnicas aprendidas
+Este é o módulo de consolidação. Você vai analisar casos reais (anonimizados) de projetos CWI em diferentes setores, entender os desafios enfrentados, as soluções implementadas, e receber um checklist prático para aplicar em qualquer projeto.
+
+## 📋 O que torna este módulo único
+
+- **100% baseado em casos reais** de projetos CWI
+- **Multidisciplinar**: Combina todos os módulos anteriores
+- **Actionable**: Checklist que você pode usar imediatamente
+- **Contextualizado**: Desafios específicos de cada cliente/setor
+- **Lições aprendidas**: O que funcionou, o que não funcionou, e por quê
+
+## 🏢 Casos Abordados
+
+### Caso 1: Cliente Financeiro - Fintech de Investimentos
+
+**Contexto**:
+- Aplicação mobile + web de investimentos
+- 500k+ usuários ativos
+- Integrações com Open Banking
+- Regulamentação: PCI-DSS, BACEN, LGPD
+
+**Desafios de Segurança**:
+- Autenticação forte com biometria
+- Tokenização de dados sensíveis
+- Prevenção de fraudes em transações
+- Logs de auditoria para compliance
+- Rate limiting em APIs críticas
+
+**Soluções Implementadas**:
+- Pipeline DevSecOps completo
+- SAST/DAST/SCA automatizados
+- Testes de pentest trimestrais
+- WAF configurado com regras customizadas
+- Monitoramento 24/7 com alertas
+
+**Resultados**:
+- Zero incidentes de segurança em 2 anos
+- Certificação PCI-DSS obtida
+- Tempo de resposta a vulnerabilidades < 48h
+
+### Caso 2: Plataforma Educacional - EdTech
+
+**Contexto**:
+- Plataforma de ensino online
+- 200k+ alunos (40% menores de 18 anos)
+- Sistema de notas, materiais didáticos, fórum
+- Regulamentação: LGPD (dados de menores)
+
+**Desafios de Segurança**:
+- LGPD para menores (consentimento dos pais)
+- Proteção de dados acadêmicos sensíveis
+- Controle de acesso hierárquico (aluno/professor/admin)
+- Prevenção de manipulação de notas
+- Segurança em integrações SSO (Google, Microsoft)
+
+**Soluções Implementadas**:
+- Data classification (sensível vs não-sensível)
+- Criptografia de dados em repouso e trânsito
+- Testes de autorização automatizados
+- Audit logs completos para compliance
+- Processo de "direito ao esquecimento"
+
+**Resultados**:
+- Compliance LGPD total
+- Zero vazamentos de dados
+- Processo de auditoria simplificado
+
+### Caso 3: Ecommerce de Alta Escala - Marketplace
+
+**Contexto**:
+- Marketplace com 10k+ sellers
+- 2M+ transações mensais
+- Black Friday: 50k transações/hora
+- Regulamentação: PCI-DSS, Código do Consumidor
+
+**Desafios de Segurança**:
+- Prevenção de fraudes (card testing, account takeover)
+- PCI-DSS compliance no checkout
+- DDoS protection em picos de acesso
+- Segurança de sessões em alta escala
+- Proteção contra scraping de preços
+
+**Soluções Implementadas**:
+- Tokenização total de dados de pagamento
+- Device fingerprinting para detecção de fraudes
+- WAF + rate limiting agressivo
+- Cloudflare para proteção DDoS
+- Testes de carga com foco em segurança
+
+**Resultados**:
+- 99.2% de redução em fraudes
+- Zero downtime na Black Friday
+- Certificação PCI-DSS mantida
+
+### Caso 4: Aplicação de IA - Sistema de Recomendação
+
+**Contexto**:
+- Sistema de recomendação baseado em ML
+- Dados sensíveis de usuários para treinamento
+- API pública de inferência
+- Preocupação: Privacy, model poisoning
+
+**Desafios de Segurança**:
+- Data leakage via inferência
+- Adversarial attacks no modelo
+- Privacy dos dados de treinamento
+- Rate limiting da API de inferência
+- Validação de inputs maliciosos
+
+**Soluções Implementadas**:
+- Differential privacy nos dados de treino
+- Adversarial testing com Foolbox
+- Input validation rigorosa
+- Rate limiting por usuário/IP
+- Monitoring de anomalias em inferências
+
+**Resultados**:
+- Modelo robusto a adversarial attacks
+- Privacy garantida (sem leakage detectado)
+- API estável sob carga
+
+## 📚 O que você vai aprender
+
+### Análise de Casos Reais
+- Contexto completo do projeto
+- Arquitetura de segurança implementada
+- Desafios específicos enfrentados
+- Decisões técnicas e trade-offs
+- Métricas de sucesso
+
+### Metodologia de Implementação
+- Como começar em um projeto do zero
+- Como convencer stakeholders
+- Como priorizar vulnerabilidades
+- Como medir progresso de segurança
+- Como criar cultura de segurança no time
+
+### Ferramentas Usadas
+- Stack de segurança completo de cada caso
+- Custo vs benefício de cada ferramenta
+- Integração entre ferramentas
+- Lições aprendidas sobre ferramentas
+
+### Checklist Prático
+- Checklist de segurança por fase do projeto
+- Adaptável para qualquer setor
+- Baseado em experiências reais CWI
+- Pronto para usar imediatamente
+
+## 🎓 Competências que você vai desenvolver
+
+Ao final deste módulo, você será capaz de:
+
+✅ Analisar segurança de projetos de forma holística  
+✅ Identificar quick wins vs esforços de longo prazo  
+✅ Priorizar vulnerabilidades por impacto no negócio  
+✅ Criar roadmap de segurança para projetos  
+✅ Usar checklist prático em novos projetos  
+✅ Comunicar riscos para stakeholders não-técnicos  
+✅ Construir sua própria expertise em Security QA  
+
+## 📖 Estrutura das Aulas
+
+### Aula 5.1: Caso Prático - Cliente Financeiro (120 min)
+Análise completa de implementação de segurança em fintech. Desafios, soluções, resultados e lições aprendidas.
+
+### Aula 5.2: Caso Prático - Plataforma Educacional (120 min)
+Como garantimos LGPD, proteção de dados de menores e autenticação segura para milhares de usuários.
+
+### Aula 5.3: Caso Prático - Ecommerce de Alta Escala (120 min)
+Segurança em marketplace com milhões de transações. PCI-DSS, prevenção de fraudes, testes de carga.
+
+### Aula 5.4: Checklist de Segurança para Projetos (90 min)
+Checklist completo e prático para aplicar em qualquer projeto, do início ao fim.
+
+### Aula 5.5: Construindo sua Carreira em Security QA (90 min)
+Próximos passos: certificações, comunidades, oportunidades na CWI, evolução profissional.
+
+## 📋 O Checklist Definitivo
+
+Você vai receber um checklist dividido em fases:
+
+### ✅ Fase de Requisitos
+- [ ] Requisitos de segurança levantados
+- [ ] Dados sensíveis mapeados
+- [ ] Compliance identificado
+- [ ] Threat model iniciado
+
+### ✅ Fase de Design
+- [ ] Arquitetura de segurança definida
+- [ ] Threat modeling completo
+- [ ] Controles de segurança especificados
+- [ ] Security review do design
+
+### ✅ Fase de Desenvolvimento
+- [ ] SAST configurado no CI/CD
+- [ ] SCA ativo (dependency scanning)
+- [ ] Secrets não commitados
+- [ ] Code review com foco em segurança
+
+### ✅ Fase de QA
+- [ ] Testes de segurança automatizados
+- [ ] DAST executado
+- [ ] Testes de autorização/autenticação
+- [ ] Validação de correções
+
+### ✅ Fase de Deploy
+- [ ] Container/IaC scanning
+- [ ] Secrets gerenciados corretamente
+- [ ] Configurações seguras validadas
+- [ ] Security smoke tests
+
+### ✅ Fase de Produção
+- [ ] Monitoramento de segurança ativo
+- [ ] Logs de auditoria configurados
+- [ ] Plano de resposta a incidentes
+- [ ] Revisões periódicas de segurança
+
+## 💼 Aplicação Imediata
+
+Cada caso prático inclui:
+
+1. **Arquitetura Completa**: Diagramas de arquitetura de segurança
+2. **Code Samples**: Exemplos de código seguro vs inseguro
+3. **Configurações**: Configs reais de ferramentas (sanitizadas)
+4. **Métricas**: KPIs de segurança usados
+5. **Templates**: Documentos e relatórios adaptáveis
+
+## 🎯 Seu Projeto Final
+
+Ao final do módulo, você vai:
+
+1. Escolher um projeto atual seu (ou fictício)
+2. Aplicar o checklist completo
+3. Identificar gaps de segurança
+4. Criar roadmap de implementação
+5. Apresentar para o grupo (se curso presencial)
+
+## 🚀 Próximos Passos na Carreira
+
+### Certificações Recomendadas
+- **ISTQB Advanced Security Tester**: Específico para QA
+- **CSSLP**: Certified Secure Software Lifecycle Professional
+- **CEH**: Certified Ethical Hacker (para entender atacantes)
+- **OSCP**: Offensive Security Certified Professional (avançado)
+
+### Comunidades
+- **OWASP Chapters**: Capítulos locais e globais
+- **DevSecOps Community**: Slack, Discord, eventos
+- **CWI Security Guild**: Grupo interno CWI
+
+### Recursos Contínuos
+- [HackTheBox](https://www.hackthebox.com/): Prática hands-on
+- [TryHackMe](https://tryhackme.com/): Labs guiados
+- [PortSwigger Academy](https://portswigger.net/web-security): Web security grátis
+- [OWASP WebGoat/Juice Shop](https://owasp.org/): Apps vulneráveis para prática
+
+### Oportunidades na CWI
+- Security QA Engineer
+- DevSecOps Engineer
+- Security Chapter Lead
+- Consultor de Segurança
+
+## 📚 Material de Suporte
+
+Você receberá:
+
+- **Slides completos** de todos os casos
+- **Checklist editável** em múltiplos formatos
+- **Templates de documentos** (threat model, security report)
+- **Scripts de automação** usados nos casos
+- **Lista de ferramentas** com comparação
 
 ---
 
-## Tópicos Cobertos
+## 🎓 Conclusão do Curso
 
-### 5.1 Testes Completos (Unitários, Integração, E2E) (2h)
-- Testes unitários com Jest/Vitest
-- TestBed e configuração
-- Mocks e Spies
-- Testes de componentes
-- Testes de serviços
-- Testes de pipes e diretivas
-- Testes de integração
-- Testes E2E com Cypress/Playwright
-- Coverage e relatórios
+Ao completar este módulo, você terá:
 
-### 5.2 SSR e PWA (2h)
-- Angular Universal
-- SSR benefits e hydration
-- Transfer State
-- SEO optimization
-- Service Workers
-- Web App Manifest
-- Offline capabilities
-- Push notifications
-- PWA best practices
+✅ Visão completa de segurança em QA  
+✅ Experiência com ferramentas SAST/DAST/SCA  
+✅ Conhecimento de requisitos por setor  
+✅ Habilidade de implementar DevSecOps  
+✅ Casos práticos para portfólio  
+✅ Checklist para aplicar imediatamente  
+✅ Network de profissionais CWI  
+✅ Roadmap de evolução profissional  
 
-### 5.3 Segurança Avançada (1h)
-- Proteção contra XSS
-- Proteção contra CSRF
-- Sanitization e DomSanitizer
-- Content Security Policy (CSP)
-- Autenticação avançada (JWT, OAuth2)
-- Autorização (Role-based access control)
-- Armazenamento seguro de tokens
-- HTTPS e CORS
-
-### 5.4 Arquitetura Avançada (1h)
-- Clean Architecture
-- SOLID principles
-- Design Patterns (Singleton, Factory, Observer, Strategy, Facade)
-- Feature Modules
-- Core Module e Shared Module
-- Barrel exports
-- Organização de código escalável
-
-### 5.5 Projeto Final Completo (2h)
-- Estrutura de projeto completo
-- Implementação de todas as práticas aprendidas
-- Code review
-- Deploy da aplicação
-- Documentação completa
+**Parabéns! Você agora é um Security QA Engineer preparado para os desafios do mercado!**
 
 ---
 
-## Aulas Planejadas
-
-1. **Aula 5.1**: Testes Completos (Unitários, Integração, E2E) (2h)
-   - Objetivo: Criar suite completa de testes
-   - Exercícios: 6 exercícios práticos
-
-2. **Aula 5.2**: SSR e PWA (2h)
-   - Objetivo: Implementar SSR e PWA
-   - Exercícios: 5 exercícios práticos
-
-3. **Aula 5.3**: Segurança Avançada (1h)
-   - Objetivo: Aplicar segurança avançada
-   - Exercícios: 4 exercícios práticos
-
-4. **Aula 5.4**: Arquitetura Avançada (1h)
-   - Objetivo: Arquitetar aplicação escalável
-   - Exercícios: 3 exercícios práticos
-
-5. **Aula 5.5**: Projeto Final Completo (2h)
-   - Objetivo: Construir projeto completo end-to-end
-   - Exercícios: Projeto final completo
-
-**Total de Aulas**: 5  
-**Total de Exercícios**: 18 + Projeto Final
-
----
-
-## Projeto Final do Curso
-
-### Projeto: Task Manager Completo
-
-**Descrição**: Desenvolver uma aplicação completa de gerenciamento de tarefas (Task Manager) que demonstra todas as técnicas e práticas aprendidas ao longo do curso.
-
-**Requisitos Técnicos**:
-
-#### Funcionalidades Core
-- [ ] CRUD completo de tarefas
-- [ ] Autenticação e autorização
-- [ ] Filtros e busca avançada
-- [ ] Categorias e tags
-- [ ] Prioridades e prazos
-- [ ] Dashboard com estatísticas
-
-#### Arquitetura
-- [ ] Standalone components
-- [ ] Clean Architecture
-- [ ] Feature modules organizados
-- [ ] Core e Shared modules
-- [ ] Barrel exports
-
-#### Roteamento
-- [ ] Roteamento completo
-- [ ] Lazy loading de módulos
-- [ ] Route guards
-- [ ] Resolvers
-
-#### Formulários
-- [ ] Formulários reativos
-- [ ] Validação customizada
-- [ ] Formulários dinâmicos
-
-#### Estado
-- [ ] Gerenciamento de estado (Signals ou NgRx)
-- [ ] Padrões reativos seguros
-
-#### Performance
-- [ ] OnPush strategy
-- [ ] Lazy loading
-- [ ] Deferrable views
-- [ ] Code splitting otimizado
-
-#### Testes
-- [ ] Testes unitários (cobertura mínima 70%)
-- [ ] Testes de integração
-- [ ] Testes E2E
-
-#### SSR/PWA
-- [ ] SSR implementado OU
-- [ ] PWA com service worker
-
-#### Segurança
-- [ ] Proteção XSS/CSRF
-- [ ] Sanitization
-- [ ] Autenticação segura
-
-#### Deploy
-- [ ] Deploy da aplicação
-- [ ] CI/CD configurado (opcional)
-
-**Duração Estimada**: 4-6 horas
-
-**Entrega**:
-- Código fonte completo no GitHub
-- README com instruções de setup
-- Documentação da arquitetura
-- Demonstração funcional
-- Relatório de testes
-
----
-
-## Dependências
-
-**Pré-requisitos**:
-- Módulo 1: Fundamentos Acelerados completo
-- Módulo 2: Desenvolvimento Intermediário completo
-- Módulo 3: Programação Reativa e Estado completo
-- Módulo 4: Performance e Otimização completo
-
-**Dependências de Módulos**:
-- Requer todo o conhecimento dos módulos anteriores
-
-**Prepara para**:
-- Desenvolvimento profissional de aplicações Angular
-
----
-
-## Recursos Adicionais
-
-- [Angular Testing Guide](https://angular.io/guide/testing)
-- [Angular SSR Guide](https://angular.io/guide/ssr)
-- [Angular PWA Guide](https://angular.io/guide/service-worker-getting-started)
-- [Angular Security Guide](https://angular.io/guide/security)
-
----
-
-## Checklist de Conclusão
-
-- [ ] Testes completos criados
-- [ ] SSR ou PWA implementado
-- [ ] Segurança avançada aplicada
-- [ ] Arquitetura escalável implementada
-- [ ] Projeto final completo
-- [ ] Deploy realizado
-- [ ] Documentação completa
-- [ ] Code review realizado
-
----
-
-**Módulo Anterior**: [Módulo 4: Performance e Otimização](./module-4-performance-otimizacao.md)  
-**Curso Completo**: [Voltar ao README](../README.md)
-
----
-
-## Certificação
-
-Ao completar este módulo e o projeto final, você terá demonstrado:
-
-✅ Domínio completo dos fundamentos do Angular  
-✅ Capacidade de desenvolver aplicações intermediárias  
-✅ Habilidade em programação reativa avançada  
-✅ Competência em otimização de performance  
-✅ Experiência em práticas avançadas de desenvolvimento  
-
-**Parabéns! Você é agora um Angular Expert!** 🎉
-
+**Duração Total do Módulo**: 8 horas  
+**Nível**: Avançado  
+**Pré-requisitos**: Módulos 1, 2, 3 e 4 completos  
+**Certificado**: Emitido ao completar todos os módulos + projeto final

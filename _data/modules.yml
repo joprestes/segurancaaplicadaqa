@@ -1,9 +1,9 @@
 modules:
   - id: module-1
-    title: "Fundamentos Acelerados"
-    slug: "fundamentos-acelerados"
+    title: "Fundamentos de Segurança em QA"
+    slug: "fundamentos-seguranca-qa"
     duration: "8 horas"
-    description: "Estabeleça as bases sólidas do Angular"
+    description: "Estabeleça as bases sólidas de segurança aplicada à qualidade de software"
     lessons:
       - lesson-1-1
       - lesson-1-2
@@ -13,10 +13,10 @@ modules:
     order: 1
 
   - id: module-2
-    title: "Desenvolvimento Intermediário"
-    slug: "desenvolvimento-intermediario"
+    title: "Testes de Segurança na Prática"
+    slug: "testes-seguranca-pratica"
     duration: "8 horas"
-    description: "Construa funcionalidades completas de aplicações reais"
+    description: "Aprenda técnicas e ferramentas para testar segurança em aplicações"
     lessons:
       - lesson-2-1
       - lesson-2-2
@@ -26,10 +26,10 @@ modules:
     order: 2
 
   - id: module-3
-    title: "Programação Reativa e Estado"
-    slug: "programacao-reativa-estado"
+    title: "Segurança por Setor"
+    slug: "seguranca-por-setor"
     duration: "8 horas"
-    description: "Domine programação reativa e gerenciamento de estado"
+    description: "Segurança aplicada em Financeiro, Educacional, Ecommerce e IA"
     lessons:
       - lesson-3-1
       - lesson-3-2
@@ -38,29 +38,4 @@ modules:
       - lesson-3-5
     order: 3
 
-  - id: module-4
-    title: "Performance e Otimização"
-    slug: "performance-otimizacao"
-    duration: "8 horas"
-    description: "Crie aplicações extremamente performáticas"
-    lessons:
-      - lesson-4-1
-      - lesson-4-2
-      - lesson-4-3
-      - lesson-4-4
-      - lesson-4-5
-    order: 4
-
-  - id: module-5
-    title: "Práticas Avançadas e Projeto Final"
-    slug: "praticas-avancadas-projeto-final"
-    duration: "8 horas"
-    description: "Consolide conhecimento através de práticas avançadas"
-    lessons:
-      - lesson-5-1
-      - lesson-5-2
-      - lesson-5-3
-      - lesson-5-4
-      - lesson-5-5
-    order: 5
 

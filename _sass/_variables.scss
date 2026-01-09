@@ -1,16 +1,43 @@
-$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-$font-size-base: 16px;
-$font-size-small: 14px;
-$font-size-large: 18px;
-$font-size-h1: 2.5rem;
-$font-size-h2: 2rem;
-$font-size-h3: 1.5rem;
+/* Tipografia CWI Software - Identidade Visual */
+/* Fonte principal: Inter - Moderna, legível e profissional */
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-mono: 'SF Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
 
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-$spacing-xl: 2rem;
+/* Tamanhos de fonte - Escala tipográfica moderna */
+$font-size-base: 16px;           /* Corpo do texto - tamanho base */
+$font-size-small: 14px;          /* Texto pequeno - labels, captions */
+$font-size-large: 18px;          /* Texto grande - destaques */
+$font-size-xs: 12px;             /* Extra pequeno - badges, tags */
+
+/* Hierarquia de títulos - Escala harmônica */
+$font-size-h1: 2.75rem;          /* 44px - Título principal */
+$font-size-h2: 2rem;              /* 32px - Título de seção */
+$font-size-h3: 1.5rem;            /* 24px - Subtítulo */
+$font-size-h4: 1.25rem;          /* 20px - Título de subseção */
+$font-size-h5: 1.125rem;         /* 18px - Título pequeno */
+$font-size-h6: 1rem;              /* 16px - Título mínimo */
+
+/* Pesos de fonte */
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+/* Line heights - Legibilidade otimizada */
+$line-height-tight: 1.25;         /* Títulos */
+$line-height-normal: 1.5;         /* Corpo do texto */
+$line-height-relaxed: 1.75;      /* Texto longo/artigos */
+$line-height-loose: 2;            /* Espaçamento extra */
+
+$spacing-xs: 0.25rem;   // 4px
+$spacing-sm: 0.5rem;    // 8px
+$spacing-md: 1rem;      // 16px
+$spacing-lg: 1.5rem;    // 24px
+$spacing-xl: 2rem;      // 32px
+$spacing-2xl: 3rem;     // 48px - Espaçamento generoso (padrão CWI)
+$spacing-3xl: 4rem;     // 64px - Hero sections (padrão CWI)
+$spacing-4xl: 6rem;     // 96px - Espaçamento entre grandes blocos (padrão CWI)
 
 $breakpoint-mobile: 768px;
 $breakpoint-tablet: 1024px;

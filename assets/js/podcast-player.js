@@ -64,7 +64,22 @@ class PodcastPlayer {
     this.playbackRate = 1.0;
     
     if (this.audioFile) {
+      // Verificar se o arquivo existe antes de criar o elemento Audio
       this.audio = new Audio();
+      this.audio.preload = 'metadata';
+      
+      // Tratar erro de carregamento silenciosamente
+      this.audio.addEventListener('error', (e) => {
+        console.warn('Arquivo de áudio não encontrado:', this.audioFile);
+        this.audio = null;
+        this.audioFile = null;
+        // Ocultar o player se o arquivo não existir
+        const playerContainer = document.querySelector('.podcast-player-container');
+        if (playerContainer) {
+          playerContainer.style.display = 'none';
+        }
+      }, { once: true });
+      
       this.audio.src = this.audioFile;
       this.manager.setPlayer(this, this.audio, config);
     } else {
@@ -216,8 +231,19 @@ class PodcastPlayer {
     
     this.audio.addEventListener('error', (e) => {
       if (this.audioFile) {
-        console.error('Erro ao carregar áudio:', e);
-        this.handleError();
+        // Não logar erro se o arquivo simplesmente não existe (404)
+        const error = this.audio.error;
+        if (error && error.code === MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED) {
+          console.warn('Arquivo de áudio não encontrado ou formato não suportado:', this.audioFile);
+          // Ocultar o player
+          const playerContainer = document.querySelector('.podcast-player-container');
+          if (playerContainer) {
+            playerContainer.style.display = 'none';
+          }
+        } else {
+          console.error('Erro ao carregar áudio:', e);
+          this.handleError();
+        }
       } else {
         const globalState = sessionStorage.getItem('podcast-global-state');
         if (!globalState) {
@@ -517,15 +543,29 @@ class PodcastPlayer {
       const containerEl = this.podcastBannerContainer || this.podcastBannerPlaceholder;
       
       if (this.podcastImage) {
-        imgEl.src = this.podcastImage;
-        imgEl.alt = this.podcastTitle || 'Podcast';
-        if (containerEl) {
-          containerEl.style.display = 'block';
-        }
-        if (this.podcastBannerContainer) {
-          this.podcastBannerContainer.classList.remove('hidden');
-        }
-        this.initImageZoom();
+        // Verificar se a imagem existe antes de definir src
+        const img = new Image();
+        img.onload = () => {
+          imgEl.src = this.podcastImage;
+          imgEl.alt = this.podcastTitle || 'Podcast';
+          if (containerEl) {
+            containerEl.style.display = 'block';
+          }
+          if (this.podcastBannerContainer) {
+            this.podcastBannerContainer.classList.remove('hidden');
+          }
+          this.initImageZoom();
+        };
+        img.onerror = () => {
+          // Silenciar erro 404 de imagem - apenas ocultar o elemento
+          if (containerEl) {
+            containerEl.style.display = 'none';
+          }
+          if (this.podcastBannerContainer) {
+            this.podcastBannerContainer.classList.add('hidden');
+          }
+        };
+        img.src = this.podcastImage;
       } else {
         const globalState = sessionStorage.getItem('podcast-global-state');
         if (globalState) {
