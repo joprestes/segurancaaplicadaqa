@@ -215,9 +215,11 @@ Crie ferramentas que facilitem colaboração:
 
 ## Contexto CWI
 
-### Caso Real: Processo de Colaboração em Projeto
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto da CWI, criamos processo de colaboração Dev/QA/Security:
+### Exemplo Hipotético: Processo de Colaboração em Projeto
+
+Em um projeto hipotético, criaríamos processo de colaboração Dev/QA/Security:
 
 **Processo Criado**:
 1. QA documenta vulnerabilidade em template padronizado

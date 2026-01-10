@@ -8,12 +8,6 @@ duration: "60 minutos"
 level: "Intermediário"
 prerequisites: []
 exercises: []
-podcast:
-  file: "assets/podcasts/02.5-Comunicacao_entre_Componentes_Input_Output_ViewChild.m4a"
-  image: "assets/images/podcasts/02.5-Comunicacao_entre_Componentes_Input_Output_ViewChild.png"
-  title: "Comunicação entre Componentes - Input, Output, ViewChild"
-  description: "Domine todos os padrões de comunicação entre componentes no Angular."
-  duration: "45-60 minutos"
 video:
   file: "assets/videos/02.5-Comunicação_entre_Componentes_Input_Output_ViewChild.mp4"
   thumbnail: "assets/images/podcasts/02.5-Comunicacao_entre_Componentes_Input_Output_ViewChild.png"
@@ -543,7 +537,9 @@ export class ParentComponent implements AfterViewInit {
   
   getTotalCount(): void {
     this.updateTotalCount();
-    alert(`Total: ${this.totalCount}`);
+    // Em produção, use um sistema de notificações ou console.log para debug
+    console.log(`Total: ${this.totalCount}`);
+    // Ou use window.Toast?.info(`Total: ${this.totalCount}`);
   }
   
   private updateTotalCount(): void {

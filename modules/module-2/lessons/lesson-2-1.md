@@ -1,27 +1,18 @@
 ---
 layout: lesson
-title: "Aula 2.1: Serviços e Injeção de Dependência"
-slug: servicos-di
+title: "Aula 2.1: SAST: Static Application Security Testing"
+slug: sast-testes-estaticos
 module: module-2
 lesson_id: lesson-2-1
 duration: "90 minutos"
 level: "Intermediário"
-prerequisites: []
-exercises: []
-podcast:
-  file: "assets/podcasts/02.1-Servicos_e_Injecao_de_Dependencia_no_Angular.m4a"
-  image: "assets/images/podcasts/02.1-Servicos_e_Injecao_de_Dependencia_no_Angular.png"
-  title: "Serviços e Injeção de Dependência no Angular"
-  description: "Descubra como os serviços são o coração da arquitetura Angular."
-  duration: "50-65 minutos"
-video:
-  file: "assets/videos/02.1-Serviços_e_Injeção_de_Dependência_no_Angular.mp4"
-  thumbnail: "assets/images/podcasts/02.1-Servicos_e_Injecao_de_Dependencia_no_Angular.png"
-  title: "Serviços e Injeção de Dependência no Angular"
-  description: "Descubra como os serviços são o coração da arquitetura Angular."
-  duration: "50-65 minutos"
-permalink: /modules/desenvolvimento-intermediario/lessons/servicos-di/
+prerequisites: ["lesson-1-5"]
+image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
+permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 ---
+
+<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
+     Veja CONTENT_ISSUES.md para mais detalhes. -->
 
 ## Introdução
 

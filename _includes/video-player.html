@@ -1,58 +1,21 @@
 {% if include.video %}
-<style>
-  .video-player-container,
-  .video-player-container *,
-  .video-player,
-  .video-player *,
-  .video-container,
-  .video-container video,
-  #video-element {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  
-  .video-container {
-    width: 100% !important;
-    overflow: hidden !important;
-  }
-  
-  #video-element {
-    width: 100% !important;
-    height: auto !important;
-  }
-  
-  .video-player .player-controls {
-    display: none !important;
-  }
-  
-  .video-player .player-controls .speed-control {
-    margin-left: auto !important;
-  }
-  
-  .video-player .player-controls .time-display,
-  .video-player .player-controls .speed-control,
-  .video-player .player-controls .volume-control {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-  }
-</style>
 <hr />
 <div class="video-player" id="video-player">
   <div class="video-info">
     <h3>{{ include.video.title }}</h3>
-    <p class="video-description">{{ include.video.description }}</p>
+    <p class="video-description" id="video-description-{{ include.lesson_id }}">{{ include.video.description }}</p>
   </div>
   
   <div class="video-container">
-    <video 
+      <video 
       id="video-element" 
       controls 
       preload="metadata" 
       src="{{ include.video.file | relative_url }}" 
-      style="max-width: 100%; width: 100%; height: auto; box-sizing: border-box;"
+      class="responsive-media"
       loading="lazy"
-    >
+      aria-label="{{ include.video.title | default: 'Vídeo da aula' }}"
+      aria-describedby="video-description-{{ include.lesson_id }}">
       Seu navegador não suporta o elemento de vídeo.
     </video>
   </div>
@@ -63,8 +26,15 @@
     </div>
     
     <div class="speed-control">
-      <label for="video-speed">Velocidade</label>
-      <select id="video-speed" aria-label="Velocidade de reprodução">
+      <label for="video-speed" id="video-speed-label">
+        Velocidade de reprodução
+        <span class="sr-only">(use as setas do teclado para ajustar)</span>
+      </label>
+      <select 
+        id="video-speed" 
+        data-testid="video-speed-select" 
+        aria-labelledby="video-speed-label"
+        aria-describedby="video-speed-desc">
         <option value="0.5">0.5x</option>
         <option value="0.75">0.75x</option>
         <option value="1" selected>1x</option>
@@ -72,13 +42,30 @@
         <option value="1.5">1.5x</option>
         <option value="2">2x</option>
       </select>
+      <span id="video-speed-desc" class="sr-only">Ajuste a velocidade de reprodução do vídeo</span>
     </div>
     
     <div class="volume-control">
-      <label for="video-volume">Volume</label>
-      <input type="range" id="video-volume" min="0" max="100" value="100" aria-label="Volume">
+      <label for="video-volume" id="video-volume-label">
+        Volume
+        <span class="sr-only">(use as setas do teclado ou arraste para ajustar)</span>
+      </label>
+      <input 
+        type="range" 
+        id="video-volume" 
+        data-testid="video-volume-slider" 
+        min="0" 
+        max="100" 
+        value="100" 
+        aria-labelledby="video-volume-label"
+        aria-describedby="video-volume-desc">
+      <span id="video-volume-desc" class="sr-only">Ajuste o volume do vídeo de 0 a 100 por cento</span>
     </div>
   </div>
+</div>
+
+<div id="video-indicator" class="video-playing-indicator" aria-live="polite" aria-label="Vídeo sendo reproduzido">
+  Reproduzindo
 </div>
 
 {% endif %}

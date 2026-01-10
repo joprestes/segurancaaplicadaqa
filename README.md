@@ -1,6 +1,6 @@
 # Segurança em QA - CWI - Plataforma de Ensino
 
-Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios sobre segurança aplicada à qualidade de software. Suporta podcasts, vídeos, rastreamento de progresso e navegação intuitiva.
+Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios sobre segurança aplicada à qualidade de software. Suporta vídeos e imagens, rastreamento de progresso e navegação intuitiva.
 
 ## 📋 Índice
 
@@ -19,7 +19,6 @@ Plataforma de ensino online construída com Jekyll para cursos estruturados em m
 - **Ruby** 2.7 ou superior
 - **RubyGems** (geralmente vem com Ruby)
 - **Bundler** (instalado via `gem install bundler`)
-- **Node.js** 18+ (opcional, para alguns recursos)
 - **Git** (para controle de versão)
 
 ### Verificando Instalações
@@ -108,13 +107,11 @@ crescidos-qualidade/
 │   ├── lessons.yml          # Definição das aulas
 │   ├── exercises.yml        # Definição dos exercícios
 │   ├── videos.yml          # Metadados dos vídeos
-│   └── podcasts.yml        # Metadados dos podcasts
 ├── _includes/               # Componentes reutilizáveis
 │   ├── header.html
 │   ├── footer.html
 │   ├── navigation.html
 │   ├── breadcrumbs.html
-│   ├── podcast-player.html
 │   ├── video-player.html
 │   └── progress-tracker.html
 ├── _layouts/               # Templates de página
@@ -130,7 +127,6 @@ crescidos-qualidade/
 ├── assets/                  # Recursos estáticos
 │   ├── js/                 # JavaScript (compilado do _sass)
 │   ├── images/             # Imagens e logos
-│   ├── podcasts/           # Arquivos de áudio (.m4a)
 │   └── videos/             # Arquivos de vídeo (.mp4)
 ├── modules/                 # Conteúdo dos módulos
 │   ├── module-1/
@@ -151,13 +147,13 @@ crescidos-qualidade/
 
 1. **Página Inicial** (`/`): Lista todos os módulos disponíveis
 2. **Módulo** (`/modules/<slug>`): Página do módulo com lista de aulas
-3. **Aula** (`/modules/<slug>/lessons/<lesson-slug>`): Conteúdo da aula com player de podcast/vídeo
+3. **Aula** (`/modules/<slug>/lessons/<lesson-slug>`): Conteúdo da aula com player de vídeo ou imagem
 4. **Exercício** (`/modules/<slug>/lessons/exercises/<exercise-slug>`): Exercício prático
 
 ### Funcionalidades
 
-- **Player de Podcast**: Reproduz áudios em formato M4A
 - **Player de Vídeo**: Reproduz vídeos em formato MP4
+- **Imagens**: Exibe imagens quando não há vídeo disponível
 - **Rastreamento de Progresso**: Salva progresso localmente no navegador
 - **Navegação entre Aulas**: Botões de próxima/anterior
 - **Tema Claro/Escuro**: Alternância automática baseada em preferências do sistema
@@ -170,8 +166,7 @@ O projeto usa arquivos YAML em `_data/` para definir a estrutura:
 - **modules.yml**: Define módulos e suas aulas
 - **lessons.yml**: Define aulas com metadados (duração, nível, pré-requisitos)
 - **exercises.yml**: Define exercícios vinculados às aulas
-- **videos.yml**: Metadados dos vídeos
-- **podcasts.yml**: Metadados dos podcasts
+- **videos.yml**: Metadados dos vídeos (opcional)
 
 ## 🔄 Personalização para Outra Temática
 
@@ -220,11 +215,11 @@ lessons:
     duration: "60 minutos"
     level: "Básico"
     prerequisites: []
-    podcast:
-      file: "assets/podcasts/01-introducao.m4a"
-      image: "assets/images/podcasts/01-introducao.png"
+    video:
+      file: "assets/videos/01-introducao.mp4"
       title: "Introdução"
-      description: "Descrição do podcast"
+      thumbnail: "assets/images/01-introducao.png"
+      description: "Descrição do vídeo"
       duration: "45-60 minutos"
 ```
 
@@ -236,13 +231,12 @@ lessons:
 
 ### 5. Substituir Mídia
 
-- Substitua arquivos em `assets/podcasts/` pelos seus podcasts
 - Substitua arquivos em `assets/videos/` pelos seus vídeos
-- Substitua imagens em `assets/images/podcasts/` pelas suas imagens
+- Substitua imagens em `assets/images/` pelas suas imagens
 
-### 6. Atualizar Metadados de Vídeos e Podcasts
+### 6. Atualizar Metadados de Vídeos
 
-Edite `_data/videos.yml` e `_data/podcasts.yml` com os novos metadados:
+Edite `_data/videos.yml` (se usado) ou adicione diretamente no front matter dos arquivos .md:
 
 ```yaml
 videos:
@@ -252,7 +246,7 @@ videos:
     title: "Introdução"
     description: "Descrição do vídeo"
     duration: "45-60 minutos"
-    thumbnail: "assets/images/podcasts/01-introducao.png"
+    thumbnail: "assets/images/01-introducao.png"
 ```
 
 ### 7. Atualizar Estilos (Opcional)
@@ -332,10 +326,10 @@ lessons:
     duration: "60 minutos"
     level: "Básico"
     prerequisites: []
-    podcast:
-      file: "assets/podcasts/06.1-nova-aula.m4a"
-      image: "assets/images/podcasts/06.1-nova-aula.png"
+    video:
+      file: "assets/videos/06.1-nova-aula.mp4"
       title: "Nova Aula"
+      thumbnail: "assets/images/06.1-nova-aula.png"
       description: "Descrição"
       duration: "45-60 minutos"
 ```
@@ -353,10 +347,10 @@ duration: "60 minutos"
 level: "Básico"
 prerequisites: []
 exercises: []
-podcast:
-  file: "assets/podcasts/06.1-nova-aula.m4a"
-  image: "assets/images/podcasts/06.1-nova-aula.png"
+video:
+  file: "assets/videos/06.1-nova-aula.mp4"
   title: "Nova Aula"
+  thumbnail: "assets/images/06.1-nova-aula.png"
   description: "Descrição"
   duration: "45-60 minutos"
 permalink: /modules/novo-modulo/lessons/nova-aula/
@@ -369,11 +363,11 @@ Aqui vai o conteúdo da aula...
 
 **Passo 2.3**: Adicione os arquivos de mídia
 
-- Coloque o podcast em `assets/podcasts/06.1-nova-aula.m4a`
-- Coloque a imagem em `assets/images/podcasts/06.1-nova-aula.png`
-- (Opcional) Coloque o vídeo em `assets/videos/06.1-nova-aula.mp4`
+- Coloque o vídeo em `assets/videos/06.1-nova-aula.mp4`
+- Coloque a imagem/thumbnail em `assets/images/06.1-nova-aula.png`
+- (Opcional) Se não houver vídeo, adicione campo `image:` no front matter
 
-**Passo 2.4**: Atualize `_data/podcasts.yml` e `_data/videos.yml` se necessário
+**Passo 2.4**: Atualize `_data/videos.yml` se necessário
 
 #### 3. Adicionar um Novo Exercício
 
@@ -463,7 +457,7 @@ videos:
     title: "Nova Aula"
     description: "Descrição"
     duration: "45-60 minutos"
-    thumbnail: "assets/images/podcasts/06.1-nova-aula.png"
+    thumbnail: "assets/images/06.1-nova-aula.png"
 ```
 
 **Passo 5.3**: Edite a aula para incluir o vídeo
@@ -555,10 +549,10 @@ duration: "60 minutos"
 level: "Básico"
 prerequisites: []
 exercises: []
-podcast:
-  file: "assets/podcasts/01-aula.m4a"
-  image: "assets/images/podcasts/01-aula.png"
-  title: "Título do Podcast"
+video:
+  file: "assets/videos/01-aula.mp4"
+  title: "Título do Vídeo"
+  thumbnail: "assets/images/01-aula.png"
   description: "Descrição"
   duration: "45-60 minutos"
 permalink: /modules/modulo/lessons/aula/
@@ -637,6 +631,136 @@ git push origin main
 
 **Passo 2**: Faça deploy via Vercel CLI ou interface web
 
+## 🛠️ Scripts Utilitários
+
+O projeto inclui scripts utilitários para facilitar o desenvolvimento e manutenção:
+
+### `rebuild.sh`
+
+Script simples para limpar cache e recompilar o site Jekyll.
+
+```bash
+./rebuild.sh
+```
+
+**O que faz:**
+- Remove caches do Jekyll (`_site`, `.jekyll-cache`, `.sass-cache`)
+- Recompila o site com `bundle exec jekyll build`
+
+**Quando usar:**
+- Quando mudanças no CSS/SCSS não aparecem
+- Após atualizar configurações do Jekyll
+- Para garantir build limpo antes de deploy
+
+### `force-rebuild.sh`
+
+Script avançado para forçar recompilação completa com validações.
+
+```bash
+./force-rebuild.sh
+```
+
+**O que faz:**
+- Para processos Jekyll em execução
+- Limpa todos os caches (incluindo `.jekyll-metadata`)
+- Verifica se arquivos fonte essenciais existem
+- Recompila com trace (logs detalhados)
+- Valida se CSS foi compilado corretamente
+- Gera `build.log` com saída completa
+
+**Quando usar:**
+- Quando `rebuild.sh` não resolve problemas
+- Para debug de problemas de compilação
+- Antes de fazer deploy em produção
+
+### `fix-all-liquid.py`
+
+Script Python para corrigir problemas de sintaxe Liquid em arquivos Markdown.
+
+```bash
+python3 fix-all-liquid.py
+```
+
+**O que faz:**
+- Processa todos os arquivos `.md` em `modules/`
+- Protege blocos de código que contêm sintaxe Liquid (`{{ }}`)
+- Adiciona tags `{% raw %}` e `{% endraw %}` automaticamente
+- Evita conflitos entre sintaxe Liquid e código de exemplo
+
+**Quando usar:**
+- Após adicionar código de exemplo que contém `{{ }}` ou `|`
+- Quando Jekyll interpreta incorretamente código dentro de blocos markdown
+- Para corrigir erros de parsing em arquivos de conteúdo
+
+**Requisitos:**
+- Python 3.x instalado
+
+## 🧪 Test IDs e Automação de Testes
+
+O projeto utiliza `data-testid` para identificar elementos interativos, facilitando a automação de testes e garantindo testes mais robustos e estáveis.
+
+### Padrão de Nomenclatura
+
+Todos os test IDs seguem o formato: `{component}-{element}-{identifier}`
+
+**Exemplos:**
+- `nav-link-home` - Link de navegação para home
+- `nav-module-link-fundamentos` - Link de módulo específico
+- `lesson-nav-prev` - Navegação para aula anterior
+- `mark-lesson-complete-btn` - Botão para marcar aula como concluída
+- `quiz-option-0` - Opção de resposta do quiz (índice 0)
+- `video-play-btn` - Botão de play do vídeo (se aplicável)
+
+### Regras de Nomenclatura
+
+1. **Use kebab-case** (minúsculas com hífens)
+2. **Seja descritivo mas conciso**
+3. **Inclua contexto** quando necessário (ex: `nav-`, `lesson-`, `module-`)
+4. **Use sufixos** para tipo de elemento:
+   - `-btn` para botões
+   - `-link` para links
+   - `-select` para selects
+   - `-input` ou `-slider` para inputs
+5. **Evite duplicatas** - use identificadores únicos quando necessário
+
+### Quando Usar Test IDs
+
+**Sempre adicione `data-testid` em:**
+- Botões interativos
+- Links de navegação
+- Inputs e selects
+- Elementos gerados dinamicamente via JavaScript
+- Componentes reutilizáveis
+
+**Exemplo em HTML/Liquid:**
+```html
+<a href="{{ '/' | relative_url }}" data-testid="nav-link-home">Início</a>
+<button data-testid="mark-lesson-complete-btn">Marcar como concluída</button>
+```
+
+**Exemplo em JavaScript (elementos dinâmicos):**
+```javascript
+const optionButton = document.createElement('button');
+optionButton.setAttribute('data-testid', `quiz-option-${index}`);
+```
+
+### Checklist para Novos Componentes
+
+Ao adicionar novos componentes ou elementos interativos, verifique:
+
+- [ ] Todos os botões têm `data-testid`?
+- [ ] Todos os links de navegação têm `data-testid`?
+- [ ] Todos os inputs/selects têm `data-testid`?
+- [ ] Elementos dinâmicos gerados via JS têm `data-testid`?
+- [ ] Test IDs seguem o padrão de nomenclatura?
+- [ ] Test IDs são únicos no contexto da página?
+- [ ] Test IDs são descritivos e semânticos?
+
+### Documentação Completa
+
+Para análise detalhada de cobertura de test IDs, consulte:
+- `TEST_IDS_AUDIT.md` - Relatório completo de auditoria de test IDs
+
 ## 🔍 Troubleshooting
 
 ### Problema: `bundle install` falha
@@ -688,12 +812,12 @@ sudo gem install bundler
 2. Use `relative_url` nos templates: `{{ '/assets/file.css' | relative_url }}`
 3. Verifique se os arquivos existem em `assets/`
 
-### Problema: Podcast/Vídeo não reproduz
+### Problema: Vídeo não reproduz
 
 **Solução**:
 1. Verifique se o arquivo existe no caminho especificado
-2. Verifique o formato do arquivo (M4A para podcasts, MP4 para vídeos)
-3. Verifique os metadados em `_data/podcasts.yml` ou `_data/videos.yml`
+2. Verifique o formato do arquivo (MP4 recomendado para vídeos)
+3. Verifique os metadados no front matter do arquivo .md ou em `_data/videos.yml` (se usado)
 4. Verifique o console do navegador para erros JavaScript
 
 ### Problema: Progresso não salva

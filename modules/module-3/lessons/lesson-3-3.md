@@ -8,12 +8,6 @@ duration: "150 minutos"
 level: "Avançado"
 prerequisites: []
 exercises: []
-podcast:
-  file: "assets/podcasts/03.3-NgRx_quando_vale_a_pena_usar.m4a"
-  image: "assets/images/podcasts/03.3-NgRx_quando_vale_a_pena_usar.png"
-  title: "NgRx - Quando Vale a Pena Usar"
-  description: "NgRx é poderoso, mas nem sempre necessário."
-  duration: "70-85 minutos"
 video:
   file: "assets/videos/03.3-NgRx_quando_vale_a_pena_usar.mp4"
   thumbnail: "assets/images/podcasts/03.3-NgRx_quando_vale_a_pena_usar.png"

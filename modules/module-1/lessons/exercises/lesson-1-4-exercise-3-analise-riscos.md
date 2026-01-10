@@ -137,9 +137,11 @@ Justifique a priorização:
 
 ## Contexto CWI
 
-### Caso Real: Priorização em Projeto
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto da CWI, usamos DREAD para priorizar 50+ ameaças:
+### Exemplo Hipotético: Priorização em Projeto
+
+Em um projeto hipotético, usaríamos DREAD para priorizar 50+ ameaças:
 
 **Resultado**:
 - 10 ameaças críticas corrigidas primeiro

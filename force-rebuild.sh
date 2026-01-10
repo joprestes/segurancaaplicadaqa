@@ -10,7 +10,8 @@ pkill -f jekyll || true
 sleep 2
 
 echo "🧹 Limpando TODOS os caches..."
-cd "/Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade"
+# Muda para o diretório do script (portável)
+cd "$(dirname "$0")"
 
 rm -rf _site
 rm -rf .jekyll-cache

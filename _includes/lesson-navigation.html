@@ -10,25 +10,25 @@
       
       {% if prev_index >= 0 %}
         {% assign prev_lesson = module_lessons[prev_index] %}
-        <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: prev_lesson.slug | relative_url }}" class="prev-lesson">
+        <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: prev_lesson.slug | relative_url }}" class="prev-lesson" data-testid="lesson-nav-prev">
           ← {{ prev_lesson.title }}
         </a>
       {% endif %}
       
       {% if next_index < module_lessons.size %}
         {% assign next_lesson = module_lessons[next_index] %}
-        <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: next_lesson.slug | relative_url }}" class="next-lesson">
+        <a href="{{ '/modules/' | append: current_module.slug | append: '/lessons/' | append: next_lesson.slug | relative_url }}" class="next-lesson" data-testid="lesson-nav-next">
           {{ next_lesson.title }} →
         </a>
       {% else %}
         {% comment %} Última lição do módulo - mostrar link para resumo {% endcomment %}
         {% assign next_module = site.data.modules.modules | where: "order", current_module.order | plus: 1 | first %}
         {% if next_module %}
-          <a href="{{ '/modules/' | append: current_module.slug | append: '/summary/?next_module=' | append: next_module.slug | relative_url }}" class="next-lesson module-summary-link">
+          <a href="{{ '/modules/' | append: current_module.slug | append: '/summary/?next_module=' | append: next_module.slug | relative_url }}" class="next-lesson module-summary-link" data-testid="lesson-nav-module-summary">
             Ver Resumo do Módulo →
           </a>
         {% else %}
-          <a href="{{ '/modules/' | append: current_module.slug | append: '/summary/' | relative_url }}" class="next-lesson module-summary-link">
+          <a href="{{ '/modules/' | append: current_module.slug | append: '/summary/' | relative_url }}" class="next-lesson module-summary-link" data-testid="lesson-nav-module-summary">
             Ver Resumo do Módulo →
           </a>
         {% endif %}

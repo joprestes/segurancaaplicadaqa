@@ -2,6 +2,11 @@
   'use strict';
   
   function fixContentHeight() {
+    // Não aplicar em páginas de resumo do módulo
+    if (document.querySelector('.module-summary-page')) {
+      return;
+    }
+    
     const contentWrapper = document.querySelector('.content-wrapper');
     const content = document.querySelector('.main-container .content');
     

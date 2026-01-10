@@ -217,9 +217,11 @@ Crie plano completo de validação:
 
 ## Contexto CWI
 
-### Caso Real: Controles SOC2 em SaaS
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto SaaS da CWI, implementamos controles SOC2:
+### Exemplo Hipotético: Controles SOC2 em SaaS
+
+Em um projeto SaaS hipotético, implementaríamos controles SOC2:
 
 **Estratégia**:
 - Controles por critério SOC2

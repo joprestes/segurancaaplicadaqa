@@ -120,7 +120,6 @@ Cada aula inclui exercícios práticos com ambientes de teste:
 
 - **Módulo 3**: Aplicar essas ferramentas em contextos específicos de cada setor
 - **Módulo 4**: Integrar essas ferramentas em pipelines DevSecOps
-- **Módulo 5**: Ver exemplos reais de uso dessas ferramentas em projetos CWI
 
 ## 📚 Recursos Adicionais
 

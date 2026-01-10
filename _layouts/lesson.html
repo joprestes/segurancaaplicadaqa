@@ -9,49 +9,21 @@ layout: default
 }
 </script>
 
-<div class="podcast-player-container">
-  {% if page.podcast %}
-    {% include podcast-player.html 
-       podcast=page.podcast 
-       lesson_id=page.lesson_id %}
-  {% else %}
-    {% include podcast-player.html 
-       podcast=null 
-       lesson_id=page.lesson_id %}
-  {% endif %}
-</div>
-
-<div class="podcast-banner-container" id="podcast-banner-container">
-  {% if page.podcast and page.podcast.image %}
-    <div class="podcast-banner">
-      <img 
-        src="{{ page.podcast.image | relative_url }}" 
-        alt="{{ page.podcast.title }}" 
-        class="podcast-banner-image" 
-        id="podcast-banner-image"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-  {% else %}
-    <div class="podcast-banner" id="podcast-banner-placeholder" style="display: none;">
-      <img 
-        src="" 
-        alt="" 
-        class="podcast-banner-image" 
-        id="podcast-banner-image-placeholder"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-  {% endif %}
-</div>
-
 {% if page.video %}
 <div class="video-player-container">
   {% include video-player.html 
      video=page.video 
      lesson_id=page.lesson_id %}
+</div>
+{% elsif page.image or (page.video and page.video.thumbnail) %}
+<div class="lesson-image-container">
+  <img 
+    src="{% if page.image %}{{ page.image | relative_url }}{% elsif page.video and page.video.thumbnail %}{{ page.video.thumbnail | relative_url }}{% else %}{{ '' | relative_url }}{% endif %}" 
+    alt="{{ page.title }}" 
+    class="lesson-image"
+    loading="lazy"
+    decoding="async"
+  />
 </div>
 {% endif %}
 
@@ -59,8 +31,12 @@ layout: default
   <header>
     <h1>{{ page.title }}</h1>
     <div class="lesson-meta">
-      <span>Duração: {{ page.duration }}</span>
-      <span>Nível: {{ page.level }}</span>
+      {% if page.duration %}
+        <span>⏱️ {{ page.duration }}</span>
+      {% endif %}
+      {% if page.level %}
+        <span>📊 {{ page.level }}</span>
+      {% endif %}
     </div>
   </header>
   
@@ -68,6 +44,7 @@ layout: default
   
   <div class="lesson-actions">
     <button class="mark-lesson-complete" 
+            data-testid="mark-lesson-complete-btn"
             data-lesson-id="{{ page.lesson_id }}" 
             data-module-id="{{ page.module }}"
             aria-label="Marcar aula como completa">
@@ -82,7 +59,6 @@ layout: default
   {% include lesson-navigation.html %}
 </nav>
 
-<script src="{{ '/assets/js/podcast-player.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/video-player.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/quiz.js' | relative_url }}"></script>
 

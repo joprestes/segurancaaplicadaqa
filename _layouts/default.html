@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ page.podcast.description | default: site.description }}{% endif %}">
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% elsif page.video and page.video.description %}{{ page.video.description }}{% else %}{{ site.description }}{% endif %}">
   <!-- Google Fonts - Inter: Tipografia moderna e profissional -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,6 +60,9 @@
   {% include progress-tracker.html %}
   
   <script src="{{ '/assets/js/utils/logger.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/config/constants.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/utils/storage-safe.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/utils/storage-migration.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/utils/media-validator.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/utils/debounce.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
@@ -74,7 +77,8 @@
   <script>
     window.siteData = {
       modules: {{ site.data.modules.modules | jsonify }},
-      lessons: {{ site.data.lessons.lessons | jsonify }}
+      lessons: {{ site.data.lessons.lessons | jsonify }},
+      baseurl: '{{ site.baseurl }}'
     };
     {% if site.google_analytics.enabled %}
     window.GA_ID = '{{ site.google_analytics.id }}';

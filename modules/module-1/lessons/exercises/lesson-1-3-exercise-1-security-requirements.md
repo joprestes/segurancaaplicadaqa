@@ -180,9 +180,11 @@ Valide os security requirements criados:
 
 ## Contexto CWI
 
-### Caso Real: Projeto Financeiro
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto financeiro da CWI, criamos security requirements detalhados para funcionalidade de transferência bancária:
+### Exemplo Hipotético: Projeto Financeiro
+
+Em um projeto financeiro hipotético, criaríamos security requirements detalhados para funcionalidade de transferência bancária:
 
 **Security Requirements Criados**:
 1. Validação de propriedade da conta origem

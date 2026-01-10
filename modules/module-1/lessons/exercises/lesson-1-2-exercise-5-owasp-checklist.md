@@ -174,9 +174,11 @@ Aplique o checklist em uma aplicação real ou de exemplo:
 
 ## Contexto CWI
 
-### Caso Real: Checklist em Projeto Financeiro
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto financeiro da CWI, criamos checklist OWASP Top 10 adaptado para contexto financeiro. O checklist foi usado em todas as releases para garantir segurança.
+### Exemplo Hipotético: Checklist em Projeto Financeiro
+
+Em um projeto financeiro hipotético, criaríamos checklist OWASP Top 10 adaptado para contexto financeiro. O checklist seria usado em todas as releases para garantir segurança.
 
 **Resultados**:
 - 15 vulnerabilidades identificadas antes de produção

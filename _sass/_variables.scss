@@ -45,3 +45,28 @@ $breakpoint-tablet: 1024px;
 $sidebar-width: 330px;
 $container-max-width: 1200px;
 
+/* Z-index layers - sistema profissional */
+/* Evita z-index mágicos (9999, 10000, etc.) */
+$z-index-layers: (
+  base: 0,
+  content: 100,
+  header: 200,
+  sidebar: 300,
+  dropdown: 400,
+  sticky: 500,
+  overlay: 600,
+  modal: 700,
+  popover: 800,
+  tooltip: 900,
+  notification: 1000,
+  command-palette: 1100
+);
+
+@function z($layer) {
+  @if map-has-key($z-index-layers, $layer) {
+    @return map-get($z-index-layers, $layer);
+  }
+  @warn "Z-index layer '#{$layer}' não encontrado. Retornando base (0).";
+  @return 0;
+}
+

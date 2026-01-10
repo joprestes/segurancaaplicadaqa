@@ -11,7 +11,7 @@
   border-radius: 8px;
   box-shadow: var(--color-shadow-md);
   min-width: 200px;
-  z-index: 999;
+  z-index: z(overlay); // 600 - sistema profissional
   @include theme-transition-all;
   
   h3 {
