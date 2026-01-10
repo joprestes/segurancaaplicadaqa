@@ -1,20 +1,26 @@
 ---
 ---
 
-
-@import "variables";
-@import "colors";
-@import "theme";
-@import "navigation";
-@import "video-player";
-@import "module-summary";
-@import "progress-tracker";
-@import "breadcrumbs";
-@import "quiz";
-@import "exercise-submission";
-@import "components/hero";
-@import "components/empty-states";
-@import "components/footer";
+@import 'variables';
+@import 'colors';
+@import 'theme';
+@import 'navigation';
+@import 'video-player';
+@import 'progress-tracker';
+@import 'breadcrumbs';
+@import 'module-summary';
+@import 'quiz';
+@import 'exercise-submission';
+@import 'components/interactions';
+@import 'components/skeleton';
+@import 'components/empty-states';
+@import 'components/hero';
+@import 'components/command-palette';
+@import 'components/toast';
+@import 'components/footer';
+@import 'utilities/transitions';
+@import 'utilities/utilities';
+@import 'animations/keyframes';
 
 * {
   box-sizing: border-box;
@@ -34,12 +40,13 @@
 }
 
 /* Garantir que pre tags sempre usem as cores corretas do tema */
+// NOTA: !important necessário para sobrescrever syntax highlighting do tema Jekyll Minima
 pre {
-  background: var(--color-code-block-bg) !important;
-  color: var(--color-text-primary) !important;
-  border: 1px solid var(--color-code-block-border) !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
+  background: var(--color-code-block-bg) !important; // Necessário para sobrescrever tema
+  color: var(--color-text-primary) !important; // Necessário para sobrescrever tema
+  border: 1px solid var(--color-code-block-border) !important; // Necessário para sobrescrever tema
+  border-radius: 8px !important; // Necessário para sobrescrever tema
+  overflow: hidden !important; // Necessário para sobrescrever tema
 
   code {
     background: transparent !important;
@@ -128,8 +135,9 @@ pre {
 }
 
 /* Remover backgrounds do highlighter-rouge do Minima */
+// NOTA: !important necessário para sobrescrever tema Jekyll Minima
 .highlighter-rouge {
-  background: transparent !important;
+  background: transparent !important; // Necessário para sobrescrever tema
 
   .highlight {
     background: transparent !important;
@@ -152,27 +160,106 @@ pre {
 body {
   font-family: $font-family;
   font-size: $font-size-base;
-  line-height: 1.6;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-normal;
   color: var(--color-text-primary);
   background: var(--color-bg-primary);
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   @include theme-transition-all;
+
+  // Gradiente sutil no background (estilo CWI)
+  background: linear-gradient(180deg,
+      var(--color-bg-primary) 0%,
+      var(--color-bg-secondary) 100%);
+  min-height: 100vh;
+}
+
+/* Hierarquia tipográfica - Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: var(--color-text-primary);
+  margin-top: 0;
+  margin-bottom: $spacing-md;
+  @include theme-transition(color);
+}
+
+h1 {
+  font-size: $font-size-h1;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-lg;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-md;
+  margin-top: $spacing-xl;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: $font-size-h3;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+h4 {
+  font-size: $font-size-h4;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-lg;
+}
+
+h5 {
+  font-size: $font-size-h5;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-md;
+}
+
+h6 {
+  font-size: $font-size-h6;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-md;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: $font-size-small;
 }
 
 .site-header {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, var(--color-primary-dark) 100%);
-  color: var(--color-text-inverse);
+  background: var(--color-secondary);
+  color: var(--color-primary);
   padding: $spacing-md $spacing-lg;
   box-shadow: var(--color-shadow-sm);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: z(header); // 200 - sistema profissional
   @include theme-transition-all;
 
-  /* Gradiente adicional para dark mode */
+  /* Dark mode: usar cinza mais escuro */
   [data-theme="dark"] & {
-    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-hover) 50%, var(--color-primary) 100%);
+    background: var(--color-secondary);
   }
 
   .header-content {
@@ -181,6 +268,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: $spacing-lg;
   }
 
   .header-brand {
@@ -201,8 +289,13 @@ body {
       justify-content: flex-start;
       height: 100%;
       text-decoration: none;
-      color: var(--color-text-inverse);
+      color: var(--color-primary);
+      transition: opacity 0.2s ease;
       gap: $spacing-md;
+
+      &:hover {
+        opacity: 0.9;
+      }
     }
 
     .brand-logo-image {
@@ -217,9 +310,9 @@ body {
       min-width: 150px;
       min-height: 48px;
       border-radius: 14px;
-      border: 2px dashed rgba(255, 255, 255, 0.6);
-      background: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.85);
+      border: 2px dashed var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-size: 0.85rem;
@@ -234,7 +327,7 @@ body {
       font-size: clamp(1.25rem, 2vw, 1.75rem);
       font-weight: $font-weight-semibold;
       letter-spacing: -0.01em;
-      color: var(--color-text-inverse);
+      color: var(--color-primary);
       white-space: nowrap;
     }
   }
@@ -245,11 +338,12 @@ body {
     align-items: center;
 
     a {
-      color: var(--color-text-inverse);
+      color: var(--color-primary);
       text-decoration: none;
 
       &:hover {
         text-decoration: underline;
+        color: var(--color-primary-hover);
       }
     }
   }
@@ -257,7 +351,7 @@ body {
   .theme-toggle {
     background: transparent;
     border: none;
-    color: var(--color-text-inverse);
+    color: var(--color-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -265,11 +359,12 @@ body {
     font-size: 24px;
     padding: $spacing-xs;
     margin-left: $spacing-md;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.2s, transform 0.2s, color 0.2s;
 
     &:hover {
       opacity: 0.8;
       transform: scale(1.1);
+      color: var(--color-primary-hover);
     }
 
     &:active {
@@ -277,7 +372,7 @@ body {
     }
 
     &:focus {
-      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline: 2px solid var(--color-primary);
       outline-offset: 2px;
       border-radius: 4px;
     }
@@ -289,22 +384,26 @@ body {
   }
 }
 
+// Layout principal - !important necessário para sobrescrever tema Jekyll Minima
+// NOTA: Estes !important são necessários devido a conflitos com o tema Jekyll
+// Testar se funciona sem !important e adicionar de volta se layout quebrar
 .page-wrapper {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: flex-start !important;
-  width: 100% !important;
+  display: flex !important; // Necessário para sobrescrever tema Jekyll
+  flex-direction: row !important; // Necessário para sobrescrever tema Jekyll
+  align-items: flex-start !important; // Necessário para sobrescrever tema Jekyll
+  width: 100% !important; // Necessário para sobrescrever tema Jekyll
+  min-height: calc(100vh - 80px);
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 .sidebar {
-  flex: 0 0 $sidebar-width !important;
-  width: $sidebar-width !important;
-  min-width: $sidebar-width !important;
-  max-width: $sidebar-width !important;
-  position: sticky !important;
+  flex: 0 0 $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  min-width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  max-width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  position: sticky !important; // Necessário para sobrescrever tema Jekyll
   top: 80px;
   height: calc(100vh - 80px);
   overflow-y: auto;
@@ -315,21 +414,14 @@ body {
 }
 
 .main-container {
-  flex: 1 1 auto !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: flex-start !important;
+  flex: 1 1 auto !important; // Necessário para sobrescrever tema Jekyll
+  display: flex !important; // Necessário para sobrescrever tema Jekyll
+  justify-content: center !important; // Necessário para sobrescrever tema Jekyll
+  align-items: flex-start !important; // Necessário para sobrescrever tema Jekyll
   min-width: 0;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-.main-container .content-wrapper {
-  width: 100%;
-  max-width: $container-max-width;
-  overflow: hidden;
-  position: relative;
 }
 
 .main-container .content {
@@ -337,54 +429,6 @@ body {
   width: 100%;
   padding: $spacing-lg;
   box-sizing: border-box;
-  zoom: 0.8;
-  padding-bottom: $spacing-lg;
-  display: block;
-
-  >*:last-child {
-    margin-bottom: 0 !important;
-  }
-
-  .exercises {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-
-    >*:last-child {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  section:last-child,
-  .exercises:last-child,
-  nav:last-child,
-  .lesson-navigation:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  article:last-child,
-  .lesson-content:last-child {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-
-  .lesson-actions {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-  }
-}
-
-.container {
-  max-width: $container-max-width;
-  margin: 0 auto;
-  display: flex;
-  padding: $spacing-lg;
-  gap: $spacing-xl;
-}
-
-.content {
-  flex: 1;
-  min-width: 0;
 
   h1,
   h2,
@@ -398,7 +442,47 @@ body {
 
   p {
     color: var(--color-text-primary);
+    font-size: $font-size-base;
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-md;
     @include theme-transition(color);
+  }
+
+  /* Textos grandes e pequenos */
+  .text-large {
+    font-size: $font-size-large;
+    line-height: $line-height-relaxed;
+  }
+
+  .text-small {
+    font-size: $font-size-small;
+    line-height: $line-height-normal;
+  }
+
+  .text-xs {
+    font-size: $font-size-xs;
+    line-height: $line-height-normal;
+  }
+
+  /* Pesos de fonte */
+  .font-light {
+    font-weight: $font-weight-light;
+  }
+
+  .font-normal {
+    font-weight: $font-weight-normal;
+  }
+
+  .font-medium {
+    font-weight: $font-weight-medium;
+  }
+
+  .font-semibold {
+    font-weight: $font-weight-semibold;
+  }
+
+  .font-bold {
+    font-weight: $font-weight-bold;
   }
 
   a {
@@ -416,7 +500,8 @@ body {
     padding: 0.2em 0.4em;
     border-radius: 3px;
     font-size: 0.9em;
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-family: $font-family-mono;
+    font-weight: $font-weight-normal;
     @include theme-transition-all;
   }
 
@@ -446,8 +531,11 @@ body {
       color: var(--color-text-primary) !important;
       padding: 0;
       font-size: 0.9em;
+      font-family: $font-family-mono;
+      font-weight: $font-weight-normal;
       border: none;
       display: block;
+      line-height: $line-height-relaxed;
     }
 
     /* Remover todos os backgrounds de elementos de syntax highlighting */
@@ -674,23 +762,53 @@ body {
 .lesson-content,
 .module-content,
 .exercise-content {
-  background: var(--color-surface);
+  background: linear-gradient(135deg, var(--color-surface) 0%, rgba(var(--color-primary-rgb, 74, 144, 226), 0.02) 100%);
   color: var(--color-text-primary);
-  padding: $spacing-xl;
-  border-radius: 8px;
-  box-shadow: var(--color-shadow-sm);
+  padding: 0;
+  border-radius: 20px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.08),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  position: relative;
   @include theme-transition-all;
 
+  // Barra gradiente no topo
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+        #4a90e2 0%,
+        #5ca0f2 25%,
+        #7eb4f6 50%,
+        #5ca0f2 75%,
+        #4a90e2 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
   header {
-    margin-bottom: $spacing-xl;
-    padding-bottom: $spacing-lg;
-    border-bottom: 2px solid var(--color-border);
-    @include theme-transition(border-color);
+    margin: 0;
+    padding: 2.5rem 2.5rem 2rem;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, rgba(74, 144, 226, 0.02) 100%);
+    border-bottom: none;
+    position: relative;
+    @include theme-transition(background);
 
     h1 {
-      margin: 0 0 $spacing-md 0;
-      font-size: $font-size-h1;
-      color: var(--color-text-primary);
+      margin: 0 0 1.25rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
       @include theme-transition(color);
     }
 
@@ -698,12 +816,39 @@ body {
     .module-meta,
     .exercise-meta {
       display: flex;
-      gap: $spacing-lg;
-      color: var(--color-text-secondary);
-      font-size: $font-size-small;
-      margin-top: $spacing-sm;
-      @include theme-transition(color);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+
+      span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(135deg, rgba(74, 144, 226, 0.1) 0%, rgba(74, 144, 226, 0.05) 100%);
+        border: 1px solid rgba(74, 144, 226, 0.2);
+        border-radius: 20px;
+        color: var(--color-primary);
+        font-size: 0.875rem;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+      }
     }
+  }
+
+  // Conteúdo da aula com padding
+  >*:not(header):not(.lesson-actions) {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  > :first-child:not(header) {
+    padding-top: 2rem;
   }
 }
 
@@ -718,7 +863,6 @@ body {
   width: 100%;
   box-sizing: border-box;
   min-height: 60px;
-  position: relative;
   @include theme-transition(background-color);
 
   a {
@@ -739,6 +883,8 @@ body {
     white-space: nowrap;
     flex-shrink: 0;
     min-width: fit-content;
+
+
 
     &:hover {
       text-decoration: none;
@@ -785,19 +931,18 @@ body {
     margin-right: 0;
     order: 2;
     text-align: right;
-    flex-grow: 0;
     flex-shrink: 0;
   }
 }
 
 .exercises {
   margin-top: $spacing-xl;
-  margin-bottom: 0;
-  padding-bottom: 0;
 
   h2 {
     font-size: $font-size-h2;
     margin-bottom: $spacing-lg;
+    color: var(--color-text-primary);
+    @include theme-transition(color);
   }
 
   .exercise-card {
@@ -828,50 +973,87 @@ body {
 }
 
 .lesson-actions {
-  margin-top: $spacing-xl;
-  padding-top: $spacing-lg;
-  border-top: 1px solid var(--color-border);
-  @include theme-transition(border-color);
+  margin: 0;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.03) 0%, rgba(74, 144, 226, 0.01) 100%);
+  border-top: none;
+  @include theme-transition(background);
 
   .mark-lesson-complete {
-    background: var(--color-success);
-    color: var(--color-text-inverse);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
     border: none;
-    padding: $spacing-sm $spacing-lg;
-    border-radius: 4px;
-    font-size: $font-size-base;
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    font-size: 1.0625rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 54px;
+    box-shadow:
+      0 6px 20px rgba(16, 185, 129, 0.3),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '✓';
+      margin-right: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
 
     &:hover {
-      background: var(--color-success-hover);
+      transform: translateY(-3px);
+      box-shadow:
+        0 10px 30px rgba(16, 185, 129, 0.4),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+
+      &::before {
+        transform: scale(1.2) rotate(360deg);
+      }
+    }
+
+    &:active::after {
+      width: 300px;
+      height: 300px;
     }
 
     &:disabled {
-      background: var(--color-text-tertiary);
+      background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
       cursor: not-allowed;
+      transform: none;
+      box-shadow: 0 4px 12px rgba(156, 163, 175, 0.2);
+
+      &::before {
+        content: '✓';
+        transform: none;
+      }
     }
   }
 }
 
-.site-footer {
-  background: var(--color-secondary);
-  color: var(--color-text-inverse);
-  padding: $spacing-lg;
-  margin-top: $spacing-xl;
-  text-align: center;
-  @include theme-transition(background-color);
+// Footer styles moved to components/_footer.scss
 
-  [data-theme="dark"] & {
-    background: var(--color-surface-elevated);
-  }
-
-  .footer-content {
-    max-width: $container-max-width;
-    margin: 0 auto;
-  }
-}
-
+// Media query faltando - este bloco estava fora de media query (BUG CORRIGIDO)
 @media (max-width: $breakpoint-tablet) {
   .page-wrapper {
     flex-direction: column;
@@ -889,16 +1071,11 @@ body {
     height: auto;
   }
 
-  .main-container .content-wrapper {
-    overflow: visible;
+  .main-container {
+    width: 100%;
   }
 
   .main-container .content {
-    zoom: 1;
-  }
-
-  .container {
-    flex-direction: column;
     padding: $spacing-md;
   }
 
@@ -913,7 +1090,19 @@ body {
       flex-direction: column;
       gap: $spacing-md;
     }
+
+    .header-brand {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-sm;
+    }
+
+    .brand-badge {
+      align-self: flex-start;
+    }
   }
+
+  // Footer responsive styles moved to components/_footer.scss
 }
 
 @media (max-width: $breakpoint-mobile) {
