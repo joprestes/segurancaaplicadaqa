@@ -167,5 +167,24 @@
   // ============================================
   // Global Instance
   // ============================================
-  window.toast = new Toast();
+  const toastInstance = new Toast();
+  window.toast = toastInstance;
+  // Alias para consistência com outros módulos (window.Toast)
+  window.Toast = {
+    show: function(options) {
+      return toastInstance.show(options);
+    },
+    success: function(message, title, duration) {
+      return toastInstance.success(message, title, duration);
+    },
+    error: function(message, title, duration) {
+      return toastInstance.error(message, title, duration);
+    },
+    warning: function(message, title, duration) {
+      return toastInstance.warning(message, title, duration);
+    },
+    info: function(message, title, duration) {
+      return toastInstance.info(message, title, duration);
+    }
+  };
 })();

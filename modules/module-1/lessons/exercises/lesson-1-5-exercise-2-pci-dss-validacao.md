@@ -204,9 +204,11 @@ Crie plano completo de validação:
 
 ## Contexto CWI
 
-### Caso Real: Validação PCI-DSS em Fintech
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto fintech da CWI, validamos compliance PCI-DSS:
+### Exemplo Hipotético: Validação PCI-DSS em Fintech
+
+Em um projeto fintech hipotético, validaríamos compliance PCI-DSS:
 
 **Estratégia**:
 - Foco nos requisitos críticos primeiro

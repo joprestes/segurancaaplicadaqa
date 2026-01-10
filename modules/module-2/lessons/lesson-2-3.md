@@ -1,27 +1,18 @@
 ---
 layout: lesson
-title: "Aula 2.3: Formulários Reativos e Validação"
-slug: formularios-reativos
+title: "Aula 2.3: Testes de Penetração (Pentest) Básico"
+slug: pentest-basico
 module: module-2
 lesson_id: lesson-2-3
 duration: "120 minutos"
-level: "Intermediário"
-prerequisites: []
-exercises: []
-podcast:
-  file: "assets/podcasts/02.3-Dominando_os_Formularios_Reativos_do_Angular.m4a"
-  image: "assets/images/podcasts/02.3-Dominando_os_Formularios_Reativos_do_Angular.png"
-  title: "Dominando os Formulários Reativos do Angular"
-  description: "Formulários reativos são uma das funcionalidades mais poderosas do Angular."
-  duration: "60-75 minutos"
-video:
-  file: "assets/videos/02.3-Dominando_os_Formulários_Reativos_do_Angular.mp4"
-  thumbnail: "assets/images/podcasts/02.3-Dominando_os_Formularios_Reativos_do_Angular.png"
-  title: "Dominando os Formulários Reativos do Angular"
-  description: "Formulários reativos são uma das funcionalidades mais poderosas do Angular."
-  duration: "60-75 minutos"
-permalink: /modules/desenvolvimento-intermediario/lessons/formularios-reativos/
+level: "Avançado"
+prerequisites: ["lesson-2-2"]
+image: "assets/images/podcasts/2.3-Pentest_Basico.png"
+permalink: /modules/testes-seguranca-pratica/lessons/pentest-basico/
 ---
+
+<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
+     Veja CONTENT_ISSUES.md para mais detalhes. -->
 
 ## Introdução
 

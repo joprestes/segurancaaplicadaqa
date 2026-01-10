@@ -126,7 +126,6 @@ Cada aula inclui casos reais (anonimizados) de projetos CWI:
 ## 🔗 Conexão com os Próximos Módulos
 
 - **Módulo 4**: Você vai automatizar testes específicos de cada setor em pipelines
-- **Módulo 5**: Vai ver casos práticos completos aplicando tudo que aprendeu
 
 ## 📚 Recursos Adicionais
 

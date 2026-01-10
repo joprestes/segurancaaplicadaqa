@@ -20,7 +20,7 @@ layout: default
         {% assign lesson = site.data.lessons.lessons | where: "id", lesson_id | first %}
         {% if lesson %}
           <li>
-            <a href="{{ '/modules/' | append: page.slug | append: '/lessons/' | append: lesson.slug | relative_url }}">
+            <a href="{{ '/modules/' | append: page.slug | append: '/lessons/' | append: lesson.slug | relative_url }}" data-testid="module-lesson-link-{{ lesson.slug }}">
               {{ lesson.title }}
             </a>
             <span class="lesson-duration">({{ lesson.duration }})</span>

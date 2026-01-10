@@ -279,9 +279,11 @@ Simule resposta a auditoria externa:
 
 ## Contexto CWI
 
-### Caso Real: Auditoria LGPD em Projeto
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto da CWI, preparamos e executamos auditoria LGPD:
+### Exemplo Hipotético: Auditoria LGPD em Projeto
+
+Em um projeto hipotético, prepararíamos e executaríamos auditoria LGPD:
 
 **Estratégia**:
 - Evidências coletadas sistematicamente

@@ -236,9 +236,11 @@ Crie plano de validação que considere múltiplos setores:
 
 ## Contexto CWI
 
-### Caso Real: Compliance Multi-Setor
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-A CWI trabalha com projetos em múltiplos setores:
+### Exemplo Hipotético: Compliance Multi-Setor
+
+Em um contexto hipotético, poderíamos trabalhar com projetos em múltiplos setores:
 
 **Estratégia**:
 - Checklist base comum (LGPD, segurança)

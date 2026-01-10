@@ -1,27 +1,18 @@
 ---
 layout: lesson
-title: "Aula 2.2: Roteamento e Navegação Avançada"
-slug: roteamento
+title: "Aula 2.2: DAST: Dynamic Application Security Testing"
+slug: dast-testes-dinamicos
 module: module-2
 lesson_id: lesson-2-2
-duration: "120 minutos"
+duration: "90 minutos"
 level: "Intermediário"
-prerequisites: []
-exercises: []
-podcast:
-  file: "assets/podcasts/02.2-SilencioRouter_Guards_Resolvers_Lazy_Loading.m4a"
-  image: "assets/images/podcasts/02.2-SilencioRouter_Guards_Resolvers_Lazy_Loading.png"
-  title: "Router, Guards, Resolvers e Lazy Loading"
-  description: "Domine o sistema de roteamento avançado do Angular."
-  duration: "55-70 minutos"
-video:
-  file: "assets/videos/02.2-SilencioRouter_Guards_Resolvers_Lazy_Loading.mp4"
-  thumbnail: "assets/images/podcasts/02.2-SilencioRouter_Guards_Resolvers_Lazy_Loading.png"
-  title: "Router, Guards, Resolvers e Lazy Loading"
-  description: "Domine o sistema de roteamento avançado do Angular."
-  duration: "55-70 minutos"
-permalink: /modules/desenvolvimento-intermediario/lessons/roteamento/
+prerequisites: ["lesson-2-1"]
+image: "assets/images/podcasts/2.2-DAST_Testes_Dinamicos.png"
+permalink: /modules/testes-seguranca-pratica/lessons/dast-testes-dinamicos/
 ---
+
+<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
+     Veja CONTENT_ISSUES.md para mais detalhes. -->
 
 ## Introdução
 

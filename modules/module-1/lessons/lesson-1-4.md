@@ -13,10 +13,10 @@ exercises:
   - lesson-1-4-exercise-3-analise-riscos
   - lesson-1-4-exercise-4-threat-model-completo
   - lesson-1-4-exercise-5-mitigacao-priorizacao
-podcast:
-  file: "assets/podcasts/1.4-Threat_Modeling.m4a"
-  image: "assets/images/podcasts/1.4-Threat_Modeling.png"
+video:
+  file: "assets/videos/Modelagem_de_Ameaças-lesson-1-4.mp4"
   title: "Threat Modeling: Identificando Ameaças Antes de Acontecerem"
+  thumbnail: "assets/images/infografico-lesson-1-4.png"
   description: "Aprenda técnicas de modelagem de ameaças (STRIDE, PASTA, DREAD) e como aplicá-las em diferentes contextos de projeto para identificar riscos de segurança proativamente."
   duration: "60-75 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
@@ -280,11 +280,15 @@ Para cada ameaça crítica/alta, propor mitigações:
 - Controles detectivos (detectar ameaça)
 - Controles corretivos (corrigir após ameaça)
 
+![Infográfico: Threat Modeling - Metodologia e Processo Completo]({{ '/assets/images/infografico-lesson-1-4.png' | relative_url }})
+
 ---
 
 ## 💼 Casos Práticos CWI
 
-### Caso 1: Aplicação Financeira - API de Transferências
+> **Nota**: Os casos abaixo são exemplos hipotéticos criados para fins educacionais, ilustrando como os conceitos podem ser aplicados.
+
+### Caso Hipotético 1: Aplicação Financeira - API de Transferências
 
 **Arquitetura**:
 ```
@@ -321,7 +325,7 @@ Cliente → API Gateway → API Transferências → Banco de Dados
 
 ---
 
-### Caso 2: Plataforma Educacional - Área do Aluno
+### Caso Hipotético 2: Plataforma Educacional - Área do Aluno
 
 **Arquitetura**:
 ```
@@ -349,7 +353,7 @@ Aluno → Frontend → API → Banco de Dados (Dados de Alunos)
 
 ---
 
-### Caso 3: Ecommerce - Sistema de Checkout
+### Caso Hipotético 3: Ecommerce - Sistema de Checkout
 
 **Arquitetura**:
 ```

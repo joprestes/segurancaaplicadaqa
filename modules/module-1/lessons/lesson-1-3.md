@@ -12,10 +12,10 @@ exercises:
   - lesson-1-3-exercise-2-threat-modeling-early
   - lesson-1-3-exercise-3-devqa-security-collab
   - lesson-1-3-exercise-4-shift-left-checklist
-podcast:
-  file: "assets/podcasts/1.3-Shift_Left_Security.m4a"
-  image: "assets/images/podcasts/1.3-Shift_Left_Security.png"
+video:
+  file: "assets/videos/Seguranca_Shift-Left-lesson-1-3.mp4"
   title: "Shift-Left Security na Prática"
+  thumbnail: "assets/images/info-grafico-lesson-1-3.png"
   description: "Entenda como integrar segurança desde as fases iniciais do desenvolvimento. Discutimos requisitos de segurança, threat modeling, e como QA pode atuar preventivamente."
   duration: "45-60 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/shift-left-security/
@@ -134,6 +134,8 @@ Na segurança de software, Shift-Left significa pensar em segurança desde a fas
 - Correções baratas e simples
 - Menos retrabalho
 - Produtos mais seguros
+
+![Infográfico: Shift-Left Security - Segurança em Cada Fase do SDLC]({{ '/assets/images/info-grafico-lesson-1-3.png' | relative_url }})
 
 ---
 
@@ -387,10 +389,12 @@ def test_broken_access_control_prevention():
 
 ## 💼 Casos Práticos CWI
 
-### Caso 1: Projeto Financeiro - Open Banking
+> **Nota**: Os casos abaixo são exemplos hipotéticos criados para fins educacionais, ilustrando como os conceitos podem ser aplicados.
+
+### Caso Hipotético 1: Projeto Financeiro - Open Banking
 
 **Contexto**:
-Projeto de Open Banking para cliente financeiro. Segurança crítica desde o início.
+Projeto hipotético de Open Banking para cliente financeiro. Segurança crítica desde o início.
 
 **Aplicação de Shift-Left Security**:
 
@@ -422,7 +426,7 @@ Projeto de Open Banking para cliente financeiro. Segurança crítica desde o in�
 
 ---
 
-### Caso 2: Plataforma Educacional - LGPD
+### Caso Hipotético 2: Plataforma Educacional - LGPD
 
 **Contexto**:
 Plataforma educacional com dados de menores. Requisitos rigorosos de LGPD.
@@ -452,7 +456,7 @@ Plataforma educacional com dados de menores. Requisitos rigorosos de LGPD.
 
 ---
 
-### Caso 3: Ecommerce - Prevenção de Fraude
+### Caso Hipotético 3: Ecommerce - Prevenção de Fraude
 
 **Contexto**:
 Plataforma de ecommerce de alta escala. Prevenção de fraude crítica.

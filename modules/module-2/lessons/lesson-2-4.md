@@ -1,27 +1,18 @@
 ---
 layout: lesson
-title: "Aula 2.4: HTTP Client e Interceptors"
-slug: http-client
+title: "Aula 2.4: Automação de Testes de Segurança"
+slug: automacao-testes-seguranca
 module: module-2
 lesson_id: lesson-2-4
-duration: "90 minutos"
-level: "Intermediário"
-prerequisites: []
-exercises: []
-podcast:
-  file: "assets/podcasts/02.4-HttpClient_e_Interceptors_no_Angular.m4a"
-  image: "assets/images/podcasts/02.4-HttpClient_e_Interceptors_no_Angular.png"
-  title: "HttpClient e Interceptors no Angular"
-  description: "Aprenda a consumir APIs REST de forma profissional com HttpClient."
-  duration: "50-65 minutos"
-video:
-  file: "assets/videos/02.4-HttpClient_e_Interceptors_no_Angular.mp4"
-  thumbnail: "assets/images/podcasts/02.4-HttpClient_e_Interceptors_no_Angular.png"
-  title: "HttpClient e Interceptors no Angular"
-  description: "Aprenda a consumir APIs REST de forma profissional com HttpClient."
-  duration: "50-65 minutos"
-permalink: /modules/desenvolvimento-intermediario/lessons/http-client/
+duration: "120 minutos"
+level: "Avançado"
+prerequisites: ["lesson-2-3"]
+image: "assets/images/podcasts/2.4-Automacao_Testes_Seguranca.png"
+permalink: /modules/testes-seguranca-pratica/lessons/automacao-testes-seguranca/
 ---
+
+<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
+     Veja CONTENT_ISSUES.md para mais detalhes. -->
 
 ## Introdução
 

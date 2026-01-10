@@ -11,7 +11,7 @@
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  z-index: 9000;
+  z-index: z(notification); // 1000 - sistema profissional
   display: flex;
   flex-direction: column;
   gap: 1rem;

@@ -13,10 +13,10 @@ exercises:
   - lesson-1-5-exercise-3-soc2-controles
   - lesson-1-5-exercise-4-compliance-por-setor
   - lesson-1-5-exercise-5-auditoria-qa
-podcast:
-  file: "assets/podcasts/1.5-Compliance_Regulamentacoes.m4a"
-  image: "assets/images/podcasts/1.5-Compliance_Regulamentacoes.png"
+video:
+  file: "assets/videos/Compliance__As_Regras_Ocultas-lesson-1-5.mp4"
   title: "Compliance em Segurança: LGPD, PCI-DSS e SOC2"
+  thumbnail: "assets/images/infografico-lesson-1-5.png"
   description: "Navegue pelas principais regulamentações de segurança e privacidade. Como garantir compliance em projetos de diferentes setores e o papel do QA nesse processo."
   duration: "60-75 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/
@@ -400,6 +400,8 @@ Na segurança de software, compliance são as "regras de trânsito" que garantem
 - [ ] LGPD está sendo cumprido?
 - [ ] Transparência de preços está garantida?
 
+![Infográfico: Compliance e Regulamentações - LGPD, PCI-DSS, SOC2]({{ '/assets/images/infografico-lesson-1-5.png' | relative_url }})
+
 ---
 
 ## 🔍 Papel do QA em Compliance
@@ -454,7 +456,9 @@ Na segurança de software, compliance são as "regras de trânsito" que garantem
 
 ## 📊 Casos Práticos CWI
 
-### Caso 1: Fintech - Compliance PCI-DSS
+> **Nota**: Os casos abaixo são exemplos hipotéticos criados para fins educacionais, ilustrando como os conceitos podem ser aplicados.
+
+### Caso Hipotético 1: Fintech - Compliance PCI-DSS
 
 **Desafio**:
 - Processar pagamentos com cartão
@@ -477,7 +481,7 @@ Na segurança de software, compliance são as "regras de trânsito" que garantem
 
 ---
 
-### Caso 2: EdTech - Compliance LGPD para Menores
+### Caso Hipotético 2: EdTech - Compliance LGPD para Menores
 
 **Desafio**:
 - Plataforma educacional com dados de menores
@@ -500,7 +504,7 @@ Na segurança de software, compliance são as "regras de trânsito" que garantem
 
 ---
 
-### Caso 3: Ecommerce - Compliance Multi-Regulamentação
+### Caso Hipotético 3: Ecommerce - Compliance Multi-Regulamentação
 
 **Desafio**:
 - Ecommerce com múltiplas regulamentações
@@ -559,7 +563,6 @@ Após dominar Compliance, você estará preparado para:
 - **Módulo 2**: Testes de Segurança na Prática - Aplicar compliance em testes
 - **Módulo 3**: Segurança por Setor - Compliance específico por contexto
 - **Módulo 4**: DevSecOps - Automação de compliance
-- **Módulo 5**: Casos Práticos CWI - Aplicar compliance em projetos reais
 
 ---
 

@@ -2,14 +2,15 @@
 @import 'theme';
 
 /* Regras globais para garantir que vídeos não ultrapassem containers */
+// NOTA: !important necessário para garantir responsividade de vídeos em todos os contextos
 .content video,
 .video-player-container video,
 .video-container video,
 #video-element {
-  max-width: 100% !important;
-  width: 100% !important;
-  height: auto !important;
-  box-sizing: border-box !important;
+  max-width: 100% !important; // Crítico para responsividade
+  width: 100% !important; // Crítico para responsividade
+  height: auto !important; // Crítico para manter proporção
+  box-sizing: border-box !important; // Crítico para cálculo correto de dimensões
 }
 
 .video-player-container {
@@ -18,13 +19,13 @@
   background: var(--color-surface);
   padding: $spacing-md;
   box-shadow: var(--color-shadow-sm);
-  z-index: 100;
+  z-index: z(content); // 100 - sistema profissional
   margin-bottom: $spacing-xl;
   border-radius: 8px;
-  max-width: 100% !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
+  max-width: 100% !important; // Crítico para responsividade
+  width: 100% !important; // Crítico para responsividade
+  overflow: hidden !important; // Necessário para evitar overflow
+  box-sizing: border-box !important; // Crítico para cálculo correto
   @include theme-transition-all;
   
   * {
@@ -216,7 +217,7 @@
   border-radius: 12px;
   box-shadow: var(--color-shadow-lg);
   display: none;
-  z-index: 1000;
+  z-index: z(notification); // 1000 - sistema profissional
   font-size: $font-size-small;
   font-weight: 500;
   display: flex;

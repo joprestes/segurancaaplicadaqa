@@ -42,7 +42,8 @@
     palette.className = 'command-palette';
     palette.setAttribute('aria-hidden', 'true');
     palette.setAttribute('role', 'dialog');
-    palette.setAttribute('aria-label', 'Command Palette');
+    palette.setAttribute('aria-modal', 'true');
+    palette.setAttribute('aria-label', 'Paleta de Comandos - Buscar módulos e lições');
     palette.innerHTML = 
       '<div class="command-palette__backdrop" id="palette-backdrop"></div>' +
       '<div class="command-palette__container">' +

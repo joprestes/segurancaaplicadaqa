@@ -180,9 +180,11 @@ def test_sql_injection_prevention():
 
 ## Contexto CWI
 
-### Caso Real: Projeto Financeiro
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto financeiro da CWI, identificamos SQL Injection em endpoint de consulta de extratos. O endpoint construía queries SQL concatenando strings com dados do usuário.
+### Exemplo Hipotético: Projeto Financeiro
+
+Em um projeto financeiro hipotético, poderíamos identificar SQL Injection em endpoint de consulta de extratos. O endpoint construiria queries SQL concatenando strings com dados do usuário.
 
 **Impacto**:
 - Potencial acesso a dados bancários de 500k+ usuários

@@ -38,4 +38,16 @@ modules:
       - lesson-3-5
     order: 3
 
+  - id: module-4
+    title: "Segurança em CI/CD e DevSecOps"
+    slug: "seguranca-cicd-devsecops"
+    duration: "8 horas"
+    description: "Integre segurança no pipeline de desenvolvimento e deploy"
+    lessons:
+      - lesson-4-1
+      - lesson-4-2
+      - lesson-4-3
+      - lesson-4-4
+      - lesson-4-5
+    order: 4
 
