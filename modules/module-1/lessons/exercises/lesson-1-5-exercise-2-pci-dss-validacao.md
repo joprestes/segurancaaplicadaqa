@@ -243,6 +243,11 @@ Após completar este exercício, você estará preparado para:
 
 ---
 
+
+{% include exercise-submission-form.html %}
+
+---
+
 **Duração Estimada**: 90-120 minutos  
 **Nível**: Intermediário  
 **Pré-requisitos**: Exercício 1.5.1 (Checklist LGPD)

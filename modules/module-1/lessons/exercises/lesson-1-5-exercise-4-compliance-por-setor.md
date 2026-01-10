@@ -275,6 +275,11 @@ Após completar este exercício, você estará preparado para:
 
 ---
 
+
+{% include exercise-submission-form.html %}
+
+---
+
 **Duração Estimada**: 120-150 minutos  
 **Nível**: Avançado  
 **Pré-requisitos**: Exercício 1.5.3 (Controles SOC2)
