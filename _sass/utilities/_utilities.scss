@@ -1,0 +1,68 @@
+// _sass/utilities/_utilities.scss
+// Classes utilitárias para substituir estilos inline
+
+// Classes de visibilidade
+.hidden {
+  display: none !important; // Necessário para sobrescrever estilos dinâmicos
+}
+
+.visible {
+  display: block !important;
+}
+
+// Classes para mídia responsiva
+.responsive-media {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.full-width {
+  width: 100%;
+}
+
+// Container para imagens de lesson
+.lesson-image-container {
+  width: 100%;
+  margin: $spacing-lg 0;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  .lesson-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+  }
+}
+
+// Classes para empty state
+.empty-state-full-width {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+// Botão primário (para substituir inline styles em module-summary)
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  
+  &:hover {
+    background: var(--color-primary-hover);
+    text-decoration: none;
+  }
+  
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}

@@ -5,6 +5,8 @@ title: Sobre o Curso
 
 # Sobre o Curso: Segurança Aplicada à Qualidade de Software
 
+![Infográfico: Visão Geral do Curso - Segurança Aplicada à Qualidade de Software]({{ '/assets/images/infografico-sobre.png' | relative_url }})
+
 Este é um treinamento prático e focado em segurança desenvolvido especificamente para profissionais de QA da CWI, com foco em aplicar segurança no dia a dia de projetos reais em diferentes setores.
 
 ## 🎯 Objetivo
@@ -21,18 +23,18 @@ Capacitar profissionais de QA a integrar práticas de segurança no processo de 
 
 ## 🏗️ Estrutura
 
-O curso é dividido em 5 módulos progressivos:
+O curso é dividido em 4 módulos progressivos:
 
 1. **Fundamentos de Segurança em QA**: Base teórica sólida (OWASP, threat modeling, compliance)
 2. **Testes de Segurança na Prática**: Ferramentas e técnicas (SAST, DAST, pentest)
 3. **Segurança por Setor**: Requisitos específicos de cada segmento
 4. **Segurança em CI/CD e DevSecOps**: Automação de segurança
-5. **Casos Práticos CWI**: Exemplos reais e checklist aplicável
+
 
 ## 📚 Recursos
 
-- **25 aulas estruturadas** com conteúdo progressivo
-- **Podcasts explicativos** para cada aula (45-90 minutos)
+- **20 aulas estruturadas** com conteúdo progressivo
+- **Vídeos explicativos** para cada aula
 - **Exercícios práticos** com ferramentas reais
 - **Casos de estudo** de projetos CWI em diferentes setores
 - **Checklist de segurança** para aplicar em projetos

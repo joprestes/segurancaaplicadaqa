@@ -3,14 +3,6 @@
 {% assign module_slug = module_info.slug | default: page.module %}
 
 <div class="module-summary-page">
-  <nav class="module-summary-breadcrumb" aria-label="Você está aqui">
-    <a href="{{ '/' | relative_url }}">Início</a>
-    <span>/</span>
-    <a href="{{ '/modules/' | append: module_slug | append: '/' | relative_url }}">{{ module_title }}</a>
-    <span>/</span>
-    <span>{{ page.title }}</span>
-  </nav>
-
   <header class="module-summary-hero">
     <div class="hero-icon" aria-hidden="true">🎯</div>
     <div class="hero-content">

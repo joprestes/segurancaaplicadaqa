@@ -14,7 +14,8 @@ module: module-1
 permalink: /modules/fundamentos-seguranca-qa/
 ---
 
-# Módulo 1: Fundamentos de Segurança em QA
+
+![Infográfico: Introdução ao Módulo 1 - Fundamentos de Segurança em QA]({{ '/assets/images/infografico-ibntroducao-modulo-1.png' | relative_url }})
 
 ## 🎯 Objetivo do Módulo
 
@@ -89,7 +90,6 @@ Este módulo é a base para os demais:
 - **Módulo 2**: Você aplicará os conceitos aprendidos em ferramentas práticas (SAST, DAST)
 - **Módulo 3**: Verá como diferentes setores aplicam compliance na prática
 - **Módulo 4**: Integrará segurança em pipelines CI/CD (DevSecOps)
-- **Módulo 5**: Analisará casos reais de aplicação desses conceitos
 
 ## 📚 Recursos Adicionais
 

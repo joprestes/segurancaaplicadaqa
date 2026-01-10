@@ -103,11 +103,7 @@ class ModuleGate {
 
       return completedQuizzes.length === module.lessons.length;
     } catch (e) {
-      if (window.Logger) {
-        window.Logger.error('Error checking module completion:', e);
-      } else {
-        console.error('Error checking module completion:', e);
-      }
+      window.Logger?.error('Error checking module completion:', e);
       return false;
     }
   }

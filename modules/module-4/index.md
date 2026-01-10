@@ -227,9 +227,6 @@ ggshield scan pre-commit
 └────────────────────────────────────────┘
 ```
 
-## 🔗 Conexão com o Próximo Módulo
-
-No **Módulo 5**, você verá casos práticos completos de implementação de tudo que aprendeu aqui, incluindo pipelines completos de projetos reais CWI.
 
 ## 📚 Recursos Adicionais
 

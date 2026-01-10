@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://onosendae.github.io/angular/sitemap.xml
+Sitemap: https://onosendae.github.io/seguranca-qa/sitemap.xml
 

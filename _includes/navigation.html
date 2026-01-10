@@ -6,13 +6,14 @@
         <div class="module-header">
           <button 
             class="toggle-btn module-toggle" 
+            data-testid="module-toggle-{{ module.id }}"
             aria-label="Expandir ou colapsar módulo {{ module.title }}"
             aria-expanded="true"
             aria-controls="lessons-list-{{ module.id }}"
           >
             <span class="toggle-icon" aria-hidden="true">▼</span>
           </button>
-          <a href="{{ '/modules/' | append: module.slug | relative_url }}">
+          <a href="{{ '/modules/' | append: module.slug | relative_url }}" data-testid="nav-module-link-{{ module.slug }}">
             {{ module.title }}
           </a>
         </div>
@@ -24,26 +25,27 @@
                 <div class="lesson-header">
                   <button 
                     class="toggle-btn lesson-toggle" 
+                    data-testid="lesson-toggle-{{ lesson.id }}"
                     aria-label="Expandir ou colapsar aula {{ lesson.title }}"
                     aria-expanded="false"
                     aria-controls="exercises-list-{{ lesson.id }}"
                   >
                     <span class="toggle-icon" aria-hidden="true">►</span>
                   </button>
-                  <a href="{{ '/modules/' | append: module.slug | append: '/lessons/' | append: lesson.slug | relative_url }}">
+                  <a href="{{ '/modules/' | append: module.slug | append: '/lessons/' | append: lesson.slug | relative_url }}" data-testid="nav-lesson-link-{{ lesson.slug }}">
                     {{ lesson.title }}
                   </a>
                 </div>
                 <ul class="exercises-list collapsed">
                   <li class="lesson-link-item">
-                    <a href="{{ '/modules/' | append: module.slug | append: '/lessons/' | append: lesson.slug | relative_url }}">
+                    <a href="{{ '/modules/' | append: module.slug | append: '/lessons/' | append: lesson.slug | relative_url }}" data-testid="nav-lesson-link-{{ lesson.slug }}">
                       {{ lesson.title }}
                     </a>
                   </li>
                   {% assign module_exercises = site.data.exercises.exercises | where: "lesson_id", lesson_id | sort: "order" %}
                   {% for exercise in module_exercises %}
                     <li>
-                      <a href="{{ exercise.url | relative_url }}">{{ exercise.title }}</a>
+                      <a href="{{ exercise.url | relative_url }}" data-testid="nav-exercise-link-{{ exercise.id }}">{{ exercise.title }}</a>
                     </li>
                   {% endfor %}
                 </ul>

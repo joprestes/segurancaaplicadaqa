@@ -13,7 +13,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  z-index: z(command-palette); // 1100 - sistema profissional
   display: none;
   
   &[aria-hidden="false"] {

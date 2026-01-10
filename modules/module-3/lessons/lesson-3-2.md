@@ -1,27 +1,18 @@
 ---
 layout: lesson
-title: "Aula 3.2: Signals e Signal-First Architecture"
-slug: signals
+title: "Aula 3.2: Segurança no Setor Educacional"
+slug: seguranca-setor-educacional
 module: module-3
 lesson_id: lesson-3-2
-duration: "120 minutos"
-level: "Avançado"
-prerequisites: []
-exercises: []
-podcast:
-  file: "assets/podcasts/03.2-Angular_Signals_O_Guia_Completo_e_Pratico.m4a"
-  image: "assets/images/podcasts/03.2-Angular_Signals_O_Guia_Completo_e_Pratico.png"
-  title: "Angular Signals - O Guia Completo e Prático"
-  description: "Signals são a nova forma reativa do Angular."
-  duration: "60-75 minutos"
-video:
-  file: "assets/videos/03.2-Angular_Signals__O_Guia_Completo_e_Prático.mp4"
-  thumbnail: "assets/images/podcasts/03.2-Angular_Signals_O_Guia_Completo_e_Pratico.png"
-  title: "Angular Signals - O Guia Completo e Prático"
-  description: "Signals são a nova forma reativa do Angular."
-  duration: "60-75 minutos"
-permalink: /modules/programacao-reativa-estado/lessons/signals/
+duration: "90 minutos"
+level: "Intermediário"
+prerequisites: ["lesson-3-1"]
+image: "assets/images/podcasts/3.2-Seguranca_Setor_Educacional.png"
+permalink: /modules/seguranca-por-setor/lessons/seguranca-setor-educacional/
 ---
+
+<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
+     Veja CONTENT_ISSUES.md para mais detalhes. -->
 
 ## Introdução
 

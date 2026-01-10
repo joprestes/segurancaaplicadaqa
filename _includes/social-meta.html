@@ -1,15 +1,15 @@
 {% assign page_title = page.title | default: site.title %}
-{% assign page_description = page.description | default: page.podcast.description | default: site.description %}
+{% assign page_description = page.description | default: page.video.description | default: site.description %}
 {% assign page_url = page.url | default: '/' | prepend: site.baseurl | prepend: site.url %}
 
-{% if page.podcast and page.podcast.image %}
-  {% assign image_source = page.podcast.image %}
+{% if page.video and page.video.thumbnail %}
+  {% assign image_source = page.video.thumbnail %}
 {% elsif page.image %}
   {% assign image_source = page.image %}
 {% elsif site.image %}
   {% assign image_source = site.image %}
 {% else %}
-  {% assign image_source = '/assets/images/podcasts/01-Fundacao_Angular_Tipagem_Encapsulamento_e_Generics.png' %}
+  {% assign image_source = '/assets/images/infografico-ibntroducao-modulo-1.png' %}
 {% endif %}
 
 {% if image_source contains 'http' %}

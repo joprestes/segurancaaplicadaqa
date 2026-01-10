@@ -126,9 +126,11 @@ Valide o threat model criado:
 
 ## Contexto CWI
 
-### Caso Real: Threat Model em Projeto
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto da CWI, criamos threat model completo:
+### Exemplo Hipotético: Threat Model em Projeto
+
+Em um projeto hipotético, criaríamos threat model completo:
 
 **Resultado**:
 - 30+ ameaças identificadas

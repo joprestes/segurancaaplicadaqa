@@ -2,16 +2,16 @@
   <div class="header-content">
     <div class="header-brand">
       <h1 class="site-title">
-        <a class="brand-logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}">
+        <a class="brand-logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}" data-testid="header-logo-link">
           <img src="{{ '/assets/images/logoQa-preview.png' | relative_url }}" alt="{{ site.title }}" class="brand-logo-image">
           <span class="brand-text">{{ site.title }}</span>
         </a>
       </h1>
     </div>
     <nav class="main-nav">
-      <a href="{{ '/' | relative_url }}">Início</a>
-      <a href="{{ '/about' | relative_url }}">Sobre</a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Alternar tema">
+      <a href="{{ '/' | relative_url }}" data-testid="nav-link-home">Início</a>
+      <a href="{{ '/about' | relative_url }}" data-testid="nav-link-about">Sobre</a>
+      <button class="theme-toggle" id="theme-toggle" data-testid="theme-toggle-btn" aria-label="Alternar tema">
         <span id="theme-icon">🌙</span>
       </button>
     </nav>

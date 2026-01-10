@@ -1,0 +1,19 @@
+{
+  "monitores": [
+    {
+      "id": "monitor-1",
+      "nome": "Monitor 1",
+      "email": "monitor1@cwi.com.br",
+      "ativo": true
+    },
+    {
+      "id": "monitor-2",
+      "nome": "Monitor 2",
+      "email": "monitor2@cwi.com.br",
+      "ativo": true
+    }
+  ],
+  "email_default": "exercicios@cwi.com.br",
+  "ultima_atualizacao": "2025-01-09",
+  "nota": "Este arquivo contém a lista de monitores que receberão as submissões de exercícios. Atualize conforme necessário."
+}

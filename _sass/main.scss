@@ -2,12 +2,12 @@
 @import 'colors';
 @import 'theme';
 @import 'navigation';
-@import 'podcast-player';
 @import 'video-player';
 @import 'progress-tracker';
 @import 'breadcrumbs';
 @import 'module-summary';
 @import 'quiz';
+@import 'exercise-submission';
 @import 'components/interactions';
 @import 'components/skeleton';
 @import 'components/empty-states';
@@ -16,6 +16,7 @@
 @import 'components/toast';
 @import 'components/footer';
 @import 'utilities/transitions';
+@import 'utilities/utilities';
 @import 'animations/keyframes';
 
 * {
@@ -36,12 +37,13 @@
 }
 
 /* Garantir que pre tags sempre usem as cores corretas do tema */
+// NOTA: !important necessário para sobrescrever syntax highlighting do tema Jekyll Minima
 pre {
-  background: var(--color-code-block-bg) !important;
-  color: var(--color-text-primary) !important;
-  border: 1px solid var(--color-code-block-border) !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
+  background: var(--color-code-block-bg) !important; // Necessário para sobrescrever tema
+  color: var(--color-text-primary) !important; // Necessário para sobrescrever tema
+  border: 1px solid var(--color-code-block-border) !important; // Necessário para sobrescrever tema
+  border-radius: 8px !important; // Necessário para sobrescrever tema
+  overflow: hidden !important; // Necessário para sobrescrever tema
   
   code {
     background: transparent !important;
@@ -130,8 +132,9 @@ pre {
 }
 
 /* Remover backgrounds do highlighter-rouge do Minima */
+// NOTA: !important necessário para sobrescrever tema Jekyll Minima
 .highlighter-rouge {
-  background: transparent !important;
+  background: transparent !important; // Necessário para sobrescrever tema
   
   .highlight {
     background: transparent !important;
@@ -239,18 +242,18 @@ h6 {
 }
 
 .site-header {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, var(--color-primary-dark) 100%);
-  color: var(--color-text-inverse);
+  background: var(--color-secondary);
+  color: var(--color-primary);
   padding: $spacing-md $spacing-lg;
   box-shadow: var(--color-shadow-sm);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: z(header); // 200 - sistema profissional
   @include theme-transition-all;
   
-  /* Gradiente adicional para dark mode */
+  /* Dark mode: usar cinza mais escuro */
   [data-theme="dark"] & {
-    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-hover) 50%, var(--color-primary) 100%);
+    background: var(--color-secondary);
   }
   
   .header-content {
@@ -274,13 +277,13 @@ h6 {
     font-size: 0;
     height: 100%;
     
-    .brand-logo {
+      .brand-logo {
       display: inline-flex;
       align-items: center;
       justify-content: flex-start;
       height: 100%;
       text-decoration: none;
-      color: var(--color-text-inverse);
+      color: var(--color-primary);
       transition: opacity 0.2s ease;
       gap: $spacing-md;
       
@@ -301,9 +304,9 @@ h6 {
       min-width: 150px;
       min-height: 48px;
       border-radius: 14px;
-      border: 2px dashed rgba(255, 255, 255, 0.6);
-      background: rgba(255, 255, 255, 0.12);
-      color: rgba(255, 255, 255, 0.85);
+      border: 2px dashed var(--color-primary);
+      background: var(--color-primary-light);
+      color: var(--color-primary);
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-size: 0.85rem;
@@ -318,7 +321,7 @@ h6 {
       font-size: clamp(1.25rem, 2vw, 1.75rem);
       font-weight: $font-weight-semibold;
       letter-spacing: -0.01em;
-      color: var(--color-text-inverse);
+      color: var(--color-primary);
       white-space: nowrap;
     }
   }
@@ -329,11 +332,12 @@ h6 {
     align-items: center;
     
     a {
-      color: var(--color-text-inverse);
+      color: var(--color-primary);
       text-decoration: none;
       
       &:hover {
         text-decoration: underline;
+        color: var(--color-primary-hover);
       }
     }
   }
@@ -341,7 +345,7 @@ h6 {
   .theme-toggle {
     background: transparent;
     border: none;
-    color: var(--color-text-inverse);
+    color: var(--color-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -349,11 +353,12 @@ h6 {
     font-size: 24px;
     padding: $spacing-xs;
     margin-left: $spacing-md;
-    transition: opacity 0.2s, transform 0.2s;
+    transition: opacity 0.2s, transform 0.2s, color 0.2s;
     
     &:hover {
       opacity: 0.8;
       transform: scale(1.1);
+      color: var(--color-primary-hover);
     }
     
     &:active {
@@ -361,7 +366,7 @@ h6 {
     }
     
     &:focus {
-      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline: 2px solid var(--color-primary);
       outline-offset: 2px;
       border-radius: 4px;
     }
@@ -373,11 +378,14 @@ h6 {
   }
 }
 
+// Layout principal - !important necessário para sobrescrever tema Jekyll Minima
+// NOTA: Estes !important são necessários devido a conflitos com o tema Jekyll
+// Testar se funciona sem !important e adicionar de volta se layout quebrar
 .page-wrapper {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: flex-start !important;
-  width: 100% !important;
+  display: flex !important; // Necessário para sobrescrever tema Jekyll
+  flex-direction: row !important; // Necessário para sobrescrever tema Jekyll
+  align-items: flex-start !important; // Necessário para sobrescrever tema Jekyll
+  width: 100% !important; // Necessário para sobrescrever tema Jekyll
   min-height: calc(100vh - 80px);
   box-sizing: border-box;
   margin: 0;
@@ -385,11 +393,11 @@ h6 {
 }
 
 .sidebar {
-  flex: 0 0 $sidebar-width !important;
-  width: $sidebar-width !important;
-  min-width: $sidebar-width !important;
-  max-width: $sidebar-width !important;
-  position: sticky !important;
+  flex: 0 0 $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  min-width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  max-width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
+  position: sticky !important; // Necessário para sobrescrever tema Jekyll
   top: 80px;
   height: calc(100vh - 80px);
   overflow-y: auto;
@@ -400,10 +408,10 @@ h6 {
 }
 
 .main-container {
-  flex: 1 1 auto !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: flex-start !important;
+  flex: 1 1 auto !important; // Necessário para sobrescrever tema Jekyll
+  display: flex !important; // Necessário para sobrescrever tema Jekyll
+  justify-content: center !important; // Necessário para sobrescrever tema Jekyll
+  align-items: flex-start !important; // Necessário para sobrescrever tema Jekyll
   min-width: 0;
   box-sizing: border-box;
   margin: 0;
@@ -724,6 +732,7 @@ h6 {
 .lesson-content,
 .module-content,
 .exercise-content {
+  // Estilos padrão
   background: var(--color-surface);
   color: var(--color-text-primary);
   padding: $spacing-xl;

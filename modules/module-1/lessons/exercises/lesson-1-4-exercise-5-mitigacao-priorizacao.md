@@ -121,9 +121,11 @@ Crie plano de implementação das mitigações:
 
 ## Contexto CWI
 
-### Caso Real: Priorização em Projeto
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto da CWI, priorizamos 30+ mitigações:
+### Exemplo Hipotético: Priorização em Projeto
+
+Em um projeto hipotético, priorizaríamos 30+ mitigações:
 
 **Estratégia**:
 - Mitigações críticas de baixo esforço: implementadas imediatamente

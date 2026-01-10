@@ -154,9 +154,11 @@ Crie plano de validação:
 
 ## Contexto CWI
 
-### Caso Real: Checklist LGPD em Projeto
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto da CWI, criamos checklist LGPD com 50+ itens:
+### Exemplo Hipotético: Checklist LGPD em Projeto
+
+Em um projeto hipotético, criaríamos checklist LGPD com 50+ itens:
 
 **Estratégia**:
 - Checklist por princípio LGPD

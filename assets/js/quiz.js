@@ -1,5 +1,14 @@
 class QuizManager {
   constructor() {
+    this.getThemeColor = (varName, fallback) => {
+      try {
+        const value = getComputedStyle(document.documentElement).getPropertyValue(varName);
+        return value && value.trim() !== '' ? value.trim() : fallback;
+      } catch (_e) {
+        return fallback;
+      }
+    };
+
     this.quizData = null;
     this.currentQuestion = 0;
     this.answers = [];
@@ -9,7 +18,7 @@ class QuizManager {
         min: 0,
         max: 60,
         icon: '🔍',
-        color: '#4A90E2',
+        color: this.getThemeColor('--color-primary', '#4A90E2'),
         message: 'Você está começando sua jornada na investigação de vulnerabilidades. Continue estudando e logo será um grande detetive de segurança!',
         badge: 'badge-novice'
       },
@@ -17,7 +26,7 @@ class QuizManager {
         min: 61,
         max: 75,
         icon: '🕵️',
-        color: '#50C878',
+        color: this.getThemeColor('--color-success', '#50C878'),
         message: 'Você demonstrou conhecimento sólido. Está no caminho certo para se tornar um grande detetive de segurança!',
         badge: 'badge-inspector'
       },
@@ -25,7 +34,7 @@ class QuizManager {
         min: 76,
         max: 90,
         icon: '🔎',
-        color: '#FF8C00',
+        color: this.getThemeColor('--color-warning', '#FF8C00'),
         message: 'Excelente! Você tem olho clínico para identificar vulnerabilidades. Um verdadeiro investigador de segurança!',
         badge: 'badge-expert'
       },
@@ -33,7 +42,7 @@ class QuizManager {
         min: 91,
         max: 100,
         icon: '🕵️‍♂️',
-        color: '#FFD700',
+        color: this.getThemeColor('--color-primary', '#FFD700'),
         message: 'Elementar, meu caro Watson! Você dominou completamente este tema. Um verdadeiro gênio da segurança em QA!',
         badge: 'badge-sherlock',
         special: true
@@ -51,36 +60,28 @@ class QuizManager {
     const quizDataElement = document.getElementById('quiz-data');
     
     if (!quizDataElement) {
-      if (window.Logger) {
-        window.Logger.warn('Quiz data not found');
-      } else {
-        console.warn('Quiz data not found');
-      }
+      window.Logger?.warn('Quiz data not found');
       return;
     }
     
     try {
       const dataText = quizDataElement.textContent.trim();
       if (!dataText || dataText === 'null' || dataText === '') {
-        quizContainer.style.display = 'none';
+        quizContainer.classList.add('hidden');
         return;
       }
       
       const data = JSON.parse(dataText);
       if (!data || !data.questions || data.questions.length === 0) {
-        quizContainer.style.display = 'none';
+        quizContainer.classList.add('hidden');
         return;
       }
       
       this.quizData = data;
       this.renderQuestion();
     } catch (e) {
-      if (window.Logger) {
-        window.Logger.error('Error parsing quiz data:', e);
-      } else {
-        console.error('Error parsing quiz data:', e);
-      }
-      quizContainer.style.display = 'none';
+      window.Logger?.error('Error parsing quiz data:', e);
+      quizContainer.classList.add('hidden');
     }
   }
   
@@ -104,30 +105,42 @@ class QuizManager {
       <div class="question-card">
         <div class="question-header">
           <span class="question-number">Pergunta ${this.currentQuestion + 1}</span>
-          <h3 class="question-text">${this.escapeHtml(question.question)}</h3>
+          <h3 class="question-text" id="question-${this.currentQuestion}">${this.escapeHtml(question.question)}</h3>
         </div>
-        <div class="options-container" id="options-container">
+        <div class="options-container" id="options-container" role="radiogroup" aria-labelledby="question-${this.currentQuestion}">
           ${question.options.map((option, index) => `
             <button class="option-button" 
+                    data-testid="quiz-option-${index}"
                     data-option-index="${index}"
                     data-correct="${index === question.correct}"
-                    aria-label="Opção ${index + 1}: ${this.escapeHtml(option)}">
-              <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                    role="radio"
+                    aria-checked="false"
+                    aria-label="Opção ${String.fromCharCode(65 + index)}: ${this.escapeHtml(option)}"
+                    tabindex="${index === 0 ? '0' : '-1'}">
+              <span class="option-letter" aria-hidden="true">${String.fromCharCode(65 + index)}</span>
               <span class="option-text">${this.escapeHtml(option)}</span>
             </button>
           `).join('')}
         </div>
-        <div class="explanation" id="explanation" style="display: none;">
+        <div class="explanation hidden" id="explanation" data-testid="quiz-explanation" role="region" aria-live="polite" aria-atomic="true" aria-hidden="true">
           <div class="explanation-content">
             <strong>Explicação:</strong>
             <p>${this.escapeHtml(question.explanation)}</p>
           </div>
-          <button class="next-question-button" id="next-question-btn">
+          <button class="next-question-button" id="next-question-btn" data-testid="quiz-next-btn" aria-label="${this.currentQuestion < this.quizData.questions.length - 1 ? 'Ir para próxima pergunta' : 'Ver resultado final do quiz'}">
             ${this.currentQuestion < this.quizData.questions.length - 1 ? 'Próxima Pergunta →' : 'Ver Resultado Final'}
           </button>
         </div>
       </div>
     `;
+    
+    // Garantir que explicação está oculta inicialmente
+    const explanationEl = document.getElementById('explanation');
+    if (explanationEl) {
+      explanationEl.classList.add('hidden');
+      explanationEl.style.display = 'none';
+      explanationEl.setAttribute('aria-hidden', 'true');
+    }
     
     // Adicionar event listeners
     this.setupOptionButtons();
@@ -144,22 +157,34 @@ class QuizManager {
         if (button.classList.contains('answered')) return;
         
         const isCorrect = button.dataset.correct === 'true';
-        const optionIndex = parseInt(button.dataset.optionIndex);
+        const optionIndex = parseInt(button.dataset.optionIndex, 10);
+        if (isNaN(optionIndex) || optionIndex < 0) {
+          window.Logger?.warn('Índice de opção inválido:', button.dataset.optionIndex);
+          return;
+        }
         
         // Marcar todas as opções como respondidas
         options.forEach(opt => {
           opt.classList.add('answered');
           opt.disabled = true;
           opt.setAttribute('aria-checked', opt === button ? 'true' : 'false');
+          opt.setAttribute('tabindex', '-1'); // Remover do tab order após resposta
           
           if (opt.dataset.correct === 'true') {
             opt.classList.add('correct');
-            opt.setAttribute('aria-label', opt.getAttribute('aria-label') + ' (Resposta correta)');
+            const currentLabel = opt.getAttribute('aria-label') || '';
+            opt.setAttribute('aria-label', currentLabel.replace(' (Resposta correta)', '').replace(' (Resposta incorreta)', '') + ' (Resposta correta)');
           } else if (opt === button && !isCorrect) {
             opt.classList.add('incorrect');
-            opt.setAttribute('aria-label', opt.getAttribute('aria-label') + ' (Resposta incorreta)');
+            const currentLabel = opt.getAttribute('aria-label') || '';
+            opt.setAttribute('aria-label', currentLabel.replace(' (Resposta correta)', '').replace(' (Resposta incorreta)', '') + ' (Resposta incorreta)');
           }
         });
+        
+        // Focar no botão "Próxima Pergunta" após resposta
+        if (nextBtn) {
+          nextBtn.focus();
+        }
         
         // Salvar resposta
         this.answers.push({
@@ -168,11 +193,15 @@ class QuizManager {
           correct: isCorrect
         });
         
-        // Mostrar explicação
+        // Mostrar explicação APENAS após resposta ser selecionada
         if (explanation) {
-          explanation.style.display = 'block';
-          // Não fazer scroll automático - a explicação aparece logo abaixo da pergunta
-          // e o usuário pode rolar naturalmente se necessário
+          explanation.classList.remove('hidden');
+          explanation.style.display = ''; // Remove style inline para permitir que CSS funcione
+          explanation.setAttribute('aria-hidden', 'false');
+          // Scroll suave para a explicação após um pequeno delay para melhor UX
+          setTimeout(() => {
+            explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
         }
       };
       
@@ -181,8 +210,8 @@ class QuizManager {
       // Keyboard navigation (1-4 keys for options A-D)
       button.addEventListener('keydown', (e) => {
         if (e.key >= '1' && e.key <= '4') {
-          const keyIndex = parseInt(e.key) - 1;
-          if (options[keyIndex]) {
+          const keyIndex = parseInt(e.key, 10) - 1;
+          if (!isNaN(keyIndex) && keyIndex >= 0 && options[keyIndex]) {
             e.preventDefault();
             options[keyIndex].focus();
             options[keyIndex].click();
@@ -193,10 +222,8 @@ class QuizManager {
         }
       });
       
-      // Acessibilidade: ARIA labels
-      button.setAttribute('role', 'radio');
-      button.setAttribute('aria-checked', 'false');
-      button.setAttribute('tabindex', '0');
+      // Nota: Atributos ARIA (role="radio", aria-checked, tabindex) já são definidos no template string
+      // aria-checked é atualizado dinamicamente quando resposta é selecionada em handleAnswer()
     });
     
     // Botão próxima pergunta
@@ -262,10 +289,10 @@ class QuizManager {
     if (!quizContent || !quizResults) return;
     
     // Esconder conteúdo do quiz
-    quizContent.style.display = 'none';
+    quizContent.classList.add('hidden');
     
     // Mostrar resultados
-    quizResults.style.display = 'block';
+    quizResults.classList.remove('hidden');
     quizResults.innerHTML = `
       <div class="results-card ${classification.badge}">
         <div class="results-header">
@@ -289,7 +316,7 @@ class QuizManager {
             <span class="detail-value">${score}%</span>
           </div>
         </div>
-        <button class="retry-quiz-button" id="retry-quiz-btn">
+        <button class="retry-quiz-button" id="retry-quiz-btn" data-testid="quiz-retry-btn">
           🔄 Refazer Quiz
         </button>
       </div>
@@ -324,19 +351,19 @@ class QuizManager {
     if (window.progressTracker && typeof window.progressTracker.saveQuizResult === 'function') {
       window.progressTracker.saveQuizResult(lessonId, score, classification, this.answers);
     } else {
-      // Fallback: salvar diretamente no localStorage
-      const saved = localStorage.getItem('course-progress');
+      // Fallback: salvar usando StorageSafe se disponível, senão localStorage direto
+      const progressKey = (window.Constants && window.Constants.STORAGE_KEYS && window.Constants.STORAGE_KEYS.COURSE_PROGRESS) || 'course-progress';
       let progress = {};
       
-      if (saved) {
+      if (window.StorageSafe && typeof window.StorageSafe.getItem === 'function') {
+        progress = window.StorageSafe.getItem(progressKey) || {};
+      } else {
         try {
-          progress = JSON.parse(saved);
+          const saved = localStorage.getItem(progressKey);
+          progress = saved ? JSON.parse(saved) : {};
         } catch (e) {
-          if (window.Logger) {
-            window.Logger.error('Error parsing progress:', e);
-          } else {
-            console.error('Error parsing progress:', e);
-          }
+          window.Logger?.error('Error parsing progress:', e);
+          progress = {};
         }
       }
       
@@ -348,7 +375,16 @@ class QuizManager {
         answers: this.answers
       };
       
-      localStorage.setItem('course-progress', JSON.stringify(progress));
+      // Salvar usando StorageSafe se disponível
+      if (window.StorageSafe && typeof window.StorageSafe.setItem === 'function') {
+        window.StorageSafe.setItem(progressKey, progress);
+      } else {
+        try {
+          localStorage.setItem(progressKey, JSON.stringify(progress));
+        } catch (e) {
+          window.Logger?.error('Error saving quiz result:', e);
+        }
+      }
     }
   }
   
@@ -360,9 +396,9 @@ class QuizManager {
     const quizContent = document.getElementById('quiz-content');
     const quizResults = document.getElementById('quiz-results');
     
-    if (quizContent) quizContent.style.display = 'block';
+    if (quizContent) quizContent.classList.remove('hidden');
     if (quizResults) {
-      quizResults.style.display = 'none';
+      quizResults.classList.add('hidden');
       quizResults.classList.remove('sherlock-special');
     }
     

@@ -11,12 +11,10 @@ lessons:
     duration: "60 minutos"
     level: "Básico"
     prerequisites: []
-    podcast:
-      file: "assets/podcasts/1.1-Introducao_Seguranca_QA.m4a"
-      image: "assets/images/podcasts/1.1-Introducao_Seguranca_QA.png"
+    video:
+      file: "assets/videos/1.1-Introducao_Seguranca_QA.mp4"
       title: "Introdução à Segurança em QA"
-      description: "Compreenda o papel crítico da segurança na qualidade de software. Discutimos por que segurança não é apenas responsabilidade de DevOps, mas parte essencial do processo de QA desde o início do desenvolvimento."
-      duration: "45-60 minutos"
+      thumbnail: "assets/images/infografico-lesson1-1.png"
 
   - id: lesson-1-2
     title: "OWASP Top 10 e Principais Vulnerabilidades"
@@ -31,12 +29,10 @@ lessons:
       - lesson-1-2-exercise-2-sql-injection
       - lesson-1-2-exercise-4-broken-access-control
       - lesson-1-2-exercise-5-owasp-checklist
-    podcast:
-      file: "assets/podcasts/1.2-OWASP_Top_10.m4a"
-      image: "assets/images/podcasts/1.2-OWASP_Top_10.png"
-      title: "OWASP Top 10 - Vulnerabilidades que Todo QA Deve Conhecer"
-      description: "Análise detalhada das 10 principais vulnerabilidades de segurança web segundo OWASP: Injection, Broken Authentication, XSS, e mais. Aprenda a identificá-las em testes."
-      duration: "60-75 minutos"
+    video:
+      file: "assets/videos/video-lesson1-2.mp4"
+      title: "OWASP Top 10 e Principais Vulnerabilidades"
+      thumbnail: "assets/images/infografico-lesson-1-2.png"
 
   - id: lesson-1-3
     title: "Shift-Left Security: Segurança desde o Início"
@@ -51,12 +47,10 @@ lessons:
       - lesson-1-3-exercise-2-threat-modeling-early
       - lesson-1-3-exercise-3-devqa-security-collab
       - lesson-1-3-exercise-4-shift-left-checklist
-    podcast:
-      file: "assets/podcasts/1.3-Shift_Left_Security.m4a"
-      image: "assets/images/podcasts/1.3-Shift_Left_Security.png"
-      title: "Shift-Left Security na Prática"
-      description: "Entenda como integrar segurança desde as fases iniciais do desenvolvimento. Discutimos requisitos de segurança, threat modeling, e como QA pode atuar preventivamente."
-      duration: "45-60 minutos"
+    video:
+      file: "assets/videos/Seguranca_Shift-Left-lesson-1-3.mp4"
+      title: "Shift-Left Security: Segurança desde o Início"
+      thumbnail: "assets/images/info-grafico-lesson-1-3.png"
 
   - id: lesson-1-4
     title: "Threat Modeling e Análise de Riscos"
@@ -66,12 +60,10 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-1-3"]
-    podcast:
-      file: "assets/podcasts/1.4-Threat_Modeling.m4a"
-      image: "assets/images/podcasts/1.4-Threat_Modeling.png"
-      title: "Threat Modeling: Identificando Ameaças Antes de Acontecerem"
-      description: "Aprenda técnicas de modelagem de ameaças (STRIDE, PASTA) e como aplicá-las em diferentes contextos de projeto para identificar riscos de segurança proativamente."
-      duration: "60-75 minutos"
+    video:
+      file: "assets/videos/Modelagem_de_Ameacas-lesson-1-4.mp4"
+      title: "Threat Modeling e Análise de Riscos"
+      thumbnail: "assets/images/infografico-lesson-1-4.png"
 
   - id: lesson-1-5
     title: "Compliance e Regulamentações (LGPD, PCI-DSS, SOC2)"
@@ -81,12 +73,10 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-1-4"]
-    podcast:
-      file: "assets/podcasts/1.5-Compliance_Regulamentacoes.m4a"
-      image: "assets/images/podcasts/1.5-Compliance_Regulamentacoes.png"
-      title: "Compliance em Segurança: LGPD, PCI-DSS e SOC2"
-      description: "Navegue pelas principais regulamentações de segurança e privacidade. Como garantir compliance em projetos de diferentes setores e o papel do QA nesse processo."
-      duration: "60-75 minutos"
+    video:
+      file: "assets/videos/Compliance__As_Regras_Ocultas-lesson-1-5.mp4"
+      title: "Compliance e Regulamentações (LGPD, PCI-DSS, SOC2)"
+      thumbnail: "assets/images/infografico-lesson-1-5.png"
 
   # ============================================================================
   # MÓDULO 2: Testes de Segurança na Prática
@@ -100,12 +90,7 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-1-5"]
-    podcast:
-      file: "assets/podcasts/2.1-SAST_Testes_Estaticos.m4a"
-      image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
-      title: "SAST: Encontrando Vulnerabilidades no Código"
-      description: "Mergulhe nos testes estáticos de segurança. Ferramentas como SonarQube, Checkmarx, Semgrep e como integrá-las no workflow de QA."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
 
   - id: lesson-2-2
     title: "DAST: Dynamic Application Security Testing"
@@ -115,12 +100,7 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-2-1"]
-    podcast:
-      file: "assets/podcasts/2.2-DAST_Testes_Dinamicos.m4a"
-      image: "assets/images/podcasts/2.2-DAST_Testes_Dinamicos.png"
-      title: "DAST: Testando Aplicações em Execução"
-      description: "Aprenda testes dinâmicos de segurança com OWASP ZAP, Burp Suite, e Acunetix. Como configurar, executar e interpretar resultados de scans de segurança."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/2.2-DAST_Testes_Dinamicos.png"
 
   - id: lesson-2-3
     title: "Testes de Penetração (Pentest) Básico"
@@ -130,12 +110,7 @@ lessons:
     duration: "120 minutos"
     level: "Avançado"
     prerequisites: ["lesson-2-2"]
-    podcast:
-      file: "assets/podcasts/2.3-Pentest_Basico.m4a"
-      image: "assets/images/podcasts/2.3-Pentest_Basico.png"
-      title: "Pentest para QAs: Pensando como um Atacante"
-      description: "Introdução ao mindset de pentesting. Técnicas básicas de exploração, ferramentas essenciais (Metasploit, Nmap) e como QA pode colaborar com equipes de segurança."
-      duration: "75-90 minutos"
+    image: "assets/images/podcasts/2.3-Pentest_Basico.png"
 
   - id: lesson-2-4
     title: "Automação de Testes de Segurança"
@@ -145,12 +120,7 @@ lessons:
     duration: "120 minutos"
     level: "Avançado"
     prerequisites: ["lesson-2-3"]
-    podcast:
-      file: "assets/podcasts/2.4-Automacao_Testes_Seguranca.m4a"
-      image: "assets/images/podcasts/2.4-Automacao_Testes_Seguranca.png"
-      title: "Automatizando Testes de Segurança no Pipeline"
-      description: "Como automatizar SAST, DAST e SCA (Software Composition Analysis) em pipelines CI/CD. Scripts, integrações e boas práticas para testes de segurança contínuos."
-      duration: "75-90 minutos"
+    image: "assets/images/podcasts/2.4-Automacao_Testes_Seguranca.png"
 
   - id: lesson-2-5
     title: "Dependency Scanning e SCA"
@@ -160,12 +130,7 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-2-4"]
-    podcast:
-      file: "assets/podcasts/2.5-Dependency_Scanning_SCA.m4a"
-      image: "assets/images/podcasts/2.5-Dependency_Scanning_SCA.png"
-      title: "Análise de Dependências: Segurança em Bibliotecas de Terceiros"
-      description: "Aprenda a usar ferramentas como Snyk, Dependabot, OWASP Dependency-Check para identificar vulnerabilidades em dependências de projetos."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/2.5-Dependency_Scanning_SCA.png"
 
   # ============================================================================
   # MÓDULO 3: Segurança por Setor
@@ -179,12 +144,7 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-2-5"]
-    podcast:
-      file: "assets/podcasts/3.1-Seguranca_Setor_Financeiro.m4a"
-      image: "assets/images/podcasts/3.1-Seguranca_Setor_Financeiro.png"
-      title: "Segurança em Fintech: Casos Práticos CWI"
-      description: "Requisitos específicos do setor financeiro: PCI-DSS, Open Banking, autenticação forte. Exemplos de testes em aplicações financeiras de clientes CWI."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/3.1-Seguranca_Setor_Financeiro.png"
 
   - id: lesson-3-2
     title: "Segurança no Setor Educacional"
@@ -194,12 +154,7 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-3-1"]
-    podcast:
-      file: "assets/podcasts/3.2-Seguranca_Setor_Educacional.m4a"
-      image: "assets/images/podcasts/3.2-Seguranca_Setor_Educacional.png"
-      title: "Segurança em EdTech: Protegendo Dados de Alunos"
-      description: "Desafios de segurança em plataformas educacionais: LGPD para menores, COPPA, autenticação em ambientes acadêmicos. Casos práticos de projetos educacionais CWI."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/3.2-Seguranca_Setor_Educacional.png"
 
   - id: lesson-3-3
     title: "Segurança em Ecommerce"
@@ -209,12 +164,7 @@ lessons:
     duration: "90 minutos"
     level: "Intermediário"
     prerequisites: ["lesson-3-2"]
-    podcast:
-      file: "assets/podcasts/3.3-Seguranca_Ecommerce.m4a"
-      image: "assets/images/podcasts/3.3-Seguranca_Ecommerce.png"
-      title: "Segurança em Ecommerce: Da Autenticação ao Checkout"
-      description: "Segurança em plataformas de ecommerce: proteção de pagamentos, prevenção de fraudes, gestão de sessões. Testes de segurança em fluxos de compra de clientes CWI."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/3.3-Seguranca_Ecommerce.png"
 
   - id: lesson-3-4
     title: "Segurança em Aplicações de IA"
@@ -224,12 +174,7 @@ lessons:
     duration: "120 minutos"
     level: "Avançado"
     prerequisites: ["lesson-3-3"]
-    podcast:
-      file: "assets/podcasts/3.4-Seguranca_Aplicacoes_IA.m4a"
-      image: "assets/images/podcasts/3.4-Seguranca_Aplicacoes_IA.png"
-      title: "Segurança em IA: Novos Desafios, Novas Abordagens"
-      description: "Vulnerabilidades específicas de IA: model poisoning, adversarial attacks, data leakage. Como testar segurança em aplicações com ML/AI."
-      duration: "75-90 minutos"
+    image: "assets/images/podcasts/3.4-Seguranca_Aplicacoes_IA.png"
 
   - id: lesson-3-5
     title: "APIs e Microserviços: Segurança Distribuída"
@@ -239,10 +184,59 @@ lessons:
     duration: "90 minutos"
     level: "Avançado"
     prerequisites: ["lesson-3-4"]
-    podcast:
-      file: "assets/podcasts/3.5-Seguranca_APIs_Microservicos.m4a"
-      image: "assets/images/podcasts/3.5-Seguranca_APIs_Microservicos.png"
-      title: "Segurança em APIs e Arquiteturas Distribuídas"
-      description: "OWASP API Security Top 10, autenticação OAuth2/JWT, rate limiting, testes de APIs. Exemplos de arquiteturas de clientes CWI."
-      duration: "60-75 minutos"
+    image: "assets/images/podcasts/3.5-Seguranca_APIs_Microservicos.png"
+
+  # ============================================================================
+  # MÓDULO 4: Segurança em CI/CD e DevSecOps
+  # ============================================================================
+
+  - id: lesson-4-1
+    title: "DevSecOps: Cultura e Práticas"
+    slug: "devsecops-cultura-praticas"
+    module: module-4
+    order: 1
+    duration: "90 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-3-5"]
+    image: "assets/images/podcasts/4.1-DevSecOps_Cultura_Praticas.png"
+
+  - id: lesson-4-2
+    title: "Pipeline de Segurança"
+    slug: "pipeline-seguranca"
+    module: module-4
+    order: 2
+    duration: "120 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-1"]
+    image: "assets/images/podcasts/4.2-Pipeline_Seguranca.png"
+
+  - id: lesson-4-3
+    title: "Container Security e Kubernetes"
+    slug: "container-security-kubernetes"
+    module: module-4
+    order: 3
+    duration: "90 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-2"]
+    image: "assets/images/podcasts/4.3-Container_Security_Kubernetes.png"
+
+  - id: lesson-4-4
+    title: "Secrets Management"
+    slug: "secrets-management"
+    module: module-4
+    order: 4
+    duration: "90 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-3"]
+    image: "assets/images/podcasts/4.4-Secrets_Management.png"
+
+  - id: lesson-4-5
+    title: "Monitoramento e Resposta a Incidentes"
+    slug: "monitoramento-resposta-incidentes"
+    module: module-4
+    order: 5
+    duration: "90 minutos"
+    level: "Avançado"
+    prerequisites: ["lesson-4-4"]
+    image: "assets/images/podcasts/4.5-Monitoramento_Resposta_Incidentes.png"
 

@@ -12,10 +12,10 @@ exercises:
   - lesson-1-2-exercise-2-sql-injection
   - lesson-1-2-exercise-4-broken-access-control
   - lesson-1-2-exercise-5-owasp-checklist
-podcast:
-  file: "assets/podcasts/1.2-OWASP_Top_10.m4a"
-  image: "assets/images/podcasts/1.2-OWASP_Top_10.png"
+video:
+  file: "assets/videos/video-lesson1-2.mp4"
   title: "OWASP Top 10 - Vulnerabilidades que Todo QA Deve Conhecer"
+  thumbnail: "assets/images/infografico-lesson-1-2.png"
   description: "Análise detalhada das 10 principais vulnerabilidades de segurança web segundo OWASP: Injection, Broken Authentication, XSS, e mais. Aprenda a identificá-las em testes."
   duration: "60-75 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
@@ -31,7 +31,7 @@ Ao final desta aula, você será capaz de:
 - Entender como cada vulnerabilidade funciona tecnicamente
 - Aprender a identificá-las em testes de segurança
 - Saber como prevenir e mitigar cada tipo de vulnerabilidade
-- Aplicar conhecimento em contextos específicos de projetos CWI (Financeiro, Educacional, Ecommerce)
+- Aplicar conhecimento em contextos hipotéticos de projetos (Financeiro, Educacional, Ecommerce)
 
 ## 📚 Introdução ao OWASP Top 10
 
@@ -165,13 +165,15 @@ def admin_users():
     return jsonify(db.get_all_users())
 ```
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Financeiro (Fintech)**:
-Em um projeto de fintech da CWI, identificamos que endpoints de consulta de extrato não validavam se o usuário logado era o dono da conta consultada. Um usuário poderia modificar o ID da conta na URL e acessar extratos de outras pessoas. A correção implementou validação de propriedade em todos os endpoints sensíveis.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
 
-**Caso Educacional (EdTech)**:
-Em uma plataforma educacional, alunos conseguiam acessar notas de outros alunos modificando o ID do aluno na URL. A vulnerabilidade foi corrigida adicionando validação de permissão baseada em relacionamento aluno-turma.
+**Exemplo: Caso Financeiro (Fintech)**:
+Em um projeto hipotético de fintech, poderíamos identificar que endpoints de consulta de extrato não validam se o usuário logado é o dono da conta consultada. Um usuário poderia modificar o ID da conta na URL e acessar extratos de outras pessoas. A correção implementaria validação de propriedade em todos os endpoints sensíveis.
+
+**Exemplo: Caso Educacional (EdTech)**:
+Em uma plataforma educacional hipotética, alunos poderiam conseguir acessar notas de outros alunos modificando o ID do aluno na URL. A vulnerabilidade seria corrigida adicionando validação de permissão baseada em relacionamento aluno-turma.
 
 #### Como Testar
 
@@ -297,13 +299,15 @@ def login():
     # ...
 ```
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Financeiro (PCI-DSS)**:
-Em um projeto financeiro, identificamos que números de cartão eram armazenados sem criptografia adequada. Para compliance PCI-DSS, implementamos tokenização (substituição por tokens) e criptografia AES-256 para dados sensíveis.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
 
-**Caso Educacional (LGPD)**:
-Em uma plataforma educacional, dados de menores eram transmitidos via HTTP em algumas rotas. Implementamos HTTPS obrigatório e criptografia adicional para dados sensíveis de menores.
+**Exemplo: Caso Financeiro (PCI-DSS)**:
+Em um projeto financeiro hipotético, poderíamos identificar que números de cartão são armazenados sem criptografia adequada. Para compliance PCI-DSS, implementaríamos tokenização (substituição por tokens) e criptografia AES-256 para dados sensíveis.
+
+**Exemplo: Caso Educacional (LGPD)**:
+Em uma plataforma educacional hipotética, dados de menores poderiam ser transmitidos via HTTP em algumas rotas. Implementaríamos HTTPS obrigatório e criptografia adicional para dados sensíveis de menores.
 
 #### Como Testar
 
@@ -501,13 +505,15 @@ def ping_host(hostname):
     return result.stdout
 ```
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Financeiro (Fintech)**:
-Em um dos projetos financeiros da CWI, identificamos SQL Injection em endpoint de consulta de extratos. A correção usando prepared statements evitou exposição de dados bancários de 500k+ usuários.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
 
-**Caso Ecommerce**:
-Em uma plataforma de ecommerce, NoSQL Injection permitia bypass de autenticação. A correção implementou validação rigorosa de tipos e sanitização de entrada.
+**Exemplo: Caso Financeiro (Fintech)**:
+Em um projeto financeiro hipotético, poderíamos identificar SQL Injection em endpoint de consulta de extratos. A correção usando prepared statements evitaria exposição de dados bancários.
+
+**Exemplo: Caso Ecommerce**:
+Em uma plataforma de ecommerce hipotética, NoSQL Injection poderia permitir bypass de autenticação. A correção implementaria validação rigorosa de tipos e sanitização de entrada.
 
 #### Como Testar
 
@@ -674,13 +680,15 @@ def transfer():
     return {'success': True}
 ```
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Financeiro (Open Banking)**:
-Em um projeto de Open Banking, o design inicial não considerava rate limiting adequado. Implementamos throttling por API key e por IP para prevenir abusos e garantir compliance.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
 
-**Caso Ecommerce**:
-Em uma plataforma de ecommerce, o design não previa validação de estoque em tempo real. Implementamos validação transacional para prevenir overselling.
+**Exemplo: Caso Financeiro (Open Banking)**:
+Em um projeto hipotético de Open Banking, o design inicial poderia não considerar rate limiting adequado. Implementaríamos throttling por API key e por IP para prevenir abusos e garantir compliance.
+
+**Exemplo: Caso Ecommerce**:
+Em uma plataforma de ecommerce hipotética, o design poderia não prever validação de estoque em tempo real. Implementaríamos validação transacional para prevenir overselling.
 
 #### Como Testar
 
@@ -847,13 +855,15 @@ if not DATABASE_CONFIG['user'] or not DATABASE_CONFIG['password']:
     raise ValueError('Database credentials must be set via environment variables')
 ```
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Geral**:
-Em vários projetos CWI, identificamos que ambientes de desenvolvimento expunham stack traces detalhados. Implementamos configuração diferenciada por ambiente, com mensagens genéricas em produção.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
 
-**Caso Cloud**:
-Em um projeto hospedado na AWS, buckets S3 estavam configurados como públicos por padrão. Corrigimos para privados com acesso controlado via IAM.
+**Exemplo: Caso Geral**:
+Em projetos hipotéticos, poderíamos identificar que ambientes de desenvolvimento expõem stack traces detalhados. Implementaríamos configuração diferenciada por ambiente, com mensagens genéricas em produção.
+
+**Exemplo: Caso Cloud**:
+Em um projeto hipotético hospedado na AWS, buckets S3 poderiam estar configurados como públicos por padrão. Corrigiríamos para privados com acesso controlado via IAM.
 
 #### Como Testar
 
@@ -944,10 +954,12 @@ Na segurança de software, isso acontece quando bibliotecas e componentes têm v
 - **Snyk**: Scanner comercial
 - **Dependabot**: Atualizações automáticas (GitHub)
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Geral**:
-Em vários projetos CWI, implementamos verificação automática de dependências vulneráveis no pipeline CI/CD usando Snyk e Dependabot, prevenindo uso de bibliotecas com vulnerabilidades conhecidas.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
+
+**Exemplo: Caso Geral**:
+Em projetos hipotéticos, implementaríamos verificação automática de dependências vulneráveis no pipeline CI/CD usando Snyk e Dependabot, prevenindo uso de bibliotecas com vulnerabilidades conhecidas.
 
 #### Como Testar
 
@@ -1078,10 +1090,12 @@ def validate_password(password):
     return True, "Password is valid"
 ```
 
-#### Contexto CWI - Casos Reais
+#### Contexto CWI - Exemplos Hipotéticos
 
-**Caso Financeiro**:
-Em projetos financeiros da CWI, implementamos autenticação forte com MFA obrigatório e rate limiting rigoroso para prevenir ataques de força bruta.
+> **Nota**: Os exemplos abaixo são cenários hipotéticos criados para fins educacionais.
+
+**Exemplo: Caso Financeiro**:
+Em projetos financeiros hipotéticos, implementaríamos autenticação forte com MFA obrigatório e rate limiting rigoroso para prevenir ataques de força bruta.
 
 #### Como Testar
 
@@ -1306,22 +1320,24 @@ def preview_url():
 
 **Legenda**: 🔴 Crítica | 🟠 Alta | 🟡 Média
 
+![Infográfico: OWASP Top 10 - Vulnerabilidades e Prevenção]({{ '/assets/images/infografico-lesson-1-2.png' | relative_url }})
+
 ### Contexto Específico por Setor
 
 #### Financeiro (Fintech, Open Banking)
 - **Foco Principal**: Broken Access Control, Cryptographic Failures, Injection
 - **Compliance**: PCI-DSS exige proteção rigorosa de dados de cartão
-- **Casos CWI**: Implementação de validação rigorosa de acesso em APIs de Open Banking
+- **Exemplos Hipotéticos**: Implementação de validação rigorosa de acesso em APIs de Open Banking
 
 #### Educacional (EdTech)
 - **Foco Principal**: Broken Access Control (dados de menores), Cryptographic Failures
 - **Compliance**: LGPD com requisitos especiais para dados de menores
-- **Casos CWI**: Isolamento rigoroso de dados entre alunos e turmas
+- **Exemplos Hipotéticos**: Isolamento rigoroso de dados entre alunos e turmas
 
 #### Ecommerce
 - **Foco Principal**: Injection, Broken Access Control, Auth Failures
 - **Riscos**: Fraudes, acesso a dados de pagamento, manipulação de preços
-- **Casos CWI**: Validação de regras de negócio para prevenir fraudes
+- **Exemplos Hipotéticos**: Validação de regras de negócio para prevenir fraudes
 
 ---
 
@@ -1346,22 +1362,6 @@ docker run -d -p 3000:3000 bkimminich/juice-shop
 
 # Acessar: http://localhost:3000
 ```
-
-### Exercícios Práticos
-
-#### Exercício 1: Identificar SQL Injection
-1. Acesse OWASP WebGoat
-2. Navegue até "Injection" → "SQL Injection (Intro)"
-3. Tente injetar SQL em campos de entrada
-4. Identifique qual campo é vulnerável
-5. Documente o payload usado
-
-#### Exercício 2: Explorar Broken Access Control
-1. Acesse OWASP Juice Shop
-2. Faça login como usuário comum
-3. Tente acessar recursos administrativos
-4. Identifique vulnerabilidades de acesso
-5. Documente como corrigir
 
 ---
 
