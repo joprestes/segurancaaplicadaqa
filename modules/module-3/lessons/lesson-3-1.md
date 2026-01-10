@@ -8,12 +8,6 @@ duration: "120 minutos"
 level: "Avançado"
 prerequisites: []
 exercises: []
-podcast:
-  file: "assets/podcasts/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.m4a"
-  image: "assets/images/podcasts/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.png"
-  title: "RxJS Operators, Observables, SwitchMap e Busca Perfeita"
-  description: "RxJS é fundamental para Angular moderno."
-  duration: "65-80 minutos"
 video:
   file: "assets/videos/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.mp4"
   thumbnail: "assets/images/podcasts/03.1RxJS_Operators_Observables_SwitchMap_e_Busca_Perfeita.png"

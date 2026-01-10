@@ -1,27 +1,18 @@
 ---
 layout: lesson
-title: "Aula 3.5: Integração Signals + Observables"
-slug: signals-observables
+title: "Aula 3.5: APIs e Microserviços: Segurança Distribuída"
+slug: seguranca-apis-microservicos
 module: module-3
 lesson_id: lesson-3-5
-duration: "45 minutos"
+duration: "90 minutos"
 level: "Avançado"
-prerequisites: []
-exercises: []
-podcast:
-  file: "assets/podcasts/03.5-toSignal_e_toObservable_as_pontes_do_Angular.m4a"
-  image: "assets/images/podcasts/03.5-toSignal_e_toObservable_as_pontes_do_Angular.png"
-  title: "toSignal e toObservable - As Pontes do Angular"
-  description: "Angular oferece funções para integrar Signals com Observables."
-  duration: "40-50 minutos"
-video:
-  file: "assets/videos/03.5-toSignal_e_toObservable_as_pontes_do_Angular.mp4"
-  thumbnail: "assets/images/podcasts/03.5-toSignal_e_toObservable_as_pontes_do_Angular.png"
-  title: "toSignal e toObservable - As Pontes do Angular"
-  description: "Angular oferece funções para integrar Signals com Observables."
-  duration: "40-50 minutos"
-permalink: /modules/programacao-reativa-estado/lessons/signals-observables/
+prerequisites: ["lesson-3-4"]
+image: "assets/images/podcasts/3.5-Seguranca_APIs_Microservicos.png"
+permalink: /modules/seguranca-por-setor/lessons/seguranca-apis-microservicos/
 ---
+
+<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
+     Veja CONTENT_ISSUES.md para mais detalhes. -->
 
 ## Introdução
 

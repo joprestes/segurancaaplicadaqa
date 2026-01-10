@@ -1,0 +1,404 @@
+<div class="exercise-submission-form" id="exercise-submission-form" data-exercise-id="{{ page.slug }}">
+  <div class="submission-form-header">
+    <h2><span class="header-icon">📤</span> Enviar Resposta</h2>
+    <p>Complete o exercício e envie sua resposta através do formulário abaixo. Um monitor revisará sua submissão e fornecerá feedback.</p>
+  </div>
+
+  <form id="exercise-submit-form" class="submission-form" enctype="multipart/form-data">
+    <!-- Informações do Exercício (ocultas) -->
+    <input type="hidden" id="exercise-id" value="{{ page.slug }}">
+    <input type="hidden" id="exercise-title" value="{{ page.title }}">
+    <input type="hidden" id="exercise-lesson-id" value="{{ page.lesson_id }}">
+    <input type="hidden" id="exercise-module" value="{{ page.module }}">
+    
+    <!-- Nome do Aluno -->
+    <div class="form-group">
+      <label for="aluno-nome" class="required">Nome Completo</label>
+      <input 
+        type="text" 
+        id="aluno-nome" 
+        name="nome" 
+        required 
+        minlength="3"
+        placeholder="Digite seu nome completo"
+        data-testid="exercise-submit-nome-input">
+      <span class="form-error" id="error-nome" style="display: none;"></span>
+    </div>
+
+    <!-- Email do Aluno -->
+    <div class="form-group">
+      <label for="aluno-email" class="required">Email</label>
+      <input 
+        type="email" 
+        id="aluno-email" 
+        name="email" 
+        required
+        placeholder="seu.email@exemplo.com"
+        data-testid="exercise-submit-email-input">
+      <span class="form-error" id="error-email" style="display: none;"></span>
+    </div>
+
+    <!-- Selecionar Monitor (opcional) -->
+    <div class="form-group">
+      <label for="monitor-select">Monitor <span class="optional-label">(opcional)</span></label>
+      <select 
+        id="monitor-select" 
+        name="monitor"
+        data-testid="exercise-submit-monitor-select">
+        <option value="">Selecione um monitor (ou deixe em branco para distribuição automática)</option>
+        <!-- Preenchido dinamicamente via JavaScript -->
+      </select>
+      <span class="form-hint">
+        <span class="hint-icon">ℹ️</span>
+        Se você tiver um monitor específico, selecione-o. Caso contrário, a submissão será distribuída automaticamente.
+      </span>
+    </div>
+
+    <!-- Arquivo da Resposta -->
+    <div class="form-group file-upload-group">
+      <label for="arquivo-resposta" class="required">Arquivo com sua Resposta</label>
+      <div class="file-input-wrapper">
+        <input 
+          type="file" 
+          id="arquivo-resposta" 
+          name="arquivo" 
+          required
+          accept=".pdf,.docx,.doc,.md,.txt"
+          data-testid="exercise-submit-file-input">
+        <label for="arquivo-resposta" class="file-input-label">
+          <span class="file-icon">📎</span>
+          <span class="file-text">Escolher arquivo</span>
+        </label>
+        <span class="file-name" id="file-name-display">Nenhum arquivo escolhido</span>
+      </div>
+      <span class="form-hint">
+        <span class="hint-icon">ℹ️</span>
+        Formatos aceitos: PDF, DOCX, DOC, MD, TXT (máximo 10MB)
+      </span>
+      <span class="form-error" id="error-arquivo" style="display: none;"></span>
+    </div>
+
+    <!-- Mensagem Adicional (opcional) -->
+    <div class="form-group">
+      <label for="mensagem-adicional">Mensagem Adicional <span class="optional-label">(opcional)</span></label>
+      <textarea 
+        id="mensagem-adicional" 
+        name="mensagem" 
+        rows="5"
+        placeholder="Adicione alguma observação, dúvida ou contexto sobre sua resposta..."
+        data-testid="exercise-submit-mensagem-textarea"></textarea>
+      <span class="form-hint">
+        <span class="hint-icon">ℹ️</span>
+        Use este campo para incluir observações, dúvidas ou contexto sobre sua resposta.
+      </span>
+    </div>
+
+    <!-- Mensagem de Status -->
+    <div class="form-status" id="form-status" style="display: none;">
+      <div class="status-message" id="status-message"></div>
+    </div>
+
+    <!-- Botão de Envio -->
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        id="btn-submit" 
+        class="btn-submit"
+        data-testid="exercise-submit-btn">
+        <span id="btn-submit-text">Enviar Resposta</span>
+        <span id="btn-submit-loader" class="loader" style="display: none;">⏳ Enviando...</span>
+      </button>
+    </div>
+  </form>
+
+  <!-- Informações sobre o Processo -->
+  <div class="submission-info">
+    <h3><span class="info-icon">ℹ️</span> Como funciona?</h3>
+    <ul class="info-steps">
+      <li><span class="step-icon">✓</span> Complete o exercício em um arquivo (PDF, DOCX, DOC, MD ou TXT)</li>
+      <li><span class="step-icon">✓</span> Preencha seus dados no formulário acima</li>
+      <li><span class="step-icon">✓</span> Envie o arquivo com sua resposta</li>
+      <li><span class="step-icon">✓</span> Você receberá uma confirmação por email</li>
+      <li><span class="step-icon">✓</span> Um monitor revisará sua resposta e fornecerá feedback</li>
+    </ul>
+  </div>
+</div>
+
+<script type="application/json" id="monitores-data">
+{% assign monitores_data = site.data.monitores %}
+{% if monitores_data %}
+{{ monitores_data | jsonify }}
+{% else %}
+{"monitores": [], "email_default": "exercicios@cwi.com.br"}
+{% endif %}
+</script>
+
+<script>
+// Carregar lista de monitores dinamicamente
+document.addEventListener('DOMContentLoaded', function() {
+  loadMonitors();
+  setupFileInputDisplay();
+  
+  // Adicionar handler para formulário
+  const form = document.getElementById('exercise-submit-form');
+  if (form) {
+    form.addEventListener('submit', handleFormSubmit);
+  }
+});
+
+// Handler para exibir nome do arquivo selecionado
+function setupFileInputDisplay() {
+  const fileInput = document.getElementById('arquivo-resposta');
+  const fileNameDisplay = document.getElementById('file-name-display');
+  
+  if (fileInput && fileNameDisplay) {
+    fileInput.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const fileName = file.name;
+        const fileSize = (file.size / (1024 * 1024)).toFixed(2); // MB
+        fileNameDisplay.textContent = `${fileName} (${fileSize} MB)`;
+        fileNameDisplay.classList.add('has-file');
+        
+        // Validar tamanho imediatamente
+        if (file.size > 10 * 1024 * 1024) {
+          fileNameDisplay.textContent = 'Arquivo muito grande! Máximo: 10MB';
+          fileNameDisplay.classList.remove('has-file');
+          fileNameDisplay.classList.add('error');
+          fileInput.value = '';
+        } else {
+          fileNameDisplay.classList.remove('error');
+        }
+      } else {
+        fileNameDisplay.textContent = 'Nenhum arquivo escolhido';
+        fileNameDisplay.classList.remove('has-file', 'error');
+      }
+    });
+  }
+}
+
+/**
+ * Carrega lista de monitores do JSON embutido
+ */
+function loadMonitors() {
+  try {
+    const monitoresScript = document.getElementById('monitores-data');
+    if (!monitoresScript) {
+      console.warn('Dados de monitores não encontrados');
+      return;
+    }
+    
+    const data = JSON.parse(monitoresScript.textContent);
+    if (data && data.monitores) {
+      populateMonitors(data.monitores);
+    }
+  } catch (error) {
+    console.error('Erro ao carregar monitores:', error);
+  }
+}
+
+function populateMonitors(monitores) {
+  const select = document.getElementById('monitor-select');
+  if (!select) return;
+  
+  // Limpar opção padrão e adicionar monitores ativos
+  const defaultOption = select.querySelector('option[value=""]');
+  if (defaultOption) {
+    select.innerHTML = '';
+    select.appendChild(defaultOption);
+  }
+  
+  monitores
+    .filter(monitor => monitor.ativo)
+    .forEach(monitor => {
+      const option = document.createElement('option');
+      option.value = monitor.email;
+      option.textContent = `${monitor.nome} (${monitor.email})`;
+      select.appendChild(option);
+    });
+}
+
+/**
+ * Handler para envio do formulário
+ */
+async function handleFormSubmit(event) {
+  event.preventDefault();
+  
+  const form = event.target;
+  const formData = new FormData(form);
+  
+  // Coletar dados do formulário
+  const submissionData = {
+    nome: formData.get('nome'),
+    email: formData.get('email'),
+    monitorEmail: formData.get('monitor') || null,
+    arquivo: form.querySelector('#arquivo-resposta').files[0],
+    mensagem: formData.get('mensagem') || '',
+    exerciseInfo: {
+      id: document.getElementById('exercise-id').value,
+      titulo: document.getElementById('exercise-title').value,
+      lesson: document.getElementById('exercise-lesson-id').value,
+      modulo: document.getElementById('exercise-module').value
+    }
+  };
+  
+  // Validar formulário
+  const validation = validateSubmissionForm(submissionData);
+  if (!validation.isValid) {
+    showErrors(validation.errors);
+    return;
+  }
+  
+  // Limpar erros anteriores
+  clearErrors();
+  
+  // Mostrar loading
+  setFormLoading(true);
+  hideStatusMessage();
+  
+  try {
+    // Enviar via EmailJS (se configurado) ou mostrar erro
+    if (typeof enviarExercicio === 'function') {
+      await enviarExercicio(submissionData, submissionData.exerciseInfo);
+      showStatusMessage('success', 'Exercício enviado com sucesso! Você receberá uma confirmação por email em breve.');
+      form.reset();
+    } else {
+      throw new Error('EmailJS não configurado. Por favor, configure EMAILJS_CONFIG em emailjs-config.js');
+    }
+  } catch (error) {
+    console.error('Erro ao enviar exercício:', error);
+    showStatusMessage('error', error.message || 'Erro ao enviar exercício. Por favor, tente novamente ou entre em contato com suporte.');
+  } finally {
+    setFormLoading(false);
+  }
+}
+
+/**
+ * Valida o formulário
+ */
+function validateSubmissionForm(data) {
+  const errors = {};
+  let isValid = true;
+  
+  // Validar nome
+  if (!data.nome || data.nome.trim().length < 3) {
+    errors.nome = 'Nome deve ter pelo menos 3 caracteres.';
+    isValid = false;
+  }
+  
+  // Validar email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!data.email || !emailRegex.test(data.email)) {
+    errors.email = 'Por favor, insira um email válido.';
+    isValid = false;
+  }
+  
+  // Validar arquivo
+  if (!data.arquivo) {
+    errors.arquivo = 'Por favor, selecione um arquivo para enviar.';
+    isValid = false;
+  } else {
+    // Validar tamanho (10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (data.arquivo.size > maxSize) {
+      errors.arquivo = 'O arquivo deve ter no máximo 10MB.';
+      isValid = false;
+    }
+    
+    // Validar tipo
+    const fileName = data.arquivo.name.toLowerCase();
+    const allowedTypes = ['.pdf', '.docx', '.doc', '.md', '.txt'];
+    const hasValidExtension = allowedTypes.some(ext => fileName.endsWith(ext));
+    if (!hasValidExtension) {
+      errors.arquivo = 'Apenas arquivos .pdf, .docx, .doc, .md ou .txt são aceitos.';
+      isValid = false;
+    }
+  }
+  
+  return {
+    isValid: isValid,
+    errors: errors
+  };
+}
+
+/**
+ * Mostra erros de validação
+ */
+function showErrors(errors) {
+  Object.keys(errors).forEach(field => {
+    const errorElement = document.getElementById(`error-${field}`);
+    if (errorElement) {
+      errorElement.textContent = errors[field];
+      errorElement.style.display = 'block';
+      
+      // Adicionar classe de erro ao input
+      const input = document.getElementById(`aluno-${field}`) || document.getElementById(`arquivo-resposta`);
+      if (input) {
+        input.classList.add('error');
+      }
+    }
+  });
+}
+
+/**
+ * Limpa erros de validação
+ */
+function clearErrors() {
+  document.querySelectorAll('.form-error').forEach(el => {
+    el.style.display = 'none';
+    el.textContent = '';
+  });
+  
+  document.querySelectorAll('.error').forEach(el => {
+    el.classList.remove('error');
+  });
+}
+
+/**
+ * Mostra mensagem de status
+ */
+function showStatusMessage(type, message) {
+  const statusDiv = document.getElementById('form-status');
+  const messageDiv = document.getElementById('status-message');
+  
+  if (statusDiv && messageDiv) {
+    statusDiv.style.display = 'block';
+    statusDiv.className = `form-status ${type}`;
+    messageDiv.textContent = message;
+    
+    // Scroll para mensagem
+    statusDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+/**
+ * Esconde mensagem de status
+ */
+function hideStatusMessage() {
+  const statusDiv = document.getElementById('form-status');
+  if (statusDiv) {
+    statusDiv.style.display = 'none';
+  }
+}
+
+/**
+ * Define estado de loading do formulário
+ */
+function setFormLoading(loading) {
+  const submitBtn = document.getElementById('btn-submit');
+  const submitText = document.getElementById('btn-submit-text');
+  const submitLoader = document.getElementById('btn-submit-loader');
+  
+  if (submitBtn) {
+    submitBtn.disabled = loading;
+  }
+  
+  if (submitText) {
+    submitText.style.display = loading ? 'none' : 'inline';
+  }
+  
+  if (submitLoader) {
+    submitLoader.style.display = loading ? 'inline' : 'none';
+  }
+}
+</script>

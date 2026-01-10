@@ -1,5 +1,9 @@
 class ProgressTracker {
   constructor() {
+    // Limpar dados antigos de podcast se existir utilitário de migração
+    if (window.StorageMigration && typeof window.StorageMigration.cleanPodcastData === 'function') {
+      window.StorageMigration.cleanPodcastData();
+    }
     this.progress = this.loadProgress();
     this.init();
   }
@@ -10,27 +14,55 @@ class ProgressTracker {
   }
   
   loadProgress() {
-    const saved = localStorage.getItem('course-progress');
-    if (saved) {
+    const progressKey = (window.Constants && window.Constants.STORAGE_KEYS && window.Constants.STORAGE_KEYS.COURSE_PROGRESS) || 'course-progress';
+    
+    // Usar StorageSafe se disponível, senão fallback para localStorage direto
+    let saved = null;
+    if (window.StorageSafe && typeof window.StorageSafe.getItem === 'function') {
+      saved = window.StorageSafe.getItem(progressKey);
+    } else {
       try {
-        return JSON.parse(saved);
+        const item = localStorage.getItem(progressKey);
+        saved = item ? JSON.parse(item) : null;
       } catch (e) {
-        if (window.Logger) {
-          window.Logger.error('Erro ao carregar progresso:', e);
-        } else {
-          console.error('Erro ao carregar progresso:', e);
-        }
+        window.Logger?.error('Erro ao carregar progresso:', e);
+        saved = null;
       }
     }
+    
+    if (saved) {
+      // Remover podcasts do progresso se existir (limpeza de dados antigos)
+      if (saved.podcasts) {
+        delete saved.podcasts;
+        // Salvar progresso limpo
+        this.saveProgress();
+      }
+      return saved;
+    }
+    
     return {
       lessons: {},
-      exercises: {},
-      podcasts: {}
+      exercises: {}
     };
   }
   
   saveProgress() {
-    localStorage.setItem('course-progress', JSON.stringify(this.progress));
+    const progressKey = (window.Constants && window.Constants.STORAGE_KEYS && window.Constants.STORAGE_KEYS.COURSE_PROGRESS) || 'course-progress';
+    
+    // Usar StorageSafe se disponível
+    if (window.StorageSafe && typeof window.StorageSafe.setItem === 'function') {
+      const success = window.StorageSafe.setItem(progressKey, this.progress);
+      if (!success) {
+        window.Logger?.warn('Não foi possível salvar progresso no localStorage');
+      }
+    } else {
+      // Fallback para localStorage direto
+      try {
+        localStorage.setItem(progressKey, JSON.stringify(this.progress));
+      } catch (e) {
+        window.Logger?.error('Erro ao salvar progresso:', e);
+      }
+    }
   }
   
   markLessonComplete(lessonId, moduleId) {
@@ -109,8 +141,12 @@ class ProgressTracker {
       progressText.textContent = `${overallProgress}%`;
     }
     
-    if (tracker && overallProgress > 0) {
-      tracker.style.display = 'block';
+    if (tracker) {
+      if (overallProgress > 0) {
+        tracker.classList.remove('hidden');
+      } else {
+        tracker.classList.add('hidden');
+      }
     }
   }
   

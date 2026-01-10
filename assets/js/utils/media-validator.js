@@ -6,9 +6,7 @@
     // Se validação falhar, retorna true mesmo assim (não bloqueia)
     // Apenas loga warning em dev
     if (!filePath || typeof filePath !== 'string') {
-      if (window.Logger) {
-        window.Logger.warn('MediaValidator: filePath inválido');
-      }
+      window.Logger?.warn('MediaValidator: filePath inválido');
       return true; // NÃO BLOQUEIA - permite tentar carregar
     }
     
@@ -22,8 +20,8 @@
       filePath.toLowerCase().endsWith(ext)
     );
     
-    if (!hasValidExtension && window.Logger) {
-      window.Logger.warn('MediaValidator: extensão não reconhecida, mas permitindo:', filePath);
+    if (!hasValidExtension) {
+      window.Logger?.warn('MediaValidator: extensão não reconhecida, mas permitindo:', filePath);
     }
     
     return true; // SEMPRE retorna true - nunca bloqueia

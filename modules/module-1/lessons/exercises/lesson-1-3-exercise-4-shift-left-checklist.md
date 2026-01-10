@@ -179,9 +179,11 @@ Aplique o checklist em um projeto real ou de exemplo:
 
 ## Contexto CWI
 
-### Caso Real: Checklist em Múltiplos Projetos
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em vários projetos da CWI, implementamos checklist de Shift-Left Security:
+### Exemplo Hipotético: Checklist em Múltiplos Projetos
+
+Em projetos hipotéticos, implementaríamos checklist de Shift-Left Security:
 
 **Resultados**:
 - Redução de 70% em vulnerabilidades encontradas em produção

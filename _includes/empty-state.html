@@ -12,13 +12,13 @@
     - variant: Variante do empty state ('compact' ou 'inline', opcional)
 {% endcomment %}
 
-<div class="empty-state{% if include.variant %} empty-state--{{ include.variant }}{% endif %}">
+<div class="empty-state{% if include.variant %} empty-state--{{ include.variant }}{% endif %}" data-testid="empty-state">
   <div class="empty-state__icon">{{ include.icon | default: '📚' }}</div>
   <h3 class="empty-state__title">{{ include.title | default: 'Nenhum conteúdo' }}</h3>
   <p class="empty-state__description">{{ include.description | default: 'Não há conteúdo disponível no momento.' }}</p>
   {% if include.action_url %}
   <div class="empty-state__action">
-    <a href="{{ include.action_url }}" class="btn btn-primary">{{ include.action_text | default: 'Voltar' }}</a>
+    <a href="{{ include.action_url }}" class="btn btn-primary" data-testid="empty-state-action-btn">{{ include.action_text | default: 'Voltar' }}</a>
   </div>
   {% endif %}
 </div>

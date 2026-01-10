@@ -225,9 +225,11 @@ def test_privilege_escalation_prevention():
 
 ## Contexto CWI
 
-### Caso Real: Projeto Financeiro
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto financeiro da CWI, identificamos Broken Access Control em endpoints de consulta de extratos. Usuários conseguiam acessar extratos de outras contas modificando o ID da conta na URL.
+### Exemplo Hipotético: Projeto Financeiro
+
+Em um projeto financeiro hipotético, poderíamos identificar Broken Access Control em endpoints de consulta de extratos. Usuários conseguiriam acessar extratos de outras contas modificando o ID da conta na URL.
 
 **Impacto**:
 - Potencial acesso a dados bancários de outras pessoas

@@ -134,9 +134,11 @@ Analise fluxos específicos:
 
 ## Contexto CWI
 
-### Caso Real: Threat Modeling em Projeto Financeiro
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto financeiro da CWI, realizamos threat modeling completo:
+### Exemplo Hipotético: Threat Modeling em Projeto Financeiro
+
+Em um projeto financeiro hipotético, realizaríamos threat modeling completo:
 
 **Ameaças Identificadas**:
 - 15 ameaças críticas

@@ -12,6 +12,13 @@ class ModuleSummary {
 
     this.moduleId = container.dataset.moduleId;
     
+    // Garantir que o conteúdo não seja cortado pelo fix-content-height
+    const contentWrapper = document.querySelector('.content-wrapper');
+    if (contentWrapper) {
+      contentWrapper.style.height = 'auto';
+      contentWrapper.style.overflow = 'visible';
+    }
+    
     // Mostrar skeleton loader durante carregamento
     this.showSkeletonLoader();
     
@@ -68,6 +75,14 @@ class ModuleSummary {
     // Carregar dados do módulo do siteData ou construir a partir da página
     if (window.siteData && window.siteData.modules) {
       this.moduleData = window.siteData.modules.find(m => m.id === this.moduleId);
+      // Fallback: se não tiver lessons populadas, derivar pelas lições com mesmo module id
+      if (this.moduleData && (!this.moduleData.lessons || this.moduleData.lessons.length === 0)) {
+        const lessonsByModule = window.siteData.lessons?.filter(l => l.module === this.moduleId) || [];
+        this.moduleData = {
+          ...this.moduleData,
+          lessons: lessonsByModule.map(l => l.id)
+        };
+      }
     }
     
     // Se não encontrou, tentar construir a partir da página atual
@@ -93,8 +108,16 @@ class ModuleSummary {
         }
       });
       
+      // Buscar slug do módulo do siteData
+      let moduleSlug = null;
+      if (window.siteData && window.siteData.modules) {
+        const module = window.siteData.modules.find(m => m.id === this.moduleId);
+        moduleSlug = module?.slug;
+      }
+      
       this.moduleData = {
         id: this.moduleId,
+        slug: moduleSlug,
         lessons: lessons
       };
     }
@@ -118,11 +141,7 @@ class ModuleSummary {
         });
       }
     } catch (e) {
-      if (window.Logger) {
-        window.Logger.error('Error loading quiz results:', e);
-      } else {
-        console.error('Error loading quiz results:', e);
-      }
+      window.Logger?.error('Error loading quiz results:', e);
     }
   }
 
@@ -237,14 +256,16 @@ class ModuleSummary {
     const grid = document.getElementById('quiz-results-grid');
     if (!grid) return;
 
-    if (Object.keys(this.quizResults).length === 0) {
+    if (Object.keys(this.quizResults).length === 0 && (!this.moduleData || !this.moduleData.lessons || this.moduleData.lessons.length === 0)) {
       // Usar empty-state component
       grid.innerHTML = this.createEmptyState();
       return;
     }
 
     // Ordenar por ordem das lições
-    const sortedLessons = this.moduleData ? this.moduleData.lessons : Object.keys(this.quizResults);
+    const sortedLessons = (this.moduleData && Array.isArray(this.moduleData.lessons) && this.moduleData.lessons.length > 0)
+      ? this.moduleData.lessons
+      : Object.keys(this.quizResults);
     
     // Adicionar animação fadeInUp aos cards
     grid.innerHTML = sortedLessons.map((lessonId, index) => {
@@ -313,16 +334,31 @@ class ModuleSummary {
 
   getLessonUrl(lessonId) {
     // Construir URL da lição baseado no módulo
-    if (!this.moduleData) return '#';
+    if (!this.moduleId) return '#';
     
     const lesson = this.getLessonData(lessonId);
     if (!lesson) return '#';
 
-    // Tentar construir URL relativa
-    const moduleSlug = this.moduleData.slug || this.moduleId.replace('module-', '');
+    // Buscar slug do módulo do siteData se não estiver no moduleData
+    let moduleSlug = this.moduleData?.slug;
+    if (!moduleSlug && window.siteData && window.siteData.modules) {
+      const module = window.siteData.modules.find(m => m.id === this.moduleId);
+      moduleSlug = module?.slug;
+    }
+    
+    // Fallback: tentar derivar do moduleId
+    if (!moduleSlug) {
+      moduleSlug = this.moduleId.replace('module-', '');
+    }
+
+    // Usar slug da lição ou fallback
     const lessonSlug = lesson.slug || lessonId.replace('lesson-', '');
     
-    return `/modules/${moduleSlug}/lessons/${lessonSlug}/`;
+    // Construir URL relativa usando baseurl se disponível
+    const baseurl = (window.siteData && window.siteData.baseurl) || '';
+    // Garantir que a URL sempre comece com / se baseurl estiver vazio
+    const urlPath = `/modules/${moduleSlug}/lessons/${lessonSlug}/`;
+    return baseurl ? `${baseurl}${urlPath}` : urlPath;
   }
 
   createEmptyState() {
@@ -334,12 +370,12 @@ class ModuleSummary {
     }
     
     return `
-      <div class="empty-state empty-state--inline" style="grid-column: 1 / -1; width: 100%;">
+      <div class="empty-state empty-state--inline empty-state-full-width">
         <div class="empty-state__icon">🎯</div>
         <h3 class="empty-state__title">Nenhum quiz completado ainda</h3>
         <p class="empty-state__description">Complete os quizzes das aulas para ver seus resultados e descobrir sua classificação como profissional de segurança!</p>
         <div class="empty-state__action">
-          <a href="${actionUrl}" class="btn btn-primary" style="background: var(--color-primary); color: var(--color-text-inverse); padding: 0.75rem 1.5rem; border-radius: 6px; text-decoration: none; display: inline-block; font-weight: 600; transition: all 0.2s ease;">Começar a Estudar →</a>
+          <a href="${actionUrl}" class="btn btn-primary">Começar a Estudar →</a>
         </div>
       </div>
     `;
@@ -392,7 +428,40 @@ class ModuleSummary {
         if (this.moduleData && this.moduleData.lessons && this.moduleData.lessons.length > 0) {
           const firstLessonId = this.moduleData.lessons[0];
           const url = this.getLessonUrl(firstLessonId);
-          window.location.href = url;
+          
+          // Validar URL antes de navegar
+          if (url && url !== '#') {
+            window.location.href = url;
+          } else {
+            // Fallback: tentar construir URL diretamente do siteData
+            if (window.siteData && window.siteData.modules && window.siteData.lessons) {
+              const module = window.siteData.modules.find(m => m.id === this.moduleId);
+              const lesson = window.siteData.lessons.find(l => l.id === firstLessonId);
+              
+              if (module && lesson && module.slug && lesson.slug) {
+                const baseurl = window.siteData.baseurl || '';
+                const urlPath = `/modules/${module.slug}/lessons/${lesson.slug}/`;
+                window.location.href = baseurl ? `${baseurl}${urlPath}` : urlPath;
+              } else {
+                // Último fallback: redirecionar para página do módulo
+                if (module && module.slug) {
+                  const baseurl = window.siteData.baseurl || '';
+                  const urlPath = `/modules/${module.slug}/`;
+                  window.location.href = baseurl ? `${baseurl}${urlPath}` : urlPath;
+                }
+              }
+            }
+          }
+        } else {
+          // Se não houver lições, redirecionar para página do módulo
+          if (window.siteData && window.siteData.modules) {
+            const module = window.siteData.modules.find(m => m.id === this.moduleId);
+            if (module && module.slug) {
+              const baseurl = window.siteData.baseurl || '';
+              const urlPath = `/modules/${module.slug}/`;
+              window.location.href = baseurl ? `${baseurl}${urlPath}` : urlPath;
+            }
+          }
         }
       });
     }

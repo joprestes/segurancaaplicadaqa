@@ -10,10 +10,11 @@ class Analytics {
   
   static trackTimeOnPage() {
     const startTime = Date.now();
+    const minTime = (window.Constants && window.Constants.ANALYTICS && window.Constants.ANALYTICS.MIN_TIME_ON_PAGE) || 5;
     
     window.addEventListener('beforeunload', () => {
       const timeSpent = Math.round((Date.now() - startTime) / 1000);
-      if (typeof gtag !== 'undefined' && timeSpent > 5) {
+      if (typeof gtag !== 'undefined' && timeSpent > minTime) {
         gtag('event', 'time_on_page', {
           time_spent: timeSpent,
           page_path: window.location.pathname
@@ -24,7 +25,7 @@ class Analytics {
   
   static trackScrollDepth() {
     let maxScroll = 0;
-    const thresholds = [25, 50, 75, 100];
+    const thresholds = (window.Constants && window.Constants.ANALYTICS && window.Constants.ANALYTICS.SCROLL_THRESHOLDS) || [25, 50, 75, 100];
     const tracked = new Set();
     
     window.addEventListener('scroll', () => {

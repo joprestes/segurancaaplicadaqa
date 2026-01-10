@@ -212,9 +212,11 @@ Crie um documento de threat model completo:
 
 ## Contexto CWI
 
-### Caso Real: Threat Modeling em Projeto Financeiro
+> **Nota**: O exemplo abaixo é um cenário hipotético criado para fins educacionais.
 
-Em um projeto financeiro da CWI, realizamos threat modeling na fase de design:
+### Exemplo Hipotético: Threat Modeling em Projeto Financeiro
+
+Em um projeto financeiro hipotético, realizaríamos threat modeling na fase de design:
 
 **Ameaças Identificadas**:
 1. Força bruta em login (Alta)
