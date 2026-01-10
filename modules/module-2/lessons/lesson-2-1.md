@@ -11,1358 +11,1305 @@ image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
 permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 ---
 
-<!-- ⚠️ ATENÇÃO: Este arquivo contém conteúdo sobre Angular que precisa ser reescrito para Segurança em QA. 
-     Veja CONTENT_ISSUES.md para mais detalhes. -->
+# Aula 2.1: SAST: Static Application Security Testing
 
-## Introdução
+## 🎯 Objetivos de Aprendizado
 
-Nesta aula, você dominará serviços e injeção de dependência no Angular. Serviços são fundamentais para organizar lógica de negócio, compartilhar dados entre componentes e criar código reutilizável. Injeção de Dependência é o mecanismo que torna tudo isso possível de forma elegante e testável.
+Ao final desta aula, você será capaz de:
 
-### Contexto Histórico da Injeção de Dependência
+- Compreender o que é SAST e sua importância no processo de testes de segurança
+- Diferenciar SAST de outras metodologias de teste (DAST, IAST, SCA)
+- Identificar as principais ferramentas SAST disponíveis no mercado
+- Executar análise estática de código em projetos reais
+- Interpretar resultados de SAST e priorizar vulnerabilidades
+- Integrar SAST em pipelines CI/CD
+- Configurar regras customizadas em ferramentas SAST
 
-A Injeção de Dependência (DI) é um dos pilares fundamentais do Angular desde sua primeira versão. O sistema de DI do Angular é um dos mais poderosos e completos entre os frameworks JavaScript modernos.
+---
 
-**Linha do Tempo da Evolução**:
+## 📚 Introdução ao SAST
+
+### O que é SAST?
+
+**SAST (Static Application Security Testing)** é uma metodologia de teste de segurança que analisa o código-fonte, bytecode ou binários de uma aplicação **sem executá-la**. SAST identifica vulnerabilidades através da análise estática do código, procurando por padrões inseguros, más práticas e vulnerabilidades conhecidas.
+
+#### 🎭 Analogia: Inspetor de Código vs Teste de Estrada
+
+Imagine comprar um carro:
+
+**SAST = Inspetor que examina o carro parado**:
+- O inspetor abre o capô e examina o motor, sem ligar o carro
+- Verifica se há peças soltas, vazamentos, fios expostos
+- Identifica problemas potenciais antes de sair na estrada
+- **Vantagem**: Encontra problemas antes de usar
+- **Limitação**: Não testa como o carro funciona em movimento
+
+**DAST = Teste de Estrada**:
+- Testa o carro em movimento, em condições reais
+- Verifica como o carro se comporta na prática
+- **Vantagem**: Encontra problemas que só aparecem em uso real
+- **Limitação**: Precisa que o carro esteja funcionando
+
+Na segurança de software:
+- **SAST** analisa código estático, sem executar
+- **DAST** testa aplicação em execução (será abordado na próxima aula)
+
+### Contexto Histórico do SAST
+
+A análise estática de código existe desde os primórdios da programação, mas SAST como disciplina específica de segurança evoluiu significativamente:
 
 ```
-AngularJS (2010) ──────────────────────────────────────────── Angular 17+ (2023+)
- │                                                                  │
- ├─ 2010    📦 AngularJS - DI Básico                              │
- │          $inject annotation                                     │
- │          Service registration manual                           │
- │          DI baseado em strings                                  │
- │                                                                  │
- ├─ 2016    🚀 Angular 2 - DI Moderno                            │
- │          Decorator @Injectable                                 │
- │          Type-based injection                                  │
- │          Hierarquia de injectors                               │
- │          Providers system                                      │
- │                                                                  │
- ├─ 2017-2020 📈 Melhorias Incrementais                           │
- │          InjectionToken para type safety                       │
- │          Factory providers                                     │
- │          Optional dependencies                                 │
- │          Performance improvements                              │
- │                                                                  │
- ├─ 2020    ⚡ Angular 10 - providedIn simplificado             │
- │          'root', 'platform', 'any'                            │
- │          Standalone services                                   │
- │                                                                  │
- ├─ 2022    🔥 Angular 14 - inject() function                    │
- │          Functional injection                                  │
- │          Injection em funções                                 │
- │          Código mais limpo                                     │
- │                                                                  │
- └─ 2023+    🎯 Angular 17+ - DI Otimizado                      │
-            Performance melhorada                                │
-            Tree-shaking melhorado                                │
-            Standalone-first                                      │
+Anos 1970-1980 ──────────────────────────────────────────── 2024+
+ │                                                             │
+ ├─ 1970s    📦 Lint (Original)                              │
+ │          ┌─────────────────────────────────────┐          │
+ │          │ • Análise de estilo de código      │          │
+ │          │ • Detecção de bugs básicos         │          │
+ │          │ • Foco em qualidade, não segurança │          │
+ │          └─────────────────────────────────────┘          │
+ │                                                             │
+ ├─ 1990s    🔍 Code Review Manual                            │
+ │          ┌─────────────────────────────────────┐          │
+ │          │ • Revisão humana de código         │          │
+ │          │ • Encontra problemas de segurança   │          │
+ │          │ • Lento e caro                     │          │
+ │          └─────────────────────────────────────┘          │
+ │                                                             │
+ ├─ 2000s    🔥 SAST Comercial Inicial                        │
+ │          ┌─────────────────────────────────────┐          │
+ │          │ • Ferramentas comerciais (Checkmarx)│          │
+ │          │ • Foco em vulnerabilidades OWASP    │          │
+ │          │ • Integração com IDEs              │          │
+ │          └─────────────────────────────────────┘          │
+ │                                                             │
+ ├─ 2010s    📈 SAST Open Source                             │
+ │          ┌─────────────────────────────────────┐          │
+ │          │ • SonarQube com security rules      │          │
+ │          │ • Bandit (Python), Brakeman (Ruby) │          │
+ │          │ • ESLint Security Plugin            │          │
+ │          │ • Acessibilidade aumentada          │          │
+ │          └─────────────────────────────────────┘          │
+ │                                                             │
+ ├─ 2020    ⚡ Rules as Code (Semgrep)                       │
+ │          ┌─────────────────────────────────────┐          │
+ │          │ • Regras customizadas fáceis        │          │
+ │          │ • Fast scanning                     │          │
+ │          │ • Developer-friendly                │          │
+ │          └─────────────────────────────────────┘          │
+ │                                                             │
+ └─ 2024+    🚀 SAST Moderno                                  │
+            ┌─────────────────────────────────────┐          │
+            │ • AI/ML para reduzir false positives│          │
+            │ • Integração nativa com CI/CD       │          │
+            │ • Real-time scanning em IDEs        │          │
+            │ • Análise de IaC (Infrastructure)   │          │
+            │ • Integração com SCA e DAST         │          │
+            └─────────────────────────────────────┘          │
 ```
 
-**Por que DI é Fundamental?**
+**Por que SAST se tornou fundamental?**
 
-DI resolve problemas comuns de desenvolvimento:
-- **Acoplamento**: Sem DI, componentes criam dependências diretamente (alto acoplamento)
-- **Testabilidade**: Com DI, dependências podem ser mockadas facilmente
-- **Reutilização**: Serviços podem ser compartilhados entre componentes
-- **Manutenibilidade**: Mudanças em serviços não afetam componentes diretamente
+- **Shift-Left**: Encontra vulnerabilidades cedo (durante desenvolvimento)
+- **Custo-Benefício**: Corrigir durante dev é 10-100x mais barato que em produção
+- **Escalabilidade**: Automatiza o que antes era revisão manual
+- **Padronização**: Regras consistentes aplicadas a todo o código
+- **Compliance**: Muitos padrões (PCI-DSS, SOC2) exigem análise estática
 
-**Comparação com Outros Frameworks**:
+### Por que SAST é Importante?
 
-- **Angular**: DI nativo e completo, type-safe, hierarquia poderosa
-- **React**: Context API (limitado), sem DI nativo
-- **Vue**: Provide/Inject (básico), sem hierarquia completa
+#### O Custo de Vulnerabilidades Encontradas por SAST vs Produção
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  CUSTO DE CORRIGIR VULNERABILIDADE POR MÉTODO          │
+│                                                         │
+│  SAST (Dev)    Code Review    Testes    DAST    Prod   │
+│     │              │            │         │       │     │
+│     $50          $200        $500    $2,000  $50,000│
+│                                                         │
+│  SAST encontra problemas quando são mais baratos!      │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Dados Reais (2024)**:
+- Vulnerabilidade encontrada por **SAST durante desenvolvimento**: $50-200 para corrigir
+- Vulnerabilidade encontrada em **code review manual**: $200-500
+- Vulnerabilidade encontrada em **testes de segurança**: $500-2,000
+- Vulnerabilidade encontrada por **DAST em staging**: $2,000-10,000
+- Vulnerabilidade encontrada em **produção (breach)**: $50,000-500,000+
+
+**Fonte**: OWASP, SANS Institute, IBM Security
+
+#### Benefícios do SAST
+
+| Benefício | Descrição | Impacto |
+|-----------|-----------|---------|
+| **Detecção Precoce** | Encontra vulnerabilidades durante desenvolvimento | Redução de 80-90% de bugs em produção |
+| **Custo-Benefício** | Correção durante dev é muito mais barata | Economia de 10-100x vs produção |
+| **Cobertura Completa** | Analisa todo o código, não apenas o que é executado | Encontra código morto, branches não testados |
+| **Automação** | Integra no workflow de desenvolvimento | Não depende de revisão manual |
+| **Educação** | Ensina desenvolvedores padrões seguros | Melhora cultura de segurança |
+| **Compliance** | Atende requisitos de padrões de segurança | PCI-DSS, SOC2, ISO 27001 |
 
 ### O que você vai aprender
 
-- **Serviços Standalone**: Criar serviços auto-suficientes sem NgModules
-- **@Injectable Decorator**: Configurar serviços e escopos
-- **Hierarquia de Injectors**: Entender como Angular resolve dependências
-- **Providers e Escopos**: Configurar como serviços são criados e compartilhados
-- **Função inject()**: Forma moderna de injeção (Angular 14+)
-- **InjectionTokens**: Injeção type-safe de valores primitivos e objetos
-- **Factory Providers**: Criar serviços com lógica de criação complexa
-- **Dependências Opcionais**: Trabalhar com dependências que podem não existir
-
-### Por que isso é importante
-
-**Para Desenvolvimento**:
-- **Arquitetura Limpa**: Separação clara entre lógica de negócio e apresentação
-- **Testabilidade**: Fácil criar mocks e testar componentes isoladamente
-- **Reutilização**: Serviços podem ser compartilhados em toda aplicação
-- **Manutenibilidade**: Mudanças centralizadas, menos impacto
-
-**Para Projetos**:
-- **Escalabilidade**: Arquitetura que escala com projetos grandes
-- **Organização**: Código bem estruturado e fácil de navegar
-- **Performance**: Singleton services reduzem criação de instâncias
-- **Colaboração**: Múltiplos desenvolvedores podem trabalhar independentemente
-
-**Para Carreira**:
-- **Fundamental**: DI é essencial para Angular profissional
-- **Diferencial**: Entendimento profundo de DI é valorizado
-- **Base Sólida**: Necessário para conceitos avançados (guards, interceptors)
-- **Padrões**: Aprende padrões de design importantes (Dependency Injection, Singleton)
+- **Fundamentos de SAST**: Como funciona análise estática
+- **Ferramentas SAST**: SonarQube, Semgrep, Checkmarx, ferramentas específicas por linguagem
+- **Configuração Prática**: Setup de ferramentas SAST em projetos
+- **Interpretação de Resultados**: Como priorizar e validar findings
+- **False Positives vs True Positives**: Como diferenciar e tratar
+- **Integração CI/CD**: Automatizar scans em pipelines
+- **Regras Customizadas**: Criar regras específicas para seu projeto
 
 ---
 
-## Conceitos Teóricos
+## 🔄 SAST vs Outras Metodologias de Teste
 
-### Serviços no Angular
+### Comparação: SAST, DAST, IAST, SCA
 
-**Definição**: Serviços são classes TypeScript decoradas com `@Injectable` que encapsulam lógica de negócio, comunicação com APIs e funcionalidades reutilizáveis.
+SAST não é a única forma de testar segurança. É importante entender diferenças:
 
-**Explicação Detalhada**:
+#### Tabela Comparativa Completa
 
-Serviços são usados para:
-- Compartilhar lógica entre componentes
-- Comunicar com APIs externas
-- Gerenciar estado da aplicação
-- Implementar funcionalidades transversais (logging, autenticação)
-- Facilitar testes unitários
+| Aspecto | SAST | DAST | IAST | SCA |
+|---------|------|------|------|-----|
+| **Quando Executa** | Antes de executar (código estático) | Aplicação em execução | Aplicação em execução (instrumentado) | Análise de dependências |
+| **O que Analisa** | Código-fonte, bytecode | Aplicação rodando (black-box) | Código em execução (instrumentado) | Bibliotecas e dependências |
+| **Quando Usar** | Durante desenvolvimento | Testes de integração/staging | Testes de integração/staging | Durante desenvolvimento |
+| **Vantagens** | Precoce, barato, cobre todo código | Testa comportamento real, encontra runtime issues | Combina SAST e DAST | Encontra vulnerabilidades em libs |
+| **Limitações** | False positives, não testa runtime | Só testa o que executa, precisa de app rodando | Overhead de performance, complexidade | Não encontra bugs no código próprio |
+| **Exemplos de Ferramentas** | SonarQube, Semgrep, Checkmarx | OWASP ZAP, Burp Suite | Contrast Security, Veracode | Snyk, Dependabot, npm audit |
+| **Tempo de Execução** | Minutos a horas | Minutos a horas | Contínuo durante execução | Minutos |
+| **Custo** | Baixo-Médio (open source disponível) | Baixo-Médio | Alto | Baixo (muitas gratuitas) |
+| **False Positives** | Muitos (20-40%) | Poucos (5-10%) | Médios (10-15%) | Muito poucos (<5%) |
+| **Precisão** | Média-Alta (depende de ferramenta) | Alta | Muito Alta | Muito Alta |
+
+### Diagrama: Posicionamento no SDLC
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  METODOLOGIAS DE TESTE NO SDLC                         │
+│                                                         │
+│  Requisitos → Design → Desenvolvimento → Testes → Prod │
+│                                                         │
+│     │          │            │            │       │     │
+│     │          │            ▼            │       │     │
+│     │          │        ┌───────┐       │       │     │
+│     │          │        │ SAST  │       │       │     │
+│     │          │        │(Código│       │       │     │
+│     │          │        │Estático)      │       │     │
+│     │          │        └───────┘       │       │     │
+│     │          │            │            │       │     │
+│     │          │            ▼            ▼       │     │
+│     │          │        ┌───────┐   ┌───────┐  │     │
+│     │          │        │  SCA  │   │ IAST  │  │     │
+│     │          │        │(Deps) │   │(App   │  │     │
+│     │          │        │       │   │Instrumentada)│ │
+│     │          │        └───────┘   └───────┘  │     │
+│     │          │            │            │       │     │
+│     │          │            ▼            ▼       ▼     │
+│     │          │                    ┌───────┐ ┌─────┐ │
+│     │          │                    │ DAST  │ │Prod │ │
+│     │          │                    │(App   │ │(Breach│
+│     │          │                    │Rodando)│ │Response)│
+│     │          │                    └───────┘ └─────┘ │
+│                                                         │
+│  SAST: Mais cedo = Mais barato                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Quando Usar Cada Abordagem
+
+**SAST é ideal quando**:
+- ✅ Você quer encontrar vulnerabilidades durante desenvolvimento
+- ✅ Precisa analisar todo o código, incluindo branches não testados
+- ✅ Quer educar desenvolvedores sobre padrões inseguros
+- ✅ Precisa atender compliance que exige análise estática
+- ✅ Tem orçamento limitado (muitas ferramentas open source)
+
+**SAST não é suficiente quando**:
+- ❌ Você precisa testar comportamento em runtime
+- ❌ Precisa validar configuração de servidor
+- ❌ Quer testar autenticação/autorização complexa
+- ❌ Precisa encontrar problemas de infraestrutura
+
+**Conclusão**: SAST deve ser combinado com DAST, IAST e SCA para cobertura completa!
+
+---
+
+## 🔍 Conceitos Teóricos
+
+### Como Funciona SAST?
+
+#### Processo de Análise Estática
+
+SAST funciona em múltiplas camadas de análise:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              PROCESSO DE ANÁLISE SAST                  │
+└─────────────────────────────────────────────────────────┘
+
+1. Parse do Código
+   │
+   ▼
+   ┌─────────────────────────────────────┐
+   │ • Lexical Analysis (tokens)        │
+   │ • Syntax Analysis (AST)            │
+   │ • Semantic Analysis (símbolos)     │
+   └─────────────────────────────────────┘
+   │
+   ▼
+2. Análise de Padrões
+   │
+   ▼
+   ┌─────────────────────────────────────┐
+   │ • Data Flow Analysis (taint)       │
+   │ • Control Flow Analysis            │
+   │ • Pattern Matching (regras)        │
+   │ • Machine Learning (algumas tools) │
+   └─────────────────────────────────────┘
+   │
+   ▼
+3. Detecção de Vulnerabilidades
+   │
+   ▼
+   ┌─────────────────────────────────────┐
+   │ • SQL Injection                    │
+   │ • XSS (Cross-Site Scripting)       │
+   │ • Command Injection                │
+   │ • Path Traversal                   │
+   │ • Insecure Deserialization         │
+   │ • Hardcoded Secrets                │
+   │ • E muito mais...                  │
+   └─────────────────────────────────────┘
+   │
+   ▼
+4. Geração de Report
+   │
+   ▼
+   ┌─────────────────────────────────────┐
+   │ • Severidade (Critical/High/Med/Low)│
+   │ • Localização (arquivo, linha)     │
+   │ • Descrição do problema            │
+   │ • Recomendações de correção        │
+   │ • CWE (Common Weakness Enumeration)│
+   │ • OWASP Top 10 mapping             │
+   └─────────────────────────────────────┘
+```
+
+#### Tipos de Análise SAST
+
+**1. Pattern Matching (Matching de Padrões)**
+- Procura por padrões conhecidos de código inseguro
+- Exemplo: Procura por `eval()`, `exec()`, `SQL` concatenado
+- **Vantagem**: Rápido, fácil de implementar
+- **Desvantagem**: Muitos false positives, não entende contexto
+
+**2. Data Flow Analysis (Análise de Fluxo de Dados)**
+- Rastreia dados de entrada (tainted) até uso (sink)
+- Exemplo: Rastreia input do usuário até query SQL
+- **Vantagem**: Encontra vulnerabilidades reais, menos false positives
+- **Desvantagem**: Mais lento, complexo
+
+**3. Control Flow Analysis (Análise de Fluxo de Controle)**
+- Analisa caminhos de execução do código
+- Exemplo: Verifica se autenticação sempre acontece antes de acesso
+- **Vantagem**: Encontra problemas de lógica
+- **Desvantagem**: Muito complexo, pode não encontrar todos os caminhos
+
+**4. Taint Analysis (Análise de Contaminação)**
+- Tipo especial de data flow que rastreia dados não confiáveis
+- **Source (Fonte)**: Onde dados não confiáveis entram (ex: `request.getParameter()`)
+- **Sink (Ralo)**: Onde dados não confiáveis são usados de forma perigosa (ex: `executeQuery()`)
+- **Sanitizer**: Funções que "limpam" dados (ex: `escapeHtml()`)
+
+**Diagrama de Taint Analysis**:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│           EXEMPLO: TAINT ANALYSIS - SQL INJECTION      │
+└─────────────────────────────────────────────────────────┘
+
+Source (Fonte)
+┌──────────────┐
+│ userInput =  │  ← Dados não confiáveis entram
+│ request.get  │
+│ Parameter()  │
+└──────┬───────┘
+       │
+       │ Taint propagates
+       ▼
+┌──────────────────────┐
+│ query = "SELECT *    │
+│ FROM users WHERE id="│
+│ + userInput          │  ← Dados contaminados usados
+└──────┬───────────────┘     sem sanitização
+       │
+       │ Tainted data reaches sink
+       ▼
+┌──────────────┐
+│ db.execute   │  ← SINK: Execução perigosa
+│ (query)      │     ⚠️ VULNERABILIDADE DETECTADA!
+└──────────────┘
+
+SAST detecta: "Tainted data from Source reaches Sink 
+without sanitization → SQL Injection vulnerability"
+```
+
+### Principais Ferramentas SAST
+
+#### 1. SonarQube
+
+**Definição**: Plataforma open-source que combina análise de qualidade de código com segurança. Analisa código em mais de 25 linguagens e fornece métricas de qualidade, bugs, code smells e vulnerabilidades de segurança.
+
+**Características Principais**:
+- ✅ Open-source (Community Edition) + versões comerciais
+- ✅ Suporta 25+ linguagens (Java, JavaScript, Python, C#, PHP, etc.)
+- ✅ Integração com IDEs (IntelliJ, VS Code, Eclipse)
+- ✅ Integração CI/CD (Jenkins, GitLab CI, GitHub Actions)
+- ✅ Dashboards e relatórios visuais
+- ✅ Regras de segurança baseadas em OWASP, CWE, SANS Top 25
+- ✅ Quality Gates (bloqueia merge se não passar critérios)
 
 **Analogia**:
+SonarQube é como um "checkup completo" de código. Assim como um médico faz exames diversos (sangue, pressão, raio-X) para ter visão completa da saúde, SonarQube faz múltiplas análises (bugs, segurança, qualidade, duplicação) para ter visão completa da saúde do código.
 
-Serviços são como funcionários especializados em uma empresa. Cada serviço tem uma função específica (como um contador, um gerente de estoque), e diferentes departamentos (componentes) podem solicitar seus serviços quando necessário.
+**Exemplo de Configuração Básica**:
 
-**Visualização**:
+```yaml
+# sonar-project.properties
+sonar.projectKey=meu-projeto
+sonar.projectName=Meu Projeto
+sonar.projectVersion=1.0
+sonar.sources=src
+sonar.language=java
+sonar.sourceEncoding=UTF-8
 
-```
-Componente A          Serviço          Componente B
-┌──────────┐         ┌─────────┐      ┌──────────┐
-│          │  ────→  │         │  ←───│          │
-│  Usa     │         │ Lógica  │      │  Usa     │
-│  Serviço │         │ Compartilhada │ │  Serviço │
-└──────────┘         └─────────┘      └──────────┘
-```
-
-**Fluxo Detalhado de Uso de Serviços**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Ciclo de Vida de um Serviço               │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. Declaração                                              │
-│     ┌─────────────────────┐                                 │
-│     │ @Injectable({       │                                 │
-│     │   providedIn: 'root'│                                 │
-│     │ })                   │                                 │
-│     │ export class        │                                 │
-│     │   MyService {}       │                                 │
-│     └─────────────────────┘                                 │
-│              │                                              │
-│              ▼                                              │
-│  2. Registro no Injector                                   │
-│     ┌─────────────────────┐                                 │
-│     │ Angular registra    │                                 │
-│     │ serviço no Root     │                                 │
-│     │ Injector            │                                 │
-│     └─────────────────────┘                                 │
-│              │                                              │
-│              ▼                                              │
-│  3. Primeira Solicitação                                   │
-│     ┌─────────────────────┐                                 │
-│     │ Component solicita  │                                 │
-│     │ MyService           │                                 │
-│     └─────────────────────┘                                 │
-│              │                                              │
-│              ▼                                              │
-│  4. Criação da Instância                                   │
-│     ┌─────────────────────┐                                 │
-│     │ Angular cria        │                                 │
-│     │ instância única     │                                 │
-│     │ (Singleton)         │                                 │
-│     └─────────────────────┘                                 │
-│              │                                              │
-│              ▼                                              │
-│  5. Injeção                                                │
-│     ┌─────────────────────┐                                 │
-│     │ Angular injeta      │                                 │
-│     │ instância no        │                                 │
-│     │ Component           │                                 │
-│     └─────────────────────┘                                 │
-│              │                                              │
-│              ▼                                              │
-│  6. Próximas Solicitações                                  │
-│     ┌─────────────────────┐                                 │
-│     │ Outros Components   │                                 │
-│     │ recebem mesma       │                                 │
-│     │ instância           │                                 │
-│     └─────────────────────┘                                 │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+# Regras de segurança
+sonar.security.hotspots=high,medium
 ```
 
-**Exemplo Prático**:
-
-```typescript
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UserService {
-  private users: User[] = [];
-  
-  getUsers(): User[] {
-    return [...this.users];
-  }
-  
-  addUser(user: User): void {
-    this.users.push(user);
-  }
-  
-  getUserById(id: number): User | undefined {
-    return this.users.find(u => u.id === id);
-  }
-}
+**Dashboard SonarQube**:
+```
+┌─────────────────────────────────────────────────────────┐
+│  SONARQUBE DASHBOARD                                   │
+│                                                         │
+│  Vulnerabilidades de Segurança: 23                     │
+│  ├─ Critical: 2                                        │
+│  ├─ High: 8                                            │
+│  ├─ Medium: 10                                         │
+│  └─ Low: 3                                             │
+│                                                         │
+│  Security Hotspots: 45                                 │
+│  Bugs: 127                                             │
+│  Code Smells: 342                                      │
+│                                                         │
+│  Cobertura de Testes: 78%                              │
+│  Duplicação: 3.2%                                      │
+│                                                         │
+│  Quality Gate: ✅ PASSED                               │
+└─────────────────────────────────────────────────────────┘
 ```
 
----
+#### 2. Semgrep
 
-### @Injectable Decorator
+**Definição**: Ferramenta open-source de análise estática que usa "rules as code" - regras escritas em YAML que são fáceis de criar e customizar. Foca em velocidade e simplicidade.
 
-**Definição**: `@Injectable` é o decorator que marca uma classe como injetável e configurável no sistema de DI do Angular.
-
-**Explicação Detalhada**:
-
-`@Injectable` pode ser configurado com:
-- `providedIn: 'root'`: Singleton em toda aplicação (padrão recomendado)
-- `providedIn: 'platform'`: Singleton compartilhado entre aplicações
-- `providedIn: 'any'`: Nova instância por módulo lazy-loaded
-- Sem `providedIn`: Deve ser fornecido em um NgModule
+**Características Principais**:
+- ✅ Open-source e gratuito
+- ✅ Muito rápido (segundos para projetos grandes)
+- ✅ Rules as code (regras em YAML, fáceis de criar)
+- ✅ Suporta 20+ linguagens
+- ✅ Regras pré-construídas (OWASP, PCI-DSS, SOC2)
+- ✅ Integração CI/CD nativa
+- ✅ Sem necessidade de servidor (CLI tool)
 
 **Analogia**:
+Semgrep é como um "detector de metais" rápido e portátil. Você pode usá-lo rapidamente em qualquer lugar, configurar facilmente o que procurar (regras), e ele encontra problemas rapidamente. Não é tão completo quanto um "raio-X" (SonarQube), mas é muito mais rápido e prático.
 
-`@Injectable` é como um registro de empresa. Sem ele, o Angular não sabe que a classe pode ser "contratada" (injetada). O `providedIn` define onde a instância "trabalha" (escopo).
+**Exemplo de Regra Semgrep**:
 
-**Exemplo Prático**:
-
-```typescript
-@Injectable({
-  providedIn: 'root'
-})
-export class LoggerService {
-  log(message: string): void {
-    console.log(`[${new Date().toISOString()}] ${message}`);
-  }
-}
-
-@Injectable({
-  providedIn: 'any'
-})
-export class FeatureService {
-  constructor() {
-    console.log('Nova instância criada');
-  }
-}
+```yaml
+# regras/sql-injection.yaml
+rules:
+  - id: sql-injection
+    patterns:
+      - pattern-either:
+          - pattern: $X.executeQuery("...$Y...")
+          - pattern: $X.execute("...$Y...")
+    message: "Potential SQL Injection. User input '$Y' is directly concatenated into SQL query."
+    languages: [java, python, javascript]
+    severity: ERROR
+    metadata:
+      cwe: "CWE-89: SQL Injection"
+      owasp: "A03:2021 – Injection"
 ```
 
----
+**Uso Prático**:
 
-### Hierarquia de Injectors
+```bash
+# Scan básico
+semgrep --config=auto .
 
-**Definição**: Angular usa uma hierarquia de injectors para resolver dependências, procurando do nível mais específico (componente) até o mais geral (root).
+# Scan com regras customizadas
+semgrep --config=regras/ .
 
-**Explicação Detalhada**:
+# Scan com saída JSON
+semgrep --config=auto --json --output=results.json .
+```
 
-Hierarquia de injectors:
-1. **Component Injector**: Nível do componente
-2. **Element Injector**: Nível do elemento
-3. **Module Injector**: Nível do módulo
-4. **Platform Injector**: Nível da plataforma
-5. **Root Injector**: Nível raiz (providedIn: 'root')
+#### 3. Checkmarx
+
+**Definição**: Ferramenta comercial enterprise-grade de SAST que oferece análise profunda de código-fonte com suporte a mais de 35 linguagens e 80 frameworks.
+
+**Características Principais**:
+- ✅ Comercial (enterprise, mais caro)
+- ✅ Suporte extensivo (35+ linguagens, 80+ frameworks)
+- ✅ Análise muito profunda (data flow, control flow)
+- ✅ Menos false positives (usando AI/ML)
+- ✅ Integração IDE em tempo real
+- ✅ "Best Fix Location" (sugere melhor lugar para corrigir)
+- ✅ Compliance mapping (PCI-DSS, OWASP, etc.)
 
 **Analogia**:
+Checkmarx é como um "laboratório médico completo" com todos os exames possíveis. É caro, mas oferece análise muito profunda e precisa. Ideal para empresas grandes que precisam de cobertura completa e precisão máxima.
 
-Hierarquia de injectors é como uma estrutura organizacional. Quando você precisa de algo, primeiro pergunta ao seu chefe direto (componente), depois ao gerente (módulo), e assim por diante até encontrar quem pode fornecer.
+**Comparação Rápida das 3 Ferramentas**:
 
-**Visualização**:
+| Aspecto | SonarQube | Semgrep | Checkmarx |
+|---------|-----------|---------|-----------|
+| **Custo** | Grátis (Community) ou Pago | Grátis | Pago (caro) |
+| **Velocidade** | Médio (minutos) | Muito Rápido (segundos) | Lento (horas) |
+| **Precisão** | Média-Alta | Média | Muito Alta |
+| **False Positives** | Médios (20-30%) | Médios (15-25%) | Baixos (5-10%) |
+| **Facilidade de Uso** | Média | Alta | Média |
+| **Customização** | Média | Muito Alta (YAML) | Média |
+| **Suporte de Linguagens** | 25+ | 20+ | 35+ |
+| **Melhor Para** | Equipes médias/grandes | Desenvolvedores individuais/startups | Empresas grandes |
 
-```
-Root Injector (providedIn: 'root')
-    │
-    ├─ Platform Injector
-    │     │
-    │     └─ Module Injector
-    │           │
-    │           └─ Component Injector
-    │                 │
-    │                 └─ Element Injector
-```
+### Ferramentas SAST Específicas por Linguagem
 
-**Fluxo Detalhado de Resolução de Dependências**:
+Além das ferramentas universais, existem ferramentas específicas otimizadas para cada linguagem:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│         Processo de Resolução de Dependência                 │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Component precisa de MyService                            │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ 1. Component Injector               │                   │
-│  │    ┌─────────────────────────────┐   │                   │
-│  │    │ providers: [MyService]?    │   │                   │
-│  │    └─────────────────────────────┘   │                   │
-│  │              │                        │                   │
-│  │              │ ❌ Não encontrado      │                   │
-│  │              ▼                        │                   │
-│  └─────────────────────────────────────┘                   │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ 2. Element Injector                 │                   │
-│  │    ┌─────────────────────────────┐   │                   │
-│  │    │ providers no elemento?      │   │                   │
-│  │    └─────────────────────────────┘   │                   │
-│  │              │                        │                   │
-│  │              │ ❌ Não encontrado      │                   │
-│  │              ▼                        │                   │
-│  └─────────────────────────────────────┘                   │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ 3. Module Injector                  │                   │
-│  │    ┌─────────────────────────────┐   │                   │
-│  │    │ providers no NgModule?     │   │                   │
-│  │    └─────────────────────────────┘   │                   │
-│  │              │                        │                   │
-│  │              │ ❌ Não encontrado      │                   │
-│  │              ▼                        │                   │
-│  └─────────────────────────────────────┘                   │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ 4. Platform Injector                │                   │
-│  │    ┌─────────────────────────────┐   │                   │
-│  │    │ providedIn: 'platform'?   │   │                   │
-│  │    └─────────────────────────────┘   │                   │
-│  │              │                        │                   │
-│  │              │ ❌ Não encontrado      │                   │
-│  │              ▼                        │                   │
-│  └─────────────────────────────────────┘                   │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ 5. Root Injector                    │                   │
-│  │    ┌─────────────────────────────┐   │                   │
-│  │    │ providedIn: 'root'?        │   │                   │
-│  │    └─────────────────────────────┘   │                   │
-│  │              │                        │                   │
-│  │              │ ✅ Encontrado!         │                   │
-│  │              ▼                        │                   │
-│  │    ┌─────────────────────────────┐   │                   │
-│  │    │ Cria ou retorna instância   │   │                   │
-│  │    │ (Singleton se 'root')       │   │                   │
-│  │    └─────────────────────────────┘   │                   │
-│  └─────────────────────────────────────┘                   │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ 6. Injeção no Component             │                   │
-│  │    Component recebe MyService       │                   │
-│  └─────────────────────────────────────┘                   │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+#### Python: Bandit
 
-Nota: Se nenhum injector encontrar o serviço, Angular lança erro:
-"NullInjectorError: No provider for MyService"
+**Definição**: Ferramenta SAST específica para Python que procura por problemas de segurança comuns.
+
+**Uso Prático**:
+
+```bash
+# Instalação
+pip install bandit
+
+# Scan básico
+bandit -r src/
+
+# Scan com saída HTML
+bandit -r src/ -f html -o report.html
+
+# Scan com configuração customizada
+bandit -r src/ -c bandit.yaml
 ```
 
-**Exemplo Prático**:
+**Exemplo de Saída**:
 
-```typescript
-@Injectable({
-  providedIn: 'root'
-})
-export class GlobalService {}
+```
+Issue: [B506:yaml_load] Use of unsafe yaml load. Allows arbitrary code execution.
+Severity: High   Confidence: High
+Location: src/config.py:15
+  14  import yaml
+  15  config = yaml.load(open('config.yaml'))  # ← VULNERABILIDADE
+```
 
-@Injectable()
-export class ComponentService {}
+#### Ruby: Brakeman
 
-@Component({
-  selector: 'app-child',
-  providers: [ComponentService]
-})
-export class ChildComponent {
-  constructor(
-    private globalService: GlobalService,
-    private componentService: ComponentService
-  ) {}
-}
+**Definição**: Analisador estático de segurança para aplicações Ruby on Rails.
+
+**Uso Prático**:
+
+```bash
+# Instalação (Gemfile)
+gem 'brakeman'
+
+# Scan
+brakeman
+
+# Scan com JSON
+brakeman -f json -o report.json
+```
+
+#### JavaScript/TypeScript: ESLint Security Plugin
+
+**Definição**: Plugin do ESLint que adiciona regras de segurança para JavaScript/TypeScript.
+
+**Configuração**:
+
+```javascript
+// .eslintrc.js
+module.exports = {
+  plugins: ['security'],
+  extends: ['plugin:security/recommended'],
+  rules: {
+    'security/detect-object-injection': 'error',
+    'security/detect-non-literal-fs-filename': 'warn'
+  }
+};
+```
+
+#### Java: SpotBugs + FindSecBugs
+
+**Definição**: SpotBugs encontra bugs, FindSecBugs adiciona regras de segurança.
+
+**Integração Maven**:
+
+```xml
+<plugin>
+  <groupId>com.github.spotbugs</groupId>
+  <artifactId>spotbugs-maven-plugin</artifactId>
+  <configuration>
+    <plugins>
+      <plugin>
+        <groupId>com.h3xstream.findsecbugs</groupId>
+        <artifactId>findsecbugs-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </configuration>
+</plugin>
+```
+
+### Interpretação de Resultados SAST
+
+#### Severidade de Vulnerabilidades
+
+SAST classifica vulnerabilidades por severidade:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│         CLASSIFICAÇÃO DE SEVERIDADE                    │
+└─────────────────────────────────────────────────────────┘
+
+CRITICAL (Crítico) 🔴
+├─ Vulnerabilidade que permite:
+│  • Remote Code Execution (RCE)
+│  • SQL Injection com acesso a dados sensíveis
+│  • Autenticação bypass completo
+│  • Exposição de secrets/chaves
+└─ Ação: Corrigir IMEDIATAMENTE, bloquear deploy
+
+HIGH (Alto) 🟠
+├─ Vulnerabilidade que permite:
+│  • Privilege Escalation
+│  • Cross-Site Scripting (XSS) em área autenticada
+│  • Path Traversal que expõe arquivos
+│  • Insecure Deserialization
+└─ Ação: Corrigir em 1-2 sprints
+
+MEDIUM (Médio) 🟡
+├─ Vulnerabilidade que permite:
+│  • Information Disclosure (sem dados sensíveis)
+│  • XSS em área pública
+│  • Weak Cryptography
+│  • Missing Security Headers
+└─ Ação: Corrigir quando possível
+
+LOW (Baixo) 🟢
+├─ Vulnerabilidades menores:
+│  • Code Quality issues
+│  • Best Practices não seguidas
+│  • Security Hotspots (potenciais problemas)
+└─ Ação: Endereçar gradualmente
+```
+
+#### False Positives vs True Positives
+
+**False Positive**: SAST reporta vulnerabilidade que não existe na prática.
+
+**Exemplo de False Positive**:
+
+```python
+# SAST detecta: "Hardcoded password"
+password = "default_password_123"  # ← Flagged
+
+# Mas na prática:
+if password == "default_password_123":
+    raise Exception("Must change default password")  # ← Não é vulnerabilidade!
+```
+
+**True Positive**: SAST reporta vulnerabilidade real.
+
+**Exemplo de True Positive**:
+
+```python
+# SAST detecta: "SQL Injection"
+user_id = request.get('id')  # ← User input
+query = f"SELECT * FROM users WHERE id = {user_id}"  # ← VULNERÁVEL
+db.execute(query)  # ← SQL Injection confirmado
+```
+
+#### Como Validar Findings
+
+**Processo de Validação**:
+
+```
+1. SAST Reporta Finding
+   │
+   ▼
+2. Analisar Contexto
+   ├─ Ler código ao redor
+   ├─ Verificar se dados são sanitizados
+   └─ Verificar se há controles de acesso
+   │
+   ├─ É False Positive? → Marcar como "Won't Fix" / "False Positive"
+   │
+   └─ É True Positive? → Continuar
+      │
+      ▼
+3. Priorizar
+   ├─ Severidade (Critical > High > Medium > Low)
+   ├─ Exploitability (fácil explorar?)
+   ├─ Impacto (dados sensíveis afetados?)
+   └─ Contexto (código em produção?)
+   │
+   ▼
+4. Corrigir ou Aceitar Risco
+   ├─ Corrigir vulnerabilidade
+   ├─ Documentar risco aceito (com justificativa)
+   └─ Criar issue de tracking
+```
+
+**Template de Validação**:
+
+```markdown
+## Finding: SQL Injection em UserService.getUser()
+
+**Severidade SAST**: Critical
+**CWE**: CWE-89 (SQL Injection)
+**Localização**: `src/services/UserService.java:45`
+
+**Código Flagado**:
+```java
+String userId = request.getParameter("id");
+String query = "SELECT * FROM users WHERE id = " + userId;
+db.execute(query);
+```
+
+**Análise**:
+- [ ] Dados são validados antes de usar?
+- [ ] Há sanitização (prepared statements)?
+- [ ] Código está em produção?
+- [ ] Acesso requer autenticação?
+
+**Decisão**:
+- [ ] True Positive - Corrigir imediatamente
+- [ ] False Positive - Marcar como resolvido (razão: ...)
+- [ ] Aceitar Risco - Documentar (razão: ...)
+
+**Ação**: [Descrever ação tomada]
 ```
 
 ---
 
-### Providers e Escopos
+## 🛠️ Exemplos Práticos Completos
 
-**Definição**: Providers definem como e onde serviços são criados e disponibilizados na hierarquia de injectors.
+### Exemplo 1: Configurar SonarQube em Projeto Node.js
 
-**Explicação Detalhada**:
+**Contexto**: Configurar SonarQube para analisar projeto Node.js/TypeScript.
 
-Tipos de providers:
-- **Class Provider**: `{ provide: ServiceClass, useClass: ServiceClass }`
-- **Value Provider**: `{ provide: TOKEN, useValue: value }`
-- **Factory Provider**: `{ provide: TOKEN, useFactory: factoryFn }`
-- **Existing Provider**: `{ provide: NewToken, useExisting: OldToken }`
+**Passo 1: Instalar SonarQube (Docker)**
 
-Escopos:
-- `providedIn: 'root'`: Singleton global
-- `providedIn: 'platform'`: Singleton por plataforma
-- `providedIn: 'any'`: Instância por módulo lazy
-- `providers: []` no componente: Instância por componente
+```bash
+# Baixar e executar SonarQube
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
 
-**Analogia**:
-
-Providers são como contratos de trabalho. Eles definem:
-- Quem será contratado (provide)
-- Como será contratado (useClass, useValue, useFactory)
-- Onde trabalhará (escopo)
-
-**Exemplo Prático**:
-
-```typescript
-const API_URL = new InjectionToken<string>('API_URL');
-
-@Injectable({
-  providedIn: 'root'
-})
-export class ApiService {
-  constructor(@Inject(API_URL) private apiUrl: string) {}
-}
-
-@Component({
-  providers: [
-    { provide: API_URL, useValue: 'https://api.example.com' }
-  ]
-})
-export class AppComponent {}
+# Acessar: http://localhost:9000
+# Login padrão: admin/admin (solicita troca na primeira vez)
 ```
 
----
+**Passo 2: Instalar SonarScanner**
 
-### Função inject()
+```bash
+# macOS
+brew install sonar-scanner
 
-**Definição**: `inject()` é a função moderna (Angular 14+) para injeção de dependências que pode ser usada fora de construtores.
+# Ou usar Docker
+docker pull sonarsource/sonar-scanner-cli
+```
 
-**Explicação Detalhada**:
+**Passo 3: Configurar Projeto**
 
-`inject()` permite:
-- Injeção em funções
-- Injeção em campos de classe
-- Injeção em métodos
-- Código mais limpo e funcional
+```properties
+# sonar-project.properties
+sonar.projectKey=meu-projeto-nodejs
+sonar.projectName=Meu Projeto Node.js
+sonar.projectVersion=1.0
 
-**Analogia**:
+# Código fonte
+sonar.sources=src
+sonar.tests=test
+sonar.sourceEncoding=UTF-8
 
-`inject()` é como um pedido direto de serviço. Ao invés de esperar que alguém te entregue no construtor, você pode pedir diretamente quando precisar.
+# Linguagem
+sonar.language=js
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
 
-**Exemplo Prático**:
+# Exclusões
+sonar.exclusions=**/node_modules/**,**/dist/**,**/*.spec.ts
 
-```typescript
-export class MyComponent {
-  private userService = inject(UserService);
-  private logger = inject(LoggerService);
+# Regras de segurança
+sonar.security.hotspots=high,medium
+```
+
+**Passo 4: Configurar Quality Gate**
+
+No SonarQube Dashboard:
+- Vá em Quality Gates
+- Configure:
+  - Security Rating: A ou B
+  - Security Hotspots: 0 Critical/High
+  - Vulnerabilities: 0 Critical, máximo 5 High
+
+**Passo 5: Executar Scan**
+
+```bash
+# Gerar token no SonarQube (My Account > Security)
+export SONAR_TOKEN=seu_token_aqui
+
+# Executar scan
+sonar-scanner \
+  -Dsonar.projectKey=meu-projeto-nodejs \
+  -Dsonar.sources=src \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=$SONAR_TOKEN
+```
+
+**Passo 6: Integrar no CI/CD (GitHub Actions)**
+
+```yaml
+# .github/workflows/sonar.yml
+name: SonarQube Analysis
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests with coverage
+        run: npm test -- --coverage
+      
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+```
+
+### Exemplo 2: Configurar Semgrep em Projeto Python
+
+**Contexto**: Configurar Semgrep para projeto Python com regras customizadas.
+
+**Passo 1: Instalar Semgrep**
+
+```bash
+# Instalação
+pip install semgrep
+
+# Ou via Homebrew (macOS)
+brew install semgrep
+```
+
+**Passo 2: Criar Configuração**
+
+```yaml
+# .semgrep.yml
+rules:
+  # Regras OWASP
+  - id: owasp-python
+    config: p/owasp-top-ten
   
-  ngOnInit(): void {
-    const router = inject(Router);
-    this.logger.log('Component initialized');
-  }
-}
-
-function createUserService(): UserService {
-  const http = inject(HttpClient);
-  return new UserService(http);
-}
-```
-
----
-
-### InjectionTokens
-
-**Definição**: InjectionTokens são tokens type-safe para injeção de valores primitivos, objetos ou interfaces.
-
-**Explicação Detalhada**:
-
-InjectionTokens são usados para:
-- Injetar valores primitivos (strings, numbers)
-- Injetar objetos de configuração
-- Injetar interfaces (que não podem ser instanciadas)
-- Criar APIs públicas type-safe
-
-**Analogia**:
-
-InjectionTokens são como códigos de barras únicos. Cada token identifica exatamente o que você quer injetar, garantindo que você receba o valor correto.
-
-**Exemplo Prático**:
-
-```typescript
-import { InjectionToken } from '@angular/core';
-
-export interface AppConfig {
-  apiUrl: string;
-  timeout: number;
-  retries: number;
-}
-
-export const APP_CONFIG = new InjectionToken<AppConfig>('APP_CONFIG');
-
-@Injectable({
-  providedIn: 'root',
-  useFactory: () => ({
-    apiUrl: 'https://api.example.com',
-    timeout: 5000,
-    retries: 3
-  })
-})
-export class ConfigService {
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {}
-}
-```
-
----
-
-### Factory Providers
-
-**Definição**: Factory providers permitem criar instâncias de serviços usando funções factory, útil para lógica de criação complexa.
-
-**Explicação Detalhada**:
-
-Factory providers são usados quando:
-- Criação requer lógica condicional
-- Dependências precisam ser resolvidas dinamicamente
-- Configuração é necessária antes da criação
-- Múltiplas instâncias com configurações diferentes
-
-**Analogia**:
-
-Factory providers são como fábricas personalizadas. Ao invés de comprar um produto padrão (classe), você pede uma fábrica que cria o produto exatamente como você precisa. A fábrica pode verificar o ambiente, combinar diferentes materiais (dependências), e criar produtos customizados para cada situação.
-
-**Visualização do Processo**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│              Factory Provider - Fluxo de Criação             │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. Angular identifica necessidade de serviço               │
-│         │                                                    │
-│         ▼                                                    │
-│  2. Verifica provider type: Factory                         │
-│         │                                                    │
-│         ▼                                                    │
-│  3. Resolve dependências (deps)                            │
-│     ┌─────────────────────────────────────┐                 │
-│     │ deps: [HttpClient, APP_CONFIG]     │                 │
-│     │   │                                 │                 │
-│     │   ├─ Resolve HttpClient            │                 │
-│     │   └─ Resolve APP_CONFIG            │                 │
-│     └─────────────────────────────────────┘                 │
-│         │                                                    │
-│         ▼                                                    │
-│  4. Executa Factory Function                               │
-│     ┌─────────────────────────────────────┐                 │
-│     │ createHttpService(http, config)     │                 │
-│     │   │                                  │                 │
-│     │   ├─ Lógica condicional?            │                 │
-│     │   ├─ Validação?                     │                 │
-│     │   ├─ Configuração?                  │                 │
-│     │   └─ Criação customizada            │                 │
-│     └─────────────────────────────────────┘                 │
-│         │                                                    │
-│         ▼                                                    │
-│  5. Retorna instância criada                               │
-│         │                                                    │
-│         ▼                                                    │
-│  6. Angular armazena e injeta                              │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**Exemplo Prático**:
-
-```typescript
-export function createHttpService(http: HttpClient, config: AppConfig): HttpService {
-  return new HttpService(http, config.apiUrl, config.timeout);
-}
-
-@Injectable({
-  providedIn: 'root',
-  useFactory: createHttpService,
-  deps: [HttpClient, APP_CONFIG]
-})
-export class HttpService {}
-```
-
-**Exemplo Avançado com Lógica Condicional**:
-
-```typescript
-export function createLoggerService(config: AppConfig): LoggerService {
-  if (config.environment === 'production') {
-    return new ProductionLoggerService(config.logLevel);
-  } else {
-    return new DevelopmentLoggerService(config.logLevel);
-  }
-}
-
-@Injectable({
-  providedIn: 'root',
-  useFactory: createLoggerService,
-  deps: [APP_CONFIG]
-})
-export class LoggerService {}
-```
-
----
-
-### Dependências Opcionais
-
-**Definição**: Dependências opcionais são serviços ou valores que podem não estar disponíveis na hierarquia de injectors, permitindo que o código continue funcionando mesmo sem eles.
-
-**Explicação Detalhada**:
-
-Dependências opcionais são úteis quando:
-- Um serviço pode ou não estar disponível dependendo do contexto
-- Você quer fornecer funcionalidade adicional quando disponível
-- Você precisa evitar erros quando um provider não está configurado
-- Você quer criar código mais flexível e tolerante a falhas
-
-**Analogia**:
-
-Dependências opcionais são como acessórios opcionais em um carro. O carro funciona sem eles, mas se estiverem disponíveis, oferecem funcionalidades extras. Por exemplo, um sistema de navegação GPS é opcional - o carro funciona sem ele, mas se estiver instalado, você pode usá-lo.
-
-**Visualização**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│         Resolução de Dependência Opcional                    │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Component solicita OptionalService                         │
-│         │                                                    │
-│         ▼                                                    │
-│  ┌─────────────────────────────────────┐                   │
-│  │ Angular busca na hierarquia         │                   │
-│  │   Component → Module → Root        │                   │
-│  └─────────────────────────────────────┘                   │
-│         │                                                    │
-│         ├─ ✅ Encontrado                                    │
-│         │   ┌─────────────────────────┐                     │
-│         │   │ Injeta instância        │                     │
-│         │   │ Component usa serviço   │                     │
-│         │   └─────────────────────────┘                     │
-│         │                                                    │
-│         └─ ❌ Não encontrado                                 │
-│             ┌─────────────────────────┐                     │
-│             │ Injeta null             │                     │
-│             │ Component verifica null │                     │
-│             │ Continua funcionando    │                     │
-│             │ sem o serviço           │                     │
-│             └─────────────────────────┘                     │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**Exemplo Prático com @Optional()**:
-
-```typescript
-import { Injectable, Optional, inject } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AnalyticsService {
-  trackEvent(event: string): void {
-    console.log(`Tracking: ${event}`);
-  }
-}
-
-export class MyComponent {
-  private analytics = inject(AnalyticsService, { optional: true });
+  # Regras customizadas
+  - id: hardcoded-secrets
+    languages: [python]
+    severity: ERROR
+    patterns:
+      - pattern: |
+          $X = "...$SECRET..."
+        where:
+          - pattern-inside: |
+              $SECRET = $PATTERN
+          - metavariable-regex:
+              metavariable: $SECRET
+              regex: (password|secret|api_key|token|credential)
+    message: "Hardcoded secret detected: $SECRET"
+    metadata:
+      cwe: "CWE-798: Use of Hard-coded Credentials"
   
-  onClick(): void {
-    if (this.analytics) {
-      this.analytics.trackEvent('button_clicked');
-    } else {
-      console.log('Analytics não disponível');
-    }
-  }
-}
+  - id: sql-injection-django
+    languages: [python]
+    severity: ERROR
+    patterns:
+      - pattern: |
+          $MODEL.objects.raw("...$USER_INPUT...")
+      - pattern: |
+          $MODEL.objects.extra(where=["...$USER_INPUT..."])
+    message: "Potential SQL Injection. Use parameterized queries instead."
+    metadata:
+      cwe: "CWE-89: SQL Injection"
 ```
 
-**Exemplo com Constructor Injection**:
+**Passo 3: Executar Scan**
 
-```typescript
-import { Injectable, Optional } from '@angular/core';
+```bash
+# Scan básico (usa regras padrão)
+semgrep --config=auto src/
 
-@Injectable({
-  providedIn: 'root'
-})
-export class MyComponent {
-  constructor(
-    @Optional() private analytics?: AnalyticsService
-  ) {}
-  
-  trackAction(action: string): void {
-    this.analytics?.trackEvent(action);
-  }
-}
+# Scan com configuração customizada
+semgrep --config=.semgrep.yml src/
+
+# Scan com saída JSON para integração
+semgrep --config=auto --json --output=results.json src/
+
+# Scan apenas regras de segurança
+semgrep --config=p/security-audit src/
 ```
 
-**Exemplo com Valor Padrão**:
+**Passo 4: Integrar em Pre-commit Hook**
 
-```typescript
-import { Injectable, inject, Optional } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class FeatureService {
-  private logger = inject(LoggerService, { optional: true }) ?? new ConsoleLogger();
-  
-  doSomething(): void {
-    this.logger.log('Feature executed');
-  }
-}
+```yaml
+# .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/returntocorp/semgrep
+    rev: v1.45.0
+    hooks:
+      - id: semgrep
+        args: ['--config=auto', '--error']
 ```
 
-**Casos de Uso Comuns**:
+**Passo 5: Exemplo de Finding**
 
-1. **Serviços de Debug/Logging**: Disponíveis apenas em desenvolvimento
-2. **Analytics**: Pode não estar configurado em todos os ambientes
-3. **Feature Flags**: Funcionalidades experimentais que podem não estar disponíveis
-4. **Plugins**: Extensões que podem ou não estar instaladas
-5. **Configurações Específicas**: Configurações que variam por ambiente
+```python
+# src/auth.py (código vulnerável)
+import os
 
----
+# SAST detecta: Hardcoded secret
+API_KEY = "sk_live_1234567890abcdef"  # ← Flagged por Semgrep
 
-## Exemplos Práticos Completos
-
-### Exemplo 1: Serviço Completo com DI
-
-**Contexto**: Criar serviço de autenticação completo usando DI.
-
-**Código**:
-
-```typescript
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-
-interface User {
-  id: number;
-  email: string;
-  name: string;
-}
-
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  private http = inject(HttpClient);
-  private currentUser$ = new BehaviorSubject<User | null>(null);
-  
-  getCurrentUser(): Observable<User | null> {
-    return this.currentUser$.asObservable();
-  }
-  
-  login(credentials: LoginCredentials): Observable<User> {
-    return this.http.post<User>('/api/login', credentials).pipe(
-      tap(user => this.currentUser$.next(user))
-    );
-  }
-  
-  logout(): void {
-    this.currentUser$.next(null);
-  }
-  
-  isAuthenticated(): boolean {
-    return this.currentUser$.value !== null;
-  }
-}
-```
-
----
-
-### Exemplo 2: Serviço com InjectionToken
-
-**Contexto**: Criar serviço configurável usando InjectionToken.
-
-**Código**:
-
-```typescript
-import { Injectable, InjectionToken, Inject, inject } from '@angular/core';
-
-export interface StorageConfig {
-  prefix: string;
-  expiration: number;
-}
-
-export const STORAGE_CONFIG = new InjectionToken<StorageConfig>('STORAGE_CONFIG');
-
-@Injectable({
-  providedIn: 'root',
-  useFactory: () => ({
-    prefix: 'app_',
-    expiration: 3600000
-  })
-})
-export class StorageService {
-  private config = inject(STORAGE_CONFIG);
-  
-  setItem(key: string, value: string): void {
-    const fullKey = `${this.config.prefix}${key}`;
-    localStorage.setItem(fullKey, value);
-  }
-  
-  getItem(key: string): string | null {
-    const fullKey = `${this.config.prefix}${key}`;
-    return localStorage.getItem(fullKey);
-  }
-}
-```
-
-**Uso no Component**:
-
-```typescript
-import { Component } from '@angular/core';
-import { STORAGE_CONFIG } from './storage.service';
-
-@Component({
-  selector: 'app-root',
-  providers: [
-    {
-      provide: STORAGE_CONFIG,
-      useValue: {
-        prefix: 'myapp_',
-        expiration: 7200000
-      }
-    }
-  ]
-})
-export class AppComponent {
-  constructor(private storage: StorageService) {}
-}
-```
-
----
-
-### Exemplo 3: Serviço com Múltiplas Dependências e Factory
-
-**Contexto**: Criar serviço que depende de múltiplos serviços e usa factory para configuração complexa.
-
-**Código**:
-
-```typescript
-import { Injectable, inject, InjectionToken } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
-
-export interface ApiConfig {
-  baseUrl: string;
-  retries: number;
-  timeout: number;
-}
-
-export const API_CONFIG = new InjectionToken<ApiConfig>('API_CONFIG');
-
-export function createApiService(
-  http: HttpClient,
-  router: Router,
-  config: ApiConfig
-): ApiService {
-  return new ApiService(http, router, config);
-}
-
-@Injectable({
-  providedIn: 'root',
-  useFactory: createApiService,
-  deps: [HttpClient, Router, API_CONFIG]
-})
-export class ApiService {
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private config: ApiConfig
-  ) {}
-  
-  get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.config.baseUrl}${endpoint}`).pipe(
-      retry(this.config.retries),
-      catchError(error => {
-        if (error.status === 401) {
-          this.router.navigate(['/login']);
-        }
-        return throwError(() => error);
-      })
-    );
-  }
-  
-  post<T>(endpoint: string, data: any): Observable<T> {
-    return this.http.post<T>(`${this.config.baseUrl}${endpoint}`, data).pipe(
-      retry(this.config.retries),
-      catchError(error => {
-        if (error.status === 401) {
-          this.router.navigate(['/login']);
-        }
-        return throwError(() => error);
-      })
-    );
-  }
-}
-```
-
----
-
-### Exemplo 4: Serviço com Dependência Opcional
-
-**Contexto**: Criar serviço que funciona com ou sem serviço de analytics.
-
-**Código**:
-
-```typescript
-import { Injectable, inject, Optional } from '@angular/core';
-
-export interface AnalyticsEvent {
-  name: string;
-  properties?: Record<string, any>;
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AnalyticsService {
-  track(event: AnalyticsEvent): void {
-    console.log('Analytics:', event);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class UserService {
-  private analytics = inject(AnalyticsService, { optional: true });
-  
-  private users: User[] = [];
-  
-  addUser(user: User): void {
-    this.users.push(user);
+def authenticate(user_id, password):
+    user_input = request.get('user_id')  # ← User input
     
-    if (this.analytics) {
-      this.analytics.track({
-        name: 'user_added',
-        properties: { userId: user.id }
-      });
-    }
-  }
+    # SAST detecta: SQL Injection
+    query = f"SELECT * FROM users WHERE id = {user_input}"  # ← Flagged
+    return db.execute(query)
+```
+
+**Saída Semgrep**:
+
+```
+src/auth.py
+  hardcoded-secrets
+    Line 4: API_KEY = "sk_live_1234567890abcdef"
+    Message: Hardcoded secret detected: API_KEY
+    Severity: ERROR
+    CWE: CWE-798
+
+  sql-injection-django
+    Line 10: query = f"SELECT * FROM users WHERE id = {user_input}"
+    Message: Potential SQL Injection. Use parameterized queries instead.
+    Severity: ERROR
+    CWE: CWE-89
+```
+
+### Exemplo 3: Integração SAST no CI/CD (GitLab CI)
+
+**Contexto**: Configurar pipeline GitLab CI que executa múltiplas ferramentas SAST.
+
+```yaml
+# .gitlab-ci.yml
+stages:
+  - build
+  - test
+  - security
+
+# Job de SAST com múltiplas ferramentas
+sast:
+  stage: security
+  image: node:18
+  script:
+    # 1. ESLint Security Plugin (JavaScript)
+    - npm install
+    - npm run lint:security || true
+    
+    # 2. Semgrep (universal)
+    - pip install semgrep
+    - semgrep --config=auto --json --output=semgrep.json . || true
+    
+    # 3. Bandit (se projeto Python)
+    - pip install bandit || true
+    - bandit -r . -f json -o bandit.json || true
+    
+    # 4. SonarQube (se configurado)
+    - sonar-scanner || true
+    
+    # 5. Agregar resultados
+    - python scripts/aggregate_sast_results.py
+    
+  artifacts:
+    reports:
+      sast: sast-report.json
+    paths:
+      - semgrep.json
+      - bandit.json
+      - sast-report.html
+    expire_in: 1 week
   
-  getUsers(): User[] {
-    return [...this.users];
-  }
-}
+  allow_failure: false  # Falha pipeline se encontrar Critical
+  
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# Job para validar findings
+sast-validation:
+  stage: security
+  image: python:3.9
+  script:
+    - python scripts/validate_sast_findings.py
+  needs:
+    - sast
+  allow_failure: true
+```
+
+### Exemplo 4: Criar Regra Customizada Semgrep
+
+**Contexto**: Criar regra para detectar uso inseguro de `eval()` em JavaScript.
+
+**Regra Customizada**:
+
+```yaml
+# regras/eval-injection.yaml
+rules:
+  - id: eval-injection
+    languages: [javascript, typescript]
+    severity: ERROR
+    message: "Use of eval() is dangerous and can lead to code injection. Use JSON.parse() or alternative safe methods."
+    patterns:
+      - pattern-either:
+          - pattern: eval($EXPR)
+          - pattern: Function($EXPR)
+          - pattern: setTimeout($EXPR, ...)
+          - pattern: setInterval($EXPR, ...)
+    exceptions:
+      - pattern: eval("true")  # Permite casos específicos
+    metadata:
+      cwe: "CWE-95: Improper Neutralization of Directives in Dynamically Evaluated Code"
+      owasp: "A03:2021 – Injection"
+      category: security
+      technology:
+        - javascript
+        - typescript
+```
+
+**Uso da Regra**:
+
+```bash
+# Executar apenas regra customizada
+semgrep --config=regras/eval-injection.yaml src/
+
+# Executar todas as regras (incluindo custom)
+semgrep --config=auto --config=regras/ src/
+```
+
+**Exemplo de Código que Seria Flagado**:
+
+```javascript
+// ❌ VULNERÁVEL - Será flagado
+const userInput = request.body.code;
+eval(userInput);  // ← Flagged: eval-injection
+
+// ✅ SEGURO - Não será flagado
+const data = request.body.data;
+const parsed = JSON.parse(data);  // OK
 ```
 
 ---
 
-### Exemplo 5: Serviço com Escopo por Componente
+## ✅ Padrões e Boas Práticas
 
-**Contexto**: Criar serviço que mantém estado isolado por componente.
+### Boas Práticas de SAST
 
-**Código**:
+1. **Execute SAST cedo e frequentemente**
+   - **Por quê**: Encontrar problemas cedo reduz custo de correção drasticamente
+   - **Como**: Integrar em pre-commit hooks e CI/CD
+   - **Exemplo**: `pre-commit run semgrep` antes de cada commit
+   - **Benefício**: Problemas são corrigidos antes de chegar ao repositório
 
-```typescript
-import { Injectable } from '@angular/core';
+2. **Configure Quality Gates apropriados**
+   - **Por quê**: Previne merge de código com vulnerabilidades críticas
+   - **Como**: Bloquear merge se encontrar Critical/High não corrigidos
+   - **Exemplo**: SonarQube Quality Gate com "0 Critical vulnerabilities"
+   - **Benefício**: Vulnerabilidades críticas nunca chegam à produção
 
-@Injectable()
-export class ComponentStateService {
-  private state: Map<string, any> = new Map();
-  
-  set(key: string, value: any): void {
-    this.state.set(key, value);
-  }
-  
-  get<T>(key: string): T | undefined {
-    return this.state.get(key) as T;
-  }
-  
-  clear(): void {
-    this.state.clear();
-  }
-}
+3. **Tune regras para seu contexto**
+   - **Por quê**: Reduz false positives e foca em problemas reais
+   - **Como**: Desabilitar regras não aplicáveis, criar regras customizadas
+   - **Exemplo**: Desabilitar regras de Python em projeto Java
+   - **Benefício**: Menos ruído, mais sinal útil
 
-@Component({
-  selector: 'app-user-form',
-  providers: [ComponentStateService]
-})
-export class UserFormComponent {
-  constructor(private state: ComponentStateService) {}
-  
-  ngOnInit(): void {
-    this.state.set('formData', {});
-  }
-  
-  ngOnDestroy(): void {
-    this.state.clear();
-  }
-}
-```
+4. **Valide findings antes de corrigir**
+   - **Por quê**: Nem tudo que SAST reporta é vulnerabilidade real
+   - **Como**: Processo de triagem que valida cada finding
+   - **Exemplo**: Checklist de validação para cada Critical/High
+   - **Benefício**: Evita trabalho desnecessário corrigindo false positives
 
----
+5. **Priorize por risco real**
+   - **Por quê**: Nem todas as vulnerabilidades têm mesmo impacto
+   - **Como**: Considerar exploitability, impacto, contexto
+   - **Exemplo**: SQL Injection em área pública > XSS em área admin
+   - **Benefício**: Foca esforço onde realmente importa
 
-## Comparação com Outras Abordagens
+6. **Combine múltiplas ferramentas**
+   - **Por quê**: Cada ferramenta tem pontos fortes diferentes
+   - **Como**: Usar SonarQube + Semgrep + ferramentas específicas de linguagem
+   - **Exemplo**: SonarQube para cobertura completa + Semgrep para velocidade
+   - **Benefício**: Cobertura máxima de vulnerabilidades
 
-### Angular DI vs React Context vs Vue Provide/Inject
+7. **Documente decisões de risco aceito**
+   - **Por quê**: Transparência e rastreabilidade são importantes
+   - **Como**: Documentar por que vulnerabilidade não será corrigida
+   - **Exemplo**: "XSS Low em área interna: risco aceito, requer autenticação"
+   - **Benefício**: Compliance e auditoria facilitadas
 
-**Tabela Comparativa Detalhada**:
+8. **Use SAST para educar desenvolvedores**
+   - **Por quê**: SAST é ótima ferramenta de aprendizado
+   - **Como**: Mostrar findings em code reviews, sessões de treinamento
+   - **Exemplo**: "Veja como SAST detectou este SQL Injection..."
+   - **Benefício**: Desenvolvedores aprendem padrões seguros
 
-| Aspecto | Angular DI | React Context | Vue Provide/Inject | Svelte Stores |
-|---------|-----------|---------------|-------------------|---------------|
-| **Type Safety** | Completo (TypeScript) | Opcional (TypeScript) | Opcional (TypeScript) | Opcional (TypeScript) |
-| **Hierarquia** | Completa (5 níveis) | Limitada (Provider tree) | Básica (Provide/Inject) | Não aplicável |
-| **Singleton** | Nativo (`providedIn: 'root'`) | Manual (Context Provider) | Manual (provide) | Manual (store) |
-| **Factory** | Suportado (useFactory) | Não | Não | Não |
-| **Injection Tokens** | Sim (InjectionToken) | Não | Não | Não |
-| **Performance** | Excelente (tree-shaking) | Boa (pode causar re-renders) | Boa | Excelente |
-| **Testabilidade** | Excelente (fácil mockar) | Boa (mock Provider) | Boa | Boa |
-| **Curva de Aprendizado** | Moderada | Baixa | Baixa | Baixa |
-| **Bundle Size** | Otimizado (tree-shaking) | Pequeno | Pequeno | Mínimo |
-| **Resolução de Dependências** | Automática (hierarquia) | Manual (Provider tree) | Manual (provide/inject) | Manual |
-| **Dependências Circulares** | Detectado em compile-time | Possível (runtime) | Possível (runtime) | Não aplicável |
-| **Dependências Opcionais** | Sim (@Optional) | Sim (default value) | Sim (default value) | Não aplicável |
-| **Lazy Loading** | Suportado (`providedIn: 'any'`) | Limitado | Limitado | Não aplicável |
-| **Code Splitting** | Excelente | Bom | Bom | Excelente |
+9. **Mantenha ferramentas atualizadas**
+   - **Por quê**: Novas vulnerabilidades e regras são adicionadas constantemente
+   - **Como**: Atualizar regras e versões de ferramentas regularmente
+   - **Exemplo**: Atualizar Semgrep rules mensalmente
+   - **Benefício**: Detecta vulnerabilidades mais recentes
 
-**Comparação de Sintaxe**:
+10. **Integre com ferramentas de tracking**
+    - **Por quê**: Rastreabilidade e gestão de vulnerabilidades
+    - **Como**: Integrar SAST com Jira, GitHub Issues, etc.
+    - **Exemplo**: Criar issue automaticamente para cada Critical
+    - **Benefício**: Nenhuma vulnerabilidade fica esquecida
 
-**Angular**:
-```typescript
-@Injectable({ providedIn: 'root' })
-export class MyService {}
+### Anti-padrões Comuns
 
-export class MyComponent {
-  private service = inject(MyService);
-}
-```
+1. **Não ignore todos os findings de uma vez**
+   - **Problema**: Marcar tudo como "Won't Fix" sem análise
+   - **Solução**: Validar cada finding individualmente
+   - **Impacto**: Vulnerabilidades reais podem passar despercebidas
 
-**React**:
-```typescript
-const ServiceContext = createContext<MyService | null>(null);
+2. **Não execute SAST apenas antes do release**
+   - **Problema**: Encontrar problemas tarde, quando correção é cara
+   - **Solução**: Executar continuamente (CI/CD, pre-commit)
+   - **Impacto**: Correções tardias são caras e podem causar atrasos
 
-function MyComponent() {
-  const service = useContext(ServiceContext);
-}
-```
+3. **Não confie cegamente em SAST**
+   - **Problema**: SAST não encontra tudo (especialmente problemas de runtime)
+   - **Solução**: Combinar com DAST, IAST, testes manuais
+   - **Impacto**: Falsa sensação de segurança
 
-**Vue**:
-```typescript
-provide('myService', myServiceInstance);
+4. **Não configure Quality Gates muito rígidos inicialmente**
+   - **Problema**: Bloqueia todo desenvolvimento se código legado tem problemas
+   - **Solução**: Começar permissivo, apertar gradualmente
+   - **Impacto**: Desenvolvedores podem desabilitar SAST se muito restritivo
 
-const service = inject('myService');
-```
+5. **Não trate todos os findings com mesma prioridade**
+   - **Problema**: Critical e Low recebem mesma atenção
+   - **Solução**: Priorizar por severidade e contexto
+   - **Impacto**: Recursos mal alocados, problemas críticos podem não ser corrigidos
 
-**Análise de Trade-offs**:
+6. **Não use apenas ferramentas open-source sem avaliar**
+   - **Problema**: Ferramentas gratuitas podem não ser suficientes
+   - **Solução**: Avaliar necessidade de ferramentas comerciais
+   - **Impacto**: Pode faltar cobertura em projetos enterprise
 
-**Angular DI - Vantagens**:
-- Sistema completo e robusto
-- Type safety completo
-- Hierarquia poderosa
-- Excelente para projetos grandes
-- Suporte a padrões avançados (factory, tokens)
+7. **Não execute SAST sem contexto de negócio**
+   - **Problema**: Tratar vulnerabilidade em código não usado igual a código crítico
+   - **Solução**: Considerar contexto (código ativo? em produção? dados sensíveis?)
+   - **Impacto**: Priorização incorreta de esforços
 
-**Angular DI - Desvantagens**:
-- Curva de aprendizado mais íngreme
-- Mais verboso para casos simples
-- Requer TypeScript para melhor experiência
-
-**React Context - Vantagens**:
-- Simples e direto
-- Integrado ao React
-- Bom para casos simples
-
-**React Context - Desvantagens**:
-- Pode causar re-renders desnecessários
-- Sem hierarquia completa
-- Sem factory providers
-- Type safety opcional
-
-**Vue Provide/Inject - Vantagens**:
-- Simples e intuitivo
-- Integrado ao Vue
-- Bom para casos básicos
-
-**Vue Provide/Inject - Desvantagens**:
-- Hierarquia limitada
-- Sem factory providers
-- Type safety opcional
+8. **Não mantenha regras desatualizadas**
+   - **Problema**: Regras antigas podem não detectar vulnerabilidades novas
+   - **Solução**: Atualizar regras regularmente
+   - **Impacto**: Vulnerabilidades novas não são detectadas
 
 ---
 
-## Padrões e Boas Práticas
+## 🎓 Exercícios Práticos
 
-### ✅ Boas Práticas
+### Exercício 1: Configurar SonarQube em Projeto Próprio (Básico)
 
-1. **Sempre use providedIn: 'root' para serviços singleton**
-   - **Por quê**: Simplifica configuração, garante singleton, melhor tree-shaking
-   - **Exemplo Bom**: `@Injectable({ providedIn: 'root' })`
-   - **Exemplo Ruim**: Fornecer em múltiplos NgModules
-   - **Benefícios**: Menos configuração, singleton garantido, melhor performance
-
-2. **Use inject() para código mais limpo**
-   - **Por quê**: Sintaxe mais moderna, funciona em funções, melhor para testes
-   - **Exemplo Bom**: `private service = inject(MyService)`
-   - **Exemplo Ruim**: `constructor(private service: MyService) {}` (quando inject() é melhor)
-   - **Benefícios**: Código mais limpo, mais flexível, melhor testabilidade
-
-3. **Use InjectionTokens para valores primitivos**
-   - **Por quê**: Type safety, flexibilidade, APIs públicas claras
-   - **Exemplo Bom**: `export const API_URL = new InjectionToken<string>('API_URL')`
-   - **Exemplo Ruim**: Injetar strings diretamente sem token
-   - **Benefícios**: Type safety, fácil de mockar em testes, documentação clara
-
-4. **Mantenha serviços focados em uma responsabilidade**
-   - **Por quê**: Facilita manutenção, testes e reutilização
-   - **Exemplo Bom**: `UserService` para usuários, `AuthService` para autenticação
-   - **Exemplo Ruim**: `UserAuthService` que faz tudo
-   - **Benefícios**: Código mais limpo, fácil de testar, fácil de manter
-
-5. **Use factory providers para criação complexa**
-   - **Por quê**: Permite lógica de criação, configuração dinâmica
-   - **Exemplo Bom**: Factory que cria serviço baseado em configuração
-   - **Benefícios**: Flexibilidade, configuração dinâmica
-
-6. **Documente dependências com interfaces**
-   - **Por quê**: Type safety, documentação clara, fácil refatoração
-   - **Exemplo Bom**: Usar interfaces para configurações
-   - **Benefícios**: Type safety, documentação inline
-
-7. **Use providedIn: 'any' apenas quando necessário**
-   - **Por quê**: Cria nova instância por módulo lazy, use apenas quando realmente necessário
-   - **Quando usar**: Quando precisa de instância separada por módulo lazy
-   - **Benefícios**: Isolamento quando necessário
-
-8. **Use dependências opcionais quando apropriado**
-   - **Por quê**: Permite código mais flexível e tolerante a falhas
-   - **Exemplo Bom**: `private analytics = inject(AnalyticsService, { optional: true })`
-   - **Exemplo Ruim**: Assumir que serviço sempre existe sem verificação
-   - **Benefícios**: Código mais robusto, fácil de testar, funciona em diferentes contextos
-
-9. **Organize serviços por domínio/funcionalidade**
-   - **Por quê**: Facilita navegação, manutenção e entendimento do código
-   - **Exemplo Bom**: `services/user/user.service.ts`, `services/auth/auth.service.ts`
-   - **Exemplo Ruim**: Todos serviços em uma pasta `services/`
-   - **Benefícios**: Código organizado, fácil de encontrar, melhor escalabilidade
-
-10. **Use interfaces para configurações injetadas**
-    - **Por quê**: Type safety, documentação clara, fácil refatoração
-    - **Exemplo Bom**: `export interface ApiConfig { baseUrl: string; timeout: number; }`
-    - **Exemplo Ruim**: Injetar objetos sem tipo definido
-    - **Benefícios**: Type safety, autocomplete, documentação inline
-
-### ❌ Anti-padrões Comuns
-
-1. **Não forneça serviços em múltiplos lugares**
-   - **Problema**: Pode criar múltiplas instâncias, comportamento inconsistente
-   - **Exemplo Ruim**: Fornecer mesmo serviço em múltiplos módulos
-   - **Solução**: Use `providedIn: 'root'` ou um único provider
-   - **Impacto**: Bugs difíceis de rastrear, comportamento inconsistente
-
-2. **Não injete serviços diretamente em templates**
-   - **Problema**: Dificulta testes, viola separação de responsabilidades
-{% raw %}
-   - **Exemplo Ruim**: `{{ userService.getUser().name }}` no template
-{% endraw %}
-   - **Solução**: Injete no componente e exponha via propriedades
-   - **Impacto**: Testes difíceis, código acoplado
-
-3. **Não use serviços para lógica de apresentação**
-   - **Problema**: Viola separação de responsabilidades, dificulta reutilização
-   - **Exemplo Ruim**: Serviço que formata strings para exibição
-   - **Solução**: Mantenha lógica de apresentação no componente ou use pipes
-   - **Impacto**: Serviços não reutilizáveis, violação de responsabilidades
-
-4. **Não crie serviços muito grandes**
-   - **Problema**: Dificulta manutenção, testes complexos, baixa reutilização
-   - **Exemplo Ruim**: Serviço com 500+ linhas, múltiplas responsabilidades
-   - **Solução**: Divida em serviços menores e focados
-   - **Impacto**: Código difícil de manter e testar
-
-5. **Não ignore erros de DI**
-   - **Problema**: Pode causar erros em runtime difíceis de debugar
-   - **Exemplo Ruim**: Ignorar erros de "No provider for X"
-   - **Solução**: Sempre forneça providers necessários ou use `@Optional()`
-   - **Impacto**: Erros em runtime, difícil debug
-
-6. **Não use providedIn sem entender escopos**
-   - **Problema**: Pode criar instâncias não intencionais
-   - **Exemplo Ruim**: Usar `providedIn: 'any'` quando `'root'` é suficiente
-   - **Solução**: Entenda diferenças entre escopos antes de usar
-   - **Impacto**: Múltiplas instâncias, comportamento inesperado
-
-7. **Não injete dependências circulares**
-   - **Problema**: Erro de DI, código difícil de manter
-   - **Exemplo Ruim**: ServiceA injeta ServiceB que injeta ServiceA
-   - **Solução**: Refatore para remover dependência circular ou use `forwardRef()`
-   - **Impacto**: Erro de compilação, arquitetura ruim
-
-8. **Não use serviços para armazenar estado de UI**
-   - **Problema**: Viola separação de responsabilidades, dificulta reutilização
-   - **Exemplo Ruim**: Serviço que armazena estado de formulário específico de componente
-   - **Solução**: Use serviços apenas para estado de negócio, estado de UI no componente
-   - **Impacto**: Serviços acoplados a UI, difícil de reutilizar
-
-9. **Não ignore o tree-shaking**
-   - **Problema**: Serviços não usados podem ser incluídos no bundle
-   - **Exemplo Ruim**: Serviço sem `providedIn` em NgModule que não é usado
-   - **Solução**: Sempre use `providedIn: 'root'` ou configure providers corretamente
-   - **Impacto**: Bundle maior, performance pior
-
-10. **Não crie serviços para tudo**
-    - **Problema**: Over-engineering, código desnecessariamente complexo
-    - **Exemplo Ruim**: Serviço para função utilitária simples que poderia ser função pura
-    - **Solução**: Use serviços apenas quando precisa de DI, estado compartilhado ou lógica complexa
-    - **Impacto**: Código mais complexo, mais difícil de entender
-
----
-
-## Exercícios Práticos
-
-### Exercício 1: Criar Serviço Básico (Básico)
-
-**Objetivo**: Criar primeiro serviço standalone
-
-**Descrição**: 
-Crie um serviço `CalculatorService` com métodos para operações matemáticas básicas (soma, subtração, multiplicação, divisão).
-
-**Arquivo**: `exercises/exercise-2-1-1-servico-basico.md`
-
----
-
-### Exercício 2: Injeção de Dependência Hierárquica (Básico)
-
-**Objetivo**: Entender hierarquia de injectors
+**Objetivo**: Configurar SonarQube do zero em um projeto existente.
 
 **Descrição**:
-Crie serviços em diferentes níveis (root, componente) e observe como Angular resolve dependências.
+1. Instale SonarQube usando Docker
+2. Configure projeto no SonarQube
+3. Execute primeiro scan
+4. Analise resultados e identifique top 5 vulnerabilidades
 
-**Arquivo**: `exercises/exercise-2-1-2-di-hierarquica.md`
+**Arquivo**: `exercises/exercise-2-1-1-sonarqube-setup.md`
 
 ---
 
-### Exercício 3: Providers e Escopos (Intermediário)
+### Exercício 2: Criar Regras Customizadas Semgrep (Intermediário)
 
-**Objetivo**: Configurar providers com diferentes escopos
+**Objetivo**: Criar regras customizadas para padrões específicos do seu projeto.
 
 **Descrição**:
-Crie serviços com diferentes escopos (root, any, componente) e demonstre diferenças de comportamento.
+1. Identifique padrão inseguro comum no seu código
+2. Crie regra Semgrep para detectar esse padrão
+3. Teste regra em código existente
+4. Documente regra e adicione ao repositório
 
-**Arquivo**: `exercises/exercise-2-1-3-providers-escopos.md`
+**Arquivo**: `exercises/exercise-2-1-2-semgrep-custom-rules.md`
 
 ---
 
-### Exercício 4: InjectionTokens e Factory Providers (Avançado)
+### Exercício 3: Integrar SAST no CI/CD (Intermediário)
 
-**Objetivo**: Usar InjectionTokens e factory providers
+**Objetivo**: Integrar ferramentas SAST no pipeline de CI/CD.
 
 **Descrição**:
-Crie serviço configurável usando InjectionToken e factory provider para criar instâncias customizadas.
+1. Escolha ferramenta SAST apropriada para seu projeto
+2. Configure no GitHub Actions / GitLab CI / Jenkins
+3. Configure Quality Gate que bloqueia merge se Critical encontrado
+4. Teste pipeline com código vulnerável
 
-**Arquivo**: `exercises/exercise-2-1-4-injection-tokens-factory.md`
+**Arquivo**: `exercises/exercise-2-1-3-sast-cicd.md`
 
 ---
 
-### Exercício 5: Serviço Completo com DI (Avançado)
+### Exercício 4: Validar e Priorizar Findings SAST (Avançado)
 
-**Objetivo**: Criar serviço completo usando todas as técnicas
+**Objetivo**: Criar processo de triagem de findings SAST.
 
 **Descrição**:
-Crie um serviço de gerenciamento de tarefas completo que usa inject(), InjectionTokens, factory providers e múltiplas dependências.
+1. Execute SAST em projeto real
+2. Para cada finding Critical/High:
+   - Valide se é True Positive ou False Positive
+   - Analise contexto e impacto
+   - Priorize por risco real
+   - Documente decisão
+3. Crie dashboard de vulnerabilidades priorizadas
 
-**Arquivo**: `exercises/exercise-2-1-5-servico-completo.md`
+**Arquivo**: `exercises/exercise-2-1-4-validate-findings.md`
 
 ---
 
-## Referências Externas
+### Exercício 5: Comparar Ferramentas SAST (Avançado)
+
+**Objetivo**: Comparar diferentes ferramentas SAST no mesmo projeto.
+
+**Descrição**:
+1. Execute 2-3 ferramentas SAST diferentes no mesmo projeto
+2. Compare:
+   - Número de findings por severidade
+   - False positive rate (validação manual)
+   - Tempo de execução
+   - Facilidade de configuração
+   - Custo
+3. Crie relatório comparativo com recomendação
+
+**Arquivo**: `exercises/exercise-2-1-5-compare-sast-tools.md`
+
+---
+
+## 📚 Referências Externas
 
 ### Documentação Oficial
 
-- **[Angular Services](https://angular.io/guide/services)**: Guia oficial de serviços
-- **[Dependency Injection](https://angular.io/guide/dependency-injection)**: Guia completo de DI
-- **[Dependency Injection in Action](https://angular.io/guide/dependency-injection-in-action)**: DI em ação com exemplos práticos
-- **[InjectionToken](https://angular.io/api/core/InjectionToken)**: Documentação completa do InjectionToken
-- **[Hierarchical Dependency Injection](https://angular.io/guide/hierarchical-dependency-injection)**: Guia sobre hierarquia de injectors
-- **[Dependency Injection Providers](https://angular.io/guide/dependency-injection-providers)**: Guia sobre providers
+- **[OWASP - Source Code Analysis Tools](https://owasp.org/www-community/Source_Code_Analysis_Tools)**: Lista completa de ferramentas SAST
+- **[SonarQube Documentation](https://docs.sonarqube.org/latest/)**: Documentação completa do SonarQube
+- **[Semgrep Documentation](https://semgrep.dev/docs/)**: Documentação oficial do Semgrep
+- **[Checkmarx SAST Documentation](https://checkmarx.com/resource/documents/)**: Documentação do Checkmarx
+- **[CWE - Common Weakness Enumeration](https://cwe.mitre.org/)**: Lista completa de vulnerabilidades de software
 
 ### Artigos e Tutoriais
 
-- **[Understanding Angular Dependency Injection](https://angular.io/guide/dependency-injection)**: Tutorial oficial aprofundado
-- **[Angular Dependency Injection Explained](https://www.freecodecamp.org/news/angular-dependency-injection/)**: Explicação detalhada com exemplos
-- **[Advanced Angular Dependency Injection](https://blog.angular.io/)**: Padrões avançados de DI
+- **[OWASP Top 10](https://owasp.org/www-project-top-ten/)**: Top 10 vulnerabilidades web mais críticas
+- **[SAST vs DAST: What's the Difference?](https://www.synopsys.com/blogs/software-security/sast-vs-dast/)**: Comparação detalhada
+- **[Reducing False Positives in SAST](https://www.veracode.com/blog/secure-development/how-reduce-false-positives-sast-tools)**: Guia prático
+- **[SAST Best Practices](https://www.checkmarx.com/knowledge/knowledge-base/sast-best-practices/)**: Melhores práticas
 
-### Vídeos
+### Ferramentas e Recursos
 
-- **[Angular Dependency Injection Deep Dive](https://www.youtube.com/)**: Vídeo tutorial completo
-- **[Understanding Angular Injectors](https://www.youtube.com/)**: Explicação visual da hierarquia
+- **[Semgrep Registry](https://semgrep.dev/r)**: Regras prontas do Semgrep
+- **[SonarQube Rules](https://rules.sonarsource.com/)**: Catálogo de regras SonarQube
+- **[Bandit Rules](https://bandit.readthedocs.io/en/latest/plugins/index.html)**: Regras disponíveis no Bandit
+- **[FindSecBugs](https://find-sec-bugs.github.io/)**: Plugin de segurança para SpotBugs (Java)
 
-### Ferramentas
+### Comunidade
 
-- **[Angular DevTools](https://angular.io/guide/devtools)**: Ferramenta para debugar DI e serviços
-- **[Angular CLI](https://angular.io/cli)**: Gerar serviços com `ng generate service`
+- **[OWASP Community](https://owasp.org/www-community/)**: Comunidade global de segurança
+- **[Semgrep Slack](https://r2c.dev/slack)**: Comunidade Semgrep
+- **[SonarSource Community](https://community.sonarsource.com/)**: Fórum da comunidade SonarSource
 
 ---
 
-## Resumo
+## 📝 Resumo
 
 ### Principais Conceitos
 
-- **Serviços**: Classes TypeScript decoradas com `@Injectable` que encapsulam lógica de negócio reutilizável
-- **@Injectable Decorator**: Marca classes como injetáveis e configura escopo (`providedIn`)
-- **Hierarquia de Injectors**: Sistema de 5 níveis (Element → Component → Module → Platform → Root) que resolve dependências
-- **Providers**: Definem como e onde serviços são criados (Class, Value, Factory, Existing)
-- **inject() Function**: Forma moderna (Angular 14+) de injeção que funciona fora de construtores
-- **InjectionTokens**: Tokens type-safe para injeção de valores primitivos, objetos e interfaces
-- **Factory Providers**: Permitem criar instâncias com lógica de criação complexa
-- **Dependências Opcionais**: Serviços que podem não estar disponíveis usando `@Optional()` ou `{ optional: true }`
+- **SAST**: Análise estática de código sem executar aplicação
+- **Ferramentas Principais**: SonarQube (completo), Semgrep (rápido), Checkmarx (enterprise)
+- **Tipos de Análise**: Pattern matching, data flow, control flow, taint analysis
+- **Severidade**: Critical, High, Medium, Low
+- **False Positives**: Findings que não são vulnerabilidades reais - precisam validação
+- **Quality Gates**: Bloqueiam merge se critérios de segurança não atendidos
 
 ### Pontos-Chave para Lembrar
 
-- **Sempre use `providedIn: 'root'`** para serviços singleton (padrão recomendado)
-- **Prefira `inject()`** sobre constructor injection quando possível (código mais limpo)
-- **Use InjectionTokens** para valores primitivos e configurações (type safety)
-- **Mantenha serviços focados** em uma única responsabilidade (Single Responsibility Principle)
-- **Entenda hierarquia de injectors** para debug e resolução de problemas
-- **Use factory providers** quando criação requer lógica complexa
-- **Considere dependências opcionais** para código mais flexível e tolerante a falhas
-- **Organize serviços por domínio** para melhor estruturação do código
-- **Evite dependências circulares** - refatore quando necessário
-- **Use interfaces** para configurações injetadas (type safety e documentação)
+- ✅ **Execute SAST cedo**: Integre em CI/CD e pre-commit hooks
+- ✅ **Valide findings**: Nem tudo que SAST reporta é vulnerabilidade real
+- ✅ **Priorize por risco**: Considere severidade, exploitability, impacto, contexto
+- ✅ **Combine ferramentas**: Use múltiplas ferramentas para cobertura máxima
+- ✅ **Configure Quality Gates**: Bloqueie código vulnerável antes de merge
+- ✅ **Tune regras**: Customize para reduzir false positives
+- ✅ **Mantenha atualizado**: Atualize regras e ferramentas regularmente
+- ✅ **Use para educar**: SAST é ótima ferramenta de aprendizado para devs
 
 ### Próximos Passos
 
-- Próxima aula: Roteamento e Navegação Avançada
-- Praticar criando serviços reutilizáveis
-- Explorar padrões avançados de DI
+- Próxima aula: DAST - Testes Dinâmicos (aplicação em execução)
+- Praticar configurando SAST em projetos reais
+- Explorar regras customizadas para padrões específicos do seu contexto
+- Integrar SAST com outras ferramentas (SCA, DAST) para cobertura completa
 
 ---
 
-## Checklist de Qualidade
+## ✅ Checklist de Qualidade
 
 Antes de considerar esta aula completa:
 
 - [x] Introdução clara e envolvente
+- [x] Contexto histórico do SAST
+- [x] Comparação detalhada com outras metodologias (DAST, IAST, SCA)
 - [x] Todos os conceitos têm definições e explicações detalhadas
 - [x] Analogias presentes para conceitos abstratos
 - [x] Diagramas ASCII para visualização de conceitos complexos
-- [x] Exemplos práticos completos e funcionais
+- [x] Exemplos práticos completos (SonarQube, Semgrep, CI/CD)
+- [x] Tabelas comparativas de ferramentas
 - [x] Boas práticas e anti-padrões documentados
 - [x] Exercícios práticos ordenados por dificuldade
 - [x] Referências externas validadas e organizadas
@@ -1370,6 +1317,6 @@ Antes de considerar esta aula completa:
 
 ---
 
-**Aula Anterior**: [Aula 1.5: Control Flow e Pipes](./lesson-1-5-control-flow-pipes.md)  
-**Próxima Aula**: [Aula 2.2: Roteamento e Navegação Avançada](./lesson-2-2-roteamento.md)  
-**Voltar ao Módulo**: [Módulo 2: Desenvolvimento Intermediário](../modules/module-2-desenvolvimento-intermediario.md)
+**Aula Anterior**: [Aula 1.5: Fundamentos de Segurança em QA](./lesson-1-5.md)  
+**Próxima Aula**: [Aula 2.2: DAST - Testes Dinâmicos](./lesson-2-2.md)  
+**Voltar ao Módulo**: [Módulo 2: Testes de Segurança na Prática](../index.md)

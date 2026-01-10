@@ -14,7 +14,7 @@ exercises:
   - lesson-1-4-exercise-4-threat-model-completo
   - lesson-1-4-exercise-5-mitigacao-priorizacao
 video:
-  file: "assets/videos/Modelagem_de_Ameaças-lesson-1-4.mp4"
+  file: "assets/videos/Modelagem_de_Ameacas-lesson-1-4.mp4"
   title: "Threat Modeling: Identificando Ameaças Antes de Acontecerem"
   thumbnail: "assets/images/infografico-lesson-1-4.png"
   description: "Aprenda técnicas de modelagem de ameaças (STRIDE, PASTA, DREAD) e como aplicá-las em diferentes contextos de projeto para identificar riscos de segurança proativamente."

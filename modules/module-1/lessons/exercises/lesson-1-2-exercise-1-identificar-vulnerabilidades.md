@@ -146,35 +146,6 @@ def get_user(user_id):
 
 ---
 
-## Soluções Esperadas
-
-### Código 1: SQL Injection
-- **Vulnerabilidade**: Injection (SQL Injection)
-- **Exploração**: `username = "admin' OR '1'='1' --"`
-- **Correção**: Usar prepared statements
-
-### Código 2: Broken Access Control
-- **Vulnerabilidade**: Broken Access Control (IDOR)
-- **Exploração**: Acessar dados de outros usuários modificando user_id
-- **Correção**: Validar propriedade do recurso
-
-### Código 3: Múltiplas Vulnerabilidades
-- **Vulnerabilidades**: Path Traversal, Upload inseguro
-- **Exploração**: `filename = "../../etc/passwd"`
-- **Correção**: Validar e sanitizar nome de arquivo
-
-### Código 4: NoSQL Injection
-- **Vulnerabilidade**: Injection (NoSQL Injection)
-- **Exploração**: `query = {"$ne": null}`
-- **Correção**: Validar e sanitizar entrada
-
-### Código 5: Security Misconfiguration
-- **Vulnerabilidade**: Security Misconfiguration
-- **Exploração**: Stack trace expõe estrutura interna
-- **Correção**: Mensagens genéricas em produção
-
----
-
 ## Dicas
 
 1. **Analise linha por linha**: Cada linha pode conter uma vulnerabilidade
@@ -190,6 +161,14 @@ Após completar este exercício, você estará preparado para:
 - Exercício 1.2.2: SQL Injection na Prática
 - Exercício 1.2.3: Prevenção de XSS
 - Aplicar conhecimento em testes reais de segurança
+
+---
+
+## 📤 Enviar Resposta
+
+Complete o exercício e envie sua resposta através do formulário abaixo. Um monitor revisará sua submissão e fornecerá feedback.
+
+{% include exercise-submission-form.html %}
 
 ---
 

@@ -61,7 +61,7 @@ lessons:
     level: "Intermediário"
     prerequisites: ["lesson-1-3"]
     video:
-      file: "assets/videos/Modelagem_de_Ameaças-lesson-1-4.mp4"
+      file: "assets/videos/Modelagem_de_Ameacas-lesson-1-4.mp4"
       title: "Threat Modeling e Análise de Riscos"
       thumbnail: "assets/images/infografico-lesson-1-4.png"
 
