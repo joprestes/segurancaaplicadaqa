@@ -122,7 +122,7 @@ class QuizManager {
             </button>
           `).join('')}
         </div>
-        <div class="explanation hidden" id="explanation" data-testid="quiz-explanation" role="region" aria-live="polite" aria-atomic="true">
+        <div class="explanation hidden" id="explanation" data-testid="quiz-explanation" role="region" aria-live="polite" aria-atomic="true" aria-hidden="true">
           <div class="explanation-content">
             <strong>Explicação:</strong>
             <p>${this.escapeHtml(question.explanation)}</p>
@@ -133,6 +133,14 @@ class QuizManager {
         </div>
       </div>
     `;
+    
+    // Garantir que explicação está oculta inicialmente
+    const explanationEl = document.getElementById('explanation');
+    if (explanationEl) {
+      explanationEl.classList.add('hidden');
+      explanationEl.style.display = 'none';
+      explanationEl.setAttribute('aria-hidden', 'true');
+    }
     
     // Adicionar event listeners
     this.setupOptionButtons();
@@ -185,11 +193,15 @@ class QuizManager {
           correct: isCorrect
         });
         
-        // Mostrar explicação
+        // Mostrar explicação APENAS após resposta ser selecionada
         if (explanation) {
           explanation.classList.remove('hidden');
-          // Não fazer scroll automático - a explicação aparece logo abaixo da pergunta
-          // e o usuário pode rolar naturalmente se necessário
+          explanation.style.display = ''; // Remove style inline para permitir que CSS funcione
+          explanation.setAttribute('aria-hidden', 'false');
+          // Scroll suave para a explicação após um pequeno delay para melhor UX
+          setTimeout(() => {
+            explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
         }
       };
       

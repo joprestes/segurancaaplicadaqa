@@ -196,6 +196,25 @@
       border-radius: 8px;
       animation: slideDown 0.3s ease-out;
       @include theme-transition-all;
+      
+      // Garantir que explicação está oculta inicialmente
+      &.hidden {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      
+      // Quando não está oculta, garantir visibilidade
+      &:not(.hidden) {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        height: auto;
+      }
 
       .explanation-content {
         margin-bottom: 1rem;

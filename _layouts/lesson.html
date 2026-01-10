@@ -15,10 +15,20 @@ layout: default
      video=page.video 
      lesson_id=page.lesson_id %}
 </div>
-{% elsif page.image or (page.video and page.video.thumbnail) %}
+{% elsif page.image %}
 <div class="lesson-image-container">
   <img 
-    src="{% if page.image %}{{ page.image | relative_url }}{% elsif page.video and page.video.thumbnail %}{{ page.video.thumbnail | relative_url }}{% else %}{{ '' | relative_url }}{% endif %}" 
+    src="{{ page.image | relative_url }}" 
+    alt="{{ page.title }}" 
+    class="lesson-image"
+    loading="lazy"
+    decoding="async"
+  />
+</div>
+{% elsif page.video and page.video.thumbnail %}
+<div class="lesson-image-container">
+  <img 
+    src="{{ page.video.thumbnail | relative_url }}" 
     alt="{{ page.title }}" 
     class="lesson-image"
     loading="lazy"

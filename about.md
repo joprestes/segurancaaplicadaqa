@@ -5,7 +5,7 @@ title: Sobre o Curso
 
 # Sobre o Curso: Segurança Aplicada à Qualidade de Software
 
-![Infográfico: Visão Geral do Curso - Segurança Aplicada à Qualidade de Software]({{ '/assets/images/infohgráfico-sobre.png' | relative_url }})
+![Infográfico: Visão Geral do Curso - Segurança Aplicada à Qualidade de Software]({{ '/assets/images/infografico-sobre.png' | relative_url }})
 
 Este é um treinamento prático e focado em segurança desenvolvido especificamente para profissionais de QA da CWI, com foco em aplicar segurança no dia a dia de projetos reais em diferentes setores.
 

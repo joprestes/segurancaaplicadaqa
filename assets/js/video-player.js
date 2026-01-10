@@ -140,17 +140,15 @@ class VideoPlayer {
     
     this.initElements();
     this.bindEvents();
+    // Carregar progresso ANTES de definir currentTime
+    // Isso garante que temos o valor salvo, mas não vamos aplicar até o vídeo estar pronto
     this.loadProgress();
     this.updateUI();
     this.updateInfo();
     
-    if (this.video && this.video.src && this.isPlaying) {
-      this.video.play().catch((error) => {
-        window.Logger?.warn('Erro ao retomar reprodução:', error);
-        this.isPlaying = false;
-        this.updateUI();
-      });
-    }
+    // NÃO tentar reproduzir automaticamente - deixar usuário controlar
+    // Se houver progresso salvo, será restaurado quando vídeo estiver pronto (loadedmetadata/canplay)
+    // Isso evita problemas de autoplay bloqueado e buffer insuficiente
   }
   
   initElements() {
@@ -195,6 +193,8 @@ class VideoPlayer {
     this.video.addEventListener('loadedmetadata', () => {
       this.duration = this.video.duration;
       this.updateDurationDisplay();
+      // NÃO restaurar currentTime aqui - pode causar problemas de buffer
+      // A restauração será feita apenas quando usuário clicar para reproduzir (evento 'play')
     });
     
     // Debounce apenas em saveProgress, não em updateProgress visual
@@ -214,6 +214,41 @@ class VideoPlayer {
       this.manager.isPlaying = true;
       this.updateUI();
       this.showIndicator();
+      
+      // Restaurar posição salva quando usuário clica para reproduzir pela primeira vez
+      // Aguardar um pequeno delay para garantir que vídeo tem alguns dados carregados
+      if (this.currentTime > 0 && this.video.duration && this.currentTime < this.video.duration) {
+        // Verificar se currentTime do vídeo está diferente do salvo (vídeo começa em 0)
+        if (Math.abs(this.video.currentTime - this.currentTime) > 1) {
+          // Usar requestAnimationFrame para garantir que vídeo começou a carregar dados
+          requestAnimationFrame(() => {
+            if (this.video && this.video.readyState >= 2) {
+              // readyState >= 2 significa que vídeo tem dados do frame atual
+              // Tentar restaurar posição
+              try {
+                this.video.currentTime = this.currentTime;
+                window.Logger?.log(`Progresso restaurado: ${this.currentTime.toFixed(2)}s`);
+              } catch (error) {
+                window.Logger?.warn('Erro ao restaurar progresso do vídeo:', error);
+                // Se falhar, vídeo vai continuar do início - não é crítico
+              }
+            } else {
+              // Se vídeo ainda não tem dados suficientes, aguardar um pouco mais
+              setTimeout(() => {
+                if (this.video && this.video.readyState >= 2 && this.isPlaying) {
+                  try {
+                    this.video.currentTime = this.currentTime;
+                    window.Logger?.log(`Progresso restaurado (delay): ${this.currentTime.toFixed(2)}s`);
+                  } catch (error) {
+                    window.Logger?.warn('Erro ao restaurar progresso do vídeo (tentativa 2):', error);
+                  }
+                }
+              }, 500); // Aguardar 500ms para vídeo carregar alguns dados
+            }
+          });
+        }
+      }
+      
       this.trackEvent('video_play', {
         lesson_id: this.lessonId,
         video_title: this.videoTitle,
@@ -273,6 +308,30 @@ class VideoPlayer {
     
     this.video.addEventListener('canplay', () => {
       window.Logger?.log('Vídeo pode ser reproduzido:', this.video.src);
+      // Não restaurar currentTime aqui - esperar evento 'play' do usuário
+      // Isso evita que o vídeo tente pular para um ponto antes de ter buffer suficiente
+    });
+    
+    this.video.addEventListener('canplaythrough', () => {
+      window.Logger?.log('Vídeo pode ser reproduzido até o fim sem pausar para buffer');
+      // Vídeo tem buffer suficiente, mas ainda não vamos restaurar currentTime
+      // Vai ser restaurado quando usuário clicar para reproduzir
+    });
+    
+    this.video.addEventListener('waiting', () => {
+      window.Logger?.log('Vídeo aguardando dados (buffering)...');
+      // Não pausar automaticamente - deixar vídeo tentar continuar
+      // O navegador vai pausar temporariamente se necessário, mas vai retomar quando tiver dados
+    });
+    
+    this.video.addEventListener('stalled', () => {
+      window.Logger?.warn('Vídeo estagnado (download interrompido)');
+      // Não fazer nada - o navegador vai tentar recuperar automaticamente
+    });
+    
+    this.video.addEventListener('suspend', () => {
+      window.Logger?.log('Download do vídeo suspenso (mas não necessariamente parou)');
+      // Não fazer nada - download pode continuar em background
     });
     
     this.video.addEventListener('loadeddata', () => {
@@ -280,6 +339,8 @@ class VideoPlayer {
       if (this.video.readyState >= 2) {
         this.duration = this.video.duration;
         this.updateDurationDisplay();
+        // NÃO restaurar currentTime aqui - esperar usuário clicar para reproduzir
+        // Isso evita problemas de buffer e vídeo parando
       }
     });
     
@@ -490,19 +551,27 @@ class VideoPlayer {
       }
       
       if (saved && saved.currentTime !== undefined && saved.duration) {
+        // Salvar o tempo salvo, mas NÃO aplicar ainda ao vídeo
+        // Será aplicado apenas quando usuário clicar para reproduzir (evento 'play')
+        // Isso evita que vídeo tente pular para um ponto sem buffer suficiente
         this.currentTime = saved.currentTime;
         this.duration = saved.duration;
         this.playbackRate = saved.playbackRate || defaultPlaybackRate;
+        
+        // Aplicar apenas playbackRate (seguro, não requer buffer)
         if (this.video && this.video.src) {
-          this.video.currentTime = this.currentTime;
           this.video.playbackRate = this.playbackRate;
         }
+        
         if (this.speedSelect) {
           this.speedSelect.value = this.playbackRate.toString();
         }
-        this.updateCurrentTimeDisplay();
+        
+        // Atualizar displays (mas vídeo ainda está em 0:00 até usuário clicar play)
         this.updateDurationDisplay();
-        this.updateProgress();
+        // NÃO atualizar currentTimeDisplay ainda - vai mostrar 0:00 até usuário clicar play
+        // this.updateCurrentTimeDisplay();
+        // this.updateProgress();
       }
     } else if (this.video && this.video.src) {
       let globalState = null;
@@ -521,13 +590,15 @@ class VideoPlayer {
       }
       
       if (globalState && globalState.videoFile && globalState.currentTime !== undefined) {
+        // Salvar o tempo salvo, mas NÃO aplicar ainda ao vídeo
+        // Será aplicado apenas quando usuário clicar para reproduzir (evento 'play')
         this.currentTime = globalState.currentTime;
         this.duration = globalState.duration || 0;
         this.playbackRate = globalState.playbackRate || defaultPlaybackRate;
-        this.isPlaying = globalState.isPlaying || false;
+        this.isPlaying = false; // Sempre começar como não reproduzindo para evitar autoplay
         
+        // Aplicar apenas playbackRate (seguro, não requer buffer)
         if (this.video && this.video.src) {
-          this.video.currentTime = this.currentTime;
           this.video.playbackRate = this.playbackRate;
         }
         
@@ -535,9 +606,11 @@ class VideoPlayer {
           this.speedSelect.value = this.playbackRate.toString();
         }
         
-        this.updateCurrentTimeDisplay();
+        // Atualizar displays
         this.updateDurationDisplay();
-        this.updateProgress();
+        // NÃO atualizar currentTimeDisplay ainda - será atualizado quando usuário clicar play
+        // this.updateCurrentTimeDisplay();
+        // this.updateProgress();
         this.updateUI();
       }
     }

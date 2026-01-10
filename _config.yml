@@ -62,4 +62,7 @@ exclude:
   - vendor
   - README.md
   - backups
+  - "**/*-temp.md"
+  - "**/*.temp.md"
+  - documentos-staff
 
