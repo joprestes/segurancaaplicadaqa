@@ -8,6 +8,7 @@
 @import "theme";
 @import "navigation";
 @import "podcast-player";
+@import "module-summary";
 @import "progress-tracker";
 @import "breadcrumbs";
 @import "quiz";
@@ -17,6 +18,19 @@
 
 * {
   box-sizing: border-box;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
 }
 
 /* Garantir que pre tags sempre usem as cores corretas do tema */
@@ -147,7 +161,7 @@ body {
 }
 
 .site-header {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, var(--color-primary-dark) 100%);
   color: var(--color-text-inverse);
   padding: $spacing-md $spacing-lg;
   box-shadow: var(--color-shadow-sm);
@@ -155,6 +169,11 @@ body {
   top: 0;
   z-index: 1000;
   @include theme-transition-all;
+  
+  /* Gradiente adicional para dark mode */
+  [data-theme="dark"] & {
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-hover) 50%, var(--color-primary) 100%);
+  }
   
   .header-content {
     max-width: $container-max-width;
@@ -164,13 +183,59 @@ body {
     align-items: center;
   }
   
+  .header-brand {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
+    height: 64px;
+  }
+  
   .site-title {
     margin: 0;
-    font-size: $font-size-h2;
+    font-size: 0;
+    height: 100%;
     
-    a {
-      color: var(--color-text-inverse);
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
       text-decoration: none;
+      color: var(--color-text-inverse);
+      gap: $spacing-md;
+    }
+    
+    .brand-logo-image {
+      height: calc(100% - 4px);
+      max-height: 60px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+    
+    .logo-placeholder {
+      min-width: 150px;
+      min-height: 48px;
+      border-radius: 14px;
+      border: 2px dashed rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      font-weight: $font-weight-semibold;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 $spacing-lg;
+    }
+    
+    .brand-text {
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      font-weight: $font-weight-semibold;
+      letter-spacing: -0.01em;
+      color: var(--color-text-inverse);
+      white-space: nowrap;
     }
   }
   
@@ -634,13 +699,14 @@ body {
 
 .lesson-navigation {
   margin: $spacing-xl 0;
-  padding: $spacing-lg;
+  padding: $spacing-lg $spacing-lg;
   background: var(--color-bg-secondary);
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: $spacing-xl;
+  width: 100%;
+  box-sizing: border-box;
   min-height: 60px;
   position: relative;
   @include theme-transition(background-color);
@@ -663,7 +729,6 @@ body {
     white-space: nowrap;
     flex-shrink: 0;
     min-width: fit-content;
-    max-width: 45%;
     
     &:hover {
       text-decoration: none;
@@ -688,24 +753,22 @@ body {
   .module-summary-link:only-child {
     margin-left: auto;
     margin-right: 0;
-    max-width: none;
   }
   
   // Quando há apenas um link, centralizar
   a:only-child {
     margin: 0 auto;
-    max-width: none;
   }
   
   // Botão anterior - sempre à esquerda
   .prev-lesson {
-    margin-right: auto;
     margin-left: 0;
+    margin-right: auto;
     order: 1;
     text-align: left;
   }
   
-  // Botão próximo - sempre à direita (bem próximo da borda)
+  // Botão próximo - sempre à direita
   .next-lesson,
   .module-summary-link {
     margin-left: auto;
@@ -714,19 +777,6 @@ body {
     text-align: right;
     flex-grow: 0;
     flex-shrink: 0;
-  }
-  
-  // Quando há dois botões, garantir que o direito fique bem à direita
-  .prev-lesson + .next-lesson,
-  .prev-lesson + .module-summary-link {
-    margin-left: auto;
-    margin-right: 0;
-  }
-  
-  // Garantir que o botão direito não tenha max-width limitando quando há dois botões
-  .prev-lesson ~ .next-lesson,
-  .prev-lesson ~ .module-summary-link {
-    max-width: none;
   }
 }
 

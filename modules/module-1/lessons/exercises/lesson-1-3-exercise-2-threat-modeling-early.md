@@ -5,8 +5,8 @@ slug: "threat-modeling-early"
 lesson_id: "lesson-1-3"
 module: "module-1"
 difficulty: "Intermediário"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/shift-left-security/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/shift-left-security/
 ---
 
 ## Objetivo

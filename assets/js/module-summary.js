@@ -118,7 +118,11 @@ class ModuleSummary {
         });
       }
     } catch (e) {
-      console.error('Error loading quiz results:', e);
+      if (window.Logger) {
+        window.Logger.error('Error loading quiz results:', e);
+      } else {
+        console.error('Error loading quiz results:', e);
+      }
     }
   }
 
@@ -149,6 +153,8 @@ class ModuleSummary {
         badgeDesc.textContent = 'Complete os quizzes das aulas para ver seu desempenho e descobrir sua classificação!';
       }
       
+      this.updateProgressCircle(0);
+      
       return;
     }
 
@@ -166,6 +172,7 @@ class ModuleSummary {
     // Atualizar estatísticas
     document.getElementById('average-score').textContent = `${averageScore}%`;
     document.getElementById('completed-quizzes').textContent = `${completedCount}/${totalLessons}`;
+    this.updateProgressCircle(averageScore);
 
     // Determinar classificação
     const classification = this.getClassification(averageScore);
@@ -254,7 +261,7 @@ class ModuleSummary {
       
       // Adicionar classe de animação com delay progressivo
       return cardHtml.replace('<div class="quiz-result-card', 
-        `<div class="quiz-result-card animate-fadeInUp" style="animation-delay: ${index * 0.1}s"`);
+        `<div class="quiz-result-card animate-fadeInUp" role="listitem" style="animation-delay: ${index * 0.1}s"`);
     }).join('');
   }
 
@@ -272,36 +279,15 @@ class ModuleSummary {
     const classification = result.classification || 'N/A';
     const completedAt = result.completed_at ? new Date(result.completed_at).toLocaleDateString('pt-BR') : '';
 
-    // Determinar cor baseada na pontuação
-    let scoreClass = 'score-low';
-    if (score >= 90) scoreClass = 'score-excellent';
-    else if (score >= 80) scoreClass = 'score-good';
-    else if (score >= 70) scoreClass = 'score-medium';
-    else if (score >= 60) scoreClass = 'score-ok';
-
     return `
       <div class="quiz-result-card completed">
-        <div class="card-header">
-          <h3>${lessonTitle}</h3>
-          <span class="card-status completed">✅ Completo</span>
+        <div class="result-icon" aria-hidden="true">✔</div>
+        <div class="result-info">
+          <p class="result-title">${lessonTitle}</p>
+          <span class="result-meta">${score}% • ${classification}</span>
         </div>
-        <div class="card-body">
-          <div class="score-display ${scoreClass}">
-            <div class="score-value">${score}%</div>
-            <div class="score-label">Pontuação</div>
-          </div>
-          <div class="card-details">
-            <div class="detail-item">
-              <span class="detail-label">Classificação:</span>
-              <span class="detail-value">${classification}</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Completado em:</span>
-              <span class="detail-value">${completedAt}</span>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
+        <div class="result-actions">
+          <span class="result-date">${completedAt}</span>
           <a href="${this.getLessonUrl(lessonId)}" class="btn-link">Refazer Quiz</a>
         </div>
       </div>
@@ -312,20 +298,13 @@ class ModuleSummary {
     const lessonTitle = lesson ? lesson.title : `Aula ${lessonId}`;
     return `
       <div class="quiz-result-card incomplete">
-        <div class="card-header">
-          <h3>${lessonTitle}</h3>
-          <span class="card-status incomplete">⏳ Pendente</span>
+        <div class="result-icon" aria-hidden="true">⏳</div>
+        <div class="result-info">
+          <p class="result-title">${lessonTitle}</p>
+          <span class="result-meta">Ainda não iniciado</span>
         </div>
-        <div class="card-body">
-          <div class="score-display score-pending">
-            <div class="score-value">-</div>
-            <div class="score-label">Não iniciado</div>
-          </div>
-          <div class="card-details">
-            <p class="pending-message">Complete a aula e faça o quiz para ver seu resultado aqui!</p>
-          </div>
-        </div>
-        <div class="card-footer">
+        <div class="result-actions">
+          <span class="result-date">Pendente</span>
           <a href="${this.getLessonUrl(lessonId)}" class="btn-link">Ir para Aula</a>
         </div>
       </div>
@@ -372,6 +351,14 @@ class ModuleSummary {
     document.getElementById('classification-title').textContent = 'N/A';
     document.getElementById('classification-name').textContent = 'Ainda não há resultados';
     document.getElementById('classification-description').textContent = 'Complete os quizzes das aulas para ver seu desempenho aqui!';
+    this.updateProgressCircle(0);
+  }
+
+  updateProgressCircle(value) {
+    const progressWrapper = document.querySelector('.progress-circle');
+    if (!progressWrapper) return;
+    const safeValue = Math.max(0, Math.min(100, Number.isFinite(value) ? value : 0));
+    progressWrapper.style.setProperty('--progress', safeValue);
   }
 
   setupActions() {

@@ -5,8 +5,8 @@ slug: "identificar-vulnerabilidades"
 lesson_id: "lesson-1-2"
 module: "module-1"
 difficulty: "Básico"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 ---
 
 ## Objetivo

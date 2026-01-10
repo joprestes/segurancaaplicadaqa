@@ -47,6 +47,8 @@
           align-items: center;
           justify-content: center;
           min-width: 1rem;
+          min-height: 44px;  // Touch target mínimo
+          min-width: 44px;   // Touch target mínimo
           @include theme-transition-all;
           
           &:hover {
@@ -113,6 +115,8 @@
               align-items: center;
               justify-content: center;
               min-width: 0.875rem;
+              min-height: 44px;  // Touch target mínimo
+              min-width: 44px;   // Touch target mínimo
               @include theme-transition-all;
               
               &:hover {

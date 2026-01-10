@@ -5,8 +5,8 @@ slug: "analise-riscos"
 lesson_id: "lesson-1-4"
 module: "module-1"
 difficulty: "Intermediário"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-3-analise-riscos/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/threat-modeling/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-3-analise-riscos/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
 ---
 
 ## Objetivo
