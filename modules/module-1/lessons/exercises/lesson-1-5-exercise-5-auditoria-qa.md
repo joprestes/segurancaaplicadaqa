@@ -5,8 +5,8 @@ slug: "auditoria-qa"
 lesson_id: "lesson-1-5"
 module: "module-1"
 difficulty: "Avançado"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/
 ---
 
 ## Objetivo

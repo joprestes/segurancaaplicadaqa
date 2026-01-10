@@ -36,7 +36,7 @@ bundler --version # Deve estar instalado
 
 ```bash
 git clone <url-do-repositorio>
-cd seguranca-qa-cwi-site
+cd crescidos-qualidade
 ```
 
 ### 2. Instale as Dependências
@@ -101,7 +101,7 @@ Após iniciar o servidor, acesse:
 ## 📁 Estrutura do Projeto
 
 ```
-seguranca-qa-cwi-site/
+crescidos-qualidade/
 ├── _config.yml              # Configuração principal do Jekyll
 ├── _data/                   # Arquivos de dados YAML
 │   ├── modules.yml          # Definição dos módulos
@@ -128,9 +128,8 @@ seguranca-qa-cwi-site/
 │   ├── _variables.scss
 │   └── ...
 ├── assets/                  # Recursos estáticos
-│   ├── css/
-│   ├── js/
-│   ├── images/
+│   ├── js/                 # JavaScript (compilado do _sass)
+│   ├── images/             # Imagens e logos
 │   ├── podcasts/           # Arquivos de áudio (.m4a)
 │   └── videos/             # Arquivos de vídeo (.mp4)
 ├── modules/                 # Conteúdo dos módulos
@@ -529,8 +528,12 @@ Edite `_includes/navigation.html` para personalizar o menu de navegação.
 **Cores**: Edite `_sass/_colors.scss`
 
 ```scss
-$primary-color: #your-color;
-$secondary-color: #your-color;
+// O projeto usa CSS Custom Properties (CSS Variables)
+:root {
+  --color-primary: #your-color;
+  --color-primary-hover: #your-hover-color;
+  --color-success: #your-success-color;
+}
 ```
 
 **Tema**: Edite `_sass/_theme.scss` para modificar estilos gerais.

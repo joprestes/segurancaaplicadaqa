@@ -19,14 +19,6 @@ exercises:
     order: 2
     url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-2-sql-injection
 
-  - id: lesson-1-2-exercise-3-xss-prevencao
-    title: "Exercício 1.2.3: Prevenção de XSS"
-    lesson_id: lesson-1-2
-    module: module-1
-    slug: xss-prevencao
-    order: 3
-    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-3-xss-prevencao
-
   - id: lesson-1-2-exercise-4-broken-access-control
     title: "Exercício 1.2.4: Broken Access Control"
     lesson_id: lesson-1-2

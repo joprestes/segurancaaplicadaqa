@@ -10,7 +10,6 @@ prerequisites: ["lesson-1-1"]
 exercises: 
   - lesson-1-2-exercise-1-identificar-vulnerabilidades
   - lesson-1-2-exercise-2-sql-injection
-  - lesson-1-2-exercise-3-xss-prevencao
   - lesson-1-2-exercise-4-broken-access-control
   - lesson-1-2-exercise-5-owasp-checklist
 podcast:

@@ -67,9 +67,21 @@ class VideoPlayer {
     if (this.video) {
       if (this.video.src && this.video.src !== '' && this.video.src !== window.location.href) {
         this.videoFile = this.video.src;
-        console.log('Usando src do HTML:', this.videoFile);
+        if (window.Logger) {
+          window.Logger.log('Usando src do HTML:', this.videoFile);
+        } else {
+          console.log('Usando src do HTML:', this.videoFile);
+        }
       } else if (this.videoFile && (!this.video.src || this.video.src === '' || this.video.src === window.location.href)) {
-        console.log('Definindo src do JavaScript:', this.videoFile);
+        if (window.Logger) {
+          window.Logger.log('Definindo src do JavaScript:', this.videoFile);
+        } else {
+          console.log('Definindo src do JavaScript:', this.videoFile);
+        }
+        // Validação não-bloqueante (apenas logging)
+        if (typeof window.validateMediaFile === 'function') {
+          window.validateMediaFile(this.videoFile, 'video');
+        }
         this.video.src = this.videoFile;
         this.video.load();
       }
@@ -117,7 +129,11 @@ class VideoPlayer {
               });
             }
           } catch (e) {
-            console.error('Erro ao recuperar estado global:', e);
+            if (window.Logger) {
+              window.Logger.error('Erro ao recuperar estado global:', e);
+            } else {
+              console.error('Erro ao recuperar estado global:', e);
+            }
             this.video = null;
           }
         } else {
@@ -134,7 +150,11 @@ class VideoPlayer {
     
     if (this.video && this.video.src && this.isPlaying) {
       this.video.play().catch((error) => {
-        console.warn('Erro ao retomar reprodução:', error);
+        if (window.Logger) {
+          window.Logger.warn('Erro ao retomar reprodução:', error);
+        } else {
+          console.warn('Erro ao retomar reprodução:', error);
+        }
         this.isPlaying = false;
         this.updateUI();
       });
@@ -177,10 +197,15 @@ class VideoPlayer {
       this.updateDurationDisplay();
     });
     
+    // Debounce apenas em saveProgress, não em updateProgress visual
+    const debouncedSave = typeof window.debounce === 'function' 
+      ? window.debounce(() => this.saveProgress(), 250)
+      : () => this.saveProgress();
+    
     this.video.addEventListener('timeupdate', () => {
       this.currentTime = this.video.currentTime;
-      this.updateProgress();
-      this.saveProgress();
+      this.updateProgress();  // Visual - SEMPRE (sem debounce)
+      debouncedSave();         // Storage - com debounce (se disponível)
     });
     
     this.video.addEventListener('play', () => {
@@ -220,12 +245,22 @@ class VideoPlayer {
     });
     
     this.video.addEventListener('error', (e) => {
-      console.error('Erro ao carregar vídeo:', e);
-      if (this.video.error) {
-        console.error('Código de erro do vídeo:', this.video.error.code);
-        console.error('Mensagem:', this.video.error.message);
-        console.error('URL tentada:', this.video.src);
-        console.error('URL esperada:', this.videoFile);
+      if (window.Logger) {
+        window.Logger.error('Erro ao carregar vídeo:', e);
+        if (this.video.error) {
+          window.Logger.error('Código de erro do vídeo:', this.video.error.code);
+          window.Logger.error('Mensagem:', this.video.error.message);
+          window.Logger.error('URL tentada:', this.video.src);
+          window.Logger.error('URL esperada:', this.videoFile);
+        }
+      } else {
+        console.error('Erro ao carregar vídeo:', e);
+        if (this.video.error) {
+          console.error('Código de erro do vídeo:', this.video.error.code);
+          console.error('Mensagem:', this.video.error.message);
+          console.error('URL tentada:', this.video.src);
+          console.error('URL esperada:', this.videoFile);
+        }
       }
       if (this.videoFile) {
         this.handleError();
@@ -233,15 +268,27 @@ class VideoPlayer {
     });
     
     this.video.addEventListener('loadstart', () => {
-      console.log('Iniciando carregamento do vídeo:', this.video.src || this.videoFile);
+      if (window.Logger) {
+        window.Logger.log('Iniciando carregamento do vídeo:', this.video.src || this.videoFile);
+      } else {
+        console.log('Iniciando carregamento do vídeo:', this.video.src || this.videoFile);
+      }
     });
     
     this.video.addEventListener('canplay', () => {
-      console.log('Vídeo pode ser reproduzido:', this.video.src);
+      if (window.Logger) {
+        window.Logger.log('Vídeo pode ser reproduzido:', this.video.src);
+      } else {
+        console.log('Vídeo pode ser reproduzido:', this.video.src);
+      }
     });
     
     this.video.addEventListener('loadeddata', () => {
-      console.log('Dados do vídeo carregados');
+      if (window.Logger) {
+        window.Logger.log('Dados do vídeo carregados');
+      } else {
+        console.log('Dados do vídeo carregados');
+      }
       if (this.video.readyState >= 2) {
         this.duration = this.video.duration;
         this.updateDurationDisplay();
@@ -406,7 +453,11 @@ class VideoPlayer {
             this.updateProgress();
           }
         } catch (e) {
-          console.error('Erro ao carregar progresso:', e);
+          if (window.Logger) {
+            window.Logger.error('Erro ao carregar progresso:', e);
+          } else {
+            console.error('Erro ao carregar progresso:', e);
+          }
         }
       }
     } else if (this.video && this.video.src) {
@@ -435,7 +486,11 @@ class VideoPlayer {
             this.updateUI();
           }
         } catch (e) {
-          console.error('Erro ao carregar estado global:', e);
+          if (window.Logger) {
+            window.Logger.error('Erro ao carregar estado global:', e);
+          } else {
+            console.error('Erro ao carregar estado global:', e);
+          }
         }
       }
     }
@@ -489,7 +544,11 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       config = JSON.parse(videoData.textContent);
     } catch (e) {
-      console.error('Erro ao parsear dados do vídeo:', e);
+      if (window.Logger) {
+        window.Logger.error('Erro ao parsear dados do vídeo:', e);
+      } else {
+        console.error('Erro ao parsear dados do vídeo:', e);
+      }
     }
   } else if (lessonData) {
     try {
@@ -501,12 +560,27 @@ document.addEventListener('DOMContentLoaded', () => {
         videoDescription: null
       };
     } catch (e) {
-      console.error('Erro ao parsear dados da lição:', e);
+      if (window.Logger) {
+        window.Logger.error('Erro ao parsear dados da lição:', e);
+      } else {
+        console.error('Erro ao parsear dados da lição:', e);
+      }
     }
   }
   
   if (config) {
-    window.videoPlayer = new VideoPlayer(config);
+    // Se já existe instância válida, reutilizar
+    if (window.videoPlayer && 
+        window.videoPlayer instanceof VideoPlayer &&
+        window.videoPlayer.lessonId === config.lessonId) {
+      // Reutilizar instância existente
+      if (window.Logger) {
+        window.Logger.log('Reutilizando instância existente de VideoPlayer');
+      }
+    } else {
+      // Criar nova instância
+      window.videoPlayer = new VideoPlayer(config);
+    }
   }
 });
 

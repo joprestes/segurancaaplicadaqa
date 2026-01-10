@@ -15,7 +15,11 @@ class ProgressTracker {
       try {
         return JSON.parse(saved);
       } catch (e) {
-        console.error('Erro ao carregar progresso:', e);
+        if (window.Logger) {
+          window.Logger.error('Erro ao carregar progresso:', e);
+        } else {
+          console.error('Erro ao carregar progresso:', e);
+        }
       }
     }
     return {

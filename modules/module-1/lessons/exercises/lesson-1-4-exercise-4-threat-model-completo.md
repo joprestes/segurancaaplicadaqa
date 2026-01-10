@@ -5,8 +5,8 @@ slug: "threat-model-completo"
 lesson_id: "lesson-1-4"
 module: "module-1"
 difficulty: "Avançado"
-permalink: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo/
-lesson_url: /seguranca-qa/modules/fundamentos-seguranca-qa/lessons/threat-modeling/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo/
+lesson_url: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
 ---
 
 ## Objetivo
