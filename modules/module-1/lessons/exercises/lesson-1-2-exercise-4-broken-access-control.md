@@ -292,6 +292,11 @@ Após completar este exercício, você estará preparado para:
 
 ---
 
+
+{% include exercise-submission-form.html %}
+
+---
+
 **Duração Estimada**: 60-90 minutos  
 **Nível**: Intermediário  
 **Pré-requisitos**: Exercício 1.2.3 (XSS Prevenção)

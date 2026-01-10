@@ -318,6 +318,11 @@ Após completar este exercício, você estará preparado para:
 
 ---
 
+
+{% include exercise-submission-form.html %}
+
+---
+
 **Duração Estimada**: 120-180 minutos  
 **Nível**: Avançado  
 **Pré-requisitos**: Exercício 1.5.4 (Compliance por Setor)

@@ -159,6 +159,11 @@ Após completar este exercício, você estará preparado para:
 
 ---
 
+
+{% include exercise-submission-form.html %}
+
+---
+
 **Duração Estimada**: 90-120 minutos  
 **Nível**: Avançado  
 **Pré-requisitos**: Exercício 1.4.4 (Threat Model Completo)

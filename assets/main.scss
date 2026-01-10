@@ -1,16 +1,17 @@
 ---
 ---
 
-@import "minima";
 
 @import "variables";
 @import "colors";
 @import "theme";
 @import "navigation";
+@import "video-player";
 @import "module-summary";
 @import "progress-tracker";
 @import "breadcrumbs";
 @import "quiz";
+@import "exercise-submission";
 @import "components/hero";
 @import "components/empty-states";
 @import "components/footer";
@@ -39,18 +40,18 @@ pre {
   border: 1px solid var(--color-code-block-border) !important;
   border-radius: 8px !important;
   overflow: hidden !important;
-  
+
   code {
     background: transparent !important;
     color: var(--color-text-primary) !important;
   }
-  
+
   /* Remover todos os backgrounds de elementos de syntax highlighting */
   * {
     background: transparent !important;
     background-color: transparent !important;
   }
-  
+
   span,
   .hll,
   .err,
@@ -129,18 +130,18 @@ pre {
 /* Remover backgrounds do highlighter-rouge do Minima */
 .highlighter-rouge {
   background: transparent !important;
-  
+
   .highlight {
     background: transparent !important;
     background-color: transparent !important;
   }
-  
+
   .highlight pre,
   pre {
     background: var(--color-code-block-bg) !important;
     background-color: var(--color-code-block-bg) !important;
   }
-  
+
   .highlight *,
   .highlight pre * {
     background: transparent !important;
@@ -168,12 +169,12 @@ body {
   top: 0;
   z-index: 1000;
   @include theme-transition-all;
-  
+
   /* Gradiente adicional para dark mode */
   [data-theme="dark"] & {
     background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-hover) 50%, var(--color-primary) 100%);
   }
-  
+
   .header-content {
     max-width: $container-max-width;
     margin: 0 auto;
@@ -181,19 +182,19 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .header-brand {
     display: flex;
     align-items: center;
     min-height: 64px;
     height: 64px;
   }
-  
+
   .site-title {
     margin: 0;
     font-size: 0;
     height: 100%;
-    
+
     .brand-logo {
       display: inline-flex;
       align-items: center;
@@ -203,7 +204,7 @@ body {
       color: var(--color-text-inverse);
       gap: $spacing-md;
     }
-    
+
     .brand-logo-image {
       height: calc(100% - 4px);
       max-height: 60px;
@@ -211,7 +212,7 @@ body {
       display: block;
       object-fit: contain;
     }
-    
+
     .logo-placeholder {
       min-width: 150px;
       min-height: 48px;
@@ -228,7 +229,7 @@ body {
       justify-content: center;
       padding: 0 $spacing-lg;
     }
-    
+
     .brand-text {
       font-size: clamp(1.25rem, 2vw, 1.75rem);
       font-weight: $font-weight-semibold;
@@ -237,22 +238,22 @@ body {
       white-space: nowrap;
     }
   }
-  
+
   .main-nav {
     display: flex;
     gap: $spacing-lg;
     align-items: center;
-    
+
     a {
       color: var(--color-text-inverse);
       text-decoration: none;
-      
+
       &:hover {
         text-decoration: underline;
       }
     }
   }
-  
+
   .theme-toggle {
     background: transparent;
     border: none;
@@ -265,22 +266,22 @@ body {
     padding: $spacing-xs;
     margin-left: $spacing-md;
     transition: opacity 0.2s, transform 0.2s;
-    
+
     &:hover {
       opacity: 0.8;
       transform: scale(1.1);
     }
-    
+
     &:active {
       transform: scale(0.95);
     }
-    
+
     &:focus {
       outline: 2px solid rgba(255, 255, 255, 0.5);
       outline-offset: 2px;
       border-radius: 4px;
     }
-    
+
     #theme-icon {
       display: inline-block;
       line-height: 1;
@@ -339,20 +340,20 @@ body {
   zoom: 0.8;
   padding-bottom: $spacing-lg;
   display: block;
-  
-  > *:last-child {
+
+  >*:last-child {
     margin-bottom: 0 !important;
   }
-  
+
   .exercises {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
-    
-    > *:last-child {
+
+    >*:last-child {
       margin-bottom: 0 !important;
     }
   }
-  
+
   section:last-child,
   .exercises:last-child,
   nav:last-child,
@@ -360,13 +361,13 @@ body {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
-  
+
   article:last-child,
   .lesson-content:last-child {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
-  
+
   .lesson-actions {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -384,26 +385,31 @@ body {
 .content {
   flex: 1;
   min-width: 0;
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     color: var(--color-text-primary);
     @include theme-transition(color);
   }
-  
+
   p {
     color: var(--color-text-primary);
     @include theme-transition(color);
   }
-  
+
   a {
     color: var(--color-primary);
     @include theme-transition(color);
-    
+
     &:hover {
       color: var(--color-primary-hover);
     }
   }
-  
+
   code {
     background: var(--color-code-bg);
     color: var(--color-code-text);
@@ -413,17 +419,17 @@ body {
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
     @include theme-transition-all;
   }
-  
+
   /* Estilos para containers de highlight do Jekyll/Minima */
   .highlighter-rouge {
     background: transparent !important;
-    
+
     .highlight {
       background: transparent !important;
       background-color: transparent !important;
     }
   }
-  
+
   pre {
     background: var(--color-code-block-bg) !important;
     color: var(--color-text-primary) !important;
@@ -434,7 +440,7 @@ body {
     border: 1px solid var(--color-code-block-border) !important;
     margin: $spacing-lg 0;
     @include theme-transition-all;
-    
+
     code {
       background: transparent !important;
       color: var(--color-text-primary) !important;
@@ -443,13 +449,13 @@ body {
       border: none;
       display: block;
     }
-    
+
     /* Remover todos os backgrounds de elementos de syntax highlighting */
     * {
       background: transparent !important;
       background-color: transparent !important;
     }
-    
+
     /* Garantir que spans de highlight não tenham background */
     span,
     .hll,
@@ -526,7 +532,7 @@ body {
       color: inherit;
     }
   }
-  
+
   /* Garantir que .highlight dentro de .highlighter-rouge não tenha background */
   .highlighter-rouge .highlight,
   .highlighter-rouge .highlight pre,
@@ -534,13 +540,13 @@ body {
     background: var(--color-code-block-bg) !important;
     background-color: var(--color-code-block-bg) !important;
   }
-  
+
   .highlighter-rouge .highlight *,
   .highlighter-rouge .highlight pre * {
     background: transparent !important;
     background-color: transparent !important;
   }
-  
+
   /* Garantir que pre dentro de qualquer contexto use as cores corretas */
   .lesson-content pre,
   .module-content pre,
@@ -550,7 +556,7 @@ body {
     color: var(--color-text-primary) !important;
     border-color: var(--color-code-block-border) !important;
   }
-  
+
   blockquote {
     border-left: 4px solid var(--color-primary);
     padding-left: $spacing-md;
@@ -564,54 +570,56 @@ body {
     border-radius: 0 4px 4px 0;
     @include theme-transition-all;
   }
-  
+
   table {
     width: 100%;
     border-collapse: collapse;
     margin: $spacing-lg 0;
-    
-    th, td {
+
+    th,
+    td {
       padding: $spacing-sm $spacing-md;
       border: 1px solid var(--color-border);
       @include theme-transition(border-color);
     }
-    
+
     th {
       background: var(--color-bg-secondary);
       color: var(--color-text-primary);
       font-weight: 600;
       @include theme-transition-all;
     }
-    
+
     td {
       background: var(--color-surface);
       color: var(--color-text-primary);
       @include theme-transition-all;
     }
-    
+
     tr:nth-child(even) td {
       background: var(--color-bg-secondary);
     }
   }
-  
-  ul, ol {
+
+  ul,
+  ol {
     color: var(--color-text-primary);
     @include theme-transition(color);
   }
-  
+
   hr {
     border: none;
     border-top: 1px solid var(--color-border);
     margin: $spacing-xl 0;
     @include theme-transition(border-color);
   }
-  
+
   img {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
     @include theme-transition-all;
-    
+
     &[src*="visualizacao"],
     &[src*="visualization"],
     &[src*="diagram"],
@@ -622,7 +630,7 @@ body {
       @include theme-transition-all;
     }
   }
-  
+
   /* Containers de visualização e diagramas */
   .visualizacao,
   .visualization,
@@ -635,23 +643,26 @@ body {
     margin: $spacing-lg 0;
     color: var(--color-text-primary);
     @include theme-transition-all;
-    
+
     img {
       background: transparent;
       border: none;
       padding: 0;
     }
-    
-    p, div, span {
+
+    p,
+    div,
+    span {
       color: var(--color-text-primary);
     }
   }
-  
+
   /* Seções com conteúdo que pode ter imagens brancas */
   section,
   div[class*="visual"],
   div[class*="diagram"] {
     img {
+
       /* Aplicar filtro sutil no dark mode para melhorar contraste */
       [data-theme="dark"] & {
         opacity: 0.9;
@@ -669,20 +680,20 @@ body {
   border-radius: 8px;
   box-shadow: var(--color-shadow-sm);
   @include theme-transition-all;
-  
+
   header {
     margin-bottom: $spacing-xl;
     padding-bottom: $spacing-lg;
     border-bottom: 2px solid var(--color-border);
     @include theme-transition(border-color);
-    
+
     h1 {
       margin: 0 0 $spacing-md 0;
       font-size: $font-size-h1;
       color: var(--color-text-primary);
       @include theme-transition(color);
     }
-    
+
     .lesson-meta,
     .module-meta,
     .exercise-meta {
@@ -709,7 +720,7 @@ body {
   min-height: 60px;
   position: relative;
   @include theme-transition(background-color);
-  
+
   a {
     display: inline-flex;
     align-items: center;
@@ -728,7 +739,7 @@ body {
     white-space: nowrap;
     flex-shrink: 0;
     min-width: fit-content;
-    
+
     &:hover {
       text-decoration: none;
       background: var(--color-primary);
@@ -736,29 +747,29 @@ body {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    
+
     &:active {
       transform: translateY(0);
     }
-    
+
     &:focus-visible {
       outline: 2px solid var(--color-primary);
       outline-offset: 2px;
       border-radius: 8px;
     }
   }
-  
+
   // Quando há apenas o link de resumo do módulo, alinha à direita
   .module-summary-link:only-child {
     margin-left: auto;
     margin-right: 0;
   }
-  
+
   // Quando há apenas um link, centralizar
   a:only-child {
     margin: 0 auto;
   }
-  
+
   // Botão anterior - sempre à esquerda
   .prev-lesson {
     margin-left: 0;
@@ -766,7 +777,7 @@ body {
     order: 1;
     text-align: left;
   }
-  
+
   // Botão próximo - sempre à direita
   .next-lesson,
   .module-summary-link {
@@ -783,12 +794,12 @@ body {
   margin-top: $spacing-xl;
   margin-bottom: 0;
   padding-bottom: 0;
-  
+
   h2 {
     font-size: $font-size-h2;
     margin-bottom: $spacing-lg;
   }
-  
+
   .exercise-card {
     background: var(--color-surface);
     color: var(--color-text-primary);
@@ -797,18 +808,18 @@ body {
     border-radius: 8px;
     margin-bottom: $spacing-md;
     @include theme-transition-all;
-    
+
     h3 {
       margin: 0 0 $spacing-sm 0;
       font-size: $font-size-h3;
       color: var(--color-text-primary);
     }
-    
+
     a {
       color: var(--color-primary);
       text-decoration: none;
       @include theme-transition(color);
-      
+
       &:hover {
         text-decoration: underline;
       }
@@ -821,7 +832,7 @@ body {
   padding-top: $spacing-lg;
   border-top: 1px solid var(--color-border);
   @include theme-transition(border-color);
-  
+
   .mark-lesson-complete {
     background: var(--color-success);
     color: var(--color-text-inverse);
@@ -831,11 +842,11 @@ body {
     font-size: $font-size-base;
     cursor: pointer;
     transition: background-color 0.2s;
-    
+
     &:hover {
       background: var(--color-success-hover);
     }
-    
+
     &:disabled {
       background: var(--color-text-tertiary);
       cursor: not-allowed;
@@ -850,11 +861,11 @@ body {
   margin-top: $spacing-xl;
   text-align: center;
   @include theme-transition(background-color);
-  
+
   [data-theme="dark"] & {
     background: var(--color-surface-elevated);
   }
-  
+
   .footer-content {
     max-width: $container-max-width;
     margin: 0 auto;
@@ -865,7 +876,7 @@ body {
   .page-wrapper {
     flex-direction: column;
   }
-  
+
   .sidebar {
     width: 100%;
     position: relative;
@@ -873,30 +884,30 @@ body {
     height: auto;
     align-self: stretch;
   }
-  
+
   .sidebar-navigation {
     height: auto;
   }
-  
+
   .main-container .content-wrapper {
     overflow: visible;
   }
-  
+
   .main-container .content {
     zoom: 1;
   }
-  
+
   .container {
     flex-direction: column;
     padding: $spacing-md;
   }
-  
+
   .lesson-content,
   .module-content,
   .exercise-content {
     padding: $spacing-lg;
   }
-  
+
   .site-header {
     .header-content {
       flex-direction: column;
@@ -906,6 +917,7 @@ body {
 }
 
 @media (max-width: $breakpoint-mobile) {
+
   .lesson-content,
   .module-content,
   .exercise-content {
@@ -914,4 +926,3 @@ body {
     }
   }
 }
-
