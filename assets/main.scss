@@ -850,6 +850,10 @@ h6 {
   > :first-child:not(header) {
     padding-top: 2rem;
   }
+
+  > :last-child:not(.lesson-actions) {
+    padding-bottom: 2.5rem;
+  }
 }
 
 .lesson-navigation {
