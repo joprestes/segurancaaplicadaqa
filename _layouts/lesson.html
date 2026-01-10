@@ -11,29 +11,19 @@ layout: default
 
 {% if page.video %}
 <div class="video-player-container">
-  {% include video-player.html 
-     video=page.video 
-     lesson_id=page.lesson_id %}
+  {% include video-player.html
+  video=page.video
+  lesson_id=page.lesson_id %}
 </div>
 {% elsif page.image %}
 <div class="lesson-image-container">
-  <img 
-    src="{{ page.image | relative_url }}" 
-    alt="{{ page.title }}" 
-    class="lesson-image"
-    loading="lazy"
-    decoding="async"
-  />
+  <img src="{{ page.image | relative_url }}" alt="{{ page.title }}" class="lesson-image" loading="lazy"
+    decoding="async" />
 </div>
 {% elsif page.video and page.video.thumbnail %}
 <div class="lesson-image-container">
-  <img 
-    src="{{ page.video.thumbnail | relative_url }}" 
-    alt="{{ page.title }}" 
-    class="lesson-image"
-    loading="lazy"
-    decoding="async"
-  />
+  <img src="{{ page.video.thumbnail | relative_url }}" alt="{{ page.title }}" class="lesson-image" loading="lazy"
+    decoding="async" />
 </div>
 {% endif %}
 
@@ -42,22 +32,19 @@ layout: default
     <h1>{{ page.title }}</h1>
     <div class="lesson-meta">
       {% if page.duration %}
-        <span>⏱️ {{ page.duration }}</span>
+      <span>⏱️ {{ page.duration }}</span>
       {% endif %}
       {% if page.level %}
-        <span>📊 {{ page.level }}</span>
+      <span>📊 {{ page.level }}</span>
       {% endif %}
     </div>
   </header>
-  
+
   {{ content }}
-  
+
   <div class="lesson-actions">
-    <button class="mark-lesson-complete" 
-            data-testid="mark-lesson-complete-btn"
-            data-lesson-id="{{ page.lesson_id }}" 
-            data-module-id="{{ page.module }}"
-            aria-label="Marcar aula como completa">
+    <button class="mark-lesson-complete" data-testid="mark-lesson-complete-btn" data-lesson-id="{{ page.lesson_id }}"
+      data-module-id="{{ page.module }}" aria-label="Marcar aula como completa">
       Marcar como concluída
     </button>
   </div>
@@ -71,4 +58,3 @@ layout: default
 
 <script src="{{ '/assets/js/video-player.js' | relative_url }}"></script>
 <script src="{{ '/assets/js/quiz.js' | relative_url }}"></script>
-
