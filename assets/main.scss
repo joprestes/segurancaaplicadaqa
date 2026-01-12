@@ -39,13 +39,13 @@
 }
 
 /* Garantir que pre tags sempre usem as cores corretas do tema */
-// NOTA: !important necessário para sobrescrever syntax highlighting do tema Jekyll Minima
+// NOTA: !important necess?rio para sobrescrever syntax highlighting do tema Jekyll Minima
 pre {
-  background: var(--color-code-block-bg) !important; // Necessário para sobrescrever tema
-  color: var(--color-text-primary) !important; // Necessário para sobrescrever tema
-  border: 1px solid var(--color-code-block-border) !important; // Necessário para sobrescrever tema
-  border-radius: 8px !important; // Necessário para sobrescrever tema
-  overflow: hidden !important; // Necessário para sobrescrever tema
+  background: var(--color-code-block-bg) !important; // Necess?rio para sobrescrever tema
+  color: var(--color-text-primary) !important; // Necess?rio para sobrescrever tema
+  border: 1px solid var(--color-code-block-border) !important; // Necess?rio para sobrescrever tema
+  border-radius: 8px !important; // Necess?rio para sobrescrever tema
+  overflow: hidden !important; // Necess?rio para sobrescrever tema
 
   code {
     background: transparent !important;
@@ -134,9 +134,9 @@ pre {
 }
 
 /* Remover backgrounds do highlighter-rouge do Minima */
-// NOTA: !important necessário para sobrescrever tema Jekyll Minima
+// NOTA: !important necess?rio para sobrescrever tema Jekyll Minima
 .highlighter-rouge {
-  background: transparent !important; // Necessário para sobrescrever tema
+  background: transparent !important; // Necess?rio para sobrescrever tema
 
   .highlight {
     background: transparent !important;
@@ -178,7 +178,7 @@ body {
   min-height: 100vh;
 }
 
-/* Hierarquia tipográfica - Títulos */
+/* Hierarquia tipogr?fica - T?tulos */
 h1,
 h2,
 h3,
@@ -383,14 +383,12 @@ h6 {
   }
 }
 
-// Layout principal - !important necessário para sobrescrever tema Jekyll Minima
-// NOTA: Estes !important são necessários devido a conflitos com o tema Jekyll
-// Testar se funciona sem !important e adicionar de volta se layout quebrar
+// Layout principal - !important necess?rio para sobrescrever tema Jekyll Minima
 .page-wrapper {
-  display: flex !important; // Necessário para sobrescrever tema Jekyll
-  flex-direction: row !important; // Necessário para sobrescrever tema Jekyll
-  align-items: flex-start !important; // Necessário para sobrescrever tema Jekyll
-  width: 100% !important; // Necessário para sobrescrever tema Jekyll
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  width: 100% !important;
   min-height: calc(100vh - 80px);
   box-sizing: border-box;
   margin: 0;
@@ -398,11 +396,11 @@ h6 {
 }
 
 .sidebar {
-  flex: 0 0 $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
-  width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
-  min-width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
-  max-width: $sidebar-width !important; // Necessário para sobrescrever tema Jekyll
-  position: sticky !important; // Necessário para sobrescrever tema Jekyll
+  flex: 0 0 $sidebar-width !important;
+  width: $sidebar-width !important;
+  min-width: $sidebar-width !important;
+  max-width: $sidebar-width !important;
+  position: sticky !important;
   top: 80px;
   height: calc(100vh - 80px);
   overflow-y: auto;
@@ -413,10 +411,10 @@ h6 {
 }
 
 .main-container {
-  flex: 1 1 auto !important; // Necessário para sobrescrever tema Jekyll
-  display: flex !important; // Necessário para sobrescrever tema Jekyll
-  justify-content: center !important; // Necessário para sobrescrever tema Jekyll
-  align-items: flex-start !important; // Necessário para sobrescrever tema Jekyll
+  flex: 1 1 auto !important; // Necess?rio para sobrescrever tema Jekyll
+  display: flex !important; // Necess?rio para sobrescrever tema Jekyll
+  justify-content: center !important; // Necess?rio para sobrescrever tema Jekyll
+  align-items: flex-start !important; // Necess?rio para sobrescrever tema Jekyll
   min-width: 0;
   box-sizing: border-box;
   margin: 0;
@@ -543,7 +541,7 @@ h6 {
       background-color: transparent !important;
     }
 
-    /* Garantir que spans de highlight não tenham background */
+    /* Garantir que spans de highlight n?o tenham background */
     span,
     .hll,
     .err,
@@ -620,7 +618,7 @@ h6 {
     }
   }
 
-  /* Garantir que .highlight dentro de .highlighter-rouge não tenha background */
+  /* Garantir que .highlight dentro de .highlighter-rouge n?o tenha background */
   .highlighter-rouge .highlight,
   .highlighter-rouge .highlight pre,
   .highlighter-rouge pre {
@@ -718,7 +716,7 @@ h6 {
     }
   }
 
-  /* Containers de visualização e diagramas */
+  /* Containers de visualiza??o e diagramas */
   .visualizacao,
   .visualization,
   .diagram,
@@ -744,7 +742,7 @@ h6 {
     }
   }
 
-  /* Seções com conteúdo que pode ter imagens brancas */
+  /* Se??es com conte?do que pode ter imagens brancas */
   section,
   div[class*="visual"],
   div[class*="diagram"] {
@@ -769,10 +767,10 @@ h6 {
     0 10px 40px rgba(0, 0, 0, 0.08),
     0 4px 16px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  /* overflow: hidden; REMOVIDO para evitar corte de conteúdo */
+  /* overflow: hidden; REMOVIDO para evitar corte de conte?do */
   position: relative;
   margin-bottom: 4rem;
-  /* Garante espaço do footer */
+  /* Garante espa?o do footer */
   @include theme-transition-all;
 
   // Barra gradiente no topo
@@ -847,7 +845,7 @@ h6 {
     }
   }
 
-  // Conteúdo da aula com padding
+  // Conte?do da aula com padding
   >*:not(header):not(.lesson-actions) {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
@@ -915,18 +913,18 @@ h6 {
     }
   }
 
-  // Quando há apenas o link de resumo do módulo, alinha à direita
+  // Quando h? apenas o link de resumo do m?dulo, alinha ? direita
   .module-summary-link:only-child {
     margin-left: auto;
     margin-right: 0;
   }
 
-  // Quando há apenas um link, centralizar
+  // Quando h? apenas um link, centralizar
   a:only-child {
     margin: 0 auto;
   }
 
-  // Botão anterior - sempre à esquerda
+  // Bot?o anterior - sempre ? esquerda
   .prev-lesson {
     margin-left: 0;
     margin-right: auto;
@@ -934,7 +932,7 @@ h6 {
     text-align: left;
   }
 
-  // Botão próximo - sempre à direita
+  // Bot?o pr?ximo - sempre ? direita
   .next-lesson,
   .module-summary-link {
     margin-left: auto;
@@ -1011,7 +1009,7 @@ h6 {
     overflow: hidden;
 
     &::before {
-      content: '✓';
+      content: '?';
       margin-right: 0.5rem;
       font-size: 1.25rem;
       font-weight: bold;
@@ -1054,16 +1052,14 @@ h6 {
       box-shadow: 0 4px 12px rgba(156, 163, 175, 0.2);
 
       &::before {
-        content: '✓';
+        content: '?';
         transform: none;
       }
     }
   }
 }
 
-// Footer styles moved to components/_footer.scss
-
-// Media query faltando - este bloco estava fora de media query (BUG CORRIGIDO)
+// Media query para tablets
 @media (max-width: $breakpoint-tablet) {
   .page-wrapper {
     flex-direction: column;
@@ -1111,8 +1107,6 @@ h6 {
       align-self: flex-start;
     }
   }
-
-  // Footer responsive styles moved to components/_footer.scss
 }
 
 @media (max-width: $breakpoint-mobile) {
@@ -1126,7 +1120,7 @@ h6 {
   }
 }
 
-// Correção para content-wrapper garantir fluxo normal
+// Corre??o para content-wrapper garantir fluxo normal
 .content-wrapper {
   width: 100%;
   height: auto !important;
@@ -1136,14 +1130,13 @@ h6 {
   flex: 1 1 auto;
 }
 
-// Ensure content is visible and layout flows correctly
+// Garantir que conteúdo seja visível e layout flua corretamente
 .lesson-content {
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
   height: auto !important;
   overflow: visible !important;
-  // Ensure it does not overlap with fixed headers if any
   position: relative !important;
   z-index: 10 !important; // Abaixo do header (200), mas visível
   clear: both;

@@ -1,11 +1,12 @@
-# Segurança em QA - CWI - Plataforma de Ensino
+# Qualidade e Segurança da Informação - CWI - Plataforma de Ensino
 
-Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios sobre segurança aplicada à qualidade de software. Suporta vídeos e imagens, rastreamento de progresso e navegação intuitiva.
+Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios sobre **Qualidade e Segurança da Informação**. Desenvolvida para profissionais de QA da CWI, aborda desde fundamentos de segurança aplicada à qualidade de software até compliance e práticas avançadas de segurança da informação. Suporta vídeos e imagens, rastreamento de progresso e navegação intuitiva.
 
 ## 📋 Índice
 
 - [Requisitos](#requisitos)
 - [Instalação](#instalação)
+- [Sobre o Curso](#sobre-o-curso)
 - [Como Rodar](#como-rodar)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Como Utilizar](#como-utilizar)
@@ -13,6 +14,7 @@ Plataforma de ensino online construída com Jekyll para cursos estruturados em m
 - [Alterando Conteúdo](#alterando-conteúdo)
 - [Deploy](#deploy)
 - [Troubleshooting](#troubleshooting)
+- [Créditos](#créditos)
 
 ## 🔧 Requisitos
 
@@ -56,6 +58,18 @@ Isso instalará todas as gems necessárias definidas no `Gemfile`:
 ```bash
 bundle exec jekyll --version
 ```
+
+## 📚 Sobre o Curso
+
+Este curso de **Qualidade e Segurança da Informação** foi desenvolvido especificamente para profissionais de QA da CWI Software. O programa aborda:
+
+- **Fundamentos de Segurança**: OWASP Top 10, threat modeling, compliance (LGPD, PCI-DSS, SOC2)
+- **Ferramentas e Técnicas**: SAST, DAST, dependency scanning, pentest básico
+- **Segurança por Setor**: Requisitos específicos para setores financeiro, educacional, ecommerce e IA
+- **DevSecOps**: Integração de segurança em pipelines CI/CD
+- **Compliance e Regulamentações**: LGPD, PCI-DSS, SOC2 e outras normas aplicáveis
+
+O curso combina teoria e prática, com exemplos reais de projetos em diferentes setores, permitindo que profissionais de QA integrem segurança no processo de qualidade desde o início do desenvolvimento.
 
 ## 🚀 Como Rodar
 
@@ -124,12 +138,15 @@ crescidos-qualidade/
 │   ├── lesson.html
 │   ├── exercise.html
 │   └── module-summary.html
-├── _sass/                   # Estilos SCSS
-│   ├── main.scss            # Arquivo principal de estilos
+├── _sass/                   # Estilos SCSS (partials)
 │   ├── _theme.scss
 │   ├── _variables.scss
-│   └── ...
+│   ├── _colors.scss
+│   ├── components/          # Componentes de estilo
+│   ├── utilities/           # Utilitários
+│   └── animations/         # Animações
 ├── assets/                  # Recursos estáticos
+│   ├── main.scss            # Arquivo principal de estilos (com front matter)
 │   ├── js/                 # JavaScript fonte
 │   │   ├── emailjs-config.js  # Configuração EmailJS para submissão
 │   │   └── ...
@@ -824,7 +841,7 @@ Ao adicionar novos componentes ou elementos interativos, verifique:
 ### Documentação Completa
 
 Para análise detalhada de cobertura de test IDs, consulte:
-- `TEST_IDS_AUDIT.md` - Relatório completo de auditoria de test IDs
+- `docs/TEST_IDS_AUDIT.md` - Relatório completo de auditoria de test IDs
 
 ## 🔍 Troubleshooting
 
@@ -927,4 +944,16 @@ sudo gem install bundler
 
 ---
 
-**Nota**: Este projeto está configurado para o curso de Segurança em QA da CWI, mas pode ser facilmente adaptado para qualquer temática seguindo os passos de personalização acima.
+## 🙏 Créditos
+
+Este projeto é baseado na plataforma de ensino original desenvolvida por [OnoSendae](https://github.com/OnoSendae):
+
+**Projeto Original:** [Angular Expert 5 Dias - Plataforma de Ensino](https://github.com/OnoSendae/angular)
+
+A estrutura base, sistema de módulos, aulas e exercícios, player de vídeo, rastreamento de progresso e outros componentes foram adaptados do projeto original para o curso de **Qualidade e Segurança da Informação** da CWI.
+
+**Agradecimentos:** Agradecemos ao autor original por disponibilizar uma base sólida e bem estruturada que facilitou a criação desta plataforma educacional.
+
+---
+
+**Nota**: Este projeto está configurado para o curso de **Qualidade e Segurança da Informação** da CWI, mas pode ser facilmente adaptado para qualquer temática seguindo os passos de personalização acima.
