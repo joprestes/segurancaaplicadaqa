@@ -1,6 +1,8 @@
-# Qualidade e Segurança da Informação - CWI - Plataforma de Ensino
+# Curso de Qualidade e Segurança da Informação - CWI
 
-Plataforma de ensino online construída com Jekyll para cursos estruturados em módulos, aulas e exercícios sobre **Qualidade e Segurança da Informação**. Desenvolvida para profissionais de QA da CWI, aborda desde fundamentos de segurança aplicada à qualidade de software até compliance e práticas avançadas de segurança da informação. Suporta vídeos e imagens, rastreamento de progresso e navegação intuitiva.
+**Curso online** sobre **Qualidade e Segurança da Informação** desenvolvido especificamente para profissionais de QA da CWI Software. Este curso foi criado a partir da plataforma de ensino desenvolvida pelo projeto [OnoSendae](https://github.com/OnoSendae/angular) e adaptado para abordar desde fundamentos de segurança aplicada à qualidade de software até compliance e práticas avançadas de segurança da informação.
+
+O curso é construído com Jekyll e suporta vídeos, imagens, rastreamento de progresso e navegação intuitiva entre módulos, aulas e exercícios.
 
 ## 📋 Índice
 
@@ -10,11 +12,11 @@ Plataforma de ensino online construída com Jekyll para cursos estruturados em m
 - [Como Rodar](#como-rodar)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 - [Como Utilizar](#como-utilizar)
-- [Personalização para Outra Temática](#personalização-para-outra-temática)
+- [Estrutura Técnica do Curso](#estrutura-técnica-do-curso)
 - [Alterando Conteúdo](#alterando-conteúdo)
 - [Deploy](#deploy)
 - [Troubleshooting](#troubleshooting)
-- [Créditos](#créditos)
+- [Créditos e Origem](#créditos-e-origem)
 
 ## 🔧 Requisitos
 
@@ -61,7 +63,7 @@ bundle exec jekyll --version
 
 ## 📚 Sobre o Curso
 
-Este curso de **Qualidade e Segurança da Informação** foi desenvolvido especificamente para profissionais de QA da CWI Software. O programa aborda:
+Este **curso online de Qualidade e Segurança da Informação** foi desenvolvido especificamente para profissionais de QA da CWI Software. O programa aborda:
 
 - **Fundamentos de Segurança**: OWASP Top 10, threat modeling, compliance (LGPD, PCI-DSS, SOC2)
 - **Ferramentas e Técnicas**: SAST, DAST, dependency scanning, pentest básico
@@ -70,6 +72,8 @@ Este curso de **Qualidade e Segurança da Informação** foi desenvolvido especi
 - **Compliance e Regulamentações**: LGPD, PCI-DSS, SOC2 e outras normas aplicáveis
 
 O curso combina teoria e prática, com exemplos reais de projetos em diferentes setores, permitindo que profissionais de QA integrem segurança no processo de qualidade desde o início do desenvolvimento.
+
+**Nota**: Este é um curso específico sobre Qualidade e Segurança da Informação. O código-fonte está disponível para referência e estudo, mas o foco principal é o conteúdo educacional deste curso.
 
 ## 🚀 Como Rodar
 
@@ -250,101 +254,17 @@ O projeto usa arquivos YAML em `_data/` para definir a estrutura:
 - **exercises.yml**: Define exercícios vinculados às aulas
 - **videos.yml**: Metadados dos vídeos (opcional)
 
-## 🔄 Personalização para Outra Temática
+## 🔧 Estrutura Técnica do Curso
 
-Para adaptar este projeto para outra temática (ex: React, Vue, Python, etc.), siga estes passos:
+Este curso foi desenvolvido usando a plataforma de ensino base do projeto [OnoSendae](https://github.com/OnoSendae/angular). A estrutura técnica permite:
 
-### 1. Atualizar Configuração Principal
+- **Módulos e Aulas**: Organização hierárquica do conteúdo
+- **Exercícios Práticos**: Sistema de submissão integrado
+- **Rastreamento de Progresso**: Acompanhamento do aprendizado
+- **Player de Vídeo**: Reprodução de conteúdo multimídia
+- **Navegação Intuitiva**: Interface responsiva e acessível
 
-Edite `_config.yml`:
-
-```yaml
-title: "Sua Nova Temática"
-description: "Descrição do seu curso"
-url: "https://seu-dominio.github.io"
-baseurl: "/seu-curso"
-author: "Seu Nome"
-```
-
-### 2. Atualizar Dados dos Módulos
-
-Edite `_data/modules.yml`:
-
-```yaml
-modules:
-  - id: module-1
-    title: "Fundamentos da Nova Temática"
-    slug: "fundamentos"
-    duration: "8 horas"
-    description: "Descrição do módulo"
-    lessons:
-      - lesson-1-1
-      - lesson-1-2
-    order: 1
-```
-
-### 3. Atualizar Dados das Aulas
-
-Edite `_data/lessons.yml`:
-
-```yaml
-lessons:
-  - id: lesson-1-1
-    title: "Introdução à Nova Temática"
-    slug: "introducao"
-    module: module-1
-    order: 1
-    duration: "60 minutos"
-    level: "Básico"
-    prerequisites: []
-    video:
-      file: "assets/videos/01-introducao.mp4"
-      title: "Introdução"
-      thumbnail: "assets/images/01-introducao.png"
-      description: "Descrição do vídeo"
-      duration: "45-60 minutos"
-```
-
-### 4. Substituir Conteúdo dos Arquivos Markdown
-
-- Edite `index.md` para refletir a nova temática
-- Atualize `modules/module-1/index.md` com conteúdo do novo módulo
-- Atualize `modules/module-1/lessons/lesson-1-1.md` com conteúdo da nova aula
-
-### 5. Substituir Mídia
-
-- Substitua arquivos em `assets/videos/` pelos seus vídeos
-- Substitua imagens em `assets/images/` pelas suas imagens
-
-### 6. Atualizar Metadados de Vídeos
-
-Edite `_data/videos.yml` (se usado) ou adicione diretamente no front matter dos arquivos .md:
-
-```yaml
-videos:
-  - id: video-1-1
-    lesson_id: lesson-1-1
-    file: "assets/videos/01-introducao.mp4"
-    title: "Introdução"
-    description: "Descrição do vídeo"
-    duration: "45-60 minutos"
-    thumbnail: "assets/images/01-introducao.png"
-```
-
-### 7. Atualizar Estilos (Opcional)
-
-Modifique arquivos em `_sass/` para personalizar cores e estilos:
-
-- `_colors.scss`: Cores do tema
-- `_theme.scss`: Estilos gerais
-- `_variables.scss`: Variáveis SCSS
-
-### 8. Limpar Dados Antigos
-
-Remova ou atualize:
-- Conteúdo antigo em `modules/`
-- Exercícios antigos em `modules/*/lessons/exercises/`
-- Referências antigas nos arquivos YAML
+Para entender melhor a estrutura técnica e como o conteúdo é organizado, consulte a seção [Estrutura do Projeto](#-estrutura-do-projeto) abaixo.
 
 ## ✏️ Alterando Conteúdo
 
@@ -928,10 +848,19 @@ sudo gem install bundler
 
 ## 🤝 Contribuindo
 
+Este é um curso específico sobre Qualidade e Segurança da Informação. Contribuições são bem-vindas para:
+
+- Correção de erros no conteúdo
+- Melhorias na apresentação do material
+- Sugestões de novos exercícios ou exemplos práticos
+- Correções técnicas na plataforma
+
+Para contribuir:
+
 1. Faça fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
+2. Crie uma branch para sua contribuição (`git checkout -b feature/sua-contribuicao`)
+3. Commit suas mudanças (`git commit -m 'feat: descrição da contribuição'`)
+4. Push para a branch (`git push origin feature/sua-contribuicao`)
 5. Abra um Pull Request
 
 ## 📝 Licença
@@ -944,16 +873,16 @@ sudo gem install bundler
 
 ---
 
-## 🙏 Créditos
+## 🙏 Créditos e Origem
 
-Este projeto é baseado na plataforma de ensino original desenvolvida por [OnoSendae](https://github.com/OnoSendae):
+Este **curso online** foi criado a partir da plataforma de ensino desenvolvida pelo projeto [OnoSendae](https://github.com/OnoSendae/angular).
 
-**Projeto Original:** [Angular Expert 5 Dias - Plataforma de Ensino](https://github.com/OnoSendae/angular)
+**Projeto Base Original:** [Angular Expert 5 Dias - Plataforma de Ensino](https://github.com/OnoSendae/angular)
 
-A estrutura base, sistema de módulos, aulas e exercícios, player de vídeo, rastreamento de progresso e outros componentes foram adaptados do projeto original para o curso de **Qualidade e Segurança da Informação** da CWI.
+A estrutura base, sistema de módulos, aulas e exercícios, player de vídeo, rastreamento de progresso e outros componentes foram adaptados do projeto original para criar este curso específico de **Qualidade e Segurança da Informação** para profissionais de QA da CWI Software.
 
-**Agradecimentos:** Agradecemos ao autor original por disponibilizar uma base sólida e bem estruturada que facilitou a criação desta plataforma educacional.
+**Agradecimentos:** Agradecemos ao projeto OnoSendae por disponibilizar uma base sólida e bem estruturada que facilitou a criação deste curso educacional.
 
 ---
 
-**Nota**: Este projeto está configurado para o curso de **Qualidade e Segurança da Informação** da CWI, mas pode ser facilmente adaptado para qualquer temática seguindo os passos de personalização acima.
+**Nota**: Este é um curso específico sobre Qualidade e Segurança da Informação. O código-fonte está disponível para referência técnica, mas o objetivo principal é fornecer conteúdo educacional estruturado sobre segurança da informação aplicada à qualidade de software.
