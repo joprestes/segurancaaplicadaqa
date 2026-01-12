@@ -12,7 +12,7 @@ class ModuleSummary {
 
     this.moduleId = container.dataset.moduleId;
     
-    // Garantir que o conteúdo não seja cortado pelo fix-content-height
+    // Garantir que o conteúdo não seja cortado (layout controlado via CSS)
     const contentWrapper = document.querySelector('.content-wrapper');
     if (contentWrapper) {
       contentWrapper.style.height = 'auto';
