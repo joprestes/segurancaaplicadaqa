@@ -102,32 +102,43 @@ Após iniciar o servidor, acesse:
 ```
 crescidos-qualidade/
 ├── _config.yml              # Configuração principal do Jekyll
-├── _data/                   # Arquivos de dados YAML
+├── _data/                   # Arquivos de dados YAML/JSON
 │   ├── modules.yml          # Definição dos módulos
 │   ├── lessons.yml          # Definição das aulas
 │   ├── exercises.yml        # Definição dos exercícios
 │   ├── videos.yml          # Metadados dos vídeos
+│   ├── quizzes.yml          # Metadados dos quizzes
+│   └── monitores.json      # Configuração de monitores para correção
 ├── _includes/               # Componentes reutilizáveis
 │   ├── header.html
 │   ├── footer.html
 │   ├── navigation.html
 │   ├── breadcrumbs.html
 │   ├── video-player.html
-│   └── progress-tracker.html
+│   ├── progress-tracker.html
+│   ├── exercise-submission-form.html  # Formulário de submissão de exercícios
+│   └── ...
 ├── _layouts/               # Templates de página
 │   ├── default.html
 │   ├── module.html
 │   ├── lesson.html
-│   └── exercise.html
+│   ├── exercise.html
+│   └── module-summary.html
 ├── _sass/                   # Estilos SCSS
-│   ├── main.scss
+│   ├── main.scss            # Arquivo principal de estilos
 │   ├── _theme.scss
 │   ├── _variables.scss
 │   └── ...
 ├── assets/                  # Recursos estáticos
-│   ├── js/                 # JavaScript (compilado do _sass)
+│   ├── js/                 # JavaScript fonte
+│   │   ├── emailjs-config.js  # Configuração EmailJS para submissão
+│   │   └── ...
 │   ├── images/             # Imagens e logos
 │   └── videos/             # Arquivos de vídeo (.mp4)
+├── documentos-staff/        # Documentação exclusiva para monitores/instrutores
+│   ├── resolucao-exercicios/  # Gabaritos e soluções dos exercícios
+│   ├── orientacoes-monitores/  # Orientações para correção
+│   └── criterios-avaliacao/    # Critérios de avaliação
 ├── modules/                 # Conteúdo dos módulos
 │   ├── module-1/
 │   │   ├── index.md        # Página do módulo
@@ -138,6 +149,9 @@ crescidos-qualidade/
 ├── index.md                 # Página inicial
 ├── about.md                 # Página sobre
 ├── Gemfile                  # Dependências Ruby
+├── rebuild.sh               # Script para rebuild simples
+├── force-rebuild.sh         # Script para rebuild completo
+├── fix-all-liquid.py        # Script para corrigir sintaxe Liquid
 └── README.md                # Este arquivo
 ```
 
@@ -158,6 +172,57 @@ crescidos-qualidade/
 - **Navegação entre Aulas**: Botões de próxima/anterior
 - **Tema Claro/Escuro**: Alternância automática baseada em preferências do sistema
 - **Breadcrumbs**: Navegação hierárquica
+- **Sistema de Submissão de Exercícios**: Formulário integrado com EmailJS para envio de respostas
+
+### Sistema de Submissão de Exercícios
+
+O projeto inclui um sistema completo de submissão de exercícios que permite aos alunos enviarem suas respostas diretamente pela plataforma.
+
+#### Funcionalidades
+
+- **Formulário de Submissão**: Cada exercício possui um formulário integrado
+- **Upload de Arquivos**: Suporte para PDF, DOCX, DOC, MD e TXT (máx. 10MB)
+- **Seleção de Monitor**: Dropdown dinâmico com lista de monitores configurados
+- **Validação Client-side**: Validação de campos obrigatórios, tipo e tamanho de arquivo
+- **Integração EmailJS**: Envio automático de emails com anexos
+
+#### Configuração
+
+1. **Configurar EmailJS**:
+   - Criar conta no [EmailJS](https://www.emailjs.com/)
+   - Configurar service (Gmail/Outlook)
+   - Criar template de email
+   - Atualizar `assets/js/emailjs-config.js` com suas credenciais:
+     ```javascript
+     const EMAILJS_CONFIG = {
+       serviceId: 'seu_service_id',
+       templateId: 'seu_template_id',
+       publicKey: 'sua_public_key',
+     };
+     ```
+
+2. **Configurar Monitores**:
+   - Editar `_data/monitores.json` com a lista de monitores:
+     ```json
+     {
+       "monitores": [
+         {
+           "nome": "Nome do Monitor",
+           "email": "monitor@exemplo.com"
+         }
+       ]
+     }
+     ```
+
+#### Documentação para Monitores
+
+As soluções dos exercícios e critérios de avaliação estão disponíveis em `documentos-staff/`:
+
+- **`documentos-staff/resolucao-exercicios/`**: Gabaritos e soluções detalhadas
+- **`documentos-staff/orientacoes-monitores/`**: Orientações para correção
+- **`documentos-staff/criterios-avaliacao/`**: Critérios de avaliação padronizados
+
+**Nota**: A pasta `documentos-staff/` está excluída do build Jekyll (via `_config.yml`), mas está disponível no repositório Git para acesso dos monitores/instrutores.
 
 ### Estrutura de Dados
 

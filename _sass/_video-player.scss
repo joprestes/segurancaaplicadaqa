@@ -14,8 +14,8 @@
 }
 
 .video-player-container {
-  position: sticky;
-  top: 0;
+  position: relative; // Alterado de sticky para relative para evitar bugs de layout
+  top: auto;
   background: var(--color-surface);
   padding: $spacing-md;
   box-shadow: var(--color-shadow-sm);
@@ -27,7 +27,7 @@
   overflow: hidden !important; // Necessário para evitar overflow
   box-sizing: border-box !important; // Crítico para cálculo correto
   @include theme-transition-all;
-  
+
   * {
     max-width: 100% !important;
     box-sizing: border-box !important;
@@ -38,12 +38,12 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  
+
   .video-info {
     margin-bottom: $spacing-md;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    
+
     h3 {
       margin: 0 0 $spacing-xs 0;
       font-size: $font-size-h3;
@@ -52,7 +52,7 @@
       overflow-wrap: break-word;
       @include theme-transition(color);
     }
-    
+
     .video-description {
       margin: 0;
       color: var(--color-text-secondary);
@@ -62,7 +62,7 @@
       @include theme-transition(color);
     }
   }
-  
+
   .video-container {
     width: 100% !important;
     max-width: 100% !important;
@@ -72,7 +72,7 @@
     background: var(--color-surface-secondary);
     position: relative;
     box-sizing: border-box;
-    
+
     video {
       width: 100% !important;
       max-width: 100% !important;
@@ -83,7 +83,7 @@
       box-sizing: border-box;
     }
   }
-  
+
   .video-player .player-controls {
     display: none !important;
     flex-direction: row;
@@ -95,11 +95,11 @@
     border-radius: 8px;
     flex-wrap: wrap;
     @include theme-transition(background-color);
-    
+
     @media (max-width: 768px) {
       gap: $spacing-md;
     }
-    
+
     .time-display {
       font-size: $font-size-base;
       font-weight: 600;
@@ -107,19 +107,19 @@
       white-space: nowrap;
       font-variant-numeric: tabular-nums;
       @include theme-transition(color);
-      
+
       span {
         color: var(--color-text-secondary);
         font-weight: 400;
       }
     }
-    
+
     .speed-control,
     .volume-control {
       display: flex;
       align-items: center;
       gap: $spacing-sm;
-      
+
       label {
         font-size: $font-size-small;
         font-weight: 500;
@@ -128,7 +128,7 @@
         min-width: fit-content;
         @include theme-transition(color);
       }
-      
+
       select {
         padding: $spacing-xs $spacing-md;
         border: 1px solid var(--color-border);
@@ -140,17 +140,17 @@
         min-width: 70px;
         cursor: pointer;
         @include theme-transition-all;
-        
+
         &:hover {
           border-color: var(--color-primary);
         }
-        
+
         &:focus {
           outline: 2px solid var(--color-primary);
           outline-offset: 2px;
         }
       }
-      
+
       input[type="range"] {
         width: 100px;
         height: 6px;
@@ -159,7 +159,7 @@
         outline: none;
         cursor: pointer;
         @include theme-transition-all;
-        
+
         &::-webkit-slider-thumb {
           appearance: none;
           width: 16px;
@@ -168,12 +168,12 @@
           background: var(--color-primary);
           cursor: pointer;
           transition: transform 0.2s;
-          
+
           &:hover {
             transform: scale(1.2);
           }
         }
-        
+
         &::-moz-range-thumb {
           width: 16px;
           height: 16px;
@@ -182,22 +182,22 @@
           cursor: pointer;
           border: none;
           transition: transform 0.2s;
-          
+
           &:hover {
             transform: scale(1.2);
           }
         }
-        
+
         &:hover {
           background: var(--color-primary-light);
         }
       }
     }
-    
+
     .speed-control {
       margin-left: auto;
     }
-    
+
     .volume-control {
       @media (max-width: 768px) {
         width: 100%;
@@ -220,17 +220,16 @@
   z-index: z(notification); // 1000 - sistema profissional
   font-size: $font-size-small;
   font-weight: 500;
-  display: flex;
   align-items: center;
   gap: $spacing-xs;
   backdrop-filter: blur(10px);
   @include theme-transition-all;
-  
+
   &.active {
     display: flex;
     animation: slideInRight 0.3s ease-out, pulse 2s infinite 0.3s;
   }
-  
+
   &::before {
     content: '🎥';
     font-size: 18px;
@@ -238,8 +237,15 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 @keyframes slideInRight {
@@ -247,6 +253,7 @@
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -257,43 +264,43 @@
   .video-player-container {
     padding: $spacing-sm;
   }
-  
+
   .video-player {
     .video-container {
       video {
         max-height: 300px;
       }
     }
-    
+
     .player-controls {
       padding: $spacing-sm;
       gap: $spacing-sm;
       flex-direction: row;
       flex-wrap: wrap;
-      
+
       .time-display {
         font-size: $font-size-small;
       }
-      
+
       .speed-control {
         margin-left: auto !important;
       }
-      
+
       .speed-control,
       .volume-control {
         width: auto !important;
         flex: 0 0 auto !important;
-        
+
         label {
           min-width: auto;
           font-size: 12px;
         }
-        
+
         select {
           min-width: 60px;
           padding: $spacing-xs $spacing-sm;
         }
-        
+
         input[type="range"] {
           width: 70px;
           max-width: none;
@@ -301,7 +308,7 @@
       }
     }
   }
-  
+
   .video-playing-indicator {
     bottom: 16px;
     right: 16px;
@@ -319,4 +326,3 @@
     }
   }
 }
-
