@@ -17,6 +17,14 @@ layout: default
   {% endif %}
 {% endif %}
 
+{% if page.video %}
+<div class="video-player-container">
+  {% include video-player.html
+  video=page.video
+  lesson_id=page.lesson_id %}
+</div>
+{% endif %}
+
 <article class="exercise-content">
   <header>
     <h1>{{ page.title }}</h1>
@@ -40,4 +48,8 @@ layout: default
 <!-- Scripts para formulário de submissão -->
 <script src="{{ '/assets/js/emailjs-config.js' | relative_url }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+{% if page.video %}
+<script src="{{ '/assets/js/video-player.js' | relative_url }}"></script>
+{% endif %}
 

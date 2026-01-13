@@ -3,6 +3,15 @@ exercises:
   # MÓDULO 1: Fundamentos de Segurança em QA
   # ============================================================================
   
+  # Vídeo Explicativo - Aula 1.2
+  - id: lesson-1-2-exercises-intro
+    title: "📹 Vídeo: Introdução aos Exercícios - OWASP Top 10"
+    lesson_id: lesson-1-2
+    module: module-1
+    slug: exercises-intro-owasp
+    order: 0
+    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercises-intro
+  
   - id: lesson-1-2-exercise-1-identificar-vulnerabilidades
     title: "Exercício 1.2.1: Identificar Vulnerabilidades OWASP"
     lesson_id: lesson-1-2
@@ -35,6 +44,15 @@ exercises:
     order: 5
     url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-5-owasp-checklist
 
+  # Vídeo Explicativo - Aula 1.3
+  - id: lesson-1-3-exercises-intro
+    title: "📹 Vídeo: Introdução aos Exercícios - Shift-Left Security"
+    lesson_id: lesson-1-3
+    module: module-1
+    slug: exercises-intro-shift-left
+    order: 0
+    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercises-intro
+  
   - id: lesson-1-3-exercise-1-security-requirements
     title: "Exercício 1.3.1: Security Requirements"
     lesson_id: lesson-1-3
@@ -67,6 +85,15 @@ exercises:
     order: 4
     url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist
 
+  # Vídeo Explicativo - Aula 1.4
+  - id: lesson-1-4-exercises-intro
+    title: "📹 Vídeo: Introdução aos Exercícios - Threat Modeling"
+    lesson_id: lesson-1-4
+    module: module-1
+    slug: exercises-intro-threat-modeling
+    order: 0
+    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercises-intro
+  
   - id: lesson-1-4-exercise-1-stride-basico
     title: "Exercício 1.4.1: STRIDE Básico"
     lesson_id: lesson-1-4
@@ -107,6 +134,15 @@ exercises:
     order: 5
     url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao
 
+  # Vídeo Explicativo - Aula 1.5
+  - id: lesson-1-5-exercises-intro
+    title: "📹 Vídeo: Introdução aos Exercícios - Compliance e Regulamentações"
+    lesson_id: lesson-1-5
+    module: module-1
+    slug: exercises-intro-compliance
+    order: 0
+    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercises-intro
+  
   - id: lesson-1-5-exercise-1-lgpd-checklist
     title: "Exercício 1.5.1: Checklist LGPD para Projeto"
     lesson_id: lesson-1-5

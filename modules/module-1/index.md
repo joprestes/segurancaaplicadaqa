@@ -83,6 +83,149 @@ Aprenda técnicas de modelagem de ameaças para identificar riscos de segurança
 ### Aula 1.5: Compliance e Regulamentações (90 min)
 Navegue pelas principais regulamentações de segurança e privacidade aplicáveis a diferentes setores.
 
+## 🎯 Sobre os Exercícios Práticos
+
+Este módulo conta com **18 exercícios práticos** distribuídos ao longo das aulas, projetados para consolidar seu aprendizado através da prática. Cada exercício foi cuidadosamente elaborado para aplicar os conceitos teóricos em situações reais de trabalho.
+
+### 📹 Vídeo Explicativo dos Exercícios
+
+Antes de começar os exercícios, recomendamos assistir ao **vídeo explicativo** que apresenta uma visão geral de todos os exercícios do módulo, explicando:
+
+- Como os exercícios estão organizados
+- O que você vai praticar em cada um
+- Dicas para aproveitar ao máximo cada exercício
+- Como os exercícios se conectam com o conteúdo teórico
+
+> **📺 [Assistir ao Vídeo Explicativo dos Exercícios](#)** *(adicione o link do vídeo aqui)*
+
+### 📋 Visão Geral dos Exercícios por Aula
+
+#### Aula 1.2: OWASP Top 10 (4 exercícios)
+
+1. **Exercício 1.2.1: Identificar Vulnerabilidades OWASP**
+   - Prática: Análise de código vulnerável
+   - Objetivo: Identificar vulnerabilidades do OWASP Top 10 em trechos de código
+   - Nível: Básico
+
+2. **Exercício 1.2.2: SQL Injection - Exploração e Prevenção**
+   - Prática: Exploração de SQL Injection e implementação de correções
+   - Objetivo: Explorar vulnerabilidades de SQL Injection e aplicar prepared statements
+   - Nível: Intermediário
+
+3. **Exercício 1.2.4: Broken Access Control**
+   - Prática: Teste de controles de acesso
+   - Objetivo: Identificar e corrigir falhas de autorização
+   - Nível: Intermediário
+
+4. **Exercício 1.2.5: Checklist OWASP Top 10**
+   - Prática: Criação de checklist de testes
+   - Objetivo: Desenvolver checklist completo para validar OWASP Top 10
+   - Nível: Básico
+
+#### Aula 1.3: Shift-Left Security (4 exercícios)
+
+5. **Exercício 1.3.1: Security Requirements**
+   - Prática: Definição de requisitos de segurança
+   - Objetivo: Criar security requirements desde o início do projeto
+   - Nível: Básico
+
+6. **Exercício 1.3.2: Threat Modeling Early**
+   - Prática: Aplicação de threat modeling em fase de design
+   - Objetivo: Identificar ameaças antes da implementação
+   - Nível: Intermediário
+
+7. **Exercício 1.3.3: Colaboração Dev/QA/Security**
+   - Prática: Estruturação de processos colaborativos
+   - Objetivo: Definir como times trabalham juntos em segurança
+   - Nível: Básico
+
+8. **Exercício 1.3.4: Checklist Shift-Left**
+   - Prática: Criação de checklist para integração de segurança
+   - Objetivo: Desenvolver checklist para aplicar shift-left security
+   - Nível: Básico
+
+#### Aula 1.4: Threat Modeling (5 exercícios)
+
+9. **Exercício 1.4.1: STRIDE Básico**
+   - Prática: Aplicação da metodologia STRIDE
+   - Objetivo: Classificar ameaças usando STRIDE
+   - Nível: Básico
+
+10. **Exercício 1.4.2: Identificar Ameaças**
+    - Prática: Identificação de ameaças em sistemas
+    - Objetivo: Mapear ameaças em diferentes componentes
+    - Nível: Intermediário
+
+11. **Exercício 1.4.3: Análise de Riscos**
+    - Prática: Priorização de riscos de segurança
+    - Objetivo: Avaliar e priorizar riscos identificados
+    - Nível: Intermediário
+
+12. **Exercício 1.4.4: Threat Model Completo**
+    - Prática: Criação de threat model completo
+    - Objetivo: Desenvolver threat model end-to-end de um sistema
+    - Nível: Avançado
+
+13. **Exercício 1.4.5: Mitigação e Priorização**
+    - Prática: Definição de estratégias de mitigação
+    - Objetivo: Criar plano de mitigação para ameaças identificadas
+    - Nível: Intermediário
+
+#### Aula 1.5: Compliance e Regulamentações (5 exercícios)
+
+14. **Exercício 1.5.1: Checklist LGPD para Projeto**
+    - Prática: Aplicação de requisitos LGPD
+    - Objetivo: Criar checklist de compliance LGPD
+    - Nível: Básico
+
+15. **Exercício 1.5.2: Validação PCI-DSS**
+    - Prática: Validação de controles PCI-DSS
+    - Objetivo: Verificar compliance com PCI-DSS
+    - Nível: Intermediário
+
+16. **Exercício 1.5.3: Controles SOC2**
+    - Prática: Implementação de controles SOC2
+    - Objetivo: Mapear controles SOC2 em projetos
+    - Nível: Intermediário
+
+17. **Exercício 1.5.4: Compliance por Setor**
+    - Prática: Análise de requisitos por setor
+    - Objetivo: Identificar requisitos de compliance por setor (financeiro, educacional, ecommerce)
+    - Nível: Intermediário
+
+18. **Exercício 1.5.5: Auditoria QA - Preparação e Execução**
+    - Prática: Preparação para auditoria de segurança
+    - Objetivo: Desenvolver processo de auditoria QA
+    - Nível: Avançado
+
+### 💡 Como Aproveitar os Exercícios
+
+1. **Assista ao vídeo explicativo primeiro**: Entenda a estrutura e objetivos antes de começar
+2. **Complete na ordem**: Os exercícios são progressivos e constroem conhecimento incrementalmente
+3. **Pratique ativamente**: Não apenas leia, mas implemente as soluções propostas
+4. **Use os exemplos hipotéticos**: Aplique os conceitos em contextos reais (financeiro, educacional, ecommerce)
+5. **Documente seu aprendizado**: Mantenha notas sobre insights e desafios encontrados
+
+### ⏱️ Tempo Estimado para Exercícios
+
+- **Exercícios Básicos**: 30-45 minutos cada
+- **Exercícios Intermediários**: 60-90 minutos cada
+- **Exercícios Avançados**: 90-120 minutos cada
+- **Total estimado**: ~20-25 horas de prática
+
+### ✅ Objetivo dos Exercícios
+
+Ao completar todos os exercícios deste módulo, você terá:
+
+- ✅ Praticado identificação de vulnerabilidades OWASP Top 10
+- ✅ Implementado correções de segurança em código
+- ✅ Criado security requirements e threat models
+- ✅ Aplicado metodologias de threat modeling (STRIDE)
+- ✅ Desenvolvido checklists de compliance (LGPD, PCI-DSS, SOC2)
+- ✅ Preparado processos de auditoria de segurança
+
+---
+
 ## 🔗 Conexão com os Próximos Módulos
 
 Este módulo é a base para os demais:
