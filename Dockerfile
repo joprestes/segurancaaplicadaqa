@@ -31,13 +31,20 @@ RUN bundle config set --local without 'development test' && \
     find /usr/local/bundle/gems/ -name "*.c" -delete && \
     find /usr/local/bundle/gems/ -name "*.o" -delete
 
+# Copiar script de inicialização
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Copiar todo o código
 COPY . .
+
+# Fazer build do site Jekyll durante o build da imagem
+# Isso garante que o site está pronto e reduz problemas de inicialização
+RUN JEKYLL_ENV=production bundle exec jekyll build || echo "Build falhou, será refeito no startup"
 
 # Expor porta (Fly.io usa variável PORT)
 ENV PORT=8080
 EXPOSE 8080
 
-# Comando para iniciar o servidor Jekyll
-# O Fly.io injeta a variável PORT, então usamos ela
-CMD sh -c 'bundle exec jekyll serve --host 0.0.0.0 --port ${PORT:-8080}'
+# Usar script de inicialização robusto
+CMD ["/start.sh"]
