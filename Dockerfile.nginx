@@ -1,0 +1,76 @@
+# Dockerfile Multi-Stage para Jekyll no Fly.io (RECOMENDADO)
+# Build do site e serve com Nginx - Muito mais eficiente para produção
+
+# ============================================
+# Stage 1: Build do Jekyll
+# ============================================
+FROM ruby:3.1-slim AS builder
+
+# Instalar dependências de build
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copiar Gemfile
+COPY Gemfile Gemfile.lock* ./
+
+# Instalar dependências Ruby
+RUN bundle config set --local deployment 'true' && \
+    bundle config set --local without 'development test' && \
+    (bundle check || bundle install) && \
+    rm -rf /usr/local/bundle/cache/*.gem
+
+# Copiar código e fazer build
+COPY . .
+RUN JEKYLL_ENV=production bundle exec jekyll build
+
+# ============================================
+# Stage 2: Servir com Nginx
+# ============================================
+FROM nginx:alpine
+
+# Copiar site buildado
+COPY --from=builder /app/_site /usr/share/nginx/html
+
+# Configuração Nginx customizada (opcional)
+# Se não fornecer, usa a padrão do Nginx
+RUN echo 'server { \
+    listen 80; \
+    server_name _; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    \
+    # Gzip compression \
+    gzip on; \
+    gzip_vary on; \
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml; \
+    \
+    # Cache para assets estáticos \
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|mp4)$ { \
+        expires 1y; \
+        add_header Cache-Control "public, immutable"; \
+    } \
+    \
+    # HTML sem cache \
+    location ~* \.html$ { \
+        expires -1; \
+        add_header Cache-Control "no-cache"; \
+    } \
+    \
+    # Fallback para index.html \
+    location / { \
+        try_files $uri $uri/ $uri.html =404; \
+    } \
+    \
+    # Erro 404 \
+    error_page 404 /404.html; \
+}' > /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
