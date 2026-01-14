@@ -1,7 +1,8 @@
 title: "Segurança Aplicada a Qualidade de Software"
 description: "Segurança Aplicada à Qualidade de Software - Teoria e prática para profissionais de QA em diferentes setores"
-url: "https://onosendae.github.io"
-baseurl: "/seguranca-qa"
+# URL para GitHub Pages (ajuste se usar domínio customizado)
+url: "https://joprestes.github.io"
+baseurl: "/segurancaaplicadaqa"
 author: "CWI Software"
 encoding: "utf-8"
 twitter:
