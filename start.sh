@@ -49,43 +49,54 @@ fi
 # Verificar se o build existe, se não, fazer build
 if [ ! -d "_site" ] || [ -z "$(ls -A _site 2>/dev/null)" ]; then
     echo "Build não encontrado, fazendo build do site..."
-    if ! JEKYLL_ENV=production bundle exec jekyll build 2>&1; then
+    if ! JEKYLL_ENV=production bundle exec jekyll build; then
         echo "ERRO: Falha ao fazer build do site"
-        echo "Tentando continuar mesmo assim..."
+        echo "Verificando configuração do Jekyll:"
+        bundle exec jekyll doctor 2>&1 || true
+        exit 1
     fi
 fi
 
 # Verificar se o build foi criado
 if [ ! -d "_site" ] || [ -z "$(ls -A _site 2>/dev/null)" ]; then
-    echo "AVISO: Diretório _site ainda não existe ou está vazio"
-    echo "O servidor pode não funcionar corretamente"
+    echo "ERRO: Diretório _site não existe ou está vazio após build"
+    echo "Conteúdo do diretório atual:"
+    ls -la 2>&1 || true
+    exit 1
 fi
+
+echo "Build verificado: $(ls -1 _site | wc -l) arquivos encontrados"
 
 # Iniciar servidor Jekyll
 echo "Iniciando servidor Jekyll na porta ${PORT:-8080}..."
-if ! bundle exec jekyll serve \
+
+# Criar arquivo de log antes de iniciar
+touch /tmp/jekyll.log
+
+# Iniciar Jekyll em background e capturar PID
+bundle exec jekyll serve \
     --host 0.0.0.0 \
     --port ${PORT:-8080} \
     --no-watch \
     --skip-initial-build \
     --trace \
-    > /tmp/jekyll.log 2>&1 & then
-    echo "ERRO: Falha ao iniciar servidor Jekyll"
-    cat /tmp/jekyll.log || true
-    exit 1
-fi
+    > /tmp/jekyll.log 2>&1 &
 
 jekyll_pid=$!
 echo "Jekyll iniciado com PID: $jekyll_pid"
 
 # Aguardar um pouco para verificar se o processo ainda está rodando
-sleep 2
+sleep 3
 if ! kill -0 "$jekyll_pid" 2>/dev/null; then
     echo "ERRO: Processo Jekyll terminou prematuramente"
     echo "Últimas linhas do log:"
-    tail -20 /tmp/jekyll.log || true
+    tail -50 /tmp/jekyll.log || true
+    echo "Verificando se há erros no build:"
+    ls -la _site/ 2>&1 || true
     exit 1
 fi
+
+echo "Servidor Jekyll está rodando (PID: $jekyll_pid)"
 
 echo "Servidor Jekyll está rodando. Monitorando processo..."
 wait $jekyll_pid
