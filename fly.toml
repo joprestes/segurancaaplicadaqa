@@ -9,6 +9,9 @@ primary_region = "gru"  # São Paulo (Brasil)
   JEKYLL_ENV = "production"
   LANG = "en_US.UTF-8"
   LC_ALL = "en_US.UTF-8"
+  BUNDLE_WITHOUT = "development:test"
+  RUBY_GC_HEAP_INIT_SLOTS = "10000"
+  RUBY_GC_HEAP_FREE_SLOTS = "50000"
 
 [http_service]
   internal_port = 8080
@@ -19,13 +22,14 @@ primary_region = "gru"  # São Paulo (Brasil)
   processes = ["app"]
 
   [[http_service.checks]]
-    interval = "15s"
-    timeout = "10s"
-    grace_period = "15s"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "10s"
     method = "GET"
     path = "/"
+    protocol = "http"
 
 [vm]
   cpu_kind = "shared"
   cpus = 1
-  memory_mb = 256
+  memory_mb = 512
