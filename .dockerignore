@@ -1,0 +1,51 @@
+# Diretórios e arquivos a ignorar no build Docker
+
+# Build do Jekyll (gerado localmente)
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Dependências
+vendor/
+.bundle/
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Documentação
+README.md
+MR_DESCRIPTION_README.md
+TROUBLESHOOTING.md
+*.md
+
+# Scripts de desenvolvimento
+rebuild.sh
+force-rebuild.sh
+fix-all-liquid.py
+
+# Documentação interna
+documentos-staff/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporários
+*.tmp
+*.temp
+
+# Específicos do projeto
+.specstory/
+.cursorindexingignore
