@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     git \
     nodejs \
     npm \
+    netcat-openbsd \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Definir diretório de trabalho

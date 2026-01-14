@@ -85,18 +85,40 @@ bundle exec jekyll serve \
 jekyll_pid=$!
 echo "Jekyll iniciado com PID: $jekyll_pid"
 
-# Aguardar um pouco para verificar se o processo ainda está rodando
-sleep 3
+# Aguardar e verificar se o processo está rodando
+echo "Aguardando servidor Jekyll iniciar..."
+sleep 5
 if ! kill -0 "$jekyll_pid" 2>/dev/null; then
     echo "ERRO: Processo Jekyll terminou prematuramente"
     echo "Últimas linhas do log:"
     tail -50 /tmp/jekyll.log || true
-    echo "Verificando se há erros no build:"
-    ls -la _site/ 2>&1 || true
     exit 1
 fi
 
+# Verificar se há erros no log
+if grep -i "error\|fatal\|exception" /tmp/jekyll.log 2>/dev/null | tail -5; then
+    echo "AVISO: Possíveis erros encontrados no log do Jekyll"
+    echo "Últimas linhas do log:"
+    tail -20 /tmp/jekyll.log || true
+fi
+
 echo "Servidor Jekyll está rodando (PID: $jekyll_pid)"
+echo "Aguardando servidor ficar pronto para receber requisições..."
+
+# Tentar verificar se o servidor está respondendo
+for i in {1..10}; do
+    sleep 1
+    if curl -s -f -o /dev/null http://localhost:${PORT:-8080}/ 2>/dev/null || \
+       nc -z localhost ${PORT:-8080} 2>/dev/null; then
+        echo "✓ Servidor Jekyll está respondendo na porta ${PORT:-8080}"
+        break
+    fi
+    if [ $i -eq 10 ]; then
+        echo "AVISO: Servidor pode não estar respondendo ainda, mas processo está rodando"
+        echo "Últimas linhas do log:"
+        tail -20 /tmp/jekyll.log || true
+    fi
+done
 
 echo "Servidor Jekyll está rodando. Monitorando processo..."
 wait $jekyll_pid
