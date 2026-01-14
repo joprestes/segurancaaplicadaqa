@@ -14,11 +14,12 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 # Copiar Gemfile e Gemfile.lock
-COPY Gemfile Gemfile.lock* ./
+COPY Gemfile Gemfile.lock ./
 
 # Instalar dependências Ruby
-RUN bundle config --global frozen 1 && \
-    bundle install --without development test && \
+RUN bundle config set --local deployment 'true' && \
+    bundle config set --local without 'development test' && \
+    bundle install && \
     rm -rf /usr/local/bundle/cache/*.gem && \
     find /usr/local/bundle/gems/ -name "*.c" -delete && \
     find /usr/local/bundle/gems/ -name "*.o" -delete
