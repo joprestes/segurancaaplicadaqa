@@ -19,14 +19,16 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock* ./
 
 # Instalar dependências Ruby
-# Se Gemfile.lock existir mas não tiver plataforma x86_64-linux, tenta adicionar
-# Se falhar, remove e deixa bundle install regenerar com a plataforma correta
+# Primeiro, configurar bundle sem deployment para permitir instalação flexível
 RUN bundle config set --local without 'development test' && \
+    bundle config set --local path '/usr/local/bundle' && \
     if [ -f Gemfile.lock ]; then \
         bundle lock --add-platform x86_64-linux 2>/dev/null || rm -f Gemfile.lock; \
     fi && \
-    bundle install && \
+    bundle install --jobs 4 --retry 3 && \
+    bundle check && \
     bundle config set --local deployment 'true' && \
+    bundle check && \
     rm -rf /usr/local/bundle/cache/*.gem && \
     find /usr/local/bundle/gems/ -name "*.c" -delete && \
     find /usr/local/bundle/gems/ -name "*.o" -delete
