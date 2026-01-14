@@ -19,19 +19,30 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock* ./
 
 # Instalar dependências Ruby
-# Primeiro, configurar bundle sem deployment para permitir instalação flexível
-RUN bundle config set --local without 'development test' && \
-    bundle config set --local path '/usr/local/bundle' && \
-    if [ -f Gemfile.lock ]; then \
+# Dividir em etapas menores para evitar travamentos
+RUN bundle config set --local path '/usr/local/bundle'
+
+# Configurar sem grupos de desenvolvimento e teste
+RUN bundle config set --local without 'development test'
+
+# Tratar Gemfile.lock se existir
+RUN if [ -f Gemfile.lock ]; then \
         bundle lock --add-platform x86_64-linux 2>/dev/null || rm -f Gemfile.lock; \
-    fi && \
-    bundle install --jobs 4 --retry 3 && \
-    bundle check && \
-    bundle config set --local deployment 'true' && \
-    bundle check && \
-    rm -rf /usr/local/bundle/cache/*.gem && \
-    find /usr/local/bundle/gems/ -name "*.c" -delete && \
-    find /usr/local/bundle/gems/ -name "*.o" -delete
+    fi
+
+# Instalar gems com timeout e retry
+RUN bundle install --jobs 2 --retry 3 || bundle install --jobs 1 --retry 5
+
+# Verificar instalação
+RUN bundle check
+
+# Configurar deployment mode após instalação bem-sucedida
+RUN bundle config set --local deployment 'true'
+
+# Limpar cache e arquivos compilados para reduzir tamanho da imagem
+RUN rm -rf /usr/local/bundle/cache/*.gem 2>/dev/null || true && \
+    find /usr/local/bundle/gems/ -name "*.c" -delete 2>/dev/null || true && \
+    find /usr/local/bundle/gems/ -name "*.o" -delete 2>/dev/null || true
 
 # Copiar script de inicialização
 COPY start.sh /start.sh
