@@ -1,25 +1,28 @@
 # Dockerfile para Jekyll no Fly.io
+# Usa Debian-based image para melhor compatibilidade com gems Ruby
 
-# Imagem base Ruby
-FROM ruby:3.1-alpine
+# Imagem base Ruby (Debian-based, mais compatível)
+FROM ruby:3.1-slim
 
 # Instalar dependências do sistema
-RUN apk add --no-cache \
-    build-base \
+RUN apt-get update && apt-get install -y \
+    build-essential \
     git \
     nodejs \
-    npm
+    npm \
+    && rm -rf /var/lib/apt/lists/*
 
 # Definir diretório de trabalho
 WORKDIR /app
 
-# Copiar Gemfile e Gemfile.lock
-COPY Gemfile Gemfile.lock ./
+# Copiar Gemfile (Gemfile.lock será regenerado se necessário)
+COPY Gemfile Gemfile.lock* ./
 
 # Instalar dependências Ruby
+# Remove Gemfile.lock se for de plataforma diferente e reinstala
 RUN bundle config set --local deployment 'true' && \
     bundle config set --local without 'development test' && \
-    bundle install && \
+    (bundle check || bundle install) && \
     rm -rf /usr/local/bundle/cache/*.gem && \
     find /usr/local/bundle/gems/ -name "*.c" -delete && \
     find /usr/local/bundle/gems/ -name "*.o" -delete
