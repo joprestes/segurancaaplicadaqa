@@ -9,7 +9,6 @@ node_modules/
 *.log
 *.backup
 .DS_Store
-Gemfile.lock
 docs/
 backups/
 backup/
