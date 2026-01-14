@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for segurancaaplicadaqa-tnnq1a on 2026-01-14T13:04:50Z
+# fly.toml app configuration file generated for segurancaaplicadaqa-tnnq1a on 2026-01-14T11:25:14-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,12 +9,12 @@ primary_region = 'gru'
 [build]
 
 [env]
-  JEKYLL_ENV = "production"
-  LANG = "en_US.UTF-8"
-  LC_ALL = "en_US.UTF-8"
-  BUNDLE_WITHOUT = "development:test"
-  RUBY_GC_HEAP_INIT_SLOTS = "10000"
-  RUBY_GC_HEAP_FREE_SLOTS = "50000"
+  BUNDLE_WITHOUT = 'development:test'
+  JEKYLL_ENV = 'production'
+  LANG = 'en_US.UTF-8'
+  LC_ALL = 'en_US.UTF-8'
+  RUBY_GC_HEAP_FREE_SLOTS = '50000'
+  RUBY_GC_HEAP_INIT_SLOTS = '10000'
 
 [http_service]
   internal_port = 8080
@@ -25,12 +25,12 @@ primary_region = 'gru'
   processes = ['app']
 
   [[http_service.checks]]
-    interval = "30s"
-    timeout = "5s"
-    grace_period = "10s"
-    method = "GET"
-    path = "/"
-    protocol = "http"
+    interval = '30s'
+    timeout = '10s'
+    grace_period = '30s'
+    method = 'GET'
+    path = '/'
+    protocol = 'http'
 
 [[vm]]
   memory = '1gb'
