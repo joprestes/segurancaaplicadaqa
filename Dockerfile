@@ -42,7 +42,8 @@ COPY . .
 
 # Fazer build do site Jekyll durante o build da imagem
 # Isso garante que o site está pronto e reduz problemas de inicialização
-RUN JEKYLL_ENV=production bundle exec jekyll build || echo "Build falhou, será refeito no startup"
+# Se falhar, não aborta o build - será refeito no startup
+RUN JEKYLL_ENV=production bundle exec jekyll build 2>&1 || echo "Build falhou durante construção, será refeito no startup"
 
 # Expor porta (Fly.io usa variável PORT)
 ENV PORT=8080
