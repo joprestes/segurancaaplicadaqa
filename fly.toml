@@ -19,9 +19,9 @@ primary_region = "gru"  # São Paulo (Brasil)
   processes = ["app"]
 
   [[http_service.checks]]
-    interval = "10s"
-    timeout = "2s"
-    grace_period = "5s"
+    interval = "15s"
+    timeout = "10s"
+    grace_period = "15s"
     method = "GET"
     path = "/"
 
