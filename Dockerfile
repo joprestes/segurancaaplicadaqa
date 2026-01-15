@@ -47,7 +47,7 @@ RUN rm -rf /usr/local/bundle/cache/*.gem 2>/dev/null || true && \
     find /usr/local/bundle/gems/ -name "*.o" -delete 2>/dev/null || true
 
 # Copiar script de inicialização
-COPY start.sh /start.sh
+COPY scripts/start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Copiar todo o código
