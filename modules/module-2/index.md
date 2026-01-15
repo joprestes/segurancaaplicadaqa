@@ -16,6 +16,8 @@ permalink: /modules/testes-seguranca-pratica/
 
 <!-- # Módulo 2: Testes de Segurança na Prática -->
 
+![Infográfico: Introdução ao Módulo 2 - Testes de Segurança na Prática]({{ '/assets/module-2/images/infograficos/infografico-introducao-modulo-2.png' | relative_url }})
+
 ## 🎯 Objetivo do Módulo
 
 Neste módulo, você sai da teoria e mergulha nas ferramentas e técnicas práticas de testes de segurança. Aprenda a usar SAST, DAST, SCA, e até pentest básico para identificar vulnerabilidades em aplicações reais.
