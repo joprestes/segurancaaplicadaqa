@@ -4,7 +4,7 @@ title: "Exercício 2.1.1: Configurar SonarQube em Projeto Próprio"
 lesson_id: lesson-2-1
 module: module-2
 difficulty: "Básico"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 2.1.1: Configurar SonarQube em Projeto Próprio
@@ -33,14 +33,16 @@ Este exercício tem como objetivo **configurar SonarQube do zero** em um projeto
 - Ambiente preparado para análise
 
 **Verificações Comuns:**
-- Docker Desktop rodando (macOS/Windows)
+- Docker instalado e funcionando (`docker --version`)
+- Docker daemon rodando (Colima no macOS, systemd no Linux)
 - Memória suficiente (SonarQube precisa mínimo 2GB)
 - Projeto acessível localmente
 
 **Problemas Comuns:**
-- Docker não instalado → Instalar Docker Desktop
+- Docker não instalado → Instalar Docker via CLI (Colima no macOS, docker.io no Linux)
+- Docker daemon não rodando → `colima start` (macOS) ou `sudo systemctl start docker` (Linux)
 - Porta 9000 ocupada → Mudar porta ou liberar porta
-- Memória insuficiente → Aumentar memória do Docker
+- Memória insuficiente → Aumentar memória do Docker (Colima: `colima start --memory 4`)
 
 ### Passo 2: Instalar e Configurar SonarQube
 
@@ -554,7 +556,7 @@ def get_user(user_id):
 
 **1. Criar Baseline:**
 - Acessar SonarQube → Projeto → Settings → General
-- Criar novo baseline: "Baseline 2024-01-15"
+- Criar novo baseline: "Baseline 2026-01-14"
 - Marcar todas as vulnerabilities existentes como baseline
 
 **2. Configurar Quality Gate Gradual:**
@@ -712,6 +714,6 @@ jobs:
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

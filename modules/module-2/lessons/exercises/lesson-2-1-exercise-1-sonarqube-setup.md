@@ -48,13 +48,29 @@ Como QA de segurança, é fundamental saber configurar e usar ferramentas SAST. 
 **1.1. Instalar Docker (se não tiver)**
 
 ```bash
-# macOS
-brew install docker
+# macOS (usando Colima - solução via CLI, sem Docker Desktop)
+brew install colima docker docker-compose
+colima start
 
-# Ou baixar Docker Desktop: https://www.docker.com/products/docker-desktop
+# Linux (Ubuntu/Debian)
+sudo apt-get update
+sudo apt-get install -y docker.io docker-compose
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Linux (Fedora/RHEL)
+sudo dnf install -y docker docker-compose
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Windows (usando WSL2 + Docker Engine)
+# Instalar WSL2 e depois:
+# wsl --install
+# No WSL2, seguir instruções Linux acima
 
 # Verificar instalação
 docker --version
+docker-compose --version
 ```
 
 **1.2. Preparar Projeto para Análise**
