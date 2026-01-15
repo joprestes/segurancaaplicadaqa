@@ -243,86 +243,518 @@ SAST não é a única forma de testar segurança. É importante entender diferen
 
 #### Processo de Análise Estática
 
-SAST funciona em múltiplas camadas de análise:
+SAST funciona em múltiplas camadas de análise, transformando código-fonte em representações abstratas que são então analisadas por diferentes algoritmos:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│              PROCESSO DE ANÁLISE SAST                  │
+│         ARQUITETURA DE PROCESSAMENTO SAST               │
 └─────────────────────────────────────────────────────────┘
 
-1. Parse do Código
-   │
-   ▼
-   ┌─────────────────────────────────────┐
-   │ • Lexical Analysis (tokens)        │
-   │ • Syntax Analysis (AST)            │
-   │ • Semantic Analysis (símbolos)     │
-   └─────────────────────────────────────┘
-   │
-   ▼
-2. Análise de Padrões
-   │
-   ▼
-   ┌─────────────────────────────────────┐
-   │ • Data Flow Analysis (taint)       │
-   │ • Control Flow Analysis            │
-   │ • Pattern Matching (regras)        │
-   │ • Machine Learning (algumas tools) │
-   └─────────────────────────────────────┘
-   │
-   ▼
-3. Detecção de Vulnerabilidades
-   │
-   ▼
-   ┌─────────────────────────────────────┐
-   │ • SQL Injection                    │
-   │ • XSS (Cross-Site Scripting)       │
-   │ • Command Injection                │
-   │ • Path Traversal                   │
-   │ • Insecure Deserialization         │
-   │ • Hardcoded Secrets                │
-   │ • E muito mais...                  │
-   └─────────────────────────────────────┘
-   │
-   ▼
-4. Geração de Report
-   │
-   ▼
-   ┌─────────────────────────────────────┐
-   │ • Severidade (Critical/High/Med/Low)│
-   │ • Localização (arquivo, linha)     │
-   │ • Descrição do problema            │
-   │ • Recomendações de correção        │
-   │ • CWE (Common Weakness Enumeration)│
-   │ • OWASP Top 10 mapping             │
-   └─────────────────────────────────────┘
+FASE 1: Parse e Análise Léxica/Sintática
+┌─────────────────────────────────────────────┐
+│ Código-Fonte Original                       │
+│ ┌──────────────────────────────────────┐   │
+│ │ userInput = request.getParameter();  │   │
+│ │ query = "SELECT * WHERE id=" +       │   │
+│ │         userInput;                   │   │
+│ │ db.execute(query);                   │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────┐
+│ Lexical Analysis (Tokenização)              │
+│ ┌──────────────────────────────────────┐   │
+│ │ [IDENTIFIER: userInput]              │   │
+│ │ [OPERATOR: =]                        │   │
+│ │ [IDENTIFIER: request]                │   │
+│ │ [OPERATOR: .]                        │   │
+│ │ [METHOD: getParameter]               │   │
+│ │ [OPERATOR: (] ...                    │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────┐
+│ Syntax Analysis (AST - Abstract Syntax Tree)│
+│ ┌──────────────────────────────────────┐   │
+│ │ AssignmentExpression                 │   │
+│ │   ├─ left: Identifier (userInput)   │   │
+│ │   └─ right: CallExpression          │   │
+│ │       ├─ object: request            │   │
+│ │       └─ method: getParameter       │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────┐
+│ Semantic Analysis (Símbolos e Tipos)        │
+│ ┌──────────────────────────────────────┐   │
+│ │ userInput: String                    │   │
+│ │   - Source: request.getParameter     │   │
+│ │   - Tainted: true                    │   │
+│ │   - Trust: low                       │   │
+│ │                                       │   │
+│ │ query: String                        │   │
+│ │   - Contains: userInput (tainted)    │   │
+│ │   - Tainted: true                    │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+FASE 2: Análise de Segurança
+┌─────────────────────────────────────────────┐
+│ Pattern Matching Engine                     │
+│ ┌──────────────────────────────────────┐   │
+│ │ Regra: SQL Injection Pattern         │   │
+│ │ Pattern: "...$VAR..."                │   │
+│ │ Match: "SELECT * WHERE id=" + user   │   │
+│ │ Status: ⚠️ POTENTIAL VULNERABILITY   │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────┐
+│ Data Flow Analysis Engine                   │
+│ ┌──────────────────────────────────────┐   │
+│ │ Source: request.getParameter()       │   │
+│ │   → userInput (tainted)              │   │
+│ │   → query (tainted)                  │   │
+│ │   → db.execute() (sink)              │   │
+│ │                                       │   │
+│ │ Path: Source → ... → Sink            │   │
+│ │ Sanitization: NONE                   │   │
+│ │ Status: ⚠️ CONFIRMED VULNERABILITY   │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+FASE 3: Detecção e Classificação
+┌─────────────────────────────────────────────┐
+│ Vulnerability Detection Engine               │
+│ ┌──────────────────────────────────────┐   │
+│ │ Type: SQL Injection                  │   │
+│ │ CWE: CWE-89                          │   │
+│ │ OWASP: A03:2021 – Injection          │   │
+│ │ Severity: Critical 🔴                │   │
+│ │ Confidence: High (95%)               │   │
+│ │                                       │   │
+│ │ Location:                            │   │
+│ │   File: src/UserService.java         │   │
+│ │   Line: 45                           │   │
+│ │   Column: 12-50                      │   │
+│ │                                       │   │
+│ │ Taint Path:                          │   │
+│ │   Line 15: request.getParameter()    │   │
+│ │   Line 20: query = "..." + userInput │   │
+│ │   Line 45: db.execute(query)         │   │
+│ └──────────────────────────────────────┘   │
+└────────────────┬────────────────────────────┘
+                 │
+                 ▼
+FASE 4: Geração de Relatório
+┌─────────────────────────────────────────────┐
+│ Report Generation Engine                     │
+│ ┌──────────────────────────────────────┐   │
+│ │ Finding #1: SQL Injection            │   │
+│ │ ───────────────────────────────────  │   │
+│ │ Severity: Critical 🔴                │   │
+│ │ CWE: CWE-89                          │   │
+│ │ OWASP: A03:2021 – Injection          │   │
+│ │                                       │   │
+│ │ Description:                         │   │
+│ │ User input is directly concatenated  │   │
+│ │ into SQL query without sanitization. │   │
+│ │ This allows SQL Injection attacks.   │   │
+│ │                                       │   │
+│ │ Recommendation:                      │   │
+│ │ Use parameterized queries (prepared  │   │
+│ │ statements) instead of string        │   │
+│ │ concatenation.                       │   │
+│ │                                       │   │
+│ │ Fix Example:                         │   │
+│ │ PreparedStatement stmt =             │   │
+│ │   conn.prepareStatement(             │   │
+│ │     "SELECT * WHERE id = ?");        │   │
+│ │ stmt.setString(1, userInput);        │   │
+│ └──────────────────────────────────────┘   │
+└─────────────────────────────────────────────┘
 ```
+
+#### Componentes Técnicos Internos de SAST
+
+**1. Parser (Analisador Sintático)**
+- **Função**: Converte código-fonte em AST (Abstract Syntax Tree)
+- **Entrada**: Código-fonte em linguagem específica
+- **Saída**: Árvore sintática abstrata
+- **Complexidade**: Varia por linguagem (Python é mais simples que Java)
+- **Exemplo**: `userInput = request.getParameter()` → AST com nós Assignment, Identifier, CallExpression
+
+**2. Semantic Analyzer (Analisador Semântico)**
+- **Função**: Adiciona informações de tipos, escopo e símbolos
+- **Entrada**: AST do Parser
+- **Saída**: AST enriquecido com informações semânticas
+- **Adiciona**: Tipos de variáveis, escopo, símbolos, referências
+
+**3. Control Flow Graph Builder (Construtor de CFG)**
+- **Função**: Constrói grafo de fluxo de controle do código
+- **Entrada**: AST semântico
+- **Saída**: CFG (Control Flow Graph)
+- **Usado para**: Análise de fluxo de controle, verificar caminhos de execução
+
+**4. Data Flow Analyzer (Analisador de Fluxo de Dados)**
+- **Função**: Rastreia como dados fluem pelo código
+- **Entrada**: CFG + AST
+- **Saída**: Def-Use chains, taint propagation paths
+- **Usado para**: Detectar se dados não confiáveis chegam a pontos perigosos
+
+**5. Rule Engine (Motor de Regras)**
+- **Função**: Aplica regras de detecção de vulnerabilidades
+- **Entrada**: AST, CFG, Data Flow information
+- **Saída**: Findings potenciais
+- **Tipos de Regras**: Pattern matching, taint analysis rules, control flow rules
+
+**6. False Positive Filter (Filtro de False Positives)**
+- **Função**: Tenta reduzir false positives usando heurísticas e ML
+- **Entrada**: Findings brutos
+- **Saída**: Findings filtrados com confidence score
+- **Métodos**: Machine Learning, heurísticas, análise de contexto
+
+**7. Report Generator (Gerador de Relatórios)**
+- **Função**: Gera relatórios formatados com findings
+- **Entrada**: Findings filtrados
+- **Saída**: Relatórios (JSON, HTML, SARIF, etc.)
+- **Inclui**: Severidade, localização, recomendações, exemplos de correção
 
 #### Tipos de Análise SAST
 
 **1. Pattern Matching (Matching de Padrões)**
-- Procura por padrões conhecidos de código inseguro
-- Exemplo: Procura por `eval()`, `exec()`, `SQL` concatenado
-- **Vantagem**: Rápido, fácil de implementar
-- **Desvantagem**: Muitos false positives, não entende contexto
+
+**Definição Técnica**: Procura por padrões conhecidos de código inseguro usando expressões regulares ou árvores sintáticas (AST patterns).
+
+**Como Funciona**:
+```
+1. Parse do código em AST (Abstract Syntax Tree)
+2. Aplica regras que procuram padrões específicos
+3. Exemplo de regra: "procura por 'eval(' seguido de variável"
+4. Reporta quando padrão é encontrado
+```
+
+**Exemplos de Padrões Procurados**:
+- `eval()`, `exec()`, `Function()` - Code Injection
+- Concatenação de string em SQL - SQL Injection
+- `innerHTML = userInput` - XSS
+- `fs.readFile(userPath)` - Path Traversal
+- Hardcoded secrets (regex: `password.*=.*"..."`)
+
+**Vantagens**:
+- ✅ Rápido (segundos para projetos grandes)
+- ✅ Fácil de implementar (regras simples)
+- ✅ Boa cobertura de padrões conhecidos
+- ✅ Funciona bem em múltiplas linguagens
+
+**Desvantagens**:
+- ❌ Muitos false positives (20-40%)
+- ❌ Não entende contexto (pode flagar código seguro)
+- ❌ Não rastreia fluxo de dados
+- ❌ Pode não encontrar padrões complexos
+
+**Uso Ideal**: Scan rápido inicial, regras simples de compliance
+
+---
 
 **2. Data Flow Analysis (Análise de Fluxo de Dados)**
-- Rastreia dados de entrada (tainted) até uso (sink)
-- Exemplo: Rastreia input do usuário até query SQL
-- **Vantagem**: Encontra vulnerabilidades reais, menos false positives
-- **Desvantagem**: Mais lento, complexo
+
+**Definição Técnica**: Rastreia dados desde sua entrada (source) até uso (sink) através do código, analisando como dados fluem entre variáveis e funções.
+
+**Como Funciona**:
+```
+1. Identifica Sources (entrada de dados não confiáveis)
+   - request.getParameter()
+   - request.body
+   - environment variables
+   - database queries
+
+2. Identifica Sinks (uso perigoso de dados)
+   - executeQuery() - SQL Injection
+   - innerHTML = - XSS
+   - eval() - Code Injection
+   - fs.readFile() - Path Traversal
+
+3. Rastreia fluxo de dados
+   - source → variável → função → variável → sink
+
+4. Detecta se dados não sanitizados chegam ao sink
+```
+
+**Diagrama de Data Flow**:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              DATA FLOW ANALYSIS - SQL INJECTION         │
+└─────────────────────────────────────────────────────────┘
+
+Source (Fonte de Dados Não Confiáveis)
+┌─────────────────────┐
+│ userInput =         │  ← SOURCE identificado
+│ request.get         │     (dados não confiáveis)
+│ Parameter("id")     │
+└──────────┬──────────┘
+           │
+           │ Data flows through:
+           ▼
+┌─────────────────────┐
+│ userId = userInput  │  ← Passagem por variável
+└──────────┬──────────┘
+           │
+           │ Data flows to:
+           ▼
+┌─────────────────────┐
+│ query = "SELECT *   │  ← Concatenação com query
+│ FROM users          │
+│ WHERE id = " +      │
+│ userId              │
+└──────────┬──────────┘
+           │
+           │ Data flows to:
+           ▼
+┌─────────────────────┐
+│ result = db.execute │  ← SINK identificado
+│ (query)             │     (uso perigoso)
+└─────────────────────┘
+
+SAST detecta: "Unsanitized data from Source reaches 
+Sink → SQL Injection vulnerability" ⚠️
+
+SOLUÇÃO: Sanitizer entre Source e Sink
+┌─────────────────────┐
+│ sanitized =         │  ← SANITIZER adicionado
+│ escapeSQL(userId)   │     (prepara dados)
+└─────────────────────┘
+```
+
+**Vantagens**:
+- ✅ Encontra vulnerabilidades reais (menos false positives)
+- ✅ Entende contexto (rastreia fluxo completo)
+- ✅ Detecta padrões complexos
+- ✅ Menos false positives (10-20%)
+
+**Desvantagens**:
+- ❌ Mais lento (minutos para projetos grandes)
+- ❌ Complexo de implementar
+- ❌ Pode não rastrear todos os caminhos
+- ❌ Requer configuração de sources/sinks
+
+**Uso Ideal**: Análise profunda, validação de findings
+
+---
 
 **3. Control Flow Analysis (Análise de Fluxo de Controle)**
-- Analisa caminhos de execução do código
-- Exemplo: Verifica se autenticação sempre acontece antes de acesso
-- **Vantagem**: Encontra problemas de lógica
-- **Desvantagem**: Muito complexo, pode não encontrar todos os caminhos
+
+**Definição Técnica**: Analisa caminhos de execução do código para verificar se controles de segurança (autenticação, autorização, validação) são aplicados antes de operações sensíveis.
+
+**Como Funciona**:
+```
+1. Constrói Control Flow Graph (CFG)
+   - Nós: blocos de código (funções, loops, conditions)
+   - Arestas: caminhos de execução (se, então, senão, loops)
+
+2. Identifica operações sensíveis
+   - Acesso a dados sensíveis
+   - Operações administrativas
+   - Operações financeiras
+   - Modificação de dados
+
+3. Verifica se controles de segurança existem
+   - Autenticação antes de acesso?
+   - Autorização antes de operação?
+   - Validação antes de processamento?
+
+4. Reporta se caminho sem controle existe
+```
+
+**Diagrama de Control Flow**:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│         CONTROL FLOW ANALYSIS - BROKEN ACCESS CONTROL  │
+└─────────────────────────────────────────────────────────┘
+
+Caminho 1: ✅ SEGURO
+┌─────────────────┐
+│ authenticate()  │  ← Autenticação
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ checkRole()     │  ← Autorização
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ getAdminData()  │  ← Operação sensível
+└─────────────────┘
+✅ SAST: OK - Caminho seguro
+
+Caminho 2: ❌ VULNERÁVEL
+┌─────────────────┐
+│ getAdminData()  │  ← Operação sensível
+└─────────────────┘    SEM autenticação/autorização
+⚠️ SAST detecta: "Sensitive operation without 
+authentication/authorization → Broken Access Control"
+```
+
+**Exemplo Prático**:
+
+```java
+// ❌ VULNERÁVEL - Control Flow Analysis detecta:
+@GetMapping("/admin/users")
+public List<User> getAdminUsers() {
+    // Não verifica autenticação/autorização
+    return userService.getAllUsers();  // ← Operação sensível sem controle
+}
+
+// ✅ SEGURO - Control Flow Analysis confirma:
+@GetMapping("/admin/users")
+@PreAuthorize("hasRole('ADMIN')")  // ← Controle de segurança
+public List<User> getAdminUsers() {
+    return userService.getAllUsers();  // ✅ Operação protegida
+}
+```
+
+**Vantagens**:
+- ✅ Encontra problemas de lógica de segurança
+- ✅ Detecta Broken Access Control
+- ✅ Identifica caminhos de execução não protegidos
+- ✅ Útil para verificar arquitetura de segurança
+
+**Desvantagens**:
+- ❌ Muito complexo (exponencial em caminhos)
+- ❌ Pode não encontrar todos os caminhos (undecidability)
+- ❌ Lento (horas para projetos grandes)
+- ❌ Requer configuração de controles de segurança
+
+**Uso Ideal**: Análise de arquitetura, validação de controles de acesso
+
+---
 
 **4. Taint Analysis (Análise de Contaminação)**
-- Tipo especial de data flow que rastreia dados não confiáveis
-- **Source (Fonte)**: Onde dados não confiáveis entram (ex: `request.getParameter()`)
-- **Sink (Ralo)**: Onde dados não confiáveis são usados de forma perigosa (ex: `executeQuery()`)
-- **Sanitizer**: Funções que "limpam" dados (ex: `escapeHtml()`)
+
+**Definição Técnica**: Tipo especializado de Data Flow Analysis que rastreia especificamente dados "tainted" (contaminados/não confiáveis) desde sua origem até uso perigoso, verificando se foram sanitizados no caminho.
+
+**Conceitos Fundamentais**:
+
+- **Source (Fonte)**: Ponto onde dados não confiáveis entram no sistema
+  - Input do usuário: `request.getParameter()`, `request.body`
+  - Arquivos: `file.read()`, `fs.readFile()`
+  - Rede: `socket.receive()`, API calls
+  - Ambiente: `process.env`, `config files`
+
+- **Sink (Ralo)**: Ponto onde dados são usados de forma perigosa
+  - SQL: `executeQuery()`, `query()`
+  - Execução: `eval()`, `exec()`, `system()`
+  - HTML: `innerHTML =`, `document.write()`
+  - Sistema de arquivos: `fs.readFile()`, `open()`
+  - Paths: `os.path.join()`, `path.resolve()`
+
+- **Sanitizer (Sanitizador)**: Função que "limpa" dados contaminados
+  - SQL: `escapeSQL()`, `prepareStatement()`, parameterized queries
+  - XSS: `escapeHtml()`, `DOMPurify.sanitize()`
+  - Path: `os.path.basename()`, `path.normalize()`
+  - Command: `subprocess.run()` com lista de argumentos
+
+**Fluxo de Taint Analysis**:
+
+```
+┌─────────────────────────────────────────────────────────┐
+│        TAINT ANALYSIS - DETECÇÃO DE SQL INJECTION       │
+└─────────────────────────────────────────────────────────┘
+
+1. Source Identification (Identificação da Fonte)
+┌─────────────────────┐
+│ userInput =         │  ← SOURCE: request.getParameter()
+│ request.get         │     Taint: TRUE
+│ Parameter("id")     │     Type: String
+└──────────┬──────────┘     Trust: LOW
+           │
+           │ [Taint propagates]
+           ▼
+
+2. Taint Propagation (Propagação de Contaminação)
+┌─────────────────────┐
+│ userId = userInput  │  ← Taint: TRUE (herda de userInput)
+└──────────┬──────────┘     Type: String
+           │                Trust: LOW
+           │
+           │ [Taint propagates]
+           ▼
+
+┌─────────────────────┐
+│ query = "SELECT *   │  ← Taint: TRUE (userId está tainted)
+│ FROM users          │     Type: String
+│ WHERE id = " +      │     Trust: LOW
+│ userId              │
+└──────────┬──────────┘
+           │
+           │ [Taint propagates]
+           ▼
+
+3. Sanitizer Check (Verificação de Sanitização)
+┌─────────────────────┐
+│ sanitized =         │  ← SANITIZER aplicado?
+│ escapeSQL(userId)   │     Não encontrado ❌
+└──────────┬──────────┘
+           │
+           │ [Taint continues - NO sanitization]
+           ▼
+
+4. Sink Detection (Detecção de Sink)
+┌─────────────────────┐
+│ result = db.execute │  ← SINK: executeQuery()
+│ (query)             │     Taint: TRUE
+└─────────────────────┘     Sanitized: FALSE
+                            ⚠️ VULNERABILIDADE DETECTADA!
+
+SAST Report:
+- Vulnerability: SQL Injection
+- Severity: Critical
+- Source: request.getParameter("id") [line 15]
+- Sink: db.execute(query) [line 45]
+- Taint Path: userInput → userId → query → db.execute
+- Sanitization: NONE
+- Recommendation: Use parameterized queries (prepared statements)
+```
+
+**Vantagens**:
+- ✅ Detecção precisa de vulnerabilidades reais
+- ✅ Rastreia fluxo completo de dados
+- ✅ Identifica quando sanitização está faltando
+- ✅ Menos false positives (5-15%)
+- ✅ Entende contexto de dados
+
+**Desvantagens**:
+- ❌ Muito lento (horas para projetos grandes)
+- ❌ Complexo de implementar e configurar
+- ❌ Requer configuração de sources/sinks/sanitizers
+- ❌ Pode não rastrear todos os caminhos
+- ❌ Pode gerar false negatives (caminhos não rastreados)
+
+**Uso Ideal**: Análise profunda de segurança, validação de correções
+
+---
+
+### Comparação dos Tipos de Análise SAST
+
+| Tipo de Análise | Velocidade | Precisão | False Positives | Complexidade | Melhor Para |
+|----------------|------------|----------|-----------------|--------------|-------------|
+| **Pattern Matching** | ⚡⚡⚡ Muito Rápido | 🎯🎯 Média | 🔴 Muitos (20-40%) | ⭐ Simples | Scan rápido, compliance |
+| **Data Flow** | ⚡⚡ Médio | 🎯🎯🎯 Alta | 🟡 Médios (10-20%) | ⭐⭐ Média | Análise profunda |
+| **Control Flow** | ⚡ Lento | 🎯🎯🎯 Alta | 🟡 Médios (10-15%) | ⭐⭐⭐ Complexa | Arquitetura, acesso |
+| **Taint Analysis** | ⚡ Muito Lento | 🎯🎯🎯🎯 Muito Alta | 🟢 Poucos (5-15%) | ⭐⭐⭐⭐ Muito Complexa | Análise crítica |
+
+**Recomendação**: Use combinação de múltiplos tipos:
+- **Pattern Matching** para scan rápido (Semgrep)
+- **Taint Analysis** para validação profunda (Checkmarx, SonarQube)
 
 **Diagrama de Taint Analysis**:
 
@@ -649,63 +1081,262 @@ db.execute(query)  # ← SQL Injection confirmado
 
 #### Como Validar Findings
 
-**Processo de Validação**:
+**Processo de Validação Detalhado**:
 
 ```
+┌─────────────────────────────────────────────────────────┐
+│        PROCESSO DE VALIDAÇÃO DE FINDINGS SAST           │
+└─────────────────────────────────────────────────────────┘
+
 1. SAST Reporta Finding
    │
+   ├─ Recebe: Severidade, Localização, Descrição, CWE
+   │
    ▼
-2. Analisar Contexto
-   ├─ Ler código ao redor
-   ├─ Verificar se dados são sanitizados
-   └─ Verificar se há controles de acesso
+2. Análise Inicial do Contexto
    │
-   ├─ É False Positive? → Marcar como "Won't Fix" / "False Positive"
+   ├─ Ler código ao redor (mínimo 10 linhas antes/depois)
+   ├─ Verificar se dados são sanitizados (escaping, validation)
+   ├─ Verificar se há controles de acesso (autenticação/autorização)
+   ├─ Verificar se código está ativo (não é código morto)
+   └─ Verificar se está em produção (risco imediato)
    │
-   └─ É True Positive? → Continuar
+   ├─ É False Positive?
+   │  │
+   │  ▼
+   │  Marcar como "Won't Fix" / "False Positive"
+   │  ├─ Documentar razão
+   │  ├─ Adicionar comentário no código (se aplicável)
+   │  └─ Configurar exceção na ferramenta SAST
+   │
+   └─ É True Positive?
       │
       ▼
-3. Priorizar
-   ├─ Severidade (Critical > High > Medium > Low)
+3. Análise Detalhada de Risco
+   │
+   ├─ Severidade SAST vs Risco Real
+   │  ├─ SAST Critical → Risco Real Critical? (confirmar)
+   │  ├─ SAST High → Risco Real pode ser Critical? (investigar)
+   │  └─ SAST Medium → Risco Real pode ser High? (avaliar contexto)
+   │
    ├─ Exploitability (fácil explorar?)
+   │  ├─ Requer autenticação? (reduz risco)
+   │  ├─ Requer conhecimento interno? (reduz risco)
+   │  ├─ Pode ser explorado via internet? (aumenta risco)
+   │  └─ Já existe exploit público? (risco crítico)
+   │
    ├─ Impacto (dados sensíveis afetados?)
-   └─ Contexto (código em produção?)
+   │  ├─ Dados de cartão (PCI-DSS) → Impacto Crítico
+   │  ├─ Dados pessoais (LGPD) → Impacto Alto
+   │  ├─ Dados financeiros → Impacto Crítico
+   │  └─ Dados públicos → Impacto Baixo
+   │
+   └─ Contexto do Negócio
+      ├─ Código em produção? (risco imediato)
+      ├─ Código em desenvolvimento? (corrigir antes de deploy)
+      ├─ Área crítica do sistema? (payment, auth, etc.)
+      └─ Volume de usuários afetados? (muitos = maior impacto)
    │
    ▼
-4. Corrigir ou Aceitar Risco
+4. Priorização Final
+   │
+   ├─ Prioridade 1 (P1 - Corrigir IMEDIATAMENTE):
+   │  ├─ Critical + Em produção + Dados sensíveis
+   │  └─ Bloquear deploy, hotfix necessário
+   │
+   ├─ Prioridade 2 (P2 - Corrigir neste Sprint):
+   │  ├─ Critical em desenvolvimento
+   │  ├─ High + Em produção + Dados sensíveis
+   │  └─ Corrigir antes do próximo release
+   │
+   ├─ Prioridade 3 (P3 - Corrigir no próximo Sprint):
+   │  ├─ High em desenvolvimento
+   │  ├─ Medium + Em produção
+   │  └─ Planejar correção
+   │
+   └─ Prioridade 4 (P4 - Backlog):
+      ├─ Medium em desenvolvimento
+      ├─ Low + Em produção
+      └─ Endereçar gradualmente
+   │
+   ▼
+5. Ação Corretiva
+   │
    ├─ Corrigir vulnerabilidade
-   ├─ Documentar risco aceito (com justificativa)
-   └─ Criar issue de tracking
+   │  ├─ Implementar correção segura
+   │  ├─ Adicionar testes de segurança
+   │  └─ Validar com SAST novamente
+   │
+   ├─ Documentar risco aceito (se não corrigir)
+   │  ├─ Justificativa técnica
+   │  ├─ Análise de risco
+   │  ├─ Mitigações implementadas
+   │  └─ Aprovação de stakeholders
+   │
+   └─ Tracking e Follow-up
+      ├─ Criar issue de tracking
+      ├─ Atribuir responsável
+      ├─ Definir prazo
+      └─ Agendar revalidação
 ```
 
-**Template de Validação**:
+**Exemplo de Matriz de Priorização**:
+
+| Severidade SAST | Exploitability | Impacto | Código em Prod | Prioridade Final |
+|----------------|----------------|---------|----------------|------------------|
+| Critical | Alta | Dados sensíveis | Sim | P1 - IMEDIATO |
+| Critical | Alta | Dados sensíveis | Não | P2 - Este Sprint |
+| Critical | Baixa | Dados não sensíveis | Sim | P2 - Este Sprint |
+| High | Alta | Dados sensíveis | Sim | P2 - Este Sprint |
+| High | Média | Dados sensíveis | Não | P3 - Próximo Sprint |
+| Medium | Alta | Dados sensíveis | Sim | P3 - Próximo Sprint |
+| Medium | Baixa | Dados não sensíveis | Não | P4 - Backlog |
+| Low | Qualquer | Qualquer | Qualquer | P4 - Backlog |
+
+**Template de Validação Completo**:
 
 ```markdown
 ## Finding: SQL Injection em UserService.getUser()
 
-**Severidade SAST**: Critical
-**CWE**: CWE-89 (SQL Injection)
-**Localização**: `src/services/UserService.java:45`
+### Metadados do Finding
+- **Severidade SAST**: Critical 🔴
+- **CWE**: CWE-89 (SQL Injection)
+- **OWASP Top 10**: A03:2021 – Injection
+- **Localização**: `src/services/UserService.java:45`
+- **Ferramenta**: SonarQube
+- **Data do Finding**: 2024-01-15
 
-**Código Flagado**:
+### Código Flagado
 ```java
-String userId = request.getParameter("id");
-String query = "SELECT * FROM users WHERE id = " + userId;
-db.execute(query);
+@GetMapping("/users/{id}")
+public User getUser(@PathVariable String id) {
+    // ❌ SAST detecta SQL Injection
+    String query = "SELECT * FROM users WHERE id = " + id;
+    return db.executeQuery(query);
+}
 ```
 
-**Análise**:
-- [ ] Dados são validados antes de usar?
-- [ ] Há sanitização (prepared statements)?
-- [ ] Código está em produção?
-- [ ] Acesso requer autenticação?
+### Análise de Contexto
+- [ ] **Dados são validados antes de usar?**
+  - ❌ Não há validação do parâmetro `id`
+  - ❌ Permite qualquer string (pode conter SQL malicioso)
+  
+- [ ] **Há sanitização (prepared statements)?**
+  - ❌ Usa concatenação de string em vez de prepared statement
+  - ❌ Permite SQL Injection
+  
+- [ ] **Código está em produção?**
+  - ✅ Sim, código está em produção (risco imediato)
+  
+- [ ] **Acesso requer autenticação?**
+  - ✅ Sim, endpoint requer autenticação (reduz risco um pouco)
+  
+- [ ] **Dados sensíveis afetados?**
+  - ✅ Sim, retorna dados de usuários completos (nomes, emails, etc.)
 
-**Decisão**:
-- [ ] True Positive - Corrigir imediatamente
+### Análise de Risco
+**Exploitability**: ALTA ⚠️
+- Pode ser explorado facilmente via API
+- Exemplo de exploit: `GET /users/1 OR 1=1--`
+
+**Impacto**: ALTO ⚠️
+- Pode expor dados de todos os usuários
+- Violação de LGPD/privacidade
+- Potencial para escalação de privilégios
+
+**Contexto**: CRÍTICO ⚠️
+- Código em produção
+- Endpoint público (requer apenas autenticação básica)
+- Acesso a dados sensíveis
+
+### Decisão
+- [x] **True Positive - Corrigir imediatamente (P1)**
 - [ ] False Positive - Marcar como resolvido (razão: ...)
 - [ ] Aceitar Risco - Documentar (razão: ...)
 
-**Ação**: [Descrever ação tomada]
+### Correção Implementada
+```java
+@GetMapping("/users/{id}")
+public User getUser(@PathVariable String id) {
+    // ✅ Validação de entrada
+    if (!isValidUserId(id)) {
+        throw new IllegalArgumentException("Invalid user ID");
+    }
+    
+    // ✅ Prepared Statement
+    String query = "SELECT * FROM users WHERE id = ?";
+    return db.executeQuery(query, id);  // Parâmetroizado
+}
+```
+
+### Validação Pós-Correção
+- [x] SAST re-executado - Finding removido ✅
+- [x] Testes de segurança adicionados ✅
+- [x] Code review aprovado ✅
+- [x] Deploy em produção ✅
+
+### Tracking
+- **Issue**: SEC-1234
+- **Responsável**: João Silva (Dev)
+- **Prazo**: Corrigido em 2024-01-15 (mesmo dia)
+- **Status**: ✅ RESOLVIDO
+
+### Lições Aprendidas
+- Implementar validação de entrada em todos os endpoints
+- Sempre usar prepared statements para queries SQL
+- Adicionar testes de segurança específicos para SQL Injection
+- Considerar usar ORM (ex: Hibernate) que previne SQL Injection automaticamente
+```
+
+### Exemplo de False Positive (Marcar como Resolvido)
+
+```markdown
+## Finding: Hardcoded Password em SecurityTest.testDefaultPassword()
+
+### Metadados do Finding
+- **Severidade SAST**: High 🟠
+- **CWE**: CWE-798 (Use of Hard-coded Credentials)
+- **Localização**: `src/test/SecurityTest.java:23`
+
+### Código Flagado
+```java
+@Test
+void testDefaultPassword() {
+    // SAST detecta: "Hardcoded password"
+    String defaultPassword = "changeme123";  // ← Flagged
+    
+    // Mas na prática:
+    assertThrows(Exception.class, () -> {
+        authService.login("admin", defaultPassword);
+    }, "Must change default password");  // ✅ Não é vulnerabilidade!
+}
+```
+
+### Análise
+- [ ] **É código de teste?** ✅ Sim - arquivo em `src/test/`
+- [ ] **Password é usado para autenticação real?** ❌ Não - é apenas teste
+- [ ] **Há validação que rejeita este password?** ✅ Sim - teste valida rejeição
+
+### Decisão
+- [ ] True Positive - Corrigir imediatamente
+- [x] **False Positive - Marcar como resolvido**
+  - Razão: Password hardcoded é esperado em teste que valida rejeição de senha padrão
+  - Contexto: Código em `src/test/`, não é executado em produção
+
+### Ação
+- Marcar como "False Positive" no SonarQube
+- Adicionar comentário no código explicando contexto
+- Configurar exceção na regra SAST para arquivos de teste
+
+### Template de Exceção SAST
+```java
+@SuppressWarnings("java:S2068") // Hardcoded credential - false positive (test only)
+@Test
+void testDefaultPassword() {
+    String defaultPassword = "changeme123";  // OK em teste
+    // ...
+}
+```
 ```
 
 ---
@@ -791,11 +1422,76 @@ name: SonarQube Analysis
 
 on:
   pull_request:
+    branches: [main, develop]
   push:
     branches: [main]
+  schedule:
+    # Scan diário às 2h da manhã
+    - cron: '0 2 * * *'
 
 jobs:
   sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests with coverage
+        run: npm test -- --coverage --watchAll=false
+      
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          # Falha o pipeline se Quality Gate não passar
+          args: >
+            -Dsonar.qualitygate.wait=true
+      
+      - name: Check Quality Gate
+        if: failure()
+        run: |
+          echo "⚠️ Quality Gate falhou! Verifique os findings no SonarQube."
+          echo "Critical/High vulnerabilities devem ser corrigidas antes do merge."
+          exit 1
+  
+  # Job adicional: Semgrep para scan rápido
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/owasp-top-ten
+            p/ci
+          generateSarif: "1"
+          outputFormat: "json"
+      
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: semgrep.sarif
+  
+  # Job adicional: ESLint Security Plugin (JavaScript específico)
+  eslint-security:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -808,15 +1504,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Run tests with coverage
-        run: npm test -- --coverage
+      - name: Run ESLint Security
+        run: npm run lint:security || true
       
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: eslint-security-results
+          path: eslint-report.json
 ```
 
 ### Exemplo 2: Configurar Semgrep em Projeto Python
@@ -936,7 +1632,7 @@ src/auth.py
 
 ### Exemplo 3: Integração SAST no CI/CD (GitLab CI)
 
-**Contexto**: Configurar pipeline GitLab CI que executa múltiplas ferramentas SAST.
+**Contexto**: Configurar pipeline GitLab CI que executa múltiplas ferramentas SAST com Quality Gates e validação automática.
 
 ```yaml
 # .gitlab-ci.yml
@@ -944,54 +1640,116 @@ stages:
   - build
   - test
   - security
+  - deploy
+
+# Variáveis globais para SAST
+variables:
+  SEMGREP_CONFIG: "p/security-audit p/owasp-top-ten"
 
 # Job de SAST com múltiplas ferramentas
 sast:
   stage: security
   image: node:18
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq python3-pip
+    - pip3 install semgrep bandit
+  
   script:
     # 1. ESLint Security Plugin (JavaScript)
+    - echo "🔍 Running ESLint Security Plugin..."
     - npm install
     - npm run lint:security || true
+    - npm run lint:security > eslint-security-report.json 2>&1 || true
     
-    # 2. Semgrep (universal)
-    - pip install semgrep
-    - semgrep --config=auto --json --output=semgrep.json . || true
+    # 2. Semgrep (universal - scan rápido)
+    - echo "🔍 Running Semgrep..."
+    - semgrep --config=$SEMGREP_CONFIG --json --output=semgrep.json . || true
+    - semgrep --config=$SEMGREP_CONFIG --text --output=semgrep.txt . || true
     
     # 3. Bandit (se projeto Python)
-    - pip install bandit || true
+    - echo "🔍 Running Bandit (Python security scanner)..."
     - bandit -r . -f json -o bandit.json || true
+    - bandit -r . -f txt -o bandit.txt || true
     
     # 4. SonarQube (se configurado)
-    - sonar-scanner || true
+    - |
+      if [ -n "$SONAR_TOKEN" ]; then
+        echo "🔍 Running SonarQube..."
+        sonar-scanner \
+          -Dsonar.projectKey=$CI_PROJECT_NAME \
+          -Dsonar.sources=. \
+          -Dsonar.host.url=$SONAR_HOST_URL \
+          -Dsonar.login=$SONAR_TOKEN \
+          -Dsonar.qualitygate.wait=true || true
+      fi
     
     # 5. Agregar resultados
-    - python scripts/aggregate_sast_results.py
+    - echo "📊 Aggregating SAST results..."
+    - python3 scripts/aggregate_sast_results.py
+    
+    # 6. Validar Critical findings (falha pipeline se encontrar)
+    - python3 scripts/check_critical_findings.py
     
   artifacts:
     reports:
       sast: sast-report.json
     paths:
       - semgrep.json
+      - semgrep.txt
       - bandit.json
+      - bandit.txt
+      - eslint-security-report.json
       - sast-report.html
+      - sast-report.json
     expire_in: 1 week
+    when: always  # Sempre salvar, mesmo se falhar
   
-  allow_failure: false  # Falha pipeline se encontrar Critical
+  allow_failure: false  # Falha pipeline se encontrar Critical não tratado
+  
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+# Job para validar findings e criar issues
+sast-validation:
+  stage: security
+  image: python:3.9
+  dependencies:
+    - sast
+  script:
+    - echo "✅ Validating SAST findings..."
+    - python3 scripts/validate_sast_findings.py
+    
+    - echo "📝 Creating GitHub issues for Critical findings..."
+    - python3 scripts/create_issues_for_critical.py
+    
+  needs:
+    - sast
+  allow_failure: true  # Não bloqueia pipeline, mas cria issues
   
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-# Job para validar findings
-sast-validation:
+# Job para gerar dashboard de segurança
+sast-dashboard:
   stage: security
   image: python:3.9
-  script:
-    - python scripts/validate_sast_findings.py
-  needs:
+  dependencies:
     - sast
-  allow_failure: true
+  script:
+    - echo "📊 Generating security dashboard..."
+    - python3 scripts/generate_security_dashboard.py
+    
+  artifacts:
+    paths:
+      - security-dashboard.html
+    expire_in: 30 days
+  
+  only:
+    - main
+    - schedules
 ```
 
 ### Exemplo 4: Criar Regra Customizada Semgrep
@@ -1153,6 +1911,246 @@ const parsed = JSON.parse(data);  // OK
    - **Problema**: Regras antigas podem não detectar vulnerabilidades novas
    - **Solução**: Atualizar regras regularmente
    - **Impacto**: Vulnerabilidades novas não são detectadas
+
+---
+
+## 💼 Aplicação no Contexto CWI
+
+**📝 Nota:** Os cenários abaixo são exemplos hipotéticos criados para fins educacionais, ilustrando como os conceitos de SAST podem ser aplicados em diferentes contextos e setores.
+
+### Cenário Hipotético 1: Cliente Financeiro (Fintech)
+
+**Situação**: Projeto de Open Banking desenvolvido em Node.js/TypeScript. Requisitos de compliance PCI-DSS e regulamentações do Banco Central.
+
+**Papel do QA com SAST**:
+
+1. **Configurar SAST apropriado para o contexto**
+   - Ferramentas: SonarQube + Semgrep + ESLint Security Plugin
+   - Foco: SQL Injection, hardcoded secrets, autenticação insegura
+   - Regras customizadas: Detectar padrões específicos de Open Banking
+
+2. **Validar vulnerabilidades críticas para o setor**
+   - SQL Injection em APIs de consulta de extrato
+   - Exposição de credenciais/chaves API em código
+   - Broken Authentication em fluxos OAuth2
+   - Insecure Deserialization em processamento de dados bancários
+
+3. **Integrar SAST no pipeline CI/CD**
+   ```yaml
+   # Pipeline com Quality Gate rigoroso para financeiro
+   - Quality Gate: 0 Critical vulnerabilities
+   - Quality Gate: Máximo 2 High vulnerabilities
+   - Bloqueio automático de merge se não passar
+   ```
+
+4. **Priorizar findings por risco financeiro**
+   - Critical: Vulnerabilidades que podem comprometer dados de cartão (PCI-DSS)
+   - High: Vulnerabilidades em APIs de transferência
+   - Medium: Vulnerabilidades em áreas de menor risco
+
+**Exemplo de Finding Crítico**:
+```typescript
+// SAST detecta: Hardcoded API Key
+const OPEN_BANKING_API_KEY = "sk_live_abc123..."  // ← Critical finding
+
+// Correção implementada:
+const OPEN_BANKING_API_KEY = process.env.OPEN_BANKING_API_KEY  // ✅
+```
+
+### Cenário Hipotético 2: Plataforma Educacional (EdTech)
+
+**Situação**: Plataforma de ensino online desenvolvida em Python/Django. Requisitos de compliance LGPD (especialmente dados de menores).
+
+**Papel do QA com SAST**:
+
+1. **Configurar SAST para proteção de dados sensíveis**
+   - Ferramentas: Bandit + Semgrep + SonarQube
+   - Foco: XSS, SQL Injection, exposição de dados pessoais, LGPD violations
+   - Regras customizadas: Detectar acesso a dados de menores sem autorização
+
+2. **Validar vulnerabilidades críticas para o setor**
+   - SQL Injection que pode expor dados de alunos
+   - XSS em áreas de mensagens/comentários
+   - Exposição de dados pessoais em logs ou mensagens de erro
+   - Broken Access Control que permite acesso a dados de outros alunos
+
+3. **Implementar regras específicas para LGPD**
+   ```yaml
+   # Regra Semgrep customizada para LGPD
+   - id: lgpd-personal-data-logging
+     patterns:
+       - pattern: logging.info(f"...$DATA...")
+       - metavariable-regex:
+           metavariable: $DATA
+           regex: (cpf|rg|email|phone|address)
+     message: "Personal data potentially logged. LGPD violation risk."
+   ```
+
+**Exemplo de Finding Crítico**:
+```python
+# SAST detecta: SQL Injection + Exposição de dados pessoais
+def get_student_grades(student_id):
+    query = f"SELECT * FROM grades WHERE student_id = {student_id}"  # ← SQL Injection
+    return db.execute(query)  # Pode expor dados de outros alunos (LGPD)
+
+# Correção implementada:
+def get_student_grades(student_id, current_user_id):
+    if student_id != current_user_id:
+        raise PermissionError("Cannot access other student data")  # ✅ Access Control
+    query = "SELECT * FROM grades WHERE student_id = %s"  # ✅ Prepared Statement
+    return db.execute(query, (student_id,))
+```
+
+### Cenário Hipotético 3: Ecommerce
+
+**Situação**: Plataforma de ecommerce desenvolvida em Java/Spring Boot. Requisitos de compliance PCI-DSS para processamento de pagamentos.
+
+**Papel do QA com SAST**:
+
+1. **Configurar SAST para segurança de pagamentos**
+   - Ferramentas: SonarQube + FindSecBugs + Semgrep
+   - Foco: SQL Injection, XSS, manipulação de preços, exposição de dados de cartão
+   - Regras customizadas: Detectar manipulação de valores de transação
+
+2. **Validar vulnerabilidades críticas para ecommerce**
+   - SQL Injection em busca de produtos
+   - Manipulação de preços no cliente (preço deve ser validado server-side)
+   - Exposição de dados de cartão em logs ou mensagens de erro
+   - Broken Access Control que permite acesso a pedidos de outros clientes
+
+3. **Quality Gate específico para PCI-DSS**
+   ```yaml
+   # PCI-DSS exige:
+   - 0 Critical vulnerabilities relacionados a dados de cartão
+   - 0 Hardcoded secrets/chaves
+   - 0 SQL Injection em áreas de pagamento
+   - Bloqueio automático se qualquer uma dessas condições falhar
+   ```
+
+**Exemplo de Finding Crítico**:
+```java
+// SAST detecta: Price Manipulation + SQL Injection
+@PostMapping("/checkout")
+public Order checkout(@RequestBody OrderRequest request) {
+    // ❌ Preço vem do cliente (pode ser manipulado)
+    double price = request.getPrice();  
+    
+    // ❌ SQL Injection
+    String query = "INSERT INTO orders VALUES (" + request.getUserId() + ", " + price + ")";
+    db.execute(query);
+    
+    return order;
+}
+
+// Correção implementada:
+@PostMapping("/checkout")
+public Order checkout(@RequestBody OrderRequest request) {
+    // ✅ Preço vem do servidor
+    Product product = productRepository.findById(request.getProductId());
+    double price = product.getPrice();  // Validado server-side
+    
+    // ✅ Prepared Statement
+    String query = "INSERT INTO orders (user_id, price) VALUES (?, ?)";
+    db.execute(query, request.getUserId(), price);
+    
+    return order;
+}
+```
+
+### Cenário Hipotético 4: Aplicações de IA
+
+**Situação**: Projeto de IA/ML desenvolvido em Python com TensorFlow. Processamento de dados sensíveis e modelos de inferência.
+
+**Papel do QA com SAST**:
+
+1. **Configurar SAST para segurança em IA**
+   - Ferramentas: Bandit + Semgrep + ferramentas específicas de ML
+   - Foco: Insecure deserialization, exposição de modelos, vazamento de dados de treinamento
+   - Regras customizadas: Detectar padrões inseguros em pipelines de ML
+
+2. **Validar vulnerabilidades específicas de IA**
+   - Pickle/Joblib deserialization insegura (model poisoning)
+   - Exposição de dados de treinamento em código ou logs
+   - Hardcoded paths para modelos/dados sensíveis
+   - Command Injection em processamento de dados
+
+3. **Regras customizadas para ML Security**
+   ```yaml
+   # Regra para detectar insecure pickle
+   - id: insecure-pickle-load
+     patterns:
+       - pattern: pickle.load($FILE)
+       - pattern: joblib.load($FILE)
+     message: "Insecure deserialization. Risk of model poisoning."
+     metadata:
+       cwe: "CWE-502: Deserialization of Untrusted Data"
+   ```
+
+**Exemplo de Finding Crítico**:
+```python
+# SAST detecta: Insecure Deserialization (Model Poisoning risk)
+def load_model(model_path):
+    import pickle
+    # ❌ Pickle não é seguro para modelos não confiáveis
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)  # ← Critical: Model poisoning risk
+    return model
+
+# Correção implementada:
+def load_model(model_path):
+    import tensorflow as tf
+    # ✅ TensorFlow SavedModel é mais seguro
+    model = tf.keras.models.load_model(model_path)  # ✅
+    return model
+```
+
+### Comparação de Prioridades por Setor
+
+| Vulnerabilidade SAST | Financeiro | Educacional | Ecommerce | IA |
+|---------------------|------------|-------------|-----------|-----|
+| **SQL Injection** | 🔴 CRÍTICA | 🔴 CRÍTICA | 🔴 CRÍTICA | 🟠 ALTA |
+| **Hardcoded Secrets** | 🔴 CRÍTICA | 🟠 ALTA | 🔴 CRÍTICA | 🔴 CRÍTICA |
+| **XSS** | 🟠 ALTA | 🔴 CRÍTICA | 🔴 CRÍTICA | 🟡 MÉDIA |
+| **Broken Access Control** | 🔴 CRÍTICA | 🔴 CRÍTICA | 🔴 CRÍTICA | 🟠 ALTA |
+| **Insecure Deserialization** | 🟠 ALTA | 🟡 MÉDIA | 🟠 ALTA | 🔴 CRÍTICA |
+| **Price Manipulation** | 🟠 ALTA | 🟡 MÉDIA | 🔴 CRÍTICA | 🟡 MÉDIA |
+
+**Legenda**: 🔴 Crítica | 🟠 Alta | 🟡 Média
+
+### Workflow de SAST por Setor
+
+**Financeiro (PCI-DSS)**:
+```
+1. SAST em cada commit (pre-commit hook)
+2. Quality Gate rigoroso (0 Critical)
+3. Validação manual de todos os High
+4. Compliance report automático
+5. Bloqueio de deploy se não passar
+```
+
+**Educacional (LGPD)**:
+```
+1. SAST em cada PR (CI/CD)
+2. Quality Gate médio (0 Critical, máx 5 High)
+3. Foco especial em dados de menores
+4. LGPD compliance checks automáticos
+```
+
+**Ecommerce (PCI-DSS)**:
+```
+1. SAST em cada PR + nightly scans
+2. Quality Gate rigoroso (0 Critical em área de pagamento)
+3. Validação especial de manipulação de preços
+4. PCI-DSS compliance report
+```
+
+**IA/ML**:
+```
+1. SAST em cada PR
+2. Quality Gate específico (foco em deserialization)
+3. Regras customizadas para ML patterns
+4. Validação de segurança de modelos
+```
 
 ---
 
