@@ -8,7 +8,7 @@ duration: "90 minutos"
 level: "Avançado"
 prerequisites: ["lesson-4-3"]
 exercises: []
-image: "assets/images/podcasts/4.4-Secrets_Management.png"
+image: "assets/module-4/images/podcasts/4.4-Secrets_Management.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/secrets-management/
 ---
 

@@ -15,7 +15,7 @@ permalink: /modules/fundamentos-seguranca-qa/
 ---
 
 
-![Infográfico: Introdução ao Módulo 1 - Fundamentos de Segurança em QA]({{ '/assets/images/infografico-introducao-modulo-1.png' | relative_url }})
+![Infográfico: Introdução ao Módulo 1 - Fundamentos de Segurança em QA]({{ '/assets/module-1/images/infograficos/infografico-introducao-modulo-1.png' | relative_url }})
 
 ## 🎯 Objetivo do Módulo
 

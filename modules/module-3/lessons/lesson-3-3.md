@@ -7,7 +7,7 @@ lesson_id: lesson-3-3
 duration: "90 minutos"
 level: "Intermediário"
 prerequisites: ["lesson-3-2"]
-image: "assets/images/podcasts/3.3-Seguranca_Ecommerce.png"
+image: "assets/module-3/images/podcasts/3.3-Seguranca_Ecommerce.png"
 permalink: /modules/seguranca-por-setor/lessons/seguranca-ecommerce/
 ---
 

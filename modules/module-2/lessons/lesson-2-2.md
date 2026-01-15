@@ -7,7 +7,7 @@ lesson_id: lesson-2-2
 duration: "90 minutos"
 level: "Intermediário"
 prerequisites: ["lesson-2-1"]
-image: "assets/images/podcasts/2.2-DAST_Testes_Dinamicos.png"
+image: "assets/module-2/images/podcasts/2.2-DAST_Testes_Dinamicos.png"
 permalink: /modules/testes-seguranca-pratica/lessons/dast-testes-dinamicos/
 ---
 

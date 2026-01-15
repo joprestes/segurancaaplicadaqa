@@ -14,9 +14,9 @@ exercises:
   - lesson-1-4-exercise-4-threat-model-completo
   - lesson-1-4-exercise-5-mitigacao-priorizacao
 video:
-  file: "assets/videos/Modelagem_de_Ameacas-lesson-1-4.mp4"
+  file: "assets/module-1/videos/Modelagem_de_Ameacas-lesson-1-4.mp4"
   title: "Threat Modeling: Identificando Ameaças Antes de Acontecerem"
-  thumbnail: "assets/images/infografico-lesson-1-4.png"
+  thumbnail: "assets/module-1/images/infograficos/infografico-lesson-1-4.png"
   description: "Aprenda técnicas de modelagem de ameaças (STRIDE, PASTA, DREAD) e como aplicá-las em diferentes contextos de projeto para identificar riscos de segurança proativamente."
   duration: "60-75 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
@@ -280,7 +280,7 @@ Para cada ameaça crítica/alta, propor mitigações:
 - Controles detectivos (detectar ameaça)
 - Controles corretivos (corrigir após ameaça)
 
-![Infográfico: Threat Modeling - Metodologia e Processo Completo]({{ '/assets/images/infografico-lesson-1-4.png' | relative_url }})
+![Infográfico: Threat Modeling - Metodologia e Processo Completo]({{ '/assets/module-1/images/infograficos/infografico-lesson-1-4.png' | relative_url }})
 
 ---
 

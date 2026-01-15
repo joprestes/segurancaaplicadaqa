@@ -7,7 +7,7 @@ lesson_id: lesson-3-1
 duration: "90 minutos"
 level: "Intermediário"
 prerequisites: ["lesson-2-5"]
-image: "assets/images/podcasts/3.1-Seguranca_Setor_Financeiro.png"
+image: "assets/module-3/images/podcasts/3.1-Seguranca_Setor_Financeiro.png"
 permalink: /modules/seguranca-por-setor/lessons/seguranca-setor-financeiro/
 ---
 

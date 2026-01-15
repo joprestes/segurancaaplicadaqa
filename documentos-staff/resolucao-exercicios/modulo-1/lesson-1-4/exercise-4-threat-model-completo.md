@@ -4,7 +4,7 @@ title: "Exercício 1.4.4: Criar Threat Model Completo"
 lesson_id: lesson-1-4
 module: module-1
 difficulty: "Avançado"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.4.4: Criar Threat Model Completo
@@ -76,7 +76,7 @@ Cliente Web → API Gateway → API REST → Banco de Dados
 # Threat Model - Sistema de Ecommerce
 
 ## Informações Gerais
-- Data: 2025-01-15
+- Data: 2026-01-14
 - Versão: 1.0
 - Responsável: Equipe QA
 - Metodologia: STRIDE + DREAD
@@ -309,6 +309,6 @@ Este exercício é fundamental porque:
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

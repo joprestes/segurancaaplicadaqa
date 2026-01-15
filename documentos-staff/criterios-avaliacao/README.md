@@ -18,5 +18,5 @@ Esta seção será preenchida com:
 
 ---
 
-**Última atualização**: 2025-01-09  
+**Última atualização**: 2026-01-09  
 **Status**: 🟡 Em Planejamento

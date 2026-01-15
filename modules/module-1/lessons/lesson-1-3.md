@@ -13,9 +13,9 @@ exercises:
   - lesson-1-3-exercise-3-devqa-security-collab
   - lesson-1-3-exercise-4-shift-left-checklist
 video:
-  file: "assets/videos/Seguranca_Shift-Left-lesson-1-3.mp4"
+  file: "assets/module-1/videos/Seguranca_Shift-Left-lesson-1-3.mp4"
   title: "Shift-Left Security na Prática"
-  thumbnail: "assets/images/info-grafico-lesson-1-3.png"
+  thumbnail: "assets/module-1/images/infograficos/info-grafico-lesson-1-3.png"
   description: "Entenda como integrar segurança desde as fases iniciais do desenvolvimento. Discutimos requisitos de segurança, threat modeling, e como QA pode atuar preventivamente."
   duration: "45-60 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/shift-left-security/
@@ -135,7 +135,7 @@ Na segurança de software, Shift-Left significa pensar em segurança desde a fas
 - Menos retrabalho
 - Produtos mais seguros
 
-![Infográfico: Shift-Left Security - Segurança em Cada Fase do SDLC]({{ '/assets/images/info-grafico-lesson-1-3.png' | relative_url }})
+![Infográfico: Shift-Left Security - Segurança em Cada Fase do SDLC]({{ '/assets/module-1/images/infograficos/info-grafico-lesson-1-3.png' | relative_url }})
 
 ---
 

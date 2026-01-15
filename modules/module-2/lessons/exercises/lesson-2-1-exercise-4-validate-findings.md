@@ -75,7 +75,7 @@ Criar arquivo `sast-findings.json` com todos os findings:
 
 ```json
 {
-  "scan_date": "2024-01-15",
+  "scan_date": "2026-01-14",
   "tool": "semgrep",
   "total_findings": 45,
   "by_severity": {
@@ -343,7 +343,7 @@ Criar arquivo `dashboard/vulnerabilities.md`:
 ```markdown
 # Dashboard de Vulnerabilidades SAST
 
-**Última atualização**: 2024-01-15  
+**Última atualização**: 2026-01-14  
 **Total de Findings**: 45  
 **True Positives**: 32  
 **False Positives**: 13
@@ -353,13 +353,13 @@ Criar arquivo `dashboard/vulnerabilities.md`:
 ### P1 - IMEDIATO (Corrigir em 24h)
 | ID | Tipo | Arquivo | Linha | Responsável | Prazo | Status |
 |----|------|---------|-------|-------------|-------|--------|
-| F-001 | SQL Injection | src/auth.py | 45 | João Silva | 2024-01-16 | Em andamento |
-| F-002 | Hardcoded Secret | src/config.py | 12 | Maria Santos | 2024-01-16 | Aberto |
+| F-001 | SQL Injection | src/auth.py | 45 | João Silva | 2026-01-16 | Em andamento |
+| F-002 | Hardcoded Secret | src/config.py | 12 | Maria Santos | 2026-01-16 | Aberto |
 
 ### P2 - Este Sprint (Corrigir em 1 semana)
 | ID | Tipo | Arquivo | Linha | Responsável | Prazo | Status |
 |----|------|---------|-------|-------------|-------|--------|
-| F-003 | XSS | src/public.js | 78 | Pedro Costa | 2024-01-22 | Aberto |
+| F-003 | XSS | src/public.js | 78 | Pedro Costa | 2026-01-22 | Aberto |
 
 ### P3 - Próximo Sprint (Corrigir em 2 semanas)
 [...]

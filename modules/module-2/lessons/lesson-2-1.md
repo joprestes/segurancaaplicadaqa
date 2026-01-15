@@ -14,10 +14,10 @@ exercises:
   - lesson-2-1-exercise-4-validate-findings
   - lesson-2-1-exercise-5-compare-sast-tools
 video:
-  file: "assets/videos/2.1-SAST_Testes_Estaticos.mp4"
+  file: "assets/module-2/videos/2.1-SAST_Testes_Estaticos.mp4"
   title: "SAST: Static Application Security Testing"
-  thumbnail: "assets/images/infografico-lesson-2-1.png"
-image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
+  thumbnail: "assets/module-2/images/infograficos/infografico-lesson-2-1.png"
+image: "assets/module-2/images/podcasts/2.1-SAST_Testes_Estaticos.png"
 permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 ---
 

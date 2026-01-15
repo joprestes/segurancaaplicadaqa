@@ -1,4 +1,4 @@
-# Dockerfile para Jekyll no Fly.io
+# Dockerfile para Jekyll
 # Usa Debian-based image para melhor compatibilidade com gems Ruby
 
 # Imagem base Ruby (Debian-based, mais compatível)
@@ -58,7 +58,7 @@ COPY . .
 # Se falhar, não aborta o build - será refeito no startup
 RUN JEKYLL_ENV=production bundle exec jekyll build 2>&1 || echo "Build falhou durante construção, será refeito no startup"
 
-# Expor porta (Fly.io usa variável PORT)
+# Expor porta
 ENV PORT=8080
 EXPOSE 8080
 

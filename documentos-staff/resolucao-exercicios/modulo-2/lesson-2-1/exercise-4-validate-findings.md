@@ -4,7 +4,7 @@ title: "Exercício 2.1.4: Validar e Priorizar Findings SAST"
 lesson_id: lesson-2-1
 module: module-2
 difficulty: "Avançado"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 2.1.4: Validar e Priorizar Findings SAST
@@ -35,7 +35,7 @@ Este exercício tem como objetivo **criar processo de triagem e validação de f
 **1.1. Consolidar Resultados:**
 ```json
 {
-  "scan_date": "2024-01-15",
+  "scan_date": "2026-01-14",
   "tool": "semgrep",
   "total_findings": 45,
   "by_severity": {
@@ -184,7 +184,7 @@ def test_default_password():
 ```markdown
 # Dashboard de Vulnerabilidades SAST
 
-**Última atualização**: 2024-01-15  
+**Última atualização**: 2026-01-14  
 **Total de Findings**: 45  
 **True Positives**: 32  
 **False Positives**: 13
@@ -192,13 +192,13 @@ def test_default_password():
 ## P1 - IMEDIATO (Corrigir em 24h)
 | ID | Tipo | Arquivo | Responsável | Prazo | Status |
 |----|------|---------|-------------|-------|--------|
-| F-001 | SQL Injection | src/auth.py:45 | João Silva | 2024-01-16 | Em andamento |
-| F-002 | Hardcoded Secret | src/config.py:12 | Maria Santos | 2024-01-16 | Aberto |
+| F-001 | SQL Injection | src/auth.py:45 | João Silva | 2026-01-16 | Em andamento |
+| F-002 | Hardcoded Secret | src/config.py:12 | Maria Santos | 2026-01-16 | Aberto |
 
 ## P2 - Este Sprint (1 semana)
 | ID | Tipo | Arquivo | Responsável | Prazo | Status |
 |----|------|---------|-------------|-------|--------|
-| F-003 | XSS | src/public.js:78 | Pedro Costa | 2024-01-22 | Aberto |
+| F-003 | XSS | src/public.js:78 | Pedro Costa | 2026-01-22 | Aberto |
 
 ## Estatísticas
 - **Por Severidade**: Critical: 2 (1 TP, 1 FP), High: 8 (6 TP, 2 FP)
@@ -309,6 +309,6 @@ Validar findings SAST, diferenciar True Positives de False Positives, e prioriza
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

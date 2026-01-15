@@ -5,7 +5,7 @@ title: Início
 
 # Segurança Aplicada à Qualidade de Software
 
-![Infográfico: Visão Geral do Curso - Segurança Aplicada à Qualidade de Software]({{ '/assets/images/infografico-inicio.png' | relative_url }})
+![Infográfico: Visão Geral do Curso - Segurança Aplicada à Qualidade de Software]({{ '/assets/shared/images/infografico-inicio.png' | relative_url }})
 
 Treinamento prático e focado em segurança para profissionais de QA da CWI. Aprenda a integrar segurança no processo de qualidade, com exemplos reais de projetos em diferentes setores: financeiro, educacional, ecommerce e IA.
 

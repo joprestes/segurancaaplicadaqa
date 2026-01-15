@@ -7,7 +7,7 @@ lesson_id: lesson-2-4
 duration: "120 minutos"
 level: "Avançado"
 prerequisites: ["lesson-2-3"]
-image: "assets/images/podcasts/2.4-Automacao_Testes_Seguranca.png"
+image: "assets/module-2/images/podcasts/2.4-Automacao_Testes_Seguranca.png"
 permalink: /modules/testes-seguranca-pratica/lessons/automacao-testes-seguranca/
 ---
 

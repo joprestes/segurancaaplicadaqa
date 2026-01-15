@@ -14,9 +14,9 @@ exercises:
   - lesson-1-5-exercise-4-compliance-por-setor
   - lesson-1-5-exercise-5-auditoria-qa
 video:
-  file: "assets/videos/Compliance__As_Regras_Ocultas-lesson-1-5.mp4"
+  file: "assets/module-1/videos/Compliance__As_Regras_Ocultas-lesson-1-5.mp4"
   title: "Compliance em Segurança: LGPD, PCI-DSS e SOC2"
-  thumbnail: "assets/images/infografico-lesson-1-5.png"
+  thumbnail: "assets/module-1/images/infograficos/infografico-lesson-1-5.png"
   description: "Navegue pelas principais regulamentações de segurança e privacidade. Como garantir compliance em projetos de diferentes setores e o papel do QA nesse processo."
   duration: "60-75 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/
@@ -400,7 +400,7 @@ Na segurança de software, compliance são as "regras de trânsito" que garantem
 - [ ] LGPD está sendo cumprido?
 - [ ] Transparência de preços está garantida?
 
-![Infográfico: Compliance e Regulamentações - LGPD, PCI-DSS, SOC2]({{ '/assets/images/infografico-lesson-1-5.png' | relative_url }})
+![Infográfico: Compliance e Regulamentações - LGPD, PCI-DSS, SOC2]({{ '/assets/module-1/images/infograficos/infografico-lesson-1-5.png' | relative_url }})
 
 ---
 

@@ -7,7 +7,7 @@ lesson_id: lesson-2-5
 duration: "90 minutos"
 level: "Intermediário"
 prerequisites: ["lesson-2-4"]
-image: "assets/images/podcasts/2.5-Dependency_Scanning_SCA.png"
+image: "assets/module-2/images/podcasts/2.5-Dependency_Scanning_SCA.png"
 permalink: /modules/testes-seguranca-pratica/lessons/dependency-scanning-sca/
 ---
 

@@ -4,7 +4,7 @@ title: "Exercício 1.2.2: SQL Injection - Exploração e Prevenção"
 lesson_id: lesson-1-2
 module: module-1
 difficulty: "Intermediário"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.2.2: SQL Injection - Exploração e Prevenção
@@ -429,6 +429,6 @@ cursor.execute(query, (username, password))
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

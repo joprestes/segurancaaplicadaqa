@@ -4,7 +4,7 @@ title: "Exercício 1.3.4: Checklist Shift-Left Security"
 lesson_id: lesson-1-3
 module: module-1
 difficulty: "Avançado"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.3.4: Checklist Shift-Left Security
@@ -349,6 +349,6 @@ Este exercício é fundamental porque:
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

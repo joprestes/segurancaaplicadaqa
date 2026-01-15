@@ -8,7 +8,7 @@ duration: "120 minutos"
 level: "Avançado"
 prerequisites: ["lesson-4-1"]
 exercises: []
-image: "assets/images/podcasts/4.2-Pipeline_Seguranca.png"
+image: "assets/module-4/images/podcasts/4.2-Pipeline_Seguranca.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/pipeline-seguranca/
 ---
 
