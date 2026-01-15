@@ -178,7 +178,9 @@ Dev → QA → Security → Produção
 - Releases mais rápidos e seguros
 - Colaboração entre times
 
+{% raw %}
 ![Infográfico: Segurança em QA - Ciclo de Desenvolvimento]({{ '/assets/module-1/images/infograficos/infografico-lesson1-1.png' | relative_url }})
+{% endraw %}
 
 ### 5. Quando Segurança Deve Ser Considerada
 

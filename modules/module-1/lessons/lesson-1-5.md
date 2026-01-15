@@ -400,7 +400,9 @@ Na segurança de software, compliance são as "regras de trânsito" que garantem
 - [ ] LGPD está sendo cumprido?
 - [ ] Transparência de preços está garantida?
 
+{% raw %}
 ![Infográfico: Compliance e Regulamentações - LGPD, PCI-DSS, SOC2]({{ '/assets/module-1/images/infograficos/infografico-lesson-1-5.png' | relative_url }})
+{% endraw %}
 
 ---
 

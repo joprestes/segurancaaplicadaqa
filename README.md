@@ -187,7 +187,15 @@ crescidos-qualidade/
 ├── documentos-staff/        # Documentação exclusiva para monitores/instrutores
 │   ├── resolucao-exercicios/  # Gabaritos e soluções dos exercícios
 │   ├── orientacoes-monitores/  # Orientações para correção
-│   └── criterios-avaliacao/    # Critérios de avaliação
+│   ├── criterios-avaliacao/    # Critérios de avaliação
+│   └── processos/              # Processos e mapeamentos internos
+│       ├── MAPEAMENTO_ESTRUTURA_MODULO_*.md  # Mapeamentos de estrutura
+│       └── README.md            # Documentação dos processos
+├── _module-summaries/       # Resumos dos módulos (coleção Jekyll)
+│   ├── module-1-summary.md
+│   ├── module-2-summary.md
+│   ├── module-3-summary.md
+│   └── module-4-summary.md
 ├── modules/                 # Conteúdo dos módulos
 │   ├── module-1/
 │   │   ├── index.md        # Página do módulo
@@ -195,14 +203,39 @@ crescidos-qualidade/
 │   │       ├── lesson-1-1.md
 │   │       └── exercises/  # Exercícios
 │   └── ...
+├── scripts/                 # Scripts utilitários
+│   ├── fix-all-liquid.py        # Script para corrigir sintaxe Liquid
+│   ├── force-rebuild.sh         # Script para rebuild completo
+│   ├── rebuild.sh               # Script para rebuild simples
+│   ├── regenerar-gemfile-lock.sh # Script para regenerar Gemfile.lock
+│   ├── start.sh                 # Script para iniciar servidor (Docker)
+│   └── README.md                # Documentação dos scripts
 ├── index.md                 # Página inicial
 ├── about.md                 # Página sobre
 ├── Gemfile                  # Dependências Ruby
-├── rebuild.sh               # Script para rebuild simples
-├── force-rebuild.sh         # Script para rebuild completo
-├── fix-all-liquid.py        # Script para corrigir sintaxe Liquid
 └── README.md                # Este arquivo
 ```
+
+### Scripts Utilitários
+
+Os scripts utilitários estão organizados na pasta `scripts/` para facilitar a manutenção e uso:
+
+- **`scripts/fix-all-liquid.py`**: Corrige sintaxe Liquid em arquivos Markdown
+- **`scripts/force-rebuild.sh`**: Força recompilação completa do Jekyll (limpa todos os caches)
+- **`scripts/rebuild.sh`**: Limpa cache e recompila o Jekyll
+- **`scripts/regenerar-gemfile-lock.sh`**: Regenera Gemfile.lock (útil para builds Docker)
+- **`scripts/start.sh`**: Inicia servidor Jekyll (usado em Docker)
+
+Consulte `scripts/README.md` para mais detalhes sobre uso e configuração dos scripts.
+
+### Documentação de Processos
+
+A pasta `documentos-staff/processos/` contém documentação interna sobre processos e mapeamentos:
+
+- **Mapeamentos de Estrutura**: Arquivos `MAPEAMENTO_ESTRUTURA_MODULO_*.md` documentam a estrutura completa de cada módulo
+- **Revisões**: Relatórios de revisão e padronização de conteúdo
+
+Consulte `documentos-staff/processos/README.md` para mais informações.
 
 ## 🎯 Como Utilizar
 

@@ -1320,7 +1320,9 @@ def preview_url():
 
 **Legenda**: 🔴 Crítica | 🟠 Alta | 🟡 Média
 
+{% raw %}
 ![Infográfico: OWASP Top 10 - Vulnerabilidades e Prevenção]({{ '/assets/module-1/images/infograficos/infografico-lesson-1-2.png' | relative_url }})
+{% endraw %}
 
 ### Contexto Específico por Setor
 
