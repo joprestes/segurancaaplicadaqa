@@ -9,13 +9,13 @@ level: "Básico"
 prerequisites: []
 exercises: []
 video:
-  file: "assets/videos/1.1-Introducao_Seguranca_QA.mp4"
+  file: "assets/module-1/videos/1.1-Introducao_Seguranca_QA.mp4"
   title: "Introdução à Segurança em QA"
-  thumbnail: "assets/images/podcasts/1.1-Introducao_Seguranca_QA.png"
+  thumbnail: "assets/module-1/images/infograficos/infografico-lesson1-1.png"
 permalink: /modules/fundamentos-seguranca-qa/lessons/introducao-seguranca-qa/
 ---
 
-# Aula 1.1: Introdução à Segurança em QA
+<!-- # Aula 1.1: Introdução à Segurança em QA -->
 
 ## 🎯 Objetivos de Aprendizado
 
@@ -178,7 +178,9 @@ Dev → QA → Security → Produção
 - Releases mais rápidos e seguros
 - Colaboração entre times
 
-![Infográfico: Segurança em QA - Ciclo de Desenvolvimento]({{ '/assets/images/infografico-lesson1-1.png' | relative_url }})
+{% raw %}
+![Infográfico: Segurança em QA - Ciclo de Desenvolvimento]({{ '/assets/module-1/images/infograficos/infografico-lesson1-1.png' | relative_url }})
+{% endraw %}
 
 ### 5. Quando Segurança Deve Ser Considerada
 

@@ -8,11 +8,11 @@ duration: "90 minutos"
 level: "Avançado"
 prerequisites: ["lesson-3-5"]
 exercises: []
-image: "assets/images/podcasts/4.1-DevSecOps_Cultura_Praticas.png"
+image: "assets/module-4/images/podcasts/4.1-DevSecOps_Cultura_Praticas.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/devsecops-cultura-praticas/
 ---
 
-# Aula 4.1: DevSecOps: Cultura e Práticas
+<!-- # Aula 4.1: DevSecOps: Cultura e Práticas -->
 
 ## 🎯 Objetivos de Aprendizado
 

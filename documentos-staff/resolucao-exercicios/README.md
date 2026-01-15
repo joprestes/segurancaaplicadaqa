@@ -42,7 +42,7 @@ title: "Exercício 1.2.1: Identificar Vulnerabilidades OWASP Top 10"
 lesson_id: lesson-1-2
 module: module-1
 difficulty: "Básico"
-last_updated: 2025-01-09
+last_updated: 2026-01-09
 ---
 ```
 
@@ -246,5 +246,5 @@ Para dúvidas sobre gabaritos ou correção:
 
 ---
 
-**Última atualização**: 2025-01-09  
+**Última atualização**: 2026-01-09  
 **Versão**: 1.0.0

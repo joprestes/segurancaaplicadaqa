@@ -7,11 +7,11 @@ lesson_id: lesson-3-4
 duration: "120 minutos"
 level: "Avançado"
 prerequisites: ["lesson-3-3"]
-image: "assets/images/podcasts/3.4-Seguranca_Aplicacoes_IA.png"
+image: "assets/module-3/images/podcasts/3.4-Seguranca_Aplicacoes_IA.png"
 permalink: /modules/seguranca-por-setor/lessons/seguranca-aplicacoes-ia/
 ---
 
-# Aula 3.4: Segurança em Aplicações de IA
+<!-- # Aula 3.4: Segurança em Aplicações de IA -->
 
 ## 🎯 Objetivos de Aprendizado
 

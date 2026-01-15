@@ -8,7 +8,7 @@ difficulty: "Informativo"
 permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercises-intro/
 lesson_url: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
 video:
-  file: "assets/videos/Exercicios_Jornada_Modelagem_Ameacas-lesson-1-4-exercises-intro.mp4"
+  file: "assets/module-1/videos/Exercicios_Jornada_Modelagem_Ameacas-lesson-1-4-exercises-intro.mp4"
   title: "Introdução aos Exercícios - Threat Modeling"
   description: "Vídeo explicativo sobre os exercícios práticos da aula Threat Modeling"
 ---

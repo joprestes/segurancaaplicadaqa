@@ -28,6 +28,8 @@ collections:
     output: true
   exercises:
     output: true
+  module-summaries:
+    output: true
 
 defaults:
   - scope:
@@ -48,12 +50,17 @@ defaults:
       path: "modules/*/lessons/exercises"
     values:
       layout: exercise
+  - scope:
+      path: "_module-summaries"
+      type: "module-summaries"
+    values:
+      layout: module-summary
 
 sass:
   style: compressed
 
 google_analytics:
-  id: "G-QGD9NFSVPG"
+  id: "G-385Q2D6X9T"
   enabled: true
 
 exclude:
