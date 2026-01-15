@@ -331,6 +331,196 @@ No SonarQube:
 
 ---
 
+## Desafios Adicionais (Para QAs Plenos)
+
+Se você já tem experiência básica com SonarQube, teste seus conhecimentos com estes desafios:
+
+### Desafio 1: Projeto com 500+ Vulnerabilities
+
+**Cenário**: Você herdou um projeto legado que tem 523 vulnerabilities (45 Critical, 128 High). O time quer começar a usar SonarQube, mas Quality Gate está bloqueando todo o desenvolvimento.
+
+**Tarefa**:
+1. Configure baseline: "Aceitar tudo que existe hoje"
+2. Configure Quality Gate que bloqueia apenas novas Critical/High vulnerabilities
+3. Crie estratégia de redução gradual (metas por trimestre)
+4. Documente processo de triagem para novas vulnerabilities
+
+**Entregáveis**:
+- Configuração de Quality Gate ajustada
+- Documento com estratégia de redução
+- Template de triagem para novas vulnerabilities
+
+### Desafio 2: Otimização de Performance
+
+**Cenário**: O scan está demorando 25 minutos para completar. O time reclama que está muito lento para usar em cada PR.
+
+**Tarefa**:
+1. Identifique causas do scan lento (projeto grande? muitas linguagens? regras complexas?)
+2. Otimize configuração para reduzir tempo de scan
+3. Configure scan diferencial (analisar apenas mudanças) se possível
+4. Documente otimizações realizadas
+
+**Entregáveis**:
+- Configuração otimizada (antes/depois)
+- Tempo de scan reduzido (meta: < 5 minutos)
+- Documentação de otimizações
+
+### Desafio 3: Integração Sem Quebrar Pipeline
+
+**Cenário**: Projeto já tem pipeline CI/CD complexo com múltiplas etapas. Você precisa adicionar SonarQube sem quebrar o fluxo existente.
+
+**Tarefa**:
+1. Analise pipeline existente (.github/workflows/ ou .gitlab-ci.yml)
+2. Integre SonarQube como etapa adicional (não bloqueia inicialmente)
+3. Configure Quality Gate que falha apenas Critical
+4. Teste integração com PR real
+5. Gradualmente aperte Quality Gate após time se acostumar
+
+**Entregáveis**:
+- Pipeline atualizado com SonarQube
+- Documentação de integração
+- Plano de evolução do Quality Gate
+
+---
+
+## Troubleshooting: Problemas Comuns e Soluções
+
+### Problema 1: SonarQube Não Inicia (Docker)
+
+**Sintoma**: `docker ps` mostra container, mas `http://localhost:9000` não responde
+
+**Soluções**:
+```bash
+# 1. Verificar logs para erros
+docker logs sonarqube
+
+# 2. Verificar se porto está disponível
+lsof -i :9000  # macOS/Linux
+netstat -ano | findstr :9000  # Windows
+
+# 3. Verificar memória (SonarQube precisa mínimo 2GB)
+docker stats sonarqube
+
+# 4. Se erro de memória, aumentar limite:
+docker run -d --name sonarqube \
+  -p 9000:9000 \
+  -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
+  -v sonarqube_data:/opt/sonarqube/data \
+  sonarqube:lts-community
+
+# 5. Reiniciar container
+docker restart sonarqube
+```
+
+### Problema 2: Scan Falha com "Invalid Token"
+
+**Sintoma**: `ERROR: Error during SonarQube Scanner execution: Invalid token`
+
+**Soluções**:
+```bash
+# 1. Verificar se token está correto
+echo $SONAR_TOKEN  # Deve mostrar token
+
+# 2. Verificar se token não expirou (gerar novo)
+# Acessar SonarQube → My Account → Security → Generate new token
+
+# 3. Verificar permissões do token
+# Token deve ter permissão "Execute Analysis"
+
+# 4. Verificar URL do SonarQube
+echo $SONAR_HOST_URL  # Deve ser http://localhost:9000 ou URL correta
+```
+
+### Problema 3: Scan Muito Lento (>10 minutos)
+
+**Sintoma**: Scan demora muito tempo para completar
+
+**Soluções**:
+```properties
+# sonar-project.properties
+
+# 1. Excluir arquivos grandes/não relevantes
+sonar.exclusions=**/*.min.js,**/*.bundle.js,**/vendor/**,**/node_modules/**
+
+# 2. Separar código de testes
+sonar.tests=test
+sonar.test.inclusions=**/*Test.java
+
+# 3. Analisar apenas código fonte principal
+sonar.sources=src/main  # Ao invés de src/
+
+# 4. Usar modo preview para análise rápida (sem histórico)
+# Adicionar no comando: -Dsonar.analysis.mode=preview
+```
+
+### Problema 4: Muitos False Positives
+
+**Sintoma**: SAST flagga muitas vulnerabilities que não são reais
+
+**Soluções**:
+1. **Configurar exceções documentadas**:
+   ```java
+   @SuppressWarnings("java:S2068") // Hardcoded credential - false positive
+   // Razão: Password é para teste, não usado em produção
+   String testPassword = "changeme123";
+   ```
+
+2. **Desabilitar regras não aplicáveis**:
+   - SonarQube → Quality Profiles → Desabilitar regras específicas
+   - Criar profile customizado para seu projeto
+
+3. **Ajustar severidade de regras**:
+   - SonarQube → Quality Profiles → Mudar severidade de regras que geram muitos false positives
+
+### Problema 5: Quality Gate Bloqueia Tudo
+
+**Sintoma**: Pipeline sempre falha por causa de Quality Gate
+
+**Soluções**:
+```yaml
+# Estratégia Gradual:
+
+# Semana 1-2: Muito Permissivo
+Quality Gate:
+  - Security Rating: Qualquer
+  - New Vulnerabilities: 0 Critical apenas
+  
+# Semana 3-4: Médio
+Quality Gate:
+  - Security Rating: A ou B
+  - New Vulnerabilities: 0 Critical, máx 10 High
+  
+# Mês 2+: Rigoroso
+Quality Gate:
+  - Security Rating: A ou B
+  - New Vulnerabilities: 0 Critical, máx 5 High
+  - Security Hotspots: 0 Critical/High novas
+```
+
+### Problema 6: Scan Não Encontra Vulnerabilidades Óbvias
+
+**Sintoma**: Código vulnerável conhecido não é flagado
+
+**Soluções**:
+1. **Verificar Quality Profile ativo**:
+   - SonarQube → Projeto → Quality Profiles
+   - Verificar se regras de segurança estão ativas
+
+2. **Verificar linguagem detectada**:
+   - SonarQube → Projeto → Code
+   - Verificar se linguagem está sendo detectada corretamente
+
+3. **Verificar exclusões**:
+   - SonarQube → Projeto → Settings → Exclusions
+   - Verificar se arquivo não está sendo excluído
+
+4. **Executar scan com debug**:
+   ```bash
+   sonar-scanner -X  # Modo verbose/debug
+   ```
+
+---
+
 ## Dicas
 
 1. **Primeira vez com SonarQube**: Pode levar 1-2 minutos para inicializar completamente
@@ -339,6 +529,9 @@ No SonarQube:
 4. **Erro de conexão**: Verifique se SonarQube está rodando: `docker ps | grep sonarqube`
 5. **Linguagem não suportada**: Verifique linguagens suportadas: https://docs.sonarqube.org/latest/analysis/languages/overview/
 6. **Muitos findings**: Não se assuste! É normal ter muitos findings no primeiro scan. Priorize por risco real.
+7. **Quality Gate muito rígido**: Comece permissivo e aperte gradualmente
+8. **Performance lenta**: Exclua arquivos não relevantes, separe código de testes
+9. **False positives**: Configure exceções documentadas, ajuste regras
 
 ---
 
