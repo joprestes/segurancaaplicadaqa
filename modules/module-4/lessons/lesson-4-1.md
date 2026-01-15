@@ -12,7 +12,7 @@ image: "assets/images/podcasts/4.1-DevSecOps_Cultura_Praticas.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/devsecops-cultura-praticas/
 ---
 
-# Aula 4.1: DevSecOps: Cultura e Práticas
+<!-- # Aula 4.1: DevSecOps: Cultura e Práticas -->
 
 ## 🎯 Objetivos de Aprendizado
 

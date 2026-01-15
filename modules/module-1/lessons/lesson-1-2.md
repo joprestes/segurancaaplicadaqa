@@ -21,7 +21,7 @@ video:
 permalink: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 ---
 
-# Aula 1.2: OWASP Top 10 e Principais Vulnerabilidades
+<!-- # Aula 1.2: OWASP Top 10 e Principais Vulnerabilidades -->
 
 ## 🎯 Objetivos de Aprendizado
 

@@ -11,7 +11,7 @@ image: "assets/images/podcasts/2.4-Automacao_Testes_Seguranca.png"
 permalink: /modules/testes-seguranca-pratica/lessons/automacao-testes-seguranca/
 ---
 
-# Aula 2.4: Automação de Testes de Segurança
+<!-- # Aula 2.4: Automação de Testes de Segurança -->
 
 ## 🎯 Objetivos de Aprendizado
 

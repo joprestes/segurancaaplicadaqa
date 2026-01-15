@@ -11,7 +11,7 @@ image: "assets/images/podcasts/3.2-Seguranca_Setor_Educacional.png"
 permalink: /modules/seguranca-por-setor/lessons/seguranca-setor-educacional/
 ---
 
-# Aula 3.2: Segurança no Setor Educacional
+<!-- # Aula 3.2: Segurança no Setor Educacional -->
 
 ## 🎯 Objetivos de Aprendizado
 

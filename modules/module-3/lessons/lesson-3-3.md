@@ -11,7 +11,7 @@ image: "assets/images/podcasts/3.3-Seguranca_Ecommerce.png"
 permalink: /modules/seguranca-por-setor/lessons/seguranca-ecommerce/
 ---
 
-# Aula 3.3: Segurança em Ecommerce
+<!-- # Aula 3.3: Segurança em Ecommerce -->
 
 ## 🎯 Objetivos de Aprendizado
 

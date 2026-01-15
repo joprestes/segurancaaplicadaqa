@@ -11,7 +11,7 @@ image: "assets/images/podcasts/3.1-Seguranca_Setor_Financeiro.png"
 permalink: /modules/seguranca-por-setor/lessons/seguranca-setor-financeiro/
 ---
 
-# Aula 3.1: Segurança no Setor Financeiro
+<!-- # Aula 3.1: Segurança no Setor Financeiro -->
 
 ## 🎯 Objetivos de Aprendizado
 

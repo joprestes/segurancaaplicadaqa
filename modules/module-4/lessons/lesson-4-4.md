@@ -12,7 +12,7 @@ image: "assets/images/podcasts/4.4-Secrets_Management.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/secrets-management/
 ---
 
-# Aula 4.4: Secrets Management
+<!-- # Aula 4.4: Secrets Management -->
 
 ## 🎯 Objetivos de Aprendizado
 

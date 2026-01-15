@@ -22,7 +22,7 @@ video:
 permalink: /modules/fundamentos-seguranca-qa/lessons/threat-modeling/
 ---
 
-# Aula 1.4: Threat Modeling e Análise de Riscos
+<!-- # Aula 1.4: Threat Modeling e Análise de Riscos -->
 
 ## 🎯 Objetivos de Aprendizado
 

@@ -21,7 +21,7 @@ image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
 permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 ---
 
-# Aula 2.1: SAST: Static Application Security Testing
+<!-- # Aula 2.1: SAST: Static Application Security Testing -->
 
 ## 🎯 Objetivos de Aprendizado
 
@@ -69,7 +69,7 @@ Na segurança de software:
 A análise estática de código existe desde os primórdios da programação, mas SAST como disciplina específica de segurança evoluiu significativamente:
 
 ```
-Anos 1970-1980 ──────────────────────────────────────────── 2024+
+Anos 1970-1980 ──────────────────────────────────────────── 2026+
  │                                                             │
  ├─ 1970s    📦 Lint (Original)                              │
  │          ┌─────────────────────────────────────┐          │
@@ -107,7 +107,7 @@ Anos 1970-1980 ─────────────────────�
  │          │ • Developer-friendly                │          │
  │          └─────────────────────────────────────┘          │
  │                                                             │
- └─ 2024+    🚀 SAST Moderno                                  │
+ └─ 2026+    🚀 SAST Moderno                                  │
             ┌─────────────────────────────────────┐          │
             │ • AI/ML para reduzir false positives│          │
             │ • Integração nativa com CI/CD       │          │
@@ -141,7 +141,7 @@ Anos 1970-1980 ─────────────────────�
 └─────────────────────────────────────────────────────────┘
 ```
 
-**Dados Reais (2024)**:
+**Dados Reais (2025)**:
 - Vulnerabilidade encontrada por **SAST durante desenvolvimento**: $50-200 para corrigir
 - Vulnerabilidade encontrada em **code review manual**: $200-500
 - Vulnerabilidade encontrada em **testes de segurança**: $500-2,000
@@ -256,7 +256,7 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
    // Exemplo: Supressão documentada
    @SuppressWarnings("java:S2068") // Hardcoded credential - false positive
    // Razão: Password é para teste unitário apenas, não é usado em produção
-   // Revisado por: QA Team em 2024-01-15
+   // Revisado por: QA Team em 2026-01-14
    // Issue: SEC-123 (documentado)
    String testPassword = "changeme123";
    ```
@@ -1481,7 +1481,7 @@ db.execute(query)  # ← SQL Injection confirmado
 - **OWASP Top 10**: A03:2021 – Injection
 - **Localização**: `src/services/UserService.java:45`
 - **Ferramenta**: SonarQube
-- **Data do Finding**: 2024-01-15
+- **Data do Finding**: 2026-01-14
 
 ### Código Flagado
 ```java
@@ -1555,7 +1555,7 @@ public User getUser(@PathVariable String id) {
 ### Tracking
 - **Issue**: SEC-1234
 - **Responsável**: João Silva (Dev)
-- **Prazo**: Corrigido em 2024-01-15 (mesmo dia)
+- **Prazo**: Corrigido em 2026-01-14 (mesmo dia)
 - **Status**: ✅ RESOLVIDO
 
 ### Lições Aprendidas
@@ -2428,86 +2428,6 @@ def load_model(model_path):
 3. Regras customizadas para ML patterns
 4. Validação de segurança de modelos
 ```
-
----
-
-## 🎓 Exercícios Práticos
-
-### Exercício 1: Configurar SonarQube em Projeto Próprio (Básico)
-
-**Objetivo**: Configurar SonarQube do zero em um projeto existente.
-
-**Descrição**:
-1. Instale SonarQube usando Docker
-2. Configure projeto no SonarQube
-3. Execute primeiro scan
-4. Analise resultados e identifique top 5 vulnerabilidades
-
-**Arquivo**: `exercises/exercise-2-1-1-sonarqube-setup.md`
-
----
-
-### Exercício 2: Criar Regras Customizadas Semgrep (Intermediário)
-
-**Objetivo**: Criar regras customizadas para padrões específicos do seu projeto.
-
-**Descrição**:
-1. Identifique padrão inseguro comum no seu código
-2. Crie regra Semgrep para detectar esse padrão
-3. Teste regra em código existente
-4. Documente regra e adicione ao repositório
-
-**Arquivo**: `exercises/exercise-2-1-2-semgrep-custom-rules.md`
-
----
-
-### Exercício 3: Integrar SAST no CI/CD (Intermediário)
-
-**Objetivo**: Integrar ferramentas SAST no pipeline de CI/CD.
-
-**Descrição**:
-1. Escolha ferramenta SAST apropriada para seu projeto
-2. Configure no GitHub Actions / GitLab CI / Jenkins
-3. Configure Quality Gate que bloqueia merge se Critical encontrado
-4. Teste pipeline com código vulnerável
-
-**Arquivo**: `exercises/exercise-2-1-3-sast-cicd.md`
-
----
-
-### Exercício 4: Validar e Priorizar Findings SAST (Avançado)
-
-**Objetivo**: Criar processo de triagem de findings SAST.
-
-**Descrição**:
-1. Execute SAST em projeto real
-2. Para cada finding Critical/High:
-   - Valide se é True Positive ou False Positive
-   - Analise contexto e impacto
-   - Priorize por risco real
-   - Documente decisão
-3. Crie dashboard de vulnerabilidades priorizadas
-
-**Arquivo**: `exercises/exercise-2-1-4-validate-findings.md`
-
----
-
-### Exercício 5: Comparar Ferramentas SAST (Avançado)
-
-**Objetivo**: Comparar diferentes ferramentas SAST no mesmo projeto.
-
-**Descrição**:
-1. Execute 2-3 ferramentas SAST diferentes no mesmo projeto
-2. Compare:
-   - Número de findings por severidade
-   - False positive rate (validação manual)
-   - Tempo de execução
-   - Facilidade de configuração
-   - Custo
-3. Crie relatório comparativo com recomendação
-
-**Arquivo**: `exercises/exercise-2-1-5-compare-sast-tools.md`
-
 ---
 
 ## 📚 Referências Externas

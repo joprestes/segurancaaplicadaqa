@@ -12,7 +12,7 @@ image: "assets/images/podcasts/4.3-Container_Security_Kubernetes.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/container-security-kubernetes/
 ---
 
-# Aula 4.3: Container Security e Kubernetes
+<!-- # Aula 4.3: Container Security e Kubernetes -->
 
 ## 🎯 Objetivos de Aprendizado
 

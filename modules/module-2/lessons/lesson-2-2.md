@@ -11,7 +11,7 @@ image: "assets/images/podcasts/2.2-DAST_Testes_Dinamicos.png"
 permalink: /modules/testes-seguranca-pratica/lessons/dast-testes-dinamicos/
 ---
 
-# Aula 2.2: DAST: Dynamic Application Security Testing
+<!-- # Aula 2.2: DAST: Dynamic Application Security Testing -->
 
 ## 🎯 Objetivos de Aprendizado
 
