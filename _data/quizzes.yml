@@ -512,3 +512,109 @@ quizzes:
           - "Ignorar compliance"
         correct: 1
         explanation: "Abordagem eficiente identifica requisitos comuns (como LGPD e segurança básica) e cria checklists específicos por setor, reutilizando testes quando possível."
+
+  # ============================================================================
+  # MÓDULO 2: Testes de Segurança na Prática
+  # ============================================================================
+
+  - lesson_id: lesson-2-1
+    questions:
+      - id: q1
+        question: "O que é SAST (Static Application Security Testing)?"
+        options:
+          - "Teste de segurança que analisa código-fonte sem executar a aplicação"
+          - "Teste de segurança que analisa aplicação em execução"
+          - "Teste de segurança que analisa apenas dependências"
+          - "Teste de segurança que analisa apenas configurações"
+        correct: 0
+        explanation: "SAST analisa código-fonte, bytecode ou binários sem executar a aplicação, identificando vulnerabilidades através de análise estática do código."
+      
+      - id: q2
+        question: "Qual é a principal diferença entre SAST e DAST?"
+        options:
+          - "SAST analisa código estático, DAST analisa aplicação em execução"
+          - "SAST é mais caro que DAST"
+          - "SAST só funciona para aplicações web"
+          - "Não há diferença"
+        correct: 0
+        explanation: "SAST analisa código estático (sem executar), enquanto DAST testa aplicação em execução (runtime). SAST encontra problemas cedo e barato, DAST encontra problemas de runtime."
+      
+      - id: q3
+        question: "Qual ferramenta SAST é conhecida por ser muito rápida e usar 'rules as code' (regras em YAML)?"
+        options:
+          - "SonarQube"
+          - "Semgrep"
+          - "Checkmarx"
+          - "Bandit"
+        correct: 1
+        explanation: "Semgrep é conhecido por ser muito rápido (segundos para projetos grandes) e usar 'rules as code' - regras escritas em YAML que são fáceis de criar e customizar."
+      
+      - id: q4
+        question: "Qual tipo de análise SAST rastreia dados desde entrada (source) até uso perigoso (sink), verificando se foram sanitizados?"
+        options:
+          - "Pattern Matching"
+          - "Data Flow Analysis"
+          - "Control Flow Analysis"
+          - "Taint Analysis"
+        correct: 3
+        explanation: "Taint Analysis é um tipo especializado de Data Flow Analysis que rastreia especificamente dados 'tainted' (contaminados/não confiáveis) desde origem até uso perigoso, verificando se foram sanitizados."
+      
+      - id: q5
+        question: "O que é um 'False Positive' em SAST?"
+        options:
+          - "Vulnerabilidade real que foi detectada corretamente"
+          - "SAST reporta vulnerabilidade que não existe na prática"
+          - "Vulnerabilidade crítica encontrada"
+          - "Vulnerabilidade que foi corrigida"
+        correct: 1
+        explanation: "False Positive é quando SAST reporta uma vulnerabilidade que não existe na prática. É comum em SAST (20-40% dos findings podem ser false positives) e requer validação manual."
+      
+      - id: q6
+        question: "Qual é o custo médio de corrigir uma vulnerabilidade encontrada por SAST durante desenvolvimento vs em produção?"
+        options:
+          - "Mesmo custo em ambos os casos"
+          - "SAST: $50-200, Produção: $50,000-500,000+ (250-10,000x mais caro em produção)"
+          - "SAST: $500-2,000, Produção: $5,000-10,000"
+          - "SAST é mais caro que produção"
+        correct: 1
+        explanation: "Corrigir vulnerabilidade encontrada por SAST durante desenvolvimento custa $50-200, enquanto em produção (após breach) pode custar $50,000-500,000+. SAST economiza 250-10,000x mais."
+      
+      - id: q7
+        question: "O que é Quality Gate em SonarQube?"
+        options:
+          - "Porta de entrada do SonarQube"
+          - "Critérios de qualidade que bloqueiam merge se não passarem (ex: 0 Critical vulnerabilities)"
+          - "Relatório de qualidade"
+          - "Ferramenta de análise"
+        correct: 1
+        explanation: "Quality Gate são critérios de qualidade configuráveis (ex: 0 Critical vulnerabilities, Security Rating A ou B) que podem bloquear merge de código se não passarem, prevenindo que código vulnerável chegue à branch principal."
+      
+      - id: q8
+        question: "Qual é a melhor estratégia para integrar SAST em projeto legado com 500+ vulnerabilities?"
+        options:
+          - "Corrigir tudo de uma vez antes de usar SAST"
+          - "Criar baseline (aceitar tudo que existe hoje) e focar apenas em novas vulnerabilities"
+          - "Ignorar todas as vulnerabilities"
+          - "Desabilitar SAST"
+        correct: 1
+        explanation: "Para projeto legado com muitas vulnerabilities, a melhor estratégia é criar baseline (aceitar tudo que existe hoje) e configurar Quality Gate para bloquear apenas novas Critical/High vulnerabilities. Aperte gradualmente ao longo do tempo."
+      
+      - id: q9
+        question: "Qual ferramenta SAST é específica para Python e procura por problemas de segurança comuns?"
+        options:
+          - "SonarQube"
+          - "Semgrep"
+          - "Bandit"
+          - "Checkmarx"
+        correct: 2
+        explanation: "Bandit é uma ferramenta SAST específica para Python que procura por problemas de segurança comuns em código Python. Outras ferramentas específicas: Brakeman (Ruby), ESLint Security (JavaScript), FindSecBugs (Java)."
+      
+      - id: q10
+        question: "Em um contexto CWI Financeiro, qual é a priorização CORRETA para vulnerabilidades SAST encontradas?"
+        options:
+          - "Todas têm mesma prioridade"
+          - "Priorizar por severidade SAST (Critical sempre P1)"
+          - "Priorizar por risco real: Critical + Em produção + Dados sensíveis = P1 (IMEDIATO), considerar contexto de negócio"
+          - "Apenas corrigir Low e Medium"
+        correct: 2
+        explanation: "A priorização correta considera severidade SAST, mas também exploitability, impacto, contexto (produção vs desenvolvimento) e contexto de negócio. Critical + Em produção + Dados sensíveis financeiros = P1 IMEDIATO."
