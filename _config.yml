@@ -28,6 +28,8 @@ collections:
     output: true
   exercises:
     output: true
+  module-summaries:
+    output: true
 
 defaults:
   - scope:
@@ -48,6 +50,11 @@ defaults:
       path: "modules/*/lessons/exercises"
     values:
       layout: exercise
+  - scope:
+      path: "_module-summaries"
+      type: "module-summaries"
+    values:
+      layout: module-summary
 
 sass:
   style: compressed
