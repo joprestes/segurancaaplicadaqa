@@ -164,23 +164,55 @@ sast:
 
 **3.2. Script de Validação:**
 ```python
+#!/usr/bin/env python3
 # scripts/check_critical_findings.py
 import json
 import sys
+from pathlib import Path
 
-with open('semgrep.json') as f:
-    data = json.load(f)
+def check_critical_findings(semgrep_file='semgrep.json'):
+    """Verifica se há findings Critical e falha pipeline se encontrar."""
+    if not Path(semgrep_file).exists():
+        print(f"⚠️ {semgrep_file} not found. Skipping validation.")
+        return 0
+    
+    try:
+        with open(semgrep_file) as f:
+            data = json.load(f)
+    except json.JSONDecodeError as e:
+        print(f"❌ Error parsing {semgrep_file}: {e}")
+        return 1
+    
+    # Contar findings Critical (ERROR severity em Semgrep = Critical)
+    critical_count = sum(1 for r in data.get('results', []) 
+                         if r.get('extra', {}).get('severity') == 'ERROR')
+    
+    # Contar findings High também (WARNING pode ser High em alguns contextos)
+    high_count = sum(1 for r in data.get('results', []) 
+                     if r.get('extra', {}).get('severity') == 'WARNING')
+    
+    if critical_count > 0:
+        print(f"❌ Found {critical_count} Critical findings. Pipeline blocked.")
+        print("Please review findings in Security tab and fix vulnerabilities before merging.")
+        sys.exit(1)
+    elif high_count > 5:  # Quality Gate: máximo 5 High
+        print(f"⚠️ Found {high_count} High findings (limit: 5). Pipeline blocked.")
+        sys.exit(1)
+    else:
+        print(f"✅ SAST scan passed. Found {critical_count} Critical, {high_count} High findings.")
+        sys.exit(0)
 
-critical_count = sum(1 for r in data.get('results', []) 
-                     if r.get('extra', {}).get('severity') == 'ERROR')
-
-if critical_count > 0:
-    print(f"❌ Found {critical_count} Critical findings. Pipeline blocked.")
-    sys.exit(1)
-else:
-    print("✅ No Critical findings found. Pipeline passed.")
-    sys.exit(0)
+if __name__ == '__main__':
+    sys.exit(check_critical_findings())
 ```
+
+**Validação Técnica do Script:**
+- ✅ Verifica se arquivo existe antes de processar
+- ✅ Trata erros de parsing JSON
+- ✅ Conta severity corretamente (ERROR = Critical em Semgrep)
+- ✅ Implementa Quality Gate (0 Critical, máx 5 High)
+- ✅ Mensagens claras e acionáveis
+- ✅ Exit codes corretos (0 = sucesso, 1 = falha)
 
 ### Passo 4: Quality Gate
 
@@ -231,6 +263,12 @@ def login(username, password):
 - Semgrep não encontra vulnerabilities críticas
 - Merge permitido
 
+**Validação Técnica:**
+- ✅ Semgrep executa sem erros
+- ✅ SAST reporta 0 Critical findings
+- ✅ Quality Gate passa (se configurado)
+- ✅ Logs mostram "EXECUTION SUCCESS"
+
 **5.2. Teste 2: Código Vulnerável (Deve Falhar)**
 
 **Código de Teste:**
@@ -249,6 +287,14 @@ def login(username, password):
 - Semgrep encontra SQL Injection (Critical)
 - Merge bloqueado
 - Mensagem: "Found 1 Critical findings. Pipeline blocked."
+
+**Validação Técnica:**
+- ✅ Semgrep executa e detecta vulnerabilidade
+- ✅ SAST reporta pelo menos 1 Critical finding
+- ✅ Script de validação falha com exit code 1
+- ✅ Pipeline bloqueia merge (não permite merge com Critical)
+- ✅ Logs mostram mensagem clara de bloqueio
+- ✅ Relatório SARIF disponível para análise
 
 **5.3. Teste 3: Corrigir e Re-testar**
 

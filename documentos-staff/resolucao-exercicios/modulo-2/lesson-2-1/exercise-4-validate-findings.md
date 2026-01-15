@@ -174,6 +174,12 @@ def test_default_password():
 | High | Média | Dados sensíveis | Não | P3 - Próximo Sprint | 2 semanas |
 | Medium | Alta | Dados sensíveis | Sim | P3 - Próximo Sprint | 2 semanas |
 
+**Validação Técnica da Priorização:**
+- ✅ Priorização considera múltiplos fatores (não apenas severidade SAST)
+- ✅ Contexto de negócio considerado (setor, compliance)
+- ✅ Justificativa documentada para cada prioridade
+- ✅ Prazos realistas considerando capacidade do time
+
 **Solução Esperada - Dashboard:**
 ```markdown
 # Dashboard de Vulnerabilidades SAST
