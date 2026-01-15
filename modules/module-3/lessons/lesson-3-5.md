@@ -11,7 +11,7 @@ image: "assets/images/podcasts/3.5-APIs_Microservicos_Seguranca.png"
 permalink: /modules/seguranca-por-setor/lessons/apis-microservicos-seguranca/
 ---
 
-# Aula 3.5: APIs e Microserviços: Segurança Distribuída
+<!-- # Aula 3.5: APIs e Microserviços: Segurança Distribuída -->
 
 ## 🎯 Objetivos de Aprendizado
 

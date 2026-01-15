@@ -22,7 +22,7 @@ video:
 permalink: /modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/
 ---
 
-# Aula 1.5: Compliance e Regulamentações (LGPD, PCI-DSS, SOC2)
+<!-- # Aula 1.5: Compliance e Regulamentações (LGPD, PCI-DSS, SOC2) -->
 
 ## 🎯 Objetivos de Aprendizado
 

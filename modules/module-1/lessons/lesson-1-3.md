@@ -21,7 +21,7 @@ video:
 permalink: /modules/fundamentos-seguranca-qa/lessons/shift-left-security/
 ---
 
-# Aula 1.3: Shift-Left Security - Segurança desde o Início
+<!-- # Aula 1.3: Shift-Left Security - Segurança desde o Início -->
 
 ## 🎯 Objetivos de Aprendizado
 

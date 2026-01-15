@@ -12,7 +12,7 @@ image: "assets/images/podcasts/4.5-Monitoramento_Resposta_Incidentes.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/monitoramento-resposta-incidentes/
 ---
 
-# Aula 4.5: Monitoramento e Resposta a Incidentes
+<!-- # Aula 4.5: Monitoramento e Resposta a Incidentes -->
 
 ## 🎯 Objetivos de Aprendizado
 
@@ -53,7 +53,7 @@ Ao final desta aula, você será capaz de:
 **Exemplo de Log**:
 ```json
 {
-  "timestamp": "2024-01-15T10:30:00Z",
+  "timestamp": "2026-01-14T10:30:00Z",
   "event_type": "authentication",
   "user": "john.doe@example.com",
   "ip_address": "192.168.1.100",
@@ -74,7 +74,7 @@ Ao final desta aula, você será capaz de:
 **Exemplo de Log**:
 ```json
 {
-  "timestamp": "2024-01-15T11:00:00Z",
+  "timestamp": "2026-01-14T11:00:00Z",
   "event_type": "configuration_change",
   "user": "admin@example.com",
   "resource": "database/permissions",
@@ -95,7 +95,7 @@ Ao final desta aula, você será capaz de:
 **Exemplo de Log**:
 ```json
 {
-  "timestamp": "2024-01-15T14:30:00Z",
+  "timestamp": "2026-01-14T14:30:00Z",
   "event_type": "data_access",
   "user": "analyst@example.com",
   "resource": "database/customers",
@@ -117,7 +117,7 @@ Ao final desta aula, você será capaz de:
 **Exemplo de Log**:
 ```json
 {
-  "timestamp": "2024-01-15T16:00:00Z",
+  "timestamp": "2026-01-14T16:00:00Z",
   "event_type": "suspicious_activity",
   "ip_address": "203.0.113.42",
   "activity": "sql_injection_attempt",

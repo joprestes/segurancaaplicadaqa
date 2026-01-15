@@ -15,7 +15,7 @@ video:
 permalink: /modules/fundamentos-seguranca-qa/lessons/introducao-seguranca-qa/
 ---
 
-# Aula 1.1: Introdução à Segurança em QA
+<!-- # Aula 1.1: Introdução à Segurança em QA -->
 
 ## 🎯 Objetivos de Aprendizado
 

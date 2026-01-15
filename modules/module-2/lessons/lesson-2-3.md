@@ -11,7 +11,7 @@ image: "assets/images/podcasts/2.3-Pentest_Basico.png"
 permalink: /modules/testes-seguranca-pratica/lessons/pentest-basico/
 ---
 
-# Aula 2.3: Testes de Penetração (Pentest) Básico
+<!-- # Aula 2.3: Testes de Penetração (Pentest) Básico -->
 
 ## 🎯 Objetivos de Aprendizado
 
