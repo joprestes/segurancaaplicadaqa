@@ -8,7 +8,7 @@ duration: "90 minutos"
 level: "Avançado"
 prerequisites: ["lesson-4-4"]
 exercises: []
-image: "assets/images/podcasts/4.5-Monitoramento_Resposta_Incidentes.png"
+image: "assets/module-4/images/podcasts/4.5-Monitoramento_Resposta_Incidentes.png"
 permalink: /modules/seguranca-cicd-devsecops/lessons/monitoramento-resposta-incidentes/
 ---
 

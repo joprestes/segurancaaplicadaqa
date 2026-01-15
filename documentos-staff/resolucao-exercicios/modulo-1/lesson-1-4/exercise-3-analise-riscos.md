@@ -4,7 +4,7 @@ title: "Exercício 1.4.3: Análise de Riscos com DREAD"
 lesson_id: lesson-1-4
 module: module-1
 difficulty: "Intermediário"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.4.3: Análise de Riscos com DREAD
@@ -304,6 +304,6 @@ Este exercício é fundamental porque:
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

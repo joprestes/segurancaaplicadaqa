@@ -4,7 +4,7 @@ title: "Exercício 1.5.5: Auditoria QA - Preparação e Execução"
 lesson_id: lesson-1-5
 module: module-1
 difficulty: "Avançado"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.5.5: Auditoria QA - Preparação e Execução
@@ -37,40 +37,40 @@ Este exercício tem como objetivo **preparar e executar uma auditoria de complia
 ### Evidências Documentais
 - [ ] **Política de Segurança**: documento "politica-seguranca-v1.0.pdf"
   - **Localização**: Confluence /docs/politicas/seguranca
-  - **Data**: 2025-01-10
+  - **Data**: 2026-01-10
   - **Versão**: 1.0
   - **Status**: ✅ Atualizado
 
 - [ ] **Procedimento de Criptografia**: documento "procedimento-criptografia-v1.0.pdf"
   - **Localização**: Confluence /docs/procedimentos/criptografia
-  - **Data**: 2025-01-10
+  - **Data**: 2026-01-10
   - **Versão**: 1.0
   - **Status**: ✅ Atualizado
 
 ### Evidências Técnicas
-- [ ] **Screenshot: Certificado SSL**: "ssl-certificate-2025-01-15.png"
+- [ ] **Screenshot: Certificado SSL**: "ssl-certificate-2026-01-14.png"
   - **Descrição**: Certificado SSL válido, TLS 1.2+, emitido por Let's Encrypt
   - **Localização**: Screenshots/ssl-certificate.png
-  - **Data**: 2025-01-15
+  - **Data**: 2026-01-14
   - **Status**: ✅ Válido
 
-- [ ] **Log: Hash de Senhas no Banco**: "hash-senhas-bcrypt-2025-01-15.log"
+- [ ] **Log: Hash de Senhas no Banco**: "hash-senhas-bcrypt-2026-01-14.log"
   - **Descrição**: Query no banco mostrando senhas em hash bcrypt (não texto plano)
   - **Localização**: Logs/hash-senhas.log
-  - **Data**: 2025-01-15
+  - **Data**: 2026-01-14
   - **Status**: ✅ Confirmado
 
 ### Evidências de Teste
-- [ ] **Teste: HTTPS Obrigatório**: "test-https-redirect-2025-01-15.json"
+- [ ] **Teste: HTTPS Obrigatório**: "test-https-redirect-2026-01-14.json"
   - **Nome do Teste**: test_https_redirect
   - **Resultado**: ✅ Passou
-  - **Data**: 2025-01-15
+  - **Data**: 2026-01-14
   - **Evidência**: Resultado do teste mostrando redirecionamento automático
 
-- [ ] **Teste: Controle de Acesso**: "test-idor-prevention-2025-01-15.json"
+- [ ] **Teste: Controle de Acesso**: "test-idor-prevention-2026-01-14.json"
   - **Nome do Teste**: test_idor_prevention
   - **Resultado**: ✅ Passou
-  - **Data**: 2025-01-15
+  - **Data**: 2026-01-14
   - **Evidência**: Resultado do teste mostrando 403 Forbidden para acesso não autorizado
 
 ### Validação
@@ -96,7 +96,7 @@ Este exercício tem como objetivo **preparar e executar uma auditoria de complia
 
 ## Informações Gerais
 - **Aplicação**: Plataforma de E-learning
-- **Data**: 2025-01-15
+- **Data**: 2026-01-14
 - **Auditor**: Equipe QA
 - **Escopo**: Compliance LGPD (todos os 10 princípios)
 
@@ -296,7 +296,7 @@ Dev Backend + QA
 
 ## Informações Gerais
 - **Aplicação**: Plataforma de E-learning
-- **Data da Auditoria**: 2025-01-15
+- **Data da Auditoria**: 2026-01-14
 - **Auditor**: Equipe QA
 - **Escopo**: Compliance LGPD (todos os 10 princípios)
 - **Metodologia**: Checklist de compliance + validação técnica
@@ -484,6 +484,6 @@ Este exercício é fundamental porque:
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

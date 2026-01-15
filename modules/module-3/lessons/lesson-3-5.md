@@ -7,7 +7,7 @@ lesson_id: lesson-3-5
 duration: "120 minutos"
 level: "Avançado"
 prerequisites: ["lesson-3-4"]
-image: "assets/images/podcasts/3.5-APIs_Microservicos_Seguranca.png"
+image: "assets/module-3/images/podcasts/3.5-APIs_Microservicos_Seguranca.png"
 permalink: /modules/seguranca-por-setor/lessons/apis-microservicos-seguranca/
 ---
 

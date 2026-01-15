@@ -8,7 +8,7 @@ difficulty: "Informativo"
 permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercises-intro/
 lesson_url: /modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/
 video:
-  file: "assets/videos/Exercicios_Guia_Pratico_Compliance-lesson-1-5-exercises-intro.mp4"
+  file: "assets/module-1/videos/Exercicios_Guia_Pratico_Compliance-lesson-1-5-exercises-intro.mp4"
   title: "Introdução aos Exercícios - Compliance e Regulamentações"
   description: "Vídeo explicativo sobre os exercícios práticos da aula Compliance e Regulamentações"
 ---

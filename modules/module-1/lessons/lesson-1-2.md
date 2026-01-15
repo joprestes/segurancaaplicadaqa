@@ -13,9 +13,9 @@ exercises:
   - lesson-1-2-exercise-4-broken-access-control
   - lesson-1-2-exercise-5-owasp-checklist
 video:
-  file: "assets/videos/video-lesson1-2.mp4"
+  file: "assets/module-1/videos/video-lesson1-2.mp4"
   title: "OWASP Top 10 - Vulnerabilidades que Todo QA Deve Conhecer"
-  thumbnail: "assets/images/infografico-lesson-1-2.png"
+  thumbnail: "assets/module-1/images/infograficos/infografico-lesson-1-2.png"
   description: "Análise detalhada das 10 principais vulnerabilidades de segurança web segundo OWASP: Injection, Broken Authentication, XSS, e mais. Aprenda a identificá-las em testes."
   duration: "60-75 minutos"
 permalink: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
@@ -1320,7 +1320,7 @@ def preview_url():
 
 **Legenda**: 🔴 Crítica | 🟠 Alta | 🟡 Média
 
-![Infográfico: OWASP Top 10 - Vulnerabilidades e Prevenção]({{ '/assets/images/infografico-lesson-1-2.png' | relative_url }})
+![Infográfico: OWASP Top 10 - Vulnerabilidades e Prevenção]({{ '/assets/module-1/images/infograficos/infografico-lesson-1-2.png' | relative_url }})
 
 ### Contexto Específico por Setor
 

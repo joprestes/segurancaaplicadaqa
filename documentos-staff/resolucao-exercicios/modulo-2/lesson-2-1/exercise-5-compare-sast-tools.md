@@ -4,7 +4,7 @@ title: "Exercício 2.1.5: Comparar Ferramentas SAST"
 lesson_id: lesson-2-1
 module: module-2
 difficulty: "Avançado"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 2.1.5: Comparar Ferramentas SAST
@@ -47,7 +47,7 @@ Este exercício tem como objetivo **comparar diferentes ferramentas SAST** no me
 ```json
 {
   "project": "meu-projeto",
-  "scan_date": "2024-01-15",
+  "scan_date": "2026-01-14",
   "tools": {
     "semgrep": {
       "version": "1.45.0",
@@ -200,7 +200,7 @@ Este exercício tem como objetivo **comparar diferentes ferramentas SAST** no me
 ```markdown
 # Relatório Comparativo: Ferramentas SAST
 
-**Data**: 2024-01-15  
+**Data**: 2026-01-14  
 **Projeto Analisado**: [Nome do Projeto]  
 **Ferramentas Comparadas**: Semgrep, Bandit, SonarQube
 
@@ -332,6 +332,6 @@ Este relatório compara 3 ferramentas SAST executadas no mesmo projeto.
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

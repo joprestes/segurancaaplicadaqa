@@ -8,7 +8,7 @@ difficulty: "Informativo"
 permalink: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercises-intro/
 lesson_url: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 video:
-  file: "assets/videos/Exercicios_Seguranca-lesson-2-1-exercises-intro.mp4"
+  file: "assets/module-2/videos/Exercicios_Seguranca-lesson-2-1-exercises-intro.mp4"
   title: "Introdução aos Exercícios - SAST: Testes Estáticos"
   description: "Vídeo explicativo sobre os exercícios práticos da aula SAST"
 ---

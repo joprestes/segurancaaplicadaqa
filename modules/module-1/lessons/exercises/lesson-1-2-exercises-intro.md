@@ -8,7 +8,7 @@ difficulty: "Informativo"
 permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercises-intro/
 lesson_url: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 video:
-  file: "assets/videos/Exercicios_Seguranca-lesson-1-2-exercises-intro.mp4"
+  file: "assets/module-1/videos/Exercicios_Seguranca-lesson-1-2-exercises-intro.mp4"
   title: "Introdução aos Exercícios - OWASP Top 10"
   description: "Vídeo explicativo sobre os exercícios práticos da aula OWASP Top 10"
 ---

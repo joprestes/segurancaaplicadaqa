@@ -4,7 +4,7 @@ title: "Exercício 1.2.4: Broken Access Control - Testes e Correções"
 lesson_id: lesson-1-2
 module: module-1
 difficulty: "Intermediário"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.2.4: Broken Access Control - Testes e Correções
@@ -490,6 +490,6 @@ account = db.query("SELECT * FROM accounts WHERE id = ? AND user_id = ?", ...)
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

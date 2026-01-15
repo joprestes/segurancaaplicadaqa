@@ -4,7 +4,7 @@ title: "Exercício 2.1.3: Integrar SAST no CI/CD"
 lesson_id: lesson-2-1
 module: module-2
 difficulty: "Intermediário"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 2.1.3: Integrar SAST no CI/CD
@@ -385,6 +385,6 @@ def login(username, password):
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

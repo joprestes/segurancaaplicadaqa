@@ -2,7 +2,7 @@
 
 ## ✅ Boa Notícia!
 
-Você **já tem** a configuração do GitHub Pages pronta! É muito mais simples que o Fly.io.
+Você **já tem** a configuração do GitHub Pages pronta!
 
 ## 🚀 Passo a Passo (5 minutos)
 
@@ -68,20 +68,8 @@ Se você quiser usar um domínio customizado ou mudar o baseurl:
 - **Actions**: https://github.com/joprestes/segurancaaplicadaqa/actions
 - **Settings**: https://github.com/joprestes/segurancaaplicadaqa/settings/pages
 
-## 🆚 Comparação: GitHub Pages vs Fly.io
-
-| Recurso | GitHub Pages | Fly.io |
-|---------|--------------|--------|
-| **Configuração** | ⭐⭐⭐⭐⭐ Muito simples | ⭐⭐ Complexa |
-| **Custo** | ✅ Grátis | 💰 Pago após trial |
-| **Deploy** | ✅ Automático | ⚙️ Manual/comandos |
-| **Performance** | ✅ Boa (CDN) | ✅ Excelente |
-| **Customização** | ⚠️ Limitada | ✅ Total |
-| **SSL** | ✅ Automático | ✅ Automático |
 
 ## 🎉 Pronto!
 
 Depois de ativar o GitHub Pages e fazer push, seu site estará online em:
-**https://joprestes.github.io/segurancaaplicadaqa**
-
-Muito mais simples que o Fly.io! 🚀
+**https://joprestes.github.io/segurancaaplicadaqa** 🚀

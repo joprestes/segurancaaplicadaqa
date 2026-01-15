@@ -145,7 +145,7 @@ Criar arquivo `metrics/comparison-metrics.json`:
 ```json
 {
   "project": "meu-projeto",
-  "scan_date": "2024-01-15",
+  "scan_date": "2026-01-14",
   "tools": {
     "semgrep": {
       "version": "1.45.0",
@@ -361,7 +361,7 @@ Criar arquivo `reports/sast-tools-comparison-report.md`:
 ```markdown
 # Relatório Comparativo: Ferramentas SAST
 
-**Data**: 2024-01-15  
+**Data**: 2026-01-14  
 **Projeto Analisado**: [Nome do Projeto]  
 **Ferramentas Comparadas**: Semgrep, Bandit, SonarQube
 

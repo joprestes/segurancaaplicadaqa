@@ -4,7 +4,7 @@ title: "Exercício 1.5.3: Controles SOC2"
 lesson_id: lesson-1-5
 module: module-1
 difficulty: "Intermediário"
-last_updated: 2025-01-15
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.5.3: Controles SOC2
@@ -387,6 +387,6 @@ Este exercício é fundamental porque:
 
 ---
 
-**Última atualização**: 2025-01-15  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

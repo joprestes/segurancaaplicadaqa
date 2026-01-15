@@ -114,6 +114,17 @@ Após iniciar o servidor, acesse:
 
 ## 📁 Estrutura do Projeto
 
+### Organização de Assets
+
+Os assets (vídeos, imagens, infográficos) estão organizados por módulo para facilitar a manutenção e escalabilidade:
+
+- **`assets/module-{N}/videos/`**: Vídeos das aulas e exercícios do módulo
+- **`assets/module-{N}/images/infograficos/`**: Infográficos das aulas
+- **`assets/module-{N}/images/podcasts/`**: Imagens de podcasts
+- **`assets/shared/images/`**: Imagens compartilhadas (logo, infográficos gerais)
+
+Consulte `assets/README.md` para mais detalhes sobre convenções de nomenclatura e como adicionar novos assets.
+
 ```
 crescidos-qualidade/
 ├── _config.yml              # Configuração principal do Jekyll
@@ -146,13 +157,33 @@ crescidos-qualidade/
 │   ├── components/          # Componentes de estilo
 │   ├── utilities/           # Utilitários
 │   └── animations/         # Animações
-├── assets/                  # Recursos estáticos
+├── assets/                  # Recursos estáticos organizados por módulo
 │   ├── main.scss            # Arquivo principal de estilos (com front matter)
 │   ├── js/                 # JavaScript fonte
 │   │   ├── emailjs-config.js  # Configuração EmailJS para submissão
 │   │   └── ...
-│   ├── images/             # Imagens e logos
-│   └── videos/             # Arquivos de vídeo (.mp4)
+│   ├── module-1/           # Assets do Módulo 1
+│   │   ├── videos/         # Vídeos das aulas e exercícios
+│   │   └── images/
+│   │       ├── infograficos/  # Infográficos das aulas
+│   │       └── podcasts/   # Imagens de podcasts
+│   ├── module-2/           # Assets do Módulo 2
+│   │   ├── videos/
+│   │   └── images/
+│   │       ├── infograficos/
+│   │       └── podcasts/
+│   ├── module-3/           # Assets do Módulo 3
+│   │   ├── videos/
+│   │   └── images/
+│   │       ├── infograficos/
+│   │       └── podcasts/
+│   ├── module-4/           # Assets do Módulo 4
+│   │   ├── videos/
+│   │   └── images/
+│   │       ├── infograficos/
+│   │       └── podcasts/
+│   └── shared/             # Assets compartilhados (logo, imagens gerais)
+│       └── images/
 ├── documentos-staff/        # Documentação exclusiva para monitores/instrutores
 │   ├── resolucao-exercicios/  # Gabaritos e soluções dos exercícios
 │   ├── orientacoes-monitores/  # Orientações para correção

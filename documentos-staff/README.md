@@ -2,8 +2,8 @@
 
 **Acesso Restrito**: Este diretório contém documentação exclusiva para instrutores, monitores e equipe staff do curso de Segurança em QA da CWI.
 
-**Data de Criação**: 2025-01-09  
-**Última Atualização**: 2025-01-09  
+**Data de Criação**: 2026-01-09  
+**Última Atualização**: 2026-01-14  
 **Status**: ✅ Ativo
 
 ---
@@ -133,7 +133,7 @@ Para dúvidas, sugestões ou problemas com esta documentação:
 
 ## 📅 Histórico de Versões
 
-### v1.0.0 (2025-01-09)
+### v1.0.0 (2026-01-09)
 - ✅ Estrutura inicial criada
 - ✅ Documentação base implementada
 - ✅ Gabaritos do Módulo 1 iniciados
@@ -155,6 +155,6 @@ Para dúvidas, sugestões ou problemas com esta documentação:
 
 ---
 
-**Última atualização**: 2025-01-09  
+**Última atualização**: 2026-01-09  
 **Versão**: 1.0.0  
 **Status**: 🟡 Em Desenvolvimento
