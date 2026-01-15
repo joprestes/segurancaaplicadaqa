@@ -15,6 +15,16 @@ class ModuleGate {
   }
 
   checkModuleAccess() {
+    // Em ambiente de desenvolvimento local, desabilitar trava de acesso
+    // para facilitar testes e desenvolvimento
+    const isDevelopment = window.location.hostname === 'localhost' || 
+                          window.location.hostname === '127.0.0.1' ||
+                          window.location.hostname.includes('.local');
+    
+    if (isDevelopment) {
+      return; // Desabilitar verificação em desenvolvimento
+    }
+
     // Verificar se há um parâmetro na URL indicando que devemos mostrar resumo
     const urlParams = new URLSearchParams(window.location.search);
     const showSummary = urlParams.get('summary');
@@ -46,6 +56,16 @@ class ModuleGate {
   }
 
   interceptModuleLinks() {
+    // Em ambiente de desenvolvimento local, desabilitar interceptação
+    // para facilitar testes e desenvolvimento
+    const isDevelopment = window.location.hostname === 'localhost' || 
+                          window.location.hostname === '127.0.0.1' ||
+                          window.location.hostname.includes('.local');
+    
+    if (isDevelopment) {
+      return; // Desabilitar interceptação em desenvolvimento
+    }
+
     // Interceptar cliques em links de módulos na navegação
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href*="/modules/"]');
