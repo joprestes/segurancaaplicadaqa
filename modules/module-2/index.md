@@ -14,7 +14,7 @@ module: module-2
 permalink: /modules/testes-seguranca-pratica/
 ---
 
-# Módulo 2: Testes de Segurança na Prática
+<!-- # Módulo 2: Testes de Segurança na Prática -->
 
 ## 🎯 Objetivo do Módulo
 

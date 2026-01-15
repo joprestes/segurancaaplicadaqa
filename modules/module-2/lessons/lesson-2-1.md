@@ -510,6 +510,8 @@ SAST não é a única forma de testar segurança. É importante entender diferen
 
 ### Como Funciona SAST?
 
+![Infográfico: Segurança em QA - Ciclo de Desenvolvimento]({{ '/assets/module-1/images/infograficos/infografico-lesson1-1.png' | relative_url }})
+
 > **📚 Aprofundamento Opcional**: As seções abaixo explicam detalhes técnicos internos de como SAST funciona. Se você está focado em **usar SAST na prática**, pode pular para a seção ["Tipos de Análise SAST"](#tipos-de-análise-sast) sem perder conteúdo essencial. No entanto, entender como funciona internamente ajuda a interpretar resultados e ajustar configurações.
 
 #### 🔬 Processo de Análise Estática (Aprofundamento Técnico)
