@@ -280,7 +280,9 @@ Para cada ameaça crítica/alta, propor mitigações:
 - Controles detectivos (detectar ameaça)
 - Controles corretivos (corrigir após ameaça)
 
+{% raw %}
 ![Infográfico: Threat Modeling - Metodologia e Processo Completo]({{ '/assets/module-1/images/infograficos/infografico-lesson-1-4.png' | relative_url }})
+{% endraw %}
 
 ---
 

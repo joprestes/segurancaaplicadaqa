@@ -202,13 +202,13 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
 **Ações Práticas**:
 
 1. **Entender Configuração Existente**
-   ```bash
+```
    # Verificar arquivo de configuração
    cat sonar-project.properties
    
    # Ver configurações no SonarQube
    # Acessar: http://sonarqube:9000 → Projeto → Configuration
-   ```
+```
 
 2. **Revisar Quality Gates Atuais**
    - Quais critérios estão configurados?
@@ -237,7 +237,7 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
    - Priorizar apenas Critical/High novos
 
 2. **Ajustar Quality Gates Gradualmente**
-   ```yaml
+```
    # Início (Permissivo)
    - Qualidade Gate 1: 0 Critical novas (após baseline)
    - Qualidade Gate 2: Máximo 10 High novas
@@ -249,17 +249,17 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
    # Objetivo (Rigoroso)
    - Qualidade Gate 1: 0 Critical (total)
    - Qualidade Gate 2: 0 High novas
-   ```
+```
 
 3. **Configurar Exceções Documentadas**
-   ```java
+```
    // Exemplo: Supressão documentada
    @SuppressWarnings("java:S2068") // Hardcoded credential - false positive
    // Razão: Password é para teste unitário apenas, não é usado em produção
    // Revisado por: QA Team em 2026-01-14
    // Issue: SEC-123 (documentado)
    String testPassword = "changeme123";
-   ```
+```
 
 4. **Criar Processo de Triagem Rápida**
    - Checklist rápido: "É Critical? Está em produção? Dados sensíveis?"
@@ -273,7 +273,7 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
 **Melhores Práticas**:
 
 1. **Criar Relatório Clara e Ação-Oriented**
-   ```markdown
+```
    ## Finding: SQL Injection em UserService.getUser()
    
    ### O Problema
@@ -285,16 +285,16 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
    - Função: `getUser(String id)`
    
    ### Código Problemático
-   ```java
+```
    String query = "SELECT * FROM users WHERE id = " + id;  // ❌ Inseguro
-   ```
+```
    
    ### Como Corrigir
-   ```java
+```
    String query = "SELECT * FROM users WHERE id = ?";  // ✅ Seguro
    PreparedStatement stmt = conn.prepareStatement(query);
    stmt.setString(1, id);
-   ```
+```
    
    ### Por Que Isso Importa?
    - Risco: Ataque pode acessar dados de outros usuários
@@ -304,7 +304,7 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
    ### Referência
    - OWASP: https://owasp.org/www-community/attacks/SQL_Injection
    - CWE: CWE-89
-   ```
+```
 
 2. **Integrar em Code Review**
    - Criar comentário no PR com link para finding
@@ -510,7 +510,9 @@ SAST não é a única forma de testar segurança. É importante entender diferen
 
 ### Como Funciona SAST?
 
+{% raw %}
 ![Infográfico: Segurança em QA - Ciclo de Desenvolvimento]({{ '/assets/module-1/images/infograficos/infografico-lesson1-1.png' | relative_url }})
+{% endraw %}
 
 > **📚 Aprofundamento Opcional**: As seções abaixo explicam detalhes técnicos internos de como SAST funciona. Se você está focado em **usar SAST na prática**, pode pular para a seção ["Tipos de Análise SAST"](#tipos-de-análise-sast) sem perder conteúdo essencial. No entanto, entender como funciona internamente ajuda a interpretar resultados e ajustar configurações.
 
@@ -1486,7 +1488,7 @@ db.execute(query)  # ← SQL Injection confirmado
 - **Data do Finding**: 2026-01-14
 
 ### Código Flagado
-```java
+```
 @GetMapping("/users/{id}")
 public User getUser(@PathVariable String id) {
     // ❌ SAST detecta SQL Injection
@@ -1534,7 +1536,7 @@ public User getUser(@PathVariable String id) {
 - [ ] Aceitar Risco - Documentar (razão: ...)
 
 ### Correção Implementada
-```java
+```
 @GetMapping("/users/{id}")
 public User getUser(@PathVariable String id) {
     // ✅ Validação de entrada
@@ -1578,7 +1580,7 @@ public User getUser(@PathVariable String id) {
 - **Localização**: `src/test/SecurityTest.java:23`
 
 ### Código Flagado
-```java
+```
 @Test
 void testDefaultPassword() {
     // SAST detecta: "Hardcoded password"
@@ -1608,7 +1610,7 @@ void testDefaultPassword() {
 - Configurar exceção na regra SAST para arquivos de teste
 
 ### Template de Exceção SAST
-```java
+```
 @SuppressWarnings("java:S2068") // Hardcoded credential - false positive (test only)
 @Test
 void testDefaultPassword() {
@@ -1695,6 +1697,7 @@ sonar-scanner \
 
 **Passo 6: Integrar no CI/CD (GitHub Actions)**
 
+{% raw %}
 ```yaml
 # .github/workflows/sonar.yml
 name: SonarQube Analysis
@@ -1793,6 +1796,7 @@ jobs:
           name: eslint-security-results
           path: eslint-report.json
 ```
+{% endraw %}
 
 ### Exemplo 2: Configurar Semgrep em Projeto Python
 
@@ -2215,12 +2219,12 @@ const parsed = JSON.parse(data);  // OK
    - Insecure Deserialization em processamento de dados bancários
 
 3. **Integrar SAST no pipeline CI/CD**
-   ```yaml
+```
    # Pipeline com Quality Gate rigoroso para financeiro
    - Quality Gate: 0 Critical vulnerabilities
    - Quality Gate: Máximo 2 High vulnerabilities
    - Bloqueio automático de merge se não passar
-   ```
+```
 
 4. **Priorizar findings por risco financeiro**
    - Critical: Vulnerabilidades que podem comprometer dados de cartão (PCI-DSS)
@@ -2254,7 +2258,7 @@ const OPEN_BANKING_API_KEY = process.env.OPEN_BANKING_API_KEY  // ✅
    - Broken Access Control que permite acesso a dados de outros alunos
 
 3. **Implementar regras específicas para LGPD**
-   ```yaml
+```
    # Regra Semgrep customizada para LGPD
    - id: lgpd-personal-data-logging
      patterns:
@@ -2263,7 +2267,7 @@ const OPEN_BANKING_API_KEY = process.env.OPEN_BANKING_API_KEY  // ✅
            metavariable: $DATA
            regex: (cpf|rg|email|phone|address)
      message: "Personal data potentially logged. LGPD violation risk."
-   ```
+```
 
 **Exemplo de Finding Crítico**:
 ```python
@@ -2298,13 +2302,13 @@ def get_student_grades(student_id, current_user_id):
    - Broken Access Control que permite acesso a pedidos de outros clientes
 
 3. **Quality Gate específico para PCI-DSS**
-   ```yaml
+```
    # PCI-DSS exige:
    - 0 Critical vulnerabilities relacionados a dados de cartão
    - 0 Hardcoded secrets/chaves
    - 0 SQL Injection em áreas de pagamento
    - Bloqueio automático se qualquer uma dessas condições falhar
-   ```
+```
 
 **Exemplo de Finding Crítico**:
 ```java
@@ -2354,7 +2358,7 @@ public Order checkout(@RequestBody OrderRequest request) {
    - Command Injection em processamento de dados
 
 3. **Regras customizadas para ML Security**
-   ```yaml
+```
    # Regra para detectar insecure pickle
    - id: insecure-pickle-load
      patterns:
@@ -2363,7 +2367,7 @@ public Order checkout(@RequestBody OrderRequest request) {
      message: "Insecure deserialization. Risk of model poisoning."
      metadata:
        cwe: "CWE-502: Deserialization of Untrusted Data"
-   ```
+```
 
 **Exemplo de Finding Crítico**:
 ```python

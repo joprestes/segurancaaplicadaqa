@@ -135,7 +135,9 @@ Na segurança de software, Shift-Left significa pensar em segurança desde a fas
 - Menos retrabalho
 - Produtos mais seguros
 
+{% raw %}
 ![Infográfico: Shift-Left Security - Segurança em Cada Fase do SDLC]({{ '/assets/module-1/images/infograficos/info-grafico-lesson-1-3.png' | relative_url }})
+{% endraw %}
 
 ---
 

@@ -212,6 +212,7 @@ const apiKey = await getSecret();
 
 #### Exemplo: CI/CD com Vault
 
+{% raw %}
 ```yaml
 - name: Get secrets from Vault
   uses: hashicorp/vault-action@v3
@@ -231,6 +232,7 @@ const apiKey = await getSecret();
     API_KEY: ${{ env.API_KEY }}
     DB_PASSWORD: ${{ env.DB_PASSWORD }}
 ```
+{% endraw %}
 
 ### 2. AWS Secrets Manager
 
@@ -364,6 +366,7 @@ secret_value = response.payload.data.decode("UTF-8")
 
 **Exemplo: GitHub Actions**
 
+{% raw %}
 ```yaml
 secret-scan:
   name: Secret Scanning with GitGuardian
@@ -386,6 +389,7 @@ secret-scan:
           !node_modules
           !.git
 ```
+{% endraw %}
 
 #### 2. TruffleHog
 

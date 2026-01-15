@@ -16,7 +16,9 @@ permalink: /modules/testes-seguranca-pratica/
 
 <!-- # Módulo 2: Testes de Segurança na Prática -->
 
+{% raw %}
 ![Infográfico: Introdução ao Módulo 2 - Testes de Segurança na Prática]({{ '/assets/module-2/images/infograficos/infografico-introducao-modulo-2.png' | relative_url }})
+{% endraw %}
 
 ## 🎯 Objetivo do Módulo
 
