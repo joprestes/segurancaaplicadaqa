@@ -132,38 +132,66 @@ Este exercício tem como objetivo **comparar diferentes ferramentas SAST** no me
 | Bandit | 8 | 7 | 1 | 12.5% |
 | SonarQube | 10 | 7 | 3 | 30% |
 
-**Conclusão**: Bandit tem menor taxa de false positives (mais preciso), mas Semgrep é mais rápido.
+**Metodologia de Validação:**
+- Amostra selecionada aleatoriamente de findings Critical/High
+- Validação manual: ler código, verificar contexto, testar exploitabilidade
+- Classificação: True Positive (vulnerabilidade real) ou False Positive (não é vulnerabilidade)
+
+**Conclusões:**
+- **Bandit**: Menor taxa de false positives (12.5%) - mais preciso, mas apenas Python
+- **Semgrep**: Taxa média (25%) mas muito rápido e multi-linguagem
+- **SonarQube**: Taxa maior (30%) mas encontra mais findings e análise mais profunda
 ```
+
+**Validação Técnica da Metodologia:**
+- ✅ Amostra representativa: inclui findings de diferentes tipos e severidades
+- ✅ Validação manual apropriada: não apenas contar, mas analisar código
+- ✅ Métricas comparáveis: mesma amostra validada para todas as ferramentas
+- ✅ Limitações documentadas: amostra pequena pode não ser estatisticamente representativa
 
 ### Passo 5: Comparar Outros Aspectos
 
 **Solução Esperada:**
 
 **5.1. Tempo de Execução:**
-| Ferramenta | Tempo (s) | Proporcional |
-|------------|-----------|--------------|
-| Semgrep | 45 | 1x (mais rápido) |
-| Bandit | 120 | 2.7x |
-| SonarQube | 480 | 10.7x (mais lento) |
+| Ferramenta | Tempo (s) | Proporcional | Projeto (LOC) |
+|------------|-----------|--------------|---------------|
+| Semgrep | 45 | 1x (mais rápido) | ~50k LOC |
+| Bandit | 120 | 2.7x | ~50k LOC (Python) |
+| SonarQube | 480 | 10.7x (mais lento) | ~50k LOC |
+
+**Observações:**
+- Tempos variam com tamanho do projeto e configurações
+- SonarQube mais lento mas faz análise mais profunda (data flow)
+- Semgrep otimizado para velocidade (pattern matching rápido)
 
 **5.2. Facilidade de Configuração:**
-- Semgrep: ⭐⭐⭐ Muito fácil (apenas instalar)
-- Bandit: ⭐⭐⭐ Muito fácil (pip install)
-- SonarQube: ⭐⭐ Média (requer Docker/servidor)
+| Ferramenta | Instalação | Configuração | Complexidade |
+|------------|-----------|--------------|--------------|
+| Semgrep | ⭐⭐⭐ Muito fácil (`pip install semgrep`) | ⭐⭐⭐ Muito fácil (usa regras padrão) | Baixa |
+| Bandit | ⭐⭐⭐ Muito fácil (`pip install bandit`) | ⭐⭐ Média (pode precisar config) | Baixa-Média |
+| SonarQube | ⭐⭐ Média (Docker ou servidor) | ⭐⭐ Média (projeto, token, config) | Média |
 
 **5.3. Custo:**
-- Todas: $0 (Community Edition/Gratuito)
-- Nota: Versões comerciais disponíveis com custos variados
+| Ferramenta | Versão Testada | Custo Anual | Observações |
+|------------|----------------|-------------|-------------|
+| Semgrep | Community (gratuito) | $0 | Versão comercial disponível com features extras |
+| Bandit | Open source | $0 | Sempre gratuito |
+| SonarQube | Community Edition | $0 | Versões Developer/Enterprise têm custos significativos |
 
 **5.4. Integração CI/CD:**
-- Semgrep: ✅ Nativo (GitHub Actions, GitLab CI)
-- Bandit: ✅ Script (fácil de integrar)
-- SonarQube: ✅ Nativo (GitHub Actions, GitLab CI)
+| Ferramenta | GitHub Actions | GitLab CI | Jenkins | Facilidade |
+|------------|----------------|-----------|---------|------------|
+| Semgrep | ✅ Nativo (action oficial) | ✅ Nativo | ✅ Script | Muito fácil |
+| Bandit | ✅ Script | ✅ Script | ✅ Script | Fácil |
+| SonarQube | ✅ Nativo (action oficial) | ✅ Nativo | ✅ Plugin | Média-Fácil |
 
 **5.5. Cobertura de Linguagens:**
-- Semgrep: ✅ Python, JavaScript, Java, C# (multi-linguagem)
-- Bandit: ✅ Apenas Python
-- SonarQube: ✅ Python, JavaScript, Java, C# (multi-linguagem)
+| Ferramenta | Python | JavaScript | Java | C# | Outras |
+|------------|--------|------------|------|----|----|
+| Semgrep | ✅ | ✅ | ✅ | ✅ | 20+ linguagens |
+| Bandit | ✅ | ❌ | ❌ | ❌ | Apenas Python |
+| SonarQube | ✅ | ✅ | ✅ | ✅ | 25+ linguagens |
 
 ### Passo 6: Relatório Comparativo
 
@@ -205,19 +233,19 @@ Este relatório compara 3 ferramentas SAST executadas no mesmo projeto.
 ## 3. Análise Detalhada
 
 ### 3.1. Semgrep
-**Pontos Fortes**: Rápido, fácil de configurar, multi-linguagem, regras customizadas fáceis  
-**Pontos Fracos**: Taxa de false positives média (25%)  
-**Melhor Para**: Scan rápido em CI/CD, projetos multi-linguagem
+**Vantagens**: Rápido, fácil de configurar, multi-linguagem, regras customizadas fáceis, integração CI/CD nativa  
+**Limitações**: Taxa de false positives média (25% na amostra validada)  
+**Melhor Para**: Scan rápido em CI/CD, projetos multi-linguagem, feedback rápido para desenvolvedores
 
 ### 3.2. Bandit
-**Pontos Fortes**: Menor taxa de false positives (12.5%), foco Python  
-**Pontos Fracos**: Apenas Python, menos findings que SonarQube  
-**Melhor Para**: Projetos Python exclusivamente
+**Vantagens**: Menor taxa de false positives (12.5% na amostra), foco especializado em Python, precisa  
+**Limitações**: Apenas Python, encontra menos findings que ferramentas multi-linguagem (mas pode ser mais preciso)  
+**Melhor Para**: Projetos Python exclusivamente, quando precisão é prioridade
 
 ### 3.3. SonarQube
-**Pontos Fortes**: Encontra mais findings (45 total), análise profunda, dashboard  
-**Pontos Fracos**: Mais lento (480s), taxa de false positives maior (30%)  
-**Melhor Para**: Análise profunda, equipes grandes
+**Vantagens**: Encontra mais findings (45 total), análise profunda (data flow), dashboard visual completo, integração IDE  
+**Limitações**: Mais lento (480s vs 45s Semgrep), taxa de false positives maior (30%), requer infraestrutura (Docker/servidor)  
+**Melhor Para**: Análise profunda, equipes grandes, projetos que precisam de dashboard centralizado
 
 ## 4. Recomendação
 
@@ -239,33 +267,43 @@ Este relatório compara 3 ferramentas SAST executadas no mesmo projeto.
 
 ## 📊 Critérios de Avaliação
 
-### ✅ Essenciais (60 pontos)
+### ✅ Essenciais (Obrigatórios para Aprovação)
 
 **Execução e Coleta de Dados:**
-- [ ] 2-3 ferramentas SAST executadas no mesmo projeto (15 pontos)
-- [ ] Métricas coletadas (findings, tempo, false positives) (15 pontos)
+- [ ] 2-3 ferramentas SAST executadas no mesmo projeto
+- [ ] Métricas coletadas e documentadas:
+  - Número total de findings por severidade
+  - Tempo de execução de cada ferramenta
+  - Configurações utilizadas
 
 **Análise Comparativa:**
-- [ ] Número de findings comparado (10 pontos)
-- [ ] False positive rate calculado (10 pontos)
-- [ ] Tempo de execução comparado (10 pontos)
+- [ ] Número de findings comparado entre ferramentas
+- [ ] Overlap de findings analisado (quais findings são comuns a todas as ferramentas)
+- [ ] Tempo de execução comparado (com justificativa para diferenças)
 
-### ⭐ Importantes (25 pontos)
+### ⭐ Importantes (Recomendados para Resposta Completa)
 
 **Validação Manual:**
-- [ ] Amostra de findings validada manualmente (10 pontos)
-- [ ] Taxa de false positives calculada corretamente (5 pontos)
+- [ ] Amostra representativa de findings validada manualmente (mínimo 15-20 findings)
+- [ ] Taxa de false positives calculada corretamente para cada ferramenta
+- [ ] Análise de precisão documentada (quais ferramentas são mais precisas)
 
 **Análise Completa:**
-- [ ] Múltiplos aspectos comparados (custo, facilidade, integração) (10 pontos)
-- [ ] Relatório comparativo criado (10 pontos)
+- [ ] Múltiplos aspectos comparados:
+  - Custo (gratuito vs pago, infraestrutura necessária)
+  - Facilidade de configuração e uso
+  - Integração com CI/CD
+  - Suporte de linguagens
+  - Customização de regras
+- [ ] Relatório comparativo estruturado e claro
 
-### 💡 Bônus (15 pontos)
+### 💡 Diferencial (Demonstram Conhecimento Avançado)
 
 **Recomendação e Implementação:**
-- [ ] Recomendação justificada baseada em dados (5 pontos)
-- [ ] Plano de implementação criado (5 pontos)
-- [ ] Gráficos/tabelas visuais incluídos no relatório (5 pontos)
+- [ ] Recomendação justificada baseada em dados coletados (não apenas opinião)
+- [ ] Plano de implementação criado (passos concretos, timeline)
+- [ ] Visualizações incluídas no relatório (tabelas, gráficos, comparações visuais)
+- [ ] Considera contexto específico (orçamento, tamanho de equipe, stack tecnológico)
 
 ---
 

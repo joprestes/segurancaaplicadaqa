@@ -117,6 +117,8 @@ rules:
               $MODEL.objects.raw("...$INPUT...")
           - pattern: |
               $MODEL.objects.extra(where=["...$INPUT..."])
+          - pattern: |
+              $MODEL.objects.extra(select={"...": "...$INPUT..."})
     exceptions:
       - pattern-inside: |
           # Safe: Parameterized query
@@ -124,7 +126,13 @@ rules:
     metadata:
       cwe: "CWE-89: SQL Injection"
       owasp: "A03:2021 – Injection"
+      category: security
 ```
+
+**Validação Técnica da Regra:**
+- ✅ Detecta `.raw()` com f-strings ou concatenação: `Model.objects.raw(f"SELECT * WHERE id = {user_id}")`
+- ✅ Detecta `.extra(where=[])` com f-strings: `Model.objects.extra(where=[f"id = {user_id}"])`
+- ✅ Não flagga queries parametrizadas: `Model.objects.raw("SELECT * WHERE id = %s", [user_id])` (exceção funcionando)
 
 ### Passo 4: Testar Regra
 
@@ -287,42 +295,42 @@ jobs:
 
 ## 📊 Critérios de Avaliação
 
-### ✅ Essenciais (60 pontos)
+### ✅ Essenciais (Obrigatórios para Aprovação)
 
 **Identificação de Padrão:**
-- [ ] Padrão inseguro identificado no código (10 pontos)
-- [ ] Contexto e risco explicados (10 pontos)
+- [ ] Padrão inseguro identificado no código do projeto (com evidência)
+- [ ] Contexto e risco explicados claramente
 
 **Criação de Regra:**
-- [ ] Regra Semgrep criada em YAML (15 pontos)
-- [ ] Regra segue estrutura correta (metavariables, patterns, metadata) (10 pontos)
+- [ ] Regra Semgrep criada em YAML funcional
+- [ ] Regra segue estrutura correta (metavariables, patterns, metadata, mensagens)
 
 **Teste e Validação:**
-- [ ] Regra testada em código de exemplo (10 pontos)
-- [ ] Regra funciona corretamente (flagga vulnerável, não flagga seguro) (5 pontos)
+- [ ] Regra testada em código de exemplo (vulnerável e seguro)
+- [ ] Regra funciona corretamente: flagga código vulnerável e não flagga código seguro
 
-### ⭐ Importantes (25 pontos)
+### ⭐ Importantes (Recomendados para Resposta Completa)
 
 **Regra Funcional:**
-- [ ] Regra detecta vulnerabilidades reais no projeto (10 pontos)
-- [ ] Mensagens de erro são claras e acionáveis (5 pontos)
+- [ ] Regra detecta vulnerabilidades reais no projeto real
+- [ ] Mensagens de erro são claras, descritivas e acionáveis
 
 **Documentação:**
-- [ ] Regra documentada no README (5 pontos)
-- [ ] Regra adicionada ao repositório (5 pontos)
+- [ ] Regra documentada no README ou documento específico
+- [ ] Regra adicionada ao repositório com versionamento
 
 **Integração:**
-- [ ] Regra integrada no workflow (pre-commit ou CI/CD) (10 pontos)
+- [ ] Regra integrada no workflow de desenvolvimento (pre-commit ou CI/CD)
 
-### 💡 Bônus (15 pontos)
+### 💡 Diferencial (Demonstram Conhecimento Avançado)
 
 **Regras Adicionais:**
-- [ ] Cria 2-3 regras customizadas (5 pontos)
-- [ ] Regras cobrem diferentes tipos de vulnerabilidades (5 pontos)
+- [ ] Cria 2-3 regras customizadas para diferentes vulnerabilidades
+- [ ] Regras cobrem diferentes tipos de vulnerabilidades (injection, secrets, deserialization, etc.)
 
 **Refinamento:**
-- [ ] Regras têm exceções configuradas para evitar false positives (5 pontos)
-- [ ] Regras testadas em projeto real e validadas (5 pontos)
+- [ ] Regras têm exceções configuradas para evitar false positives
+- [ ] Regras testadas em projeto real e validadas com time de desenvolvimento
 
 ---
 

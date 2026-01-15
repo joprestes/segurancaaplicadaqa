@@ -241,34 +241,40 @@ Validar findings SAST, diferenciar True Positives de False Positives, e prioriza
 
 ## 📊 Critérios de Avaliação
 
-### ✅ Essenciais (60 pontos)
+### ✅ Essenciais (Obrigatórios para Aprovação)
 
 **Validação de Findings:**
-- [ ] SAST executado em projeto real (10 pontos)
-- [ ] Template de validação preenchido para cada Critical/High (15 pontos)
-- [ ] True Positives identificados corretamente (10 pontos)
-- [ ] False Positives identificados e documentados (10 pontos)
+- [ ] SAST executado em projeto real (ou projeto de exemplo representativo)
+- [ ] Template de validação preenchido para cada Critical/High encontrado
+- [ ] True Positives identificados corretamente (com análise técnica justificada)
+- [ ] False Positives identificados e documentados (com razão clara)
 
 **Priorização:**
-- [ ] Priorização por risco real realizada (P1/P2/P3/P4) (15 pontos)
+- [ ] Priorização por risco real realizada (P1/P2/P3/P4) considerando:
+  - Severidade SAST vs Risco Real
+  - Contexto (produção, dados sensíveis, exploitability)
+  - Compliance (LGPD, PCI-DSS se aplicável)
 
-### ⭐ Importantes (25 pontos)
+### ⭐ Importantes (Recomendados para Resposta Completa)
 
 **Análise Detalhada:**
-- [ ] Análise de contexto completa (exploitability, impacto) (10 pontos)
-- [ ] Dashboard de vulnerabilidades criado (10 pontos)
-- [ ] Processo de triagem documentado (5 pontos)
+- [ ] Análise de contexto completa para cada finding:
+  - Exploitability (fácil explorar? requer autenticação?)
+  - Impacto (dados sensíveis? volume de usuários?)
+  - Contexto de negócio (setor, compliance)
+- [ ] Dashboard de vulnerabilidades criado (formato estruturado, fácil consulta)
+- [ ] Processo de triagem documentado (replicável para time)
 
 **Documentação:**
-- [ ] Justificativas claras para cada decisão (5 pontos)
-- [ ] Correções sugeridas quando True Positive (5 pontos)
+- [ ] Justificativas claras e técnicas para cada decisão (True/False Positive, Prioridade)
+- [ ] Correções sugeridas quando True Positive (código de exemplo, explicação técnica)
 
-### 💡 Bônus (15 pontos)
+### 💡 Diferencial (Demonstram Conhecimento Avançado)
 
 **Processo Completo:**
-- [ ] Processo de triagem implementado e testado (5 pontos)
-- [ ] Issues criadas para True Positives (5 pontos)
-- [ ] Métricas de triagem documentadas (5 pontos)
+- [ ] Processo de triagem implementado e testado (não apenas documentado)
+- [ ] Issues criadas para True Positives com rastreamento (GitHub Issues, Jira, etc.)
+- [ ] Métricas de triagem documentadas (taxa de false positives, tempo de triagem, etc.)
 
 ---
 

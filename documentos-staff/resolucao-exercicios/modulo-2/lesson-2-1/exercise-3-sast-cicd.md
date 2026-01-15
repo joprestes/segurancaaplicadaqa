@@ -110,10 +110,18 @@ jobs:
             critical_count=$(jq '[.results[] | select(.extra.severity == "ERROR")] | length' semgrep.json)
             if [ "$critical_count" -gt 0 ]; then
               echo "❌ Found $critical_count Critical findings. Pipeline blocked."
+              echo "Please review findings in Security tab and fix vulnerabilities before merging."
               exit 1
             fi
           fi
 ```
+
+**Validação Técnica:**
+- ✅ Script verifica arquivo JSON existe antes de processar
+- ✅ Usa `jq` para contar findings (ferramenta comum em CI/CD)
+- ✅ Compara severidade corretamente (`ERROR` = Critical em Semgrep)
+- ✅ Mensagem de erro clara indica ação necessária
+- ✅ Exit code 1 bloqueia pipeline corretamente
 
 ### Passo 3: Configurar GitLab CI
 
@@ -268,35 +276,35 @@ def login(username, password):
 
 ## 📊 Critérios de Avaliação
 
-### ✅ Essenciais (60 pontos)
+### ✅ Essenciais (Obrigatórios para Aprovação)
 
 **Configuração CI/CD:**
-- [ ] Ferramenta SAST escolhida e justificada (10 pontos)
-- [ ] Pipeline CI/CD configurado (GitHub Actions/GitLab CI) (15 pontos)
-- [ ] SAST integrado no pipeline (15 pontos)
-- [ ] Quality Gate configurado (10 pontos)
+- [ ] Ferramenta SAST escolhida e justificada adequadamente
+- [ ] Pipeline CI/CD configurado (GitHub Actions/GitLab CI/Jenkins)
+- [ ] SAST integrado no pipeline como etapa executável
+- [ ] Quality Gate configurado (bloqueia ou reporta quando Critical encontrado)
 
 **Teste de Pipeline:**
-- [ ] Pipeline testado com código vulnerável (falha) (5 pontos)
-- [ ] Pipeline testado com código seguro (passa) (5 pontos)
+- [ ] Pipeline testado com código vulnerável (falha como esperado)
+- [ ] Pipeline testado com código seguro (passa como esperado)
 
-### ⭐ Importantes (25 pontos)
+### ⭐ Importantes (Recomendados para Resposta Completa)
 
 **Quality Gate Funcional:**
-- [ ] Quality Gate bloqueia merge quando Critical encontrado (10 pontos)
-- [ ] Mensagens de erro são claras (5 pontos)
+- [ ] Quality Gate bloqueia merge quando Critical encontrado
+- [ ] Mensagens de erro são claras e acionáveis (indicam o que corrigir)
 
 **Integração Completa:**
-- [ ] Notificações configuradas (opcional mas recomendado) (5 pontos)
-- [ ] Relatórios salvos como artifacts (5 pontos)
-- [ ] Script de validação funciona corretamente (5 pontos)
+- [ ] Relatórios salvos como artifacts (disponíveis para download/análise)
+- [ ] Script de validação funciona corretamente (testado)
+- [ ] Notificações configuradas (opcional mas recomendado: comentar em PR, notificar time)
 
-### 💡 Bônus (15 pontos)
+### 💡 Diferencial (Demonstram Conhecimento Avançado)
 
 **Integração Avançada:**
-- [ ] Múltiplas ferramentas SAST integradas (5 pontos)
-- [ ] Quality Gate gradual implementado (5 pontos)
-- [ ] Dashboard de segurança configurado (5 pontos)
+- [ ] Múltiplas ferramentas SAST integradas (combinando pontos fortes)
+- [ ] Quality Gate gradual implementado (baseline → permissivo → rigoroso)
+- [ ] Dashboard de segurança configurado ou integrado com ferramentas existentes
 
 ---
 
