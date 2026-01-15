@@ -207,15 +207,22 @@ INFO: ...
 INFO: EXECUTION SUCCESS
 ```
 
-**Tempo de Execução:**
+**Validação Técnica do Scan:**
+- ✅ Mensagem "EXECUTION SUCCESS" indica sucesso
+- ✅ Logs mostram processamento sem erros fatais
+- ✅ Projeto aparece no SonarQube após scan
+- ⚠️ Se "EXECUTION FAILURE": verificar logs para identificar erro específico
+
+**Tempo de Execução (Referência):**
 - Projeto pequeno (< 1k LOC): 1-3 minutos
 - Projeto médio (1k-10k LOC): 5-15 minutos
 - Projeto grande (> 10k LOC): 15-60 minutos
 
-**Problemas Comuns:**
-- `ERROR: Invalid token` → Verificar token e permissões
-- `ERROR: Project key not found` → Criar projeto primeiro no SonarQube
-- Scan muito lento → Verificar exclusões e tamanho do projeto
+**Problemas Comuns e Soluções:**
+- `ERROR: Invalid token` → Verificar token está correto, não expirou, tem permissão "Execute Analysis"
+- `ERROR: Project key not found` → Criar projeto primeiro no SonarQube, verificar projectKey no `sonar-project.properties` corresponde ao criado
+- Scan muito lento → Verificar exclusões em `sonar.exclusions`, reduzir escopo em `sonar.sources`, separar código de testes
+- `ERROR: Unable to execute SonarQube Scanner` → Verificar SonarQube está acessível, porta 9000 não está bloqueada
 
 ### Passo 7: Analisar Resultados
 
@@ -247,19 +254,26 @@ INFO: EXECUTION SUCCESS
 **Interpretação dos Resultados:**
 
 **Vulnerabilities (Vulnerabilidades Confirmadas):**
-- Critical/High: Corrigir urgentemente
-- Medium: Corrigir quando possível
-- Low: Priorizar baixo
+- **Critical/High**: Corrigir urgentemente (especialmente se em produção)
+- **Medium**: Corrigir quando possível (considerar contexto)
+- **Low**: Priorizar baixo (mas ainda documentar e planejar correção)
+
+**Validação Técnica:**
+- ✅ Severidade alinhada com CWE e OWASP Top 10
+- ✅ Localização precisa (arquivo e linha)
+- ✅ Mensagem clara indica vulnerabilidade e risco
+- ⚠️ Sempre validar manualmente Critical/High (não confiar cegamente na severidade SAST)
 
 **Security Hotspots (Pontos de Atenção):**
-- Revisar manualmente
-- Podem ser false positives
-- Documentar decisão (Safe/Vulnerable)
+- **Revisar manualmente**: Não são vulnerabilidades confirmadas, apenas pontos de atenção
+- **Podem ser false positives**: Muitas vezes são código seguro com padrão similar a vulnerabilidade
+- **Documentar decisão**: Marcar como "Safe" ou "Vulnerable" após análise manual
+- **Processo**: Revisar pelo menos todos os Critical/High hotspots
 
 **Bugs e Code Smells:**
-- Não são vulnerabilidades de segurança
-- Mas indicam problemas de qualidade
-- Endereçar gradualmente
+- **Não são vulnerabilidades de segurança**: Mas indicam problemas de qualidade
+- **Endereçar gradualmente**: Priorizar baixo, mas planejar correção
+- **Melhorias contínuas**: Usar para melhorar qualidade geral do código
 
 ### Passo 8: Top 5 Vulnerabilidades
 
