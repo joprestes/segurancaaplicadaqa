@@ -375,45 +375,46 @@ public User getUser(@PathVariable String id) {
 
 ## 📊 Critérios de Avaliação
 
-### ✅ Essenciais (60 pontos)
+### ✅ Essenciais (Obrigatórios para Aprovação)
 
 **Configuração Técnica:**
-- [ ] SonarQube instalado e rodando (10 pontos)
-- [ ] Projeto criado no SonarQube (5 pontos)
-- [ ] Token gerado e configurado (5 pontos)
-- [ ] Arquivo `sonar-project.properties` criado corretamente (10 pontos)
-- [ ] Primeiro scan executado com sucesso (10 pontos)
+- [ ] SonarQube instalado e rodando corretamente
+- [ ] Projeto criado no SonarQube com configuração adequada
+- [ ] Token gerado e configurado corretamente
+- [ ] Arquivo `sonar-project.properties` criado com configurações apropriadas
+- [ ] Primeiro scan executado com sucesso (sem erros fatais)
 
 **Análise de Resultados:**
-- [ ] Dashboard acessado e explorado (5 pontos)
-- [ ] Top 5 vulnerabilidades identificadas (15 pontos)
+- [ ] Dashboard acessado e explorado (entendeu métricas principais)
+- [ ] Top 5 vulnerabilidades identificadas e documentadas
 
-### ⭐ Importantes (25 pontos)
+### ⭐ Importantes (Recomendados para Resposta Completa)
 
 **Relatório de Análise:**
-- [ ] Relatório criado com estrutura adequada (10 pontos)
+- [ ] Relatório criado com estrutura clara e organizada
 - [ ] Cada vulnerabilidade documentada com:
-  - Severidade, CWE, OWASP (5 pontos)
-  - Código flagado e código corrigido (5 pontos)
-  - Análise de risco (exploitability, impacto) (5 pontos)
+  - Severidade, CWE, OWASP Top 10
+  - Código flagado (exemplo concreto)
+  - Código corrigido (solução segura)
+  - Análise de risco (exploitability, impacto, contexto)
 
 **Priorização:**
 - [ ] Priorização realizada considerando:
-  - Severidade SAST
+  - Severidade SAST vs Risco Real
   - Contexto (produção vs desenvolvimento)
-  - Dados sensíveis
-  - Compliance
+  - Dados sensíveis afetados
+  - Compliance aplicável (LGPD, PCI-DSS, etc.)
 
-### 💡 Bônus (15 pontos)
+### 💡 Diferencial (Demonstram Conhecimento Avançado)
 
 **Quality Gate:**
-- [ ] Quality Gate configurado (5 pontos)
-- [ ] Estratégia gradual documentada (5 pontos)
+- [ ] Quality Gate configurado e testado
+- [ ] Estratégia gradual documentada (baseline → permissivo → rigoroso)
 
 **Análise Avançada:**
-- [ ] Identifica false positives e documenta razão (5 pontos)
-- [ ] Considera contexto de negócio (financeiro, educacional, etc.) (5 pontos)
-- [ ] Propõe estratégia de redução gradual de vulnerabilities (5 pontos)
+- [ ] Identifica false positives e documenta razão claramente
+- [ ] Considera contexto de negócio específico (financeiro, educacional, etc.)
+- [ ] Propõe estratégia de redução gradual de vulnerabilities com metas
 
 ---
 
@@ -468,7 +469,7 @@ Este exercício é fundamental porque:
 
 ## 🌟 Exemplos de Boas Respostas
 
-### Exemplo 1: Resposta Completa (90-100 pontos)
+### Exemplo 1: Resposta Completa (Excelente)
 
 **Relatório de Top 5 Vulnerabilities:**
 
@@ -512,7 +513,7 @@ def get_user(user_id):
 - ✅ Priorização justificada
 - ✅ Considera compliance (LGPD)
 
-### Exemplo 2: Resposta Boa (80-89 pontos)
+### Exemplo 2: Resposta Boa (Adequada)
 
 **Relatório Simples:**
 ```markdown
