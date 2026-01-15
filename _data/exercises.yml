@@ -182,3 +182,56 @@ exercises:
     slug: auditoria-qa
     order: 5
     url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa
+
+  # ============================================================================
+  # MÓDULO 2: Testes de Segurança na Prática
+  # ============================================================================
+  
+  # Vídeo Explicativo - Aula 2.1
+  - id: lesson-2-1-exercises-intro
+    title: "📹 Vídeo: Introdução aos Exercícios - SAST: Testes Estáticos"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: exercises-intro-sast
+    order: 0
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercises-intro
+  
+  - id: lesson-2-1-exercise-1-sonarqube-setup
+    title: "Exercício 2.1.1: Configurar SonarQube em Projeto Próprio"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: sonarqube-setup
+    order: 1
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup
+
+  - id: lesson-2-1-exercise-2-semgrep-custom-rules
+    title: "Exercício 2.1.2: Criar Regras Customizadas Semgrep"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: semgrep-custom-rules
+    order: 2
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules
+
+  - id: lesson-2-1-exercise-3-sast-cicd
+    title: "Exercício 2.1.3: Integrar SAST no CI/CD"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: sast-cicd
+    order: 3
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-3-sast-cicd
+
+  - id: lesson-2-1-exercise-4-validate-findings
+    title: "Exercício 2.1.4: Validar e Priorizar Findings SAST"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: validate-findings
+    order: 4
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-4-validate-findings
+
+  - id: lesson-2-1-exercise-5-compare-sast-tools
+    title: "Exercício 2.1.5: Comparar Ferramentas SAST"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: compare-sast-tools
+    order: 5
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-5-compare-sast-tools

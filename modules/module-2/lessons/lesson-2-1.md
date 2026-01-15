@@ -7,6 +7,16 @@ lesson_id: lesson-2-1
 duration: "90 minutos"
 level: "Intermediário"
 prerequisites: ["lesson-1-5"]
+exercises:
+  - lesson-2-1-exercise-1-sonarqube-setup
+  - lesson-2-1-exercise-2-semgrep-custom-rules
+  - lesson-2-1-exercise-3-sast-cicd
+  - lesson-2-1-exercise-4-validate-findings
+  - lesson-2-1-exercise-5-compare-sast-tools
+video:
+  file: "assets/videos/2.1-SAST_Testes_Estaticos.mp4"
+  title: "SAST: Static Application Security Testing"
+  thumbnail: "assets/images/infografico-lesson-2-1.png"
 image: "assets/images/podcasts/2.1-SAST_Testes_Estaticos.png"
 permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 ---
