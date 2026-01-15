@@ -8,7 +8,7 @@ difficulty: "Informativo"
 permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercises-intro/
 lesson_url: /modules/fundamentos-seguranca-qa/lessons/shift-left-security/
 video:
-  file: "assets/videos/Exercicios_Construindo_Seguranca-lesson-1-3-exercises-intro.mp4"
+  file: "assets/module-1/videos/Exercicios_Construindo_Seguranca-lesson-1-3-exercises-intro.mp4"
   title: "Introdução aos Exercícios - Shift-Left Security"
   description: "Vídeo explicativo sobre os exercícios práticos da aula Shift-Left Security"
 ---

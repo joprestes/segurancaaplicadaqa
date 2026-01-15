@@ -4,7 +4,7 @@ title: "Exercício 1.2.1: Identificar Vulnerabilidades OWASP Top 10"
 lesson_id: lesson-1-2
 module: module-1
 difficulty: "Básico"
-last_updated: 2025-01-09
+last_updated: 2026-01-14
 ---
 
 # Exercício 1.2.1: Identificar Vulnerabilidades OWASP Top 10
@@ -385,45 +385,45 @@ def get_user(user_id):
 
 ## 📊 Critérios de Avaliação
 
-### ✅ Essenciais (60 pontos)
+### ✅ Essenciais (Obrigatórios para Aprovação)
 
 **Código 1 (SQL Injection):**
-- [ ] Identifica corretamente como SQL Injection (10 pontos)
-- [ ] Explica como o ataque funciona (concatenação de strings) (10 pontos)
-- [ ] Propõe uso de prepared statements (10 pontos)
+- [ ] Identifica corretamente como SQL Injection
+- [ ] Explica como o ataque funciona (concatenação de strings, payloads maliciosos)
+- [ ] Propõe uso de prepared statements ou ORM seguro
 
 **Código 2 (Broken Access Control):**
-- [ ] Identifica corretamente como Broken Access Control/IDOR (10 pontos)
-- [ ] Explica que falta validação de propriedade/permissão (10 pontos)
-- [ ] Propõe validação de usuário autenticado (10 pontos)
+- [ ] Identifica corretamente como Broken Access Control/IDOR
+- [ ] Explica que falta validação de propriedade/permissão
+- [ ] Propõe validação de usuário autenticado antes de acessar recurso
 
 **Código 3 (Upload Inseguro):**
-- [ ] Identifica pelo menos uma vulnerabilidade (Path Traversal ou Upload inseguro) (10 pontos)
-- [ ] Explica o risco (acesso a arquivos do sistema ou execução de código) (10 pontos)
-- [ ] Propõe validação de tipo e nome de arquivo (10 pontos)
+- [ ] Identifica pelo menos uma vulnerabilidade (Path Traversal ou Upload inseguro)
+- [ ] Explica o risco (acesso a arquivos do sistema ou execução de código)
+- [ ] Propõe validação de tipo e nome de arquivo (e/ou validação de conteúdo)
 
 **Código 4 (NoSQL Injection):**
-- [ ] Identifica corretamente como Injection (NoSQL) (10 pontos)
-- [ ] Explica como funciona ($ne, $regex, etc.) (10 pontos)
-- [ ] Propõe validação/sanitização de entrada (10 pontos)
+- [ ] Identifica corretamente como Injection (NoSQL)
+- [ ] Explica como funciona ($ne, $regex, etc.)
+- [ ] Propõe validação/sanitização de entrada
 
 **Código 5 (Security Misconfiguration):**
-- [ ] Identifica exposição de informações sensíveis (10 pontos)
-- [ ] Explica quais informações são expostas (stack trace, caminhos, etc.) (10 pontos)
-- [ ] Propõe mensagens genéricas em produção (10 pontos)
+- [ ] Identifica exposição de informações sensíveis
+- [ ] Explica quais informações são expostas (stack trace, caminhos, etc.)
+- [ ] Propõe mensagens genéricas em produção
 
-### ⭐ Importantes (25 pontos)
+### ⭐ Importantes (Recomendados para Resposta Completa)
 
-- [ ] Explicação detalhada e clara (5 pontos)
-- [ ] Identifica múltiplas vulnerabilidades no Código 3 (5 pontos)
-- [ ] Considera contexto prático (financeiro, educacional) no Código 2 (5 pontos)
-- [ ] Propõe correções bem estruturadas com código de exemplo (10 pontos)
+- [ ] Explicação detalhada e clara de cada vulnerabilidade
+- [ ] Identifica múltiplas vulnerabilidades no Código 3 (Path Traversal + Upload inseguro)
+- [ ] Considera contexto prático (financeiro, educacional) no Código 2
+- [ ] Propõe correções bem estruturadas com código de exemplo completo
 
-### 💡 Bônus (15 pontos)
+### 💡 Diferencial (Demonstram Conhecimento Avançado)
 
-- [ ] Identifica vulnerabilidades adicionais (senha em texto plano, token fixo) no Código 1 (5 pontos)
-- [ ] Propõe validações adicionais (rate limiting, sanitização de saída) (5 pontos)
-- [ ] Considera múltiplos contextos e riscos diferentes (5 pontos)
+- [ ] Identifica vulnerabilidades adicionais no Código 1 (senha em texto plano, token fixo)
+- [ ] Propõe validações adicionais (rate limiting, sanitização de saída, logging seguro)
+- [ ] Considera múltiplos contextos e riscos diferentes (financeiro vs educacional)
 
 ---
 
@@ -479,7 +479,7 @@ Este exercício é fundamental porque:
 
 ## 🌟 Exemplos de Boas Respostas
 
-### Exemplo 1: Resposta Completa (90-100 pontos)
+### Exemplo 1: Resposta Completa (Excelente)
 
 **Código 1 - SQL Injection**
 "O código tem vulnerabilidade de SQL Injection porque utiliza concatenação de strings para construir a query SQL. Um atacante pode inserir `admin' OR '1'='1' --` no campo username, fazendo com que a condição seja sempre verdadeira. A correção deve usar prepared statements com placeholders (%s) para evitar execução de código SQL arbitrário."
@@ -490,7 +490,7 @@ Este exercício é fundamental porque:
 - ✅ Propõe correção técnica específica
 - ✅ Considera impacto (bypass de autenticação)
 
-### Exemplo 2: Resposta Boa (80-89 pontos)
+### Exemplo 2: Resposta Boa (Adequada)
 
 **Código 2 - Broken Access Control**
 "Este código permite que qualquer usuário acesse dados de outros usuários modificando o user_id na URL. Isso é um problema de Broken Access Control porque não há validação se o usuário tem permissão para acessar aquele recurso. Deve-se validar que o usuário autenticado só pode acessar seu próprio perfil."
@@ -499,10 +499,10 @@ Este exercício é fundamental porque:
 - ✅ Identifica vulnerabilidade corretamente
 - ✅ Explica o problema de controle de acesso
 - ✅ Propõe validação (mas poderia ser mais detalhada)
-- ⚠️ Não menciona impacto em diferentes contextos (mas isso é bônus)
+- ⚠️ Não menciona impacto em diferentes contextos (mas isso é diferencial)
 
 ---
 
-**Última atualização**: 2025-01-09  
-**Criado por**: Equipe Pedagógica CWI  
+**Última atualização**: 2026-01-14  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]
