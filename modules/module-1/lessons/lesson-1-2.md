@@ -10,8 +10,8 @@ prerequisites: ["lesson-1-1"]
 exercises: 
   - lesson-1-2-exercise-1-identificar-vulnerabilidades
   - lesson-1-2-exercise-2-sql-injection
-  - lesson-1-2-exercise-4-broken-access-control
-  - lesson-1-2-exercise-5-owasp-checklist
+  - lesson-1-2-exercise-3-broken-access-control
+  - lesson-1-2-exercise-4-owasp-checklist
 video:
   file: "assets/module-1/videos/video-lesson1-2.mp4"
   title: "OWASP Top 10 - Vulnerabilidades que Todo QA Deve Conhecer"

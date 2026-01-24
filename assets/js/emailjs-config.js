@@ -21,10 +21,18 @@ const EMAILJS_CONFIG = {
   
   // Configurações adicionais
   timeout: 15000, // Timeout em milissegundos (15 segundos)
+  initTimeout: 10000, // Timeout para carregar EmailJS (10 segundos)
   
   // Validações
   maxFileSize: 10 * 1024 * 1024, // 10MB em bytes
   allowedFileTypes: ['.pdf', '.docx', '.doc', '.md', '.txt'],
+  allowedMimeTypes: [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'text/markdown',
+    'text/plain'
+  ],
   
   // Mensagens de erro (em português)
   messages: {
@@ -96,6 +104,14 @@ function validateSubmissionForm(formData) {
     if (!hasValidExtension) {
       errors.push(EMAILJS_CONFIG.messages.validation.fileType);
     }
+    
+    // Validar MIME type quando disponível
+    if (formData.arquivo.type) {
+      const hasValidMimeType = EMAILJS_CONFIG.allowedMimeTypes.includes(formData.arquivo.type);
+      if (!hasValidMimeType) {
+        errors.push(EMAILJS_CONFIG.messages.validation.fileType);
+      }
+    }
   }
   
   return {
@@ -123,13 +139,20 @@ async function enviarExercicio(formData, exerciseInfo) {
   
   // Garantir que EmailJS está inicializado
   if (typeof emailjs === 'undefined') {
-    await new Promise((resolve) => {
+    await new Promise((resolve, reject) => {
       initEmailJS();
+      const startTime = Date.now();
       // Aguardar até EmailJS estar disponível
       const checkInterval = setInterval(() => {
         if (typeof emailjs !== 'undefined') {
           clearInterval(checkInterval);
           resolve();
+          return;
+        }
+        const elapsed = Date.now() - startTime;
+        if (elapsed >= EMAILJS_CONFIG.initTimeout) {
+          clearInterval(checkInterval);
+          reject(new Error('Timeout ao carregar EmailJS. Tente novamente em instantes.'));
         }
       }, 100);
     });

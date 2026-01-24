@@ -1,13 +1,13 @@
 ---
-exercise_id: lesson-1-2-exercise-5-owasp-checklist
-title: "Exercício 1.2.5: OWASP Top 10 Checklist Completo"
+exercise_id: lesson-1-2-exercise-4-owasp-checklist
+title: "Exercício 1.2.4: OWASP Top 10 Checklist Completo"
 lesson_id: lesson-1-2
 module: module-1
 difficulty: "Avançado"
 last_updated: 2026-01-14
 ---
 
-# Exercício 1.2.5: OWASP Top 10 Checklist Completo
+# Exercício 1.2.4: OWASP Top 10 Checklist Completo
 
 ## 📋 Enunciado Completo
 

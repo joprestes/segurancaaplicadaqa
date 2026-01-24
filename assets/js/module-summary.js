@@ -299,17 +299,22 @@ class ModuleSummary {
     const score = result.score || 0;
     const classification = result.classification || 'N/A';
     const completedAt = result.completed_at ? new Date(result.completed_at).toLocaleDateString('pt-BR') : '';
+    const safeLessonTitle = this.escapeHtml(lessonTitle);
+    const safeClassification = this.escapeHtml(classification);
+    const safeCompletedAt = this.escapeHtml(completedAt);
+    const safeScore = Number.isFinite(Number(score)) ? Number(score) : 0;
+    const safeLessonUrl = this.sanitizeUrl(this.getLessonUrl(lessonId));
 
     return `
       <div class="quiz-result-card completed">
         <div class="result-icon" aria-hidden="true">✔</div>
         <div class="result-info">
-          <p class="result-title">${lessonTitle}</p>
-          <span class="result-meta">${score}% • ${classification}</span>
+          <p class="result-title">${safeLessonTitle}</p>
+          <span class="result-meta">${safeScore}% • ${safeClassification}</span>
         </div>
         <div class="result-actions">
-          <span class="result-date">${completedAt}</span>
-          <a href="${this.getLessonUrl(lessonId)}" class="btn-link">Refazer Quiz</a>
+          <span class="result-date">${safeCompletedAt}</span>
+          <a href="${safeLessonUrl}" class="btn-link">Refazer Quiz</a>
         </div>
       </div>
     `;
@@ -317,16 +322,18 @@ class ModuleSummary {
 
   createIncompleteCard(lessonId, lesson) {
     const lessonTitle = lesson ? lesson.title : `Aula ${lessonId}`;
+    const safeLessonTitle = this.escapeHtml(lessonTitle);
+    const safeLessonUrl = this.sanitizeUrl(this.getLessonUrl(lessonId));
     return `
       <div class="quiz-result-card incomplete">
         <div class="result-icon" aria-hidden="true">⏳</div>
         <div class="result-info">
-          <p class="result-title">${lessonTitle}</p>
+          <p class="result-title">${safeLessonTitle}</p>
           <span class="result-meta">Ainda não iniciado</span>
         </div>
         <div class="result-actions">
           <span class="result-date">Pendente</span>
-          <a href="${this.getLessonUrl(lessonId)}" class="btn-link">Ir para Aula</a>
+          <a href="${safeLessonUrl}" class="btn-link">Ir para Aula</a>
         </div>
       </div>
     `;
@@ -368,6 +375,7 @@ class ModuleSummary {
       const firstLessonId = this.moduleData.lessons[0];
       actionUrl = this.getLessonUrl(firstLessonId);
     }
+    const safeActionUrl = this.sanitizeUrl(actionUrl);
     
     return `
       <div class="empty-state empty-state--inline empty-state-full-width">
@@ -375,7 +383,7 @@ class ModuleSummary {
         <h3 class="empty-state__title">Nenhum quiz completado ainda</h3>
         <p class="empty-state__description">Complete os quizzes das aulas para ver seus resultados e descobrir sua classificação como profissional de segurança!</p>
         <div class="empty-state__action">
-          <a href="${actionUrl}" class="btn btn-primary">Começar a Estudar →</a>
+          <a href="${safeActionUrl}" class="btn btn-primary">Começar a Estudar →</a>
         </div>
       </div>
     `;
@@ -397,28 +405,47 @@ class ModuleSummary {
     progressWrapper.style.setProperty('--progress', safeValue);
   }
 
+  escapeHtml(value) {
+    const div = document.createElement('div');
+    div.textContent = String(value ?? '');
+    return div.innerHTML;
+  }
+
+  sanitizeUrl(url) {
+    if (typeof url !== 'string') return '#';
+    const trimmed = url.trim();
+    if (!trimmed) return '#';
+
+    const baseurl = (window.siteData && window.siteData.baseurl) || '';
+    if (trimmed.startsWith('/')) return trimmed;
+    if (baseurl && trimmed.startsWith(baseurl)) return trimmed;
+    return '#';
+  }
+
   setupActions() {
     const continueBtn = document.getElementById('continue-next-module');
     const reviewBtn = document.getElementById('review-module');
 
     if (continueBtn) {
       continueBtn.addEventListener('click', () => {
-        // Verificar se há próximo módulo especificado na URL
+        const baseurl = (window.siteData && window.siteData.baseurl) || '';
         const urlParams = new URLSearchParams(window.location.search);
         const nextModuleSlug = urlParams.get('next_module');
-        
+
         if (nextModuleSlug) {
-          // Navegar para o módulo especificado
-          window.location.href = `/modules/${nextModuleSlug}/`;
-        } else {
-          // Navegar para próximo módulo ou página inicial
-          const nextModule = this.getNextModule();
-          if (nextModule) {
-            window.location.href = `/modules/${nextModule.slug}/`;
-          } else {
-            window.location.href = '/';
-          }
+          const urlPath = `/modules/${nextModuleSlug}/`;
+          window.location.href = baseurl ? `${baseurl}${urlPath}` : urlPath;
+          return;
         }
+
+        const nextModule = this.getNextModule();
+        if (nextModule && nextModule.slug) {
+          const urlPath = `/modules/${nextModule.slug}/`;
+          window.location.href = baseurl ? `${baseurl}${urlPath}` : urlPath;
+          return;
+        }
+
+        window.location.href = baseurl || '/';
       });
     }
 

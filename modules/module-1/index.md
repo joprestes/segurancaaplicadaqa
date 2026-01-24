@@ -114,12 +114,12 @@ Antes de começar os exercícios, recomendamos assistir ao **vídeo explicativo*
    - Objetivo: Explorar vulnerabilidades de SQL Injection e aplicar prepared statements
    - Nível: Intermediário
 
-3. **Exercício 1.2.4: Broken Access Control**
+3. **Exercício 1.2.3: Broken Access Control**
    - Prática: Teste de controles de acesso
    - Objetivo: Identificar e corrigir falhas de autorização
    - Nível: Intermediário
 
-4. **Exercício 1.2.5: Checklist OWASP Top 10**
+4. **Exercício 1.2.4: Checklist OWASP Top 10**
    - Prática: Criação de checklist de testes
    - Objetivo: Desenvolver checklist completo para validar OWASP Top 10
    - Nível: Básico

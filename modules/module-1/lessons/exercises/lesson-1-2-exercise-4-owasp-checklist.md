@@ -1,11 +1,11 @@
 ---
 layout: exercise
-title: "Exercício 1.2.5: OWASP Top 10 Checklist Completo"
+title: "Exercício 1.2.4: OWASP Top 10 Checklist Completo"
 slug: "owasp-checklist"
 lesson_id: "lesson-1-2"
 module: "module-1"
 difficulty: "Avançado"
-permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-5-owasp-checklist/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist/
 lesson_url: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 ---
 
@@ -285,4 +285,4 @@ Após completar este exercício, você estará preparado para:
 
 **Duração Estimada**: 90-120 minutos  
 **Nível**: Avançado  
-**Pré-requisitos**: Todos os exercícios anteriores (1.2.1 a 1.2.4)
+**Pré-requisitos**: Todos os exercícios anteriores (1.2.1 a 1.2.3)

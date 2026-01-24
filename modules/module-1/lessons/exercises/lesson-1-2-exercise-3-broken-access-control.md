@@ -1,11 +1,11 @@
 ---
 layout: exercise
-title: "Exercício 1.2.4: Broken Access Control - Testes e Correções"
+title: "Exercício 1.2.3: Broken Access Control - Testes e Correções"
 slug: "broken-access-control"
 lesson_id: "lesson-1-2"
 module: "module-1"
 difficulty: "Intermediário"
-permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-4-broken-access-control/
+permalink: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-3-broken-access-control/
 lesson_url: /modules/fundamentos-seguranca-qa/lessons/owasp-top-10/
 ---
 
@@ -286,7 +286,7 @@ Use este checklist para testar controles de acesso:
 ## Próximos Passos
 
 Após completar este exercício, você estará preparado para:
-- Exercício 1.2.5: OWASP Checklist Completo
+- Exercício 1.2.4: OWASP Checklist Completo
 - Aplicar conhecimento em testes reais de aplicações
 - Criar testes automatizados de segurança
 
@@ -299,4 +299,4 @@ Após completar este exercício, você estará preparado para:
 
 **Duração Estimada**: 60-90 minutos  
 **Nível**: Intermediário  
-**Pré-requisitos**: Exercício 1.2.3 (XSS Prevenção)
+**Pré-requisitos**: Exercício 1.2.2 (SQL Injection)
