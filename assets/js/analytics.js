@@ -31,6 +31,7 @@ class Analytics {
     window.addEventListener('scroll', () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight <= 0) return;
       const scrollPercent = Math.round((scrollTop / docHeight) * 100);
       
       if (scrollPercent > maxScroll) {

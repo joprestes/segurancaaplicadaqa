@@ -256,6 +256,12 @@ Consulte `documentos-staff/processos/README.md` para mais informações.
 - **Breadcrumbs**: Navegação hierárquica
 - **Sistema de Submissão de Exercícios**: Formulário integrado com EmailJS para envio de respostas
 
+### Segurança e Limitações
+
+- **Progresso local**: O progresso é salvo no `localStorage`, portanto pode ser alterado manualmente pelo usuário.
+- **Regras client-side**: Liberação de módulos e validações no front-end não substituem validações no servidor.
+- **Uploads**: A validação de arquivos ocorre no cliente e deve ser complementada com validação server-side quando aplicável.
+
 ### Sistema de Submissão de Exercícios
 
 O projeto inclui um sistema completo de submissão de exercícios que permite aos alunos enviarem suas respostas diretamente pela plataforma.

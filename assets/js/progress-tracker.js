@@ -151,45 +151,21 @@ class ProgressTracker {
   }
   
   setupLessonCompletion() {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/59658d78-532f-46f1-95b3-b0fe827c7eaa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'progress-tracker.js:setupLessonCompletion',message:'setupLessonCompletion iniciado',data:{progressLessons:this.progress.lessons,progressLessonsKeys:Object.keys(this.progress.lessons||{})},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
-    
     const completeButtons = document.querySelectorAll('.mark-lesson-complete');
-    
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/59658d78-532f-46f1-95b3-b0fe827c7eaa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'progress-tracker.js:setupLessonCompletion',message:'Botões encontrados',data:{buttonsCount:completeButtons.length,buttons:Array.from(completeButtons).map(b=>({lessonId:b.dataset.lessonId,moduleId:b.dataset.moduleId,disabled:b.disabled,text:b.textContent}))},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
     
     completeButtons.forEach(button => {
       const lessonId = button.dataset.lessonId;
       const moduleId = button.dataset.moduleId;
       
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/59658d78-532f-46f1-95b3-b0fe827c7eaa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'progress-tracker.js:setupLessonCompletion:forEach',message:'Verificando botão',data:{lessonId:lessonId,moduleId:moduleId,isCompleted:!!(this.progress.lessons?.[lessonId]?.completed),progressData:this.progress.lessons?.[lessonId]},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-      // #endregion
-      
       // Verificar se a aula já está completa e restaurar estado do botão
       if (lessonId && this.progress.lessons?.[lessonId]?.completed) {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/59658d78-532f-46f1-95b3-b0fe827c7eaa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'progress-tracker.js:setupLessonCompletion:restore',message:'Restaurando estado do botão',data:{lessonId:lessonId,wasCompleted:true},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-        // #endregion
         button.textContent = '✓ Concluída';
         button.disabled = true;
       }
       
       button.addEventListener('click', () => {
-        // #region agent log
-        fetch('http://127.0.0.1:7242/ingest/59658d78-532f-46f1-95b3-b0fe827c7eaa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'progress-tracker.js:setupLessonCompletion:click',message:'Botão clicado',data:{lessonId:lessonId,moduleId:moduleId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-        // #endregion
-        
         if (lessonId && moduleId) {
           this.markLessonComplete(lessonId, moduleId);
-          
-          // #region agent log
-          fetch('http://127.0.0.1:7242/ingest/59658d78-532f-46f1-95b3-b0fe827c7eaa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'progress-tracker.js:setupLessonCompletion:afterMark',message:'Após markLessonComplete',data:{lessonId:lessonId,savedProgress:this.progress.lessons?.[lessonId],localStorageCheck:localStorage.getItem('course-progress')?JSON.parse(localStorage.getItem('course-progress')).lessons?.[lessonId]:null},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'B'})}).catch(()=>{});
-          // #endregion
-          
           this.updateModuleProgress(moduleId);
           button.textContent = '✓ Concluída';
           button.disabled = true;
