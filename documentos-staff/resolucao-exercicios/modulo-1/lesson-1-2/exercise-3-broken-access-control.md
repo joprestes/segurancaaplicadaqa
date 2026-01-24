@@ -1,13 +1,13 @@
 ---
-exercise_id: lesson-1-2-exercise-4-broken-access-control
-title: "Exercício 1.2.4: Broken Access Control - Testes e Correções"
+exercise_id: lesson-1-2-exercise-3-broken-access-control
+title: "Exercício 1.2.3: Broken Access Control - Testes e Correções"
 lesson_id: lesson-1-2
 module: module-1
 difficulty: "Intermediário"
 last_updated: 2026-01-14
 ---
 
-# Exercício 1.2.4: Broken Access Control - Testes e Correções
+# Exercício 1.2.3: Broken Access Control - Testes e Correções
 
 ## 📋 Enunciado Completo
 

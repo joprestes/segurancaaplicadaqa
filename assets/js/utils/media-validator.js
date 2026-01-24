@@ -2,12 +2,16 @@
 (function() {
   'use strict';
   
+  const isDev = window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1' ||
+                window.location.hostname.includes('.local');
+  
   window.validateMediaFile = function(filePath, type) {
-    // Se validação falhar, retorna true mesmo assim (não bloqueia)
-    // Apenas loga warning em dev
+    // Em dev, validação é permissiva para facilitar testes
+    // Em produção, bloqueia extensões inválidas
     if (!filePath || typeof filePath !== 'string') {
       window.Logger?.warn('MediaValidator: filePath inválido');
-      return true; // NÃO BLOQUEIA - permite tentar carregar
+      return isDev; // Em produção, bloquear para evitar erro
     }
     
     const validExtensions = {
@@ -24,6 +28,6 @@
       window.Logger?.warn('MediaValidator: extensão não reconhecida, mas permitindo:', filePath);
     }
     
-    return true; // SEMPRE retorna true - nunca bloqueia
+    return hasValidExtension || isDev;
   };
 })();

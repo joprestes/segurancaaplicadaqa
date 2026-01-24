@@ -133,8 +133,8 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 - **Exercícios associados**: 
   - `lesson-1-2-exercise-1-identificar-vulnerabilidades`
   - `lesson-1-2-exercise-2-sql-injection`
-  - `lesson-1-2-exercise-4-broken-access-control`
-  - `lesson-1-2-exercise-5-owasp-checklist`
+  - `lesson-1-2-exercise-3-broken-access-control`
+  - `lesson-1-2-exercise-4-owasp-checklist`
 
 #### Vídeo
 - **Arquivo**: `assets/videos/video-lesson1-2.mp4`
@@ -388,16 +388,16 @@ Cada aula com exercícios possui um vídeo introdutório:
 - **Dificuldade**: Intermediário
 - **Duração**: 60-90 minutos
 
-#### Exercício 1.2.4: Broken Access Control
-- **ID**: `lesson-1-2-exercise-4-broken-access-control`
-- **Título**: "Exercício 1.2.4: Broken Access Control"
+#### Exercício 1.2.3: Broken Access Control
+- **ID**: `lesson-1-2-exercise-3-broken-access-control`
+- **Título**: "Exercício 1.2.3: Broken Access Control"
 - **Slug**: `broken-access-control`
 - **Dificuldade**: Intermediário
 - **Duração**: 60-90 minutos
 
-#### Exercício 1.2.5: Checklist OWASP Top 10
-- **ID**: `lesson-1-2-exercise-5-owasp-checklist`
-- **Título**: "Exercício 1.2.5: Checklist OWASP Top 10"
+#### Exercício 1.2.4: Checklist OWASP Top 10
+- **ID**: `lesson-1-2-exercise-4-owasp-checklist`
+- **Título**: "Exercício 1.2.4: Checklist OWASP Top 10"
 - **Slug**: `owasp-checklist`
 - **Dificuldade**: Básico
 - **Duração**: 30-45 minutos
@@ -583,8 +583,8 @@ modules/module-1/
         ├── lesson-1-2-exercises-intro.md
         ├── lesson-1-2-exercise-1-identificar-vulnerabilidades.md
         ├── lesson-1-2-exercise-2-sql-injection.md
-        ├── lesson-1-2-exercise-4-broken-access-control.md
-        ├── lesson-1-2-exercise-5-owasp-checklist.md
+        ├── lesson-1-2-exercise-3-broken-access-control.md
+        ├── lesson-1-2-exercise-4-owasp-checklist.md
         ├── lesson-1-3-exercises-intro.md
         ├── lesson-1-3-exercise-1-security-requirements.md
         ├── lesson-1-3-exercise-2-threat-modeling-early.md
