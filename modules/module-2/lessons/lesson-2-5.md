@@ -672,3 +672,9 @@ Informar:
 
 ---
 
+## 📖 Recursos Adicionais
+
+**Dúvida sobre algum termo técnico?**  
+Consulte o [📖 Glossário do Módulo 2](/modules/testes-seguranca-pratica/glossario/) com mais de 80 definições de termos de segurança (SCA, CVE, CVSS, SBOM, Snyk, Dependabot, Supply Chain Attack, Transitive Dependency, etc.).
+
+---

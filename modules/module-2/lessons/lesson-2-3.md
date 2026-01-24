@@ -2918,3 +2918,9 @@ Melhorias implementadas:
 
 ---
 
+## 📖 Recursos Adicionais
+
+**Dúvida sobre algum termo técnico?**  
+Consulte o [📖 Glossário do Módulo 2](/modules/testes-seguranca-pratica/glossario/) com mais de 80 definições de termos de segurança (Pentest, OWASP Testing Guide, IDOR, CVSS, Finding, Exploit, etc.).
+
+---
