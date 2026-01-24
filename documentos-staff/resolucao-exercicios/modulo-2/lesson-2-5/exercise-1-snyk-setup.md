@@ -1,90 +1,210 @@
 ---
 exercise_id: lesson-2-5-exercise-1-snyk-setup
-title: "Exercício 2.5.1: Configurar Snyk em Projeto"
+title: "Exercício 2.5.1: Snyk Setup e Scan"
 lesson_id: lesson-2-5
 module: module-2
 difficulty: "Básico"
 last_updated: 2026-01-24
 ---
 
-# Exercício 2.5.1: Configurar Snyk em Projeto
+# Exercício 2.5.1: Configurar Snyk e Escanear Dependências
 
-## 📋 Enunciado Completo
+## 📋 Enunciado
+Configure Snyk para monitorar vulnerabilidades em dependências do projeto.
 
-Instalar e configurar Snyk para escanear dependências do projeto.
-
-### Tarefa
-1. Instalar Snyk CLI
-2. Autenticar com conta Snyk
-3. Executar scan de dependências
-4. Identificar top 3 vulnerabilidades
-5. Propor correções (upgrade ou workaround)
+### Requisitos
+1. Conta Snyk criada e conectada ao Git
+2. Scan de dependências executado
+3. Relatório interpretado (vulnerabilidades encontradas)
+4. Pelo menos 1 vulnerabilidade corrigida
 
 ---
 
-## ✅ Soluções Detalhadas
+## ✅ Solução Completa
 
-**Instalação e scan:**
+### 1. Setup Snyk CLI
+
 ```bash
+# Instalar Snyk CLI
 npm install -g snyk
+
+# Autenticar (abre browser)
 snyk auth
-snyk test  # Escanear dependências
+
+# Testar autenticação
+snyk test --help
 ```
 
-**Análise esperada:**
-```markdown
-## Top 3 Vulnerabilidades
+### 2. Scan de Dependências
 
-### 1. lodash@4.17.15 - Prototype Pollution
-- **CVSS**: 7.4 (High)
-- **CVE**: CVE-2020-8203
-- **Correção**: Upgrade para lodash@4.17.21
-- **Comando**: `npm install lodash@4.17.21`
+```bash
+# Projeto Node.js
+cd meu-projeto
+npm install  # Garante package-lock.json atualizado
 
-### 2. axios@0.21.0 - SSRF
-- **CVSS**: 7.5 (High)
-- **CVE**: CVE-2021-3749
-- **Correção**: Upgrade para axios@0.21.4
-- **Comando**: `npm install axios@0.21.4`
+# Scan de vulnerabilidades
+snyk test
 
-### 3. express@4.16.0 - Information Disclosure
-- **CVSS**: 5.3 (Medium)
-- **CVE**: CVE-2022-24999
-- **Correção**: Upgrade para express@4.18.2
+# Output esperado:
+Testing /Users/dev/meu-projeto...
+
+✗ High severity vulnerability found in express
+  Description: Open Redirect
+  Info: https://snyk.io/vuln/SNYK-JS-EXPRESS-5842117
+  Introduced through: express@4.17.1
+  From: express@4.17.1
+  Fixed in: express@4.17.3
+  
+✗ Medium severity vulnerability found in lodash
+  Description: Prototype Pollution
+  Info: https://snyk.io/vuln/SNYK-JS-LODASH-590103
+  Introduced through: lodash@4.17.19
+  From: lodash@4.17.19
+  Fixed in: lodash@4.17.21
+
+Organization: seu-nome
+Tested 245 dependencies for known issues, found 2 issues, 2 vulnerable paths.
+```
+
+### 3. Analisar Relatório
+
+**Interpretação:**
+
+1. **Severidade**:
+   - Critical (🔴): Exploração remota fácil
+   - High (🟠): Impacto alto, exploração possível
+   - Medium (🟡): Impacto moderado
+   - Low (🟢): Baixo risco
+
+2. **Informações-chave**:
+   - **Description**: Tipo de vulnerabilidade
+   - **Introduced through**: Dependência afetada
+   - **Fixed in**: Versão que corrige
+   - **CVE/CWE**: Identificação padrão
+
+### 4. Corrigir Vulnerabilidades
+
+```bash
+# Opção 1: Atualizar automaticamente (se patch disponível)
+snyk wizard
+
+# Snyk guiará você:
+? Update lodash to 4.17.21 (fixes 1 vuln)? Yes
+? Ignore express@4.17.1 (until 2024-12-31)? No
+? Update express to 4.17.3? Yes
+
+# Opção 2: Manual
+npm install express@4.17.3
+npm install lodash@4.17.21
+
+# Verificar se corrigiu
+snyk test
+
+# Output:
+✓ Tested 245 dependencies for known issues, no vulnerable paths found.
+```
+
+### 5. Integrar ao GitHub (CI/CD)
+
+```yaml
+# .github/workflows/snyk.yml
+name: Snyk Security Scan
+
+on: [push, pull_request]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+      
+      - name: Upload result to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
+```
+
+### 6. Monitoramento Contínuo
+
+```bash
+# Conectar projeto ao Snyk para monitoramento 24/7
+snyk monitor
+
+# Snyk agora:
+# 1. Monitora vulnerabilidades novas (CVEs publicados)
+# 2. Envia alertas por email/Slack
+# 3. Dashboard: https://app.snyk.io/org/seu-org/projects
 ```
 
 ---
 
-## 📊 Critérios de Avaliação
+## 🎓 Pontos para Monitores
 
-### ✅ Essenciais
-- [ ] Snyk instalado e configurado
-- [ ] Scan executado com sucesso
-- [ ] Top 3 vulnerabilidades identificadas
-- [ ] Correções propostas
-
-### ⭐ Importantes
-- [ ] Testou correções (aplicou upgrades)
-- [ ] Validou que aplicação continua funcionando
-- [ ] Documentou processo
-
-### 💡 Diferencial
-- [ ] Integrou no CI/CD
-- [ ] Configurou monitoramento contínuo
-- [ ] Criou PR automatizado (Snyk Auto Fix)
-
----
-
-## 🎓 Pontos Importantes para Monitores
+### Conceitos-Chave
+1. **SCA (Software Composition Analysis)**: Análise de dependências de terceiros
+2. **CVE**: Common Vulnerabilities and Exposures (identificador padrão)
+3. **Transitive Dependencies**: Dependências das dependências
+4. **Patch Management**: Processo de atualização de dependências
 
 ### Erros Comuns
 
-**Erro 1: "Listou todas as vulnerabilidades sem priorizar"**
-**Orientação**: "Foque em top 3-5 mais críticas. Priorize por CVSS + exploitability + se é dependência direta."
+**Erro 1: "Snyk encontrou 0 vulnerabilidades (mas sei que tem)"**
+- **Causa**: Scan sem `package-lock.json` (versões não resolvidas)
+- **Feedback**: "Snyk precisa de lockfile (package-lock.json, yarn.lock, pom.xml, etc) para análise precisa. Sem lockfile, Snyk assume versões mais recentes. Execute `npm install` para gerar lockfile e scaneie novamente."
 
-**Erro 2: "Propôs upgrade que quebra aplicação"**
-**Orientação**: "Sempre teste correções! Upgrade de major version pode quebrar. Teste localmente antes de aplicar em produção."
+**Erro 2: "Ignorou todas as vulnerabilidades (não corrigiu nenhuma)"**
+- **Causa**: Usou `snyk ignore` em tudo
+- **Feedback**: "Ignore é para false positives ou vulnerabilidades sem patch disponível (temporariamente). Ignorar tudo = não resolveu o problema. Para High/Critical: SEMPRE tente atualizar primeiro. Ignore apenas se: 1) Não afeta seu uso, 2) Sem patch disponível, 3) Documentou justificativa."
+
+**Erro 3: "Atualizou dependência → app quebrou"**
+- **Causa**: Breaking change em major version (ex: express 4 → 5)
+- **Feedback**: "Antes de atualizar: 1) Leia CHANGELOG da lib (breaking changes?), 2) Teste localmente (npm test), 3) Se major version, considere alternativas (ex: trocar lib). Segurança importante, mas disponibilidade também. Sempre teste após update."
+
+**Erro 4: "Vulnerabilidade em dependência de dev (devDependencies)"**
+- **Causa**: Não distingue runtime vs dev dependencies
+- **Feedback**: "Snyk mostra todas as deps. Priorize: runtime > dev. Vulnerabilidade em `webpack` (dev) tem risco menor que em `express` (runtime). Se for dev: pode ignorar ou atualizar com menos urgência. Focus: o que vai para produção."
+
+**Erro 5: "Relatório mostra 200 vulnerabilidades (paralisou)"**
+- **Causa**: Projeto antigo sem manutenção de dependências
+- **Feedback**: "Priorize por severidade: 1) Critical/High primeiro, 2) Medium depois, 3) Low quando tiver tempo. Comece por 1 dependência de cada vez (não todas juntas). Use `--severity-threshold=high` no CI (bloqueia apenas críticas). Débito técnico se paga incrementalmente."
+
+**Erro 6: "Não integrou ao CI (scan manual apenas)"**
+- **Causa**: Usou Snyk CLI localmente mas não automatizou
+- **Feedback**: "Scan manual = inconsistente (dev esquece). Integre ao CI: GitHub Actions, GitLab CI, etc. Snyk roda em cada PR → bloqueia se nova vulnerabilidade. Automação é essencial para escala."
+
+### Feedback Construtivo
+
+**Para configuração profissional:**
+> "Excelente setup! Snyk integrado ao CI, monitoramento ativo, vulnerabilidades corrigidas. Próximo nível: 1) Snyk Container (imagens Docker), 2) Snyk IaC (Terraform/K8s), 3) Policy as Code (threshold customizado por projeto), 4) SLA de remediação (Critical em 7 dias, High em 30 dias)."
+
+**Para configuração básica:**
+> "Bom início! Snyk rodando e vulnerabilidades identificadas. Para melhorar: 1) Automatize no CI (não apenas local), 2) Configure monitoramento contínuo (`snyk monitor`), 3) Estabeleça processo de correção (quem, quando, como), 4) Documente justificativas de ignore. Ferramenta configurada, agora processo."
+
+**Para dificuldades:**
+> "SCA pode ser overwhelmed no início (muitas vulnerabilidades). Comece simples: 1) Snyk CLI local (entenda output), 2) Corrija 1-2 vulnerabilidades High (aprenda processo), 3) Adicione ao CI (automatize), 4) Expanda para outros projetos. Um passo de cada vez."
+
+### Contexto Pedagógico
+
+**Por que é fundamental:**
+- **83% das aplicações** têm vulnerabilidades em dependências (Veracode 2023)
+- **Supply Chain Attacks**: Atacar lib popular afeta milhares de apps
+- **Compliance**: SOC2, PCI-DSS exigem SCA
+- **Manutenção Contínua**: Novas CVEs aparecem diariamente
+
+**Habilidades do mundo real:**
+- Security Engineers gerenciam SCA em portfólio de apps
+- DevOps automatiza scans e correções
+- Developers corrigem vulnerabilidades em sprint
 
 ---
 
-**Última atualização**: 2026-01-24
+**Última atualização**: 2026-01-24  
+**Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
+**Revisado por**: [A definir]
