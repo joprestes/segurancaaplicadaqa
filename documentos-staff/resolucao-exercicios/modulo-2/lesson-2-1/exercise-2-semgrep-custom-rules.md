@@ -4,7 +4,7 @@ title: "Exercício 2.1.2: Criar Regras Customizadas Semgrep"
 lesson_id: lesson-2-1
 module: module-2
 difficulty: "Intermediário"
-last_updated: 2026-01-14
+last_updated: 2026-01-24
 ---
 
 # Exercício 2.1.2: Criar Regras Customizadas Semgrep
@@ -13,324 +13,118 @@ last_updated: 2026-01-14
 
 Este exercício tem como objetivo **criar regras customizadas Semgrep** para detectar padrões inseguros específicos do seu projeto.
 
-### Tarefa Principal
+### Tarefa
 
 1. Identificar padrão inseguro comum no código
 2. Criar regra Semgrep para detectar esse padrão
 3. Testar regra em código existente
-4. Validar que regra funciona (detecta vulnerabilidades reais)
+4. Validar que regra funciona corretamente
 5. Documentar regra e adicionar ao repositório
 
 ---
 
 ## ✅ Soluções Detalhadas
 
-### Passo 1: Instalar Semgrep
+### Solução Esperada: Regra Semgrep Funcional
 
-**Solução Esperada:**
-```bash
-# Opção A: Via pip
-pip install semgrep
+**Exemplo de regra bem construída:**
 
-# Verificar instalação
-semgrep --version
-```
-
-**Verificações:**
-- Semgrep instalado: `semgrep --version` mostra versão
-- Teste básico: `semgrep --config=auto --help` funciona
-
-**Problemas Comuns:**
-- Comando não encontrado → Adicionar ao PATH ou usar `pip install --user semgrep`
-- Versão incompatível → Atualizar: `pip install --upgrade semgrep`
-
-### Passo 2: Identificar Padrão Inseguro
-
-**Solução Esperada - Exemplo: Hardcoded API Keys**
-
-**2.1. Padrão Identificado:**
-- **Problema**: API keys hardcoded no código
-- **Contexto**: Projeto Python com múltiplas integrações
-- **Risco**: Exposição de credenciais se código é commitado
-
-**2.2. Exemplos de Código Vulnerável Encontrado:**
-```python
-# Código vulnerável encontrado no projeto:
-API_KEY = "sk_live_1234567890abcdef"
-AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE"
-GOOGLE_API_KEY = "ya29.a0AfH6SMBwF..."
-```
-
-**2.3. Motivação:**
-- Encontrar todas as ocorrências para migrar para variáveis de ambiente
-- Prevenir futuras exposições de credenciais
-- Atender compliance (não hardcode secrets)
-
-### Passo 3: Criar Regra Semgrep
-
-**Solução Esperada:**
-
-**3.1. Regra Básica (Exemplo: Hardcoded API Keys):**
 ```yaml
-# regras/hardcoded-api-keys.yaml
+# regras/hardcoded-secrets.yaml
 rules:
   - id: hardcoded-api-keys
     languages: [python]
     severity: ERROR
-    message: "Hardcoded API key detected. Use environment variables or secrets management instead."
-    patterns:
-      - pattern: |
-          $VAR = "...$SECRET..."
-        where:
-          - metavariable-regex:
-              metavariable: $VAR
-              regex: (api_key|API_KEY|apiKey|access_key|secret_key|ACCESS_KEY|SECRET_KEY)
-          - metavariable-regex:
-              metavariable: $SECRET
-              regex: (sk_live_|sk_test_|AKIA|AIza|ya29|ghp_|gho_)
-    metadata:
-      cwe: "CWE-798: Use of Hard-coded Credentials"
-      owasp: "A07:2021 – Identification and Authentication Failures"
-      category: security
-      technology:
-        - python
-```
-
-**3.2. Explicação da Regra:**
-- `languages: [python]`: Aplica apenas em Python
-- `severity: ERROR`: Severidade alta (bloqueia pipeline se configurado)
-- `pattern: $VAR = "...$SECRET..."`: Padrão genérico (variável = string)
-- `metavariable-regex $VAR`: Busca variáveis com nomes relacionados a secrets
-- `metavariable-regex $SECRET`: Busca valores que parecem secrets (prefixos comuns)
-
-**3.3. Regra Alternativa (SQL Injection - Python/Django):**
-```yaml
-# regras/sql-injection-django.yaml
-rules:
-  - id: sql-injection-django-raw
-    languages: [python]
-    severity: ERROR
-    message: "Potential SQL Injection in Django .raw() or .extra(). User input '$INPUT' is directly used in SQL. Use parameterized queries instead."
+    message: "Hardcoded API key detected. Use environment variables instead."
     patterns:
       - pattern-either:
-          - pattern: |
-              $MODEL.objects.raw("...$INPUT...")
-          - pattern: |
-              $MODEL.objects.extra(where=["...$INPUT..."])
-          - pattern: |
-              $MODEL.objects.extra(select={"...": "...$INPUT..."})
-    exceptions:
-      - pattern-inside: |
-          # Safe: Parameterized query
-          Model.objects.raw("SELECT * WHERE id = %s", [user_id])
+          - pattern: $VAR = "sk_live_..."
+          - pattern: $VAR = "AKIA..."
+          - pattern: $VAR = "ya29..."
     metadata:
-      cwe: "CWE-89: SQL Injection"
-      owasp: "A03:2021 – Injection"
+      cwe: "CWE-798"
+      owasp: "A07:2021"
       category: security
 ```
 
-**Validação Técnica da Regra:**
-- ✅ Detecta `.raw()` com f-strings ou concatenação: `Model.objects.raw(f"SELECT * WHERE id = {user_id}")`
-- ✅ Detecta `.extra(where=[])` com f-strings: `Model.objects.extra(where=[f"id = {user_id}"])`
-- ✅ Não flagga queries parametrizadas: `Model.objects.raw("SELECT * WHERE id = %s", [user_id])` (exceção funcionando)
+**Evidências de regra funcional:**
+- Regra detecta padrões inseguros corretamente
+- Teste com código vulnerável valida eficácia
+- Falsos positivos são mínimos (< 20%)
+- Documentação clara explica quando regra se aplica
 
-### Passo 4: Testar Regra
+**Teste esperado:**
 
-**Solução Esperada:**
-
-**4.1. Código de Teste:**
 ```python
 # test_code.py
-import os
+API_KEY = "sk_live_abc123"  # ❌ DEVE flagar
+api_key = os.getenv("API_KEY")  # ✅ NÃO deve flagar
 
-# ❌ Deve ser flagado
-API_KEY = "sk_live_1234567890abcdef"
-aws_key = "AKIAIOSFODNN7EXAMPLE"
-GOOGLE_API_KEY = "ya29.a0AfH6SMBwF..."
-
-# ✅ Não deve ser flagado (usa variável de ambiente)
-api_key_env = os.getenv("API_KEY")
-
-# ✅ Não deve ser flagado (não é API key)
-database_url = "postgresql://user:pass@host/db"
-```
-
-**4.2. Executar Regra:**
-```bash
-semgrep --config=regras/hardcoded-api-keys.yaml test_code.py
-```
-
-**4.3. Saída Esperada:**
-```
-test_code.py
-  hardcoded-api-keys
-    Line 4: API_KEY = "sk_live_1234567890abcdef"
-    Message: Hardcoded API key detected. Use environment variables...
-    Severity: ERROR
-    CWE: CWE-798
-
-    Line 5: aws_key = "AKIAIOSFODNN7EXAMPLE"
-    Message: Hardcoded API key detected...
-    Severity: ERROR
-
-    Line 6: GOOGLE_API_KEY = "ya29.a0AfH6SMBwF..."
-    Message: Hardcoded API key detected...
-    Severity: ERROR
-```
-
-**4.4. Validar Resultados:**
-- ✅ Flagga código vulnerável corretamente (3 findings)
-- ✅ Não flagga código seguro (variável de ambiente, database_url)
-- ✅ Mensagens são claras e acionáveis
-
-**Problemas Comuns:**
-- Regra não flagga nada → Verificar regex, padrões corretos
-- Regra flagga código seguro → Adicionar exceções ou refinar regex
-- Muitos false positives → Refinar condições `where`
-
-### Passo 5: Regras Adicionais (Exemplos)
-
-**5.1. Regra: Logging de Dados Sensíveis**
-```yaml
-# regras/sensitive-data-logging.yaml
-rules:
-  - id: sensitive-data-in-logs
-    languages: [python, javascript]
-    severity: WARNING
-    message: "Potential sensitive data in log statement. Avoid logging personal information, passwords, tokens, or credit card numbers."
-    patterns:
-      - pattern: |
-          logging.$LEVEL(..., $DATA, ...)
-        where:
-          - metavariable-regex:
-              metavariable: $DATA
-              regex: (password|token|cpf|rg|credit_card|cvv|api_key|secret|senha)
-    metadata:
-      cwe: "CWE-532: Insertion of Sensitive Information into Log File"
-      owasp: "A09:2021 – Security Logging and Monitoring Failures"
-```
-
-**5.2. Regra: Insecure Deserialization (Python)**
-```yaml
-# regras/insecure-deserialization.yaml
-rules:
-  - id: insecure-pickle-load
-    languages: [python]
-    severity: ERROR
-    message: "Insecure deserialization detected. pickle.load() can execute arbitrary code. Risk of model poisoning or code injection. Use safe alternatives like JSON or ensure data source is trusted."
-    patterns:
-      - pattern-either:
-          - pattern: pickle.load($FILE)
-          - pattern: pickle.loads($DATA)
-          - pattern: joblib.load($FILE)
-    exceptions:
-      - pattern-inside: |
-          # Safe: Trusted source
-          if verify_signature($FILE):
-              pickle.load($FILE)
-    metadata:
-      cwe: "CWE-502: Deserialization of Untrusted Data"
-      owasp: "A08:2021 – Software and Data Integrity Failures"
-```
-
-### Passo 6: Integrar Regras no Workflow
-
-**Solução Esperada:**
-
-**6.1. Pre-commit Hook:**
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/returntocorp/semgrep
-    rev: v1.45.0
-    hooks:
-      - id: semgrep
-        args: ['--config=auto', '--config=regras/', '--error']
-```
-
-**6.2. CI/CD (GitHub Actions):**
-```yaml
-# .github/workflows/semgrep.yml
-name: Semgrep Security Scan
-
-on:
-  pull_request:
-    branches: [main]
-  push:
-    branches: [main]
-
-jobs:
-  semgrep:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            auto
-            p/security-audit
-            regras/
-          generateSarif: "1"
-          fail_on_severity: error
-```
-
-**6.3. Documentação (README):**
-```markdown
-# Regras Semgrep Customizadas
-
-## hardcoded-api-keys.yaml
-- **Descrição**: Detecta API keys hardcoded no código
-- **Severidade**: ERROR
-- **Uso**: `semgrep --config=regras/hardcoded-api-keys.yaml src/`
-
-## sql-injection-django.yaml
-- **Descrição**: Detecta SQL Injection em queries Django
-- **Severidade**: ERROR
-- **Uso**: `semgrep --config=regras/sql-injection-django.yaml src/`
+# Executar:
+# semgrep --config=regras/hardcoded-secrets.yaml test_code.py
+# Resultado: 1 finding (linha 2)
 ```
 
 ---
 
-## 📊 Critérios de Avaliação
+### Padrões Comuns a Detectar
 
-### ✅ Essenciais (Obrigatórios para Aprovação)
+**Prioridade Alta (recomendado começar por aqui):**
 
-**Identificação de Padrão:**
-- [ ] Padrão inseguro identificado no código do projeto (com evidência)
-- [ ] Contexto e risco explicados claramente
+1. **Hardcoded Secrets** (API keys, passwords, tokens)
+2. **SQL Injection** (string concatenation em queries)
+3. **Command Injection** (subprocess/exec com input usuário)
+4. **Path Traversal** (leitura de arquivos com path dinâmico)
 
-**Criação de Regra:**
-- [ ] Regra Semgrep criada em YAML funcional
-- [ ] Regra segue estrutura correta (metavariables, patterns, metadata, mensagens)
+**Prioridade Média:**
 
-**Teste e Validação:**
-- [ ] Regra testada em código de exemplo (vulnerável e seguro)
-- [ ] Regra funciona corretamente: flagga código vulnerável e não flagga código seguro
+5. **Weak Cryptography** (MD5, SHA1, DES)
+6. **Insecure Deserialization** (pickle.load, yaml.load)
+7. **XSS** (innerHTML com dados não sanitizados)
+8. **Logging Sensitive Data** (log.info com PII)
 
-### ⭐ Importantes (Recomendados para Resposta Completa)
+---
+
+## 📊 Critérios de Avaliação (Abordagem Qualitativa)
+
+### ✅ Aspectos Essenciais
 
 **Regra Funcional:**
-- [ ] Regra detecta vulnerabilidades reais no projeto real
-- [ ] Mensagens de erro são claras, descritivas e acionáveis
+- [ ] Regra criada em YAML válido
+- [ ] Pattern detecta vulnerabilidades reais
+- [ ] Testado com código vulnerável (positivo)
+- [ ] Testado com código seguro (negativo)
 
 **Documentação:**
-- [ ] Regra documentada no README ou documento específico
-- [ ] Regra adicionada ao repositório com versionamento
+- [ ] Message clara e acionável para devs
+- [ ] Metadata com CWE e OWASP
+- [ ] Exemplos de código vulnerável e seguro
+
+### ⭐ Aspectos Importantes
+
+**Qualidade da Regra:**
+- [ ] Poucos false positives (< 20%)
+- [ ] Detecta variações do padrão inseguro
+- [ ] Exceções documentadas quando aplicável
+- [ ] Testada em projeto real (não apenas código de exemplo)
 
 **Integração:**
-- [ ] Regra integrada no workflow de desenvolvimento (pre-commit ou CI/CD)
+- [ ] Regra adicionada ao repositório (`regras/` ou `.semgrep/`)
+- [ ] Documentação de como executar (README)
+- [ ] CI/CD configurado para executar regra (diferencial)
 
-### 💡 Diferencial (Demonstram Conhecimento Avançado)
+### 💡 Aspectos Diferencial
 
-**Regras Adicionais:**
-- [ ] Cria 2-3 regras customizadas para diferentes vulnerabilidades
-- [ ] Regras cobrem diferentes tipos de vulnerabilidades (injection, secrets, deserialization, etc.)
+**Profundidade Técnica:**
+- [ ] Criou múltiplas regras (2-3) para diferentes padrões
+- [ ] Regras consideram contexto (framework específico)
+- [ ] Configurou severidade apropriada (ERROR vs WARNING)
+- [ ] Testou com benchmarks (OWASP Benchmark, Juliet)
 
-**Refinamento:**
-- [ ] Regras têm exceções configuradas para evitar false positives
-- [ ] Regras testadas em projeto real e validadas com time de desenvolvimento
+**Impacto Prático:**
+- [ ] Regra encontrou vulnerabilidades reais no projeto
+- [ ] Time de dev adotou regra no workflow
+- [ ] Reduziu vulnerabilidades em sprints subsequentes
 
 ---
 
@@ -338,46 +132,209 @@ jobs:
 
 ### Conceitos-Chave Avaliados
 
-1. **Análise de Padrões**: Aluno identifica padrões inseguros no código?
-2. **Criação de Regras**: Aluno cria regras Semgrep funcionais?
-3. **Teste e Validação**: Aluno testa e valida regras corretamente?
-4. **Integração**: Aluno integra regras no workflow de desenvolvimento?
+1. **Pattern Matching**: Compreende sintaxe de patterns do Semgrep?
+2. **Teste de Regras**: Valida com código vulnerável E seguro?
+3. **False Positives**: Minimiza FPs com patterns precisos?
+4. **Documentação**: Message e metadata são claros?
 
 ### Erros Comuns
 
-1. **Erro: Regra Não Flagga Nada**
-   - **Situação**: Regra criada mas não detecta vulnerabilidades
-   - **Feedback**: "Regra criada corretamente! Se não está flaggando, verifique: regex está correto? Padrões estão corretos? Linguagem especificada? Teste com `semgrep -X` (debug mode) para ver o que está sendo analisado."
+**Erro 1: "Regra muito genérica (muitos false positives)"**
+```yaml
+# ❌ Ruim: Flaga TUDO que é string
+- pattern: $VAR = "..."
 
-2. **Erro: Regra Flagga Tudo (Muitos False Positives)**
-   - **Situação**: Regra flagga código seguro também
-   - **Feedback**: "Boa regra! Para reduzir false positives, adicione exceções ou refine as condições `where`. Por exemplo, se flagga teste, adicione exceção: `- pattern-inside: '# Test file'` ou refine regex para ser mais específico."
+# ✅ Bom: Específico para API keys
+- pattern: $VAR = "sk_live_..."
+  where:
+    - metavariable-regex:
+        metavariable: $VAR
+        regex: (api_key|API_KEY)
+```
+**Orientação**: "Sua regra está muito genérica. Adicione condições (where, metavariable-regex) para detectar apenas padrões inseguros. Teste com código real e ajuste até FP rate < 20%."
 
-3. **Erro: Estrutura YAML Incorreta**
-   - **Situação**: Regra não funciona por sintaxe YAML incorreta
-   - **Feedback**: "Estrutura da regra está quase correta! Verifique indentação YAML (espaços, não tabs). Teste a sintaxe com `semgrep --validate` antes de executar."
+**Erro 2: "Não testou com código negativo"**
+**Orientação**: "Você testou apenas código vulnerável. Teste também código SEGURO para garantir que regra NÃO flaga incorretamente. Exemplo: `api_key = os.getenv('API_KEY')` não deve ser flagado."
 
-4. **Erro: Regex Muito Genérico ou Específico**
-   - **Situação**: Regex não captura casos ou captura demais
-   - **Feedback**: "Boa tentativa! Regex precisa de ajuste: se não captura, torne mais genérico (use `.*`). Se captura demais, torne mais específico (use prefixos/sufixos conhecidos). Teste regex em https://regex101.com/ antes de usar."
+**Erro 3: "Message vaga ou não acionável"**
+```yaml
+# ❌ Ruim
+message: "Security issue detected"
 
-### Dicas para Feedback
+# ✅ Bom
+message: "Hardcoded API key detected. Move to environment variable: os.getenv('API_KEY')"
+```
+**Orientação**: "Message deve ser acionável. Diga O QUE está errado e COMO corrigir. Dev deve entender sem consultar documentação."
 
-- ✅ **Reconheça**: Identificação de padrões reais, regras funcionais, integração bem feita
-- ❌ **Corrija**: Sintaxe YAML incorreta, regex mal formado, falta de testes
-- 💡 **Incentive**: Criar múltiplas regras, adicionar exceções, documentar bem
+**Erro 4: "Não documentou exceções"**
+**Orientação**: "Algumas regras têm exceções válidas (ex: hardcoded password em testes). Documente quando regra NÃO se aplica e considere usar `pattern-not` para excluir esses casos."
+
+### Dicas para Feedback Construtivo
+
+**Para regra profissional:**
+> "Excelente trabalho! Sua regra detecta vulnerabilidades reais com baixa taxa de FP. Message é clara e acionável. Metadata completo. Próximo nível: integre no CI/CD (Exercício 2.1.3) e monitore eficácia ao longo do tempo."
+
+**Para regra funcional mas básica:**
+> "Boa criação de regra! Ela funciona mas pode melhorar: 1) Adicione metavariable-regex para reduzir FPs, 2) Teste com código real do projeto (não apenas exemplos), 3) Documente exceções. Refine a regra com base em feedback do time."
+
+**Para dificuldades:**
+> "Vejo que você teve dificuldades. Comece simples: 1) Use Semgrep Playground (https://semgrep.dev/playground) para testar patterns, 2) Clone regras existentes (https://semgrep.dev/r) e adapte, 3) Teste incrementalmente (pattern básico → adicione condições). Agende monitoria se precisar."
 
 ### Contexto Pedagógico
 
-Este exercício é importante porque:
+**Por que este exercício é importante:**
 
-1. **Customização**: Regras customizadas são essenciais para contextos específicos
-2. **Prevenção**: Detecta padrões inseguros antes de commit
-3. **Automação**: Integra segurança no workflow de desenvolvimento
-4. **Escalabilidade**: Regras podem ser compartilhadas com o time
+1. **Personalização**: Detecta padrões específicos do seu contexto
+2. **Proatividade**: Previne vulnerabilidades ANTES de chegarem a prod
+3. **Educação**: Regra customizada educa time sobre padrões inseguros
+4. **Escalabilidade**: Uma regra detecta N ocorrências automaticamente
+
+**Conexão com o Curso:**
+- **Pré-requisito**: Exercício 2.1.1 (SonarQube Setup)
+- **Aplica conceitos**: Pattern matching, SAST customizado, CWE, OWASP
+- **Prepara para**: Exercício 2.1.3 (SAST no CI/CD)
 
 ---
 
-**Última atualização**: 2026-01-14  
+## 🌟 Exemplos de Boas Respostas
+
+### Exemplo 1: Regra Profissional (Nível Avançado)
+
+```yaml
+# regras/insecure-deserialization.yaml
+rules:
+  - id: insecure-pickle-load
+    languages: [python]
+    severity: ERROR
+    message: |
+      Insecure deserialization detected using pickle.load().
+      pickle.load() can execute arbitrary code if data is malicious.
+      
+      Recommendation:
+      - If possible, use JSON (json.loads()) instead of pickle
+      - If pickle is required, validate data source and use HMAC signature
+      - Never unpickle data from untrusted sources
+      
+      Example secure alternative:
+        import json
+        data = json.loads(user_input)
+    
+    patterns:
+      - pattern-either:
+          - pattern: pickle.load($FILE)
+          - pattern: pickle.loads($DATA)
+      - pattern-not-inside: |
+          # Exceção: testes são OK
+          def test_$FUNC(...):
+            ...
+    
+    metadata:
+      cwe: "CWE-502: Deserialization of Untrusted Data"
+      owasp: "A08:2021 – Software and Data Integrity Failures"
+      category: security
+      technology: [python]
+      confidence: HIGH
+      likelihood: MEDIUM
+      impact: HIGH
+      references:
+        - https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data
+        - https://docs.python.org/3/library/pickle.html#security
+```
+
+**Teste realizado:**
+
+```python
+# test_insecure_deserialization.py
+import pickle
+
+# ❌ DEVE flagar (código vulnerável)
+def load_user_data(file_path):
+    with open(file_path, 'rb') as f:
+        return pickle.load(f)  # FLAGADO
+
+# ✅ NÃO deve flagar (teste - exceção)
+def test_pickle_serialization():
+    data = {"key": "value"}
+    serialized = pickle.dumps(data)
+    deserialized = pickle.loads(serialized)  # NÃO FLAGADO (teste)
+
+# ✅ Alternativa segura
+import json
+
+def load_user_data_safe(file_path):
+    with open(file_path, 'r') as f:
+        return json.load(f)  # NÃO FLAGADO (seguro)
+```
+
+**Resultados:**
+
+```bash
+$ semgrep --config=regras/insecure-deserialization.yaml test_insecure_deserialization.py
+
+test_insecure_deserialization.py
+  insecure-pickle-load
+    Line 5: pickle.load(f)
+    Message: Insecure deserialization detected...
+    
+1 finding: 1 ERROR
+```
+
+**Impacto no projeto:**
+- Encontrou 3 ocorrências de `pickle.load()` em produção
+- 2 eram vulneráveis (dados de API externa)
+- 1 era seguro (dados internos validados)
+- Time corrigiu P0s em 48h
+
+**Por que é exemplar:**
+- ✅ Message detalhada com recomendações práticas
+- ✅ Exceção para testes (pattern-not-inside)
+- ✅ Metadata completo (CWE, OWASP, confidence, impact)
+- ✅ Referências para aprofundamento
+- ✅ Testado com código real e de teste
+- ✅ Encontrou vulnerabilidades reais
+
+---
+
+### Exemplo 2: Regra Adequada (Nível Intermediário)
+
+```yaml
+# regras/sql-injection.yaml
+rules:
+  - id: sql-string-concat
+    languages: [python]
+    severity: ERROR
+    message: "SQL injection risk: query uses string concatenation. Use parameterized queries instead."
+    patterns:
+      - pattern: cursor.execute($QUERY + $VAR)
+    metadata:
+      cwe: "CWE-89"
+      owasp: "A03:2021"
+```
+
+**Teste:**
+
+```python
+# ❌ Detectado
+cursor.execute("SELECT * FROM users WHERE id=" + user_id)
+
+# ✅ Não detectado (mas deveria! - limitação da regra)
+query = "SELECT * FROM users WHERE id=" + user_id
+cursor.execute(query)
+```
+
+**Por que é adequado:**
+- ✅ Regra funciona para padrão básico
+- ✅ Message clara
+- ✅ Metadata básico presente
+- ⚠️ Limitação: não detecta todas as variações
+- ⚠️ Falta: teste com código negativo
+- ⚠️ Falta: referências
+
+**Feedback sugerido:**
+> "Boa criação de regra! Ela detecta o padrão básico. Para melhorar: 1) Adicione pattern-either para detectar variações (f-strings, format()), 2) Teste com código seguro (`cursor.execute(query, params)`), 3) Adicione exemplos no metadata. Sua regra está funcional, agora refine!"
+
+---
+
+**Última atualização**: 2026-01-24  
 **Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]

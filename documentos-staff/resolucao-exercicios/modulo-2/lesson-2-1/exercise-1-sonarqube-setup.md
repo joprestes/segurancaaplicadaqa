@@ -4,7 +4,7 @@ title: "Exercício 2.1.1: Configurar SonarQube em Projeto Próprio"
 lesson_id: lesson-2-1
 module: module-2
 difficulty: "Básico"
-last_updated: 2026-01-14
+last_updated: 2026-01-24
 ---
 
 # Exercício 2.1.1: Configurar SonarQube em Projeto Próprio
@@ -13,7 +13,7 @@ last_updated: 2026-01-14
 
 Este exercício tem como objetivo **configurar SonarQube do zero** em um projeto existente e executar sua primeira análise SAST.
 
-### Tarefa Principal
+### Tarefa
 
 1. Instalar SonarQube usando Docker
 2. Configurar projeto no SonarQube
@@ -25,412 +25,209 @@ Este exercício tem como objetivo **configurar SonarQube do zero** em um projeto
 
 ## ✅ Soluções Detalhadas
 
-### Passo 1: Preparar Ambiente
-
-**Solução Esperada:**
-- Docker instalado e funcionando (`docker --version`)
-- Projeto escolhido para análise (próprio ou exemplo)
-- Ambiente preparado para análise
-
-**Verificações Comuns:**
-- Docker instalado e funcionando (`docker --version`)
-- Docker daemon rodando (Colima no macOS, systemd no Linux)
-- Memória suficiente (SonarQube precisa mínimo 2GB)
-- Projeto acessível localmente
-
-**Problemas Comuns:**
-- Docker não instalado → Instalar Docker via CLI (Colima no macOS, docker.io no Linux)
-- Docker daemon não rodando → `colima start` (macOS) ou `sudo systemctl start docker` (Linux)
-- Porta 9000 ocupada → Mudar porta ou liberar porta
-- Memória insuficiente → Aumentar memória do Docker (Colima: `colima start --memory 4`)
-
-### Passo 2: Instalar e Configurar SonarQube
+### Passo 1: Instalação do SonarQube
 
 **Solução Esperada:**
 
-**2.1. Executar SonarQube via Docker**
+O aluno deve demonstrar que instalou SonarQube com sucesso usando Docker:
+
 ```bash
+# Comando correto
 docker run -d --name sonarqube \
   -p 9000:9000 \
   -v sonarqube_data:/opt/sonarqube/data \
-  -v sonarqube_extensions:/opt/sonarqube/extensions \
-  -v sonarqube_logs:/opt/sonarqube/logs \
   sonarqube:lts-community
+
+# Verificação
+docker ps | grep sonarqube
+# Deve mostrar container rodando
 ```
 
-**Verificações:**
-- Container rodando: `docker ps | grep sonarqube`
-- Logs sem erros: `docker logs sonarqube`
-- Acessível: `curl http://localhost:9000` (retorna HTML)
+**Evidência de Instalação Correta:**
+- Screenshot mostrando `http://localhost:9000` acessível
+- Dashboard do SonarQube exibindo "SonarQube is up and running"
+- Container rodando (`docker ps` mostra `sonarqube`)
 
-**2.2. Primeira Acesso**
-- URL: `http://localhost:9000`
-- Login: `admin` / `admin`
-- Trocar senha na primeira vez
-- Dashboard deve mostrar "SonarQube is up and running"
+**Variações Aceitáveis:**
+- Usar Docker Compose ao invés de `docker run` (mais profissional)
+- Instalar localmente via download manual (menos recomendado mas válido)
+- Usar SonarQube Cloud (válido se justificado)
 
-**Solução Alternativa (Se Docker Não Funciona):**
-- Instalar SonarQube manualmente (mais complexo)
-- Usar SonarCloud (versão SaaS - requer conta)
+---
 
-### Passo 3: Instalar SonarScanner
-
-**Solução Esperada (Opção A - Homebrew):**
-```bash
-brew install sonar-scanner
-sonar-scanner --version
-```
-
-**Solução Alternativa (Opção B - Docker):**
-```bash
-docker pull sonarsource/sonar-scanner-cli
-# Usar em comando docker run (mostrado no passo 6)
-```
-
-**Problemas Comuns:**
-- Comando não encontrado → Adicionar ao PATH
-- Versão incompatível → Atualizar SonarScanner
-
-### Passo 4: Criar Projeto no SonarQube
+### Passo 2: Configuração do Projeto
 
 **Solução Esperada:**
 
-**4.1. Criar Projeto**
-1. Ir em "Create Project" ou "+"
-2. Escolher "Manually"
-3. Project key: `meu-projeto-sast` (ou nome único)
-4. Display name: `Meu Projeto SAST`
-5. Clicar em "Set Up"
+O aluno deve ter criado projeto no SonarQube e gerado token:
 
-**Importante:**
-- Project key deve ser único no SonarQube
-- Usar nomes descritivos para Display name
-
-**4.2. Gerar Token**
-1. Escolher "Generate a token"
-2. Token name: `meu-token-local` (ou descritivo)
-3. Copiar token **imediatamente** (não aparece novamente)
-4. Guardar token seguro
-
-**Exemplo de Token:**
-```
-squ_1234567890abcdef1234567890abcdef12345678
-```
-
-**Problemas Comuns:**
-- Token não funciona → Verificar permissões (deve ter "Execute Analysis")
-- Token expirado → Gerar novo token
-
-### Passo 5: Configurar Projeto Local
-
-**Solução Esperada:**
-
-**5.1. Arquivo `sonar-project.properties` (Exemplo para Python):**
 ```properties
-# sonar-project.properties
+# sonar-project.properties (arquivo na raiz do projeto)
 sonar.projectKey=meu-projeto-sast
 sonar.projectName=Meu Projeto SAST
-sonar.projectVersion=1.0
-
-# Código fonte
 sonar.sources=src
-sonar.tests=tests
 sonar.sourceEncoding=UTF-8
-
-# Linguagem Python
-sonar.language=py
-
-# Exclusões
-sonar.exclusions=**/venv/**,**/__pycache__/**,**/*.pyc
-
-# Regras de segurança
-sonar.security.hotspots=high,medium
+sonar.exclusions=**/node_modules/**,**/dist/**
 ```
 
-**5.2. Variáveis de Ambiente:**
+**Evidência de Configuração Correta:**
+- Screenshot do projeto criado no SonarQube
+- Token gerado e documentado (parcialmente oculto: `squ_1234...`
+- Arquivo `sonar-project.properties` presente no projeto
+
+**Erros Comuns:**
+- **Não gerar token**: Aluno tenta executar scan sem token
+- **Token exposto**: Aluno commita token no git (ponto de segurança!)
+- **Configuração incorreta**: `sonar.sources` apontando para diretório inexistente
+
+---
+
+### Passo 3: Execução do Scan
+
+**Solução Esperada:**
+
+O aluno deve executar scan com sucesso:
+
 ```bash
-export SONAR_TOKEN="squ_1234567890abcdef1234567890abcdef12345678"
-export SONAR_HOST_URL="http://localhost:9000"
-```
-
-**Variações por Linguagem:**
-
-**JavaScript/TypeScript:**
-```properties
-sonar.language=js
-sonar.javascript.lcov.reportPaths=coverage/lcov.info
-sonar.exclusions=**/node_modules/**,**/dist/**,**/build/**
-```
-
-**Java:**
-```properties
-sonar.language=java
-sonar.java.binaries=target/classes
-sonar.exclusions=**/target/**
-```
-
-**Configurações Importantes:**
-- `sonar.sources`: Diretório do código fonte (não incluir node_modules, venv, etc.)
-- `sonar.exclusions`: Padrões de arquivos a ignorar (reduz tempo de scan)
-- `sonar.projectKey`: Deve ser igual ao criado no SonarQube
-
-### Passo 6: Executar Primeiro Scan
-
-**Solução Esperada (SonarScanner Local):**
-```bash
-cd /caminho/para/seu/projeto
-
+# Comando correto (exemplo)
 sonar-scanner \
   -Dsonar.projectKey=meu-projeto-sast \
   -Dsonar.sources=src \
-  -Dsonar.host.url=$SONAR_HOST_URL \
+  -Dsonar.host.url=http://localhost:9000 \
   -Dsonar.login=$SONAR_TOKEN
 ```
 
-**Solução Alternativa (Docker):**
-```bash
-docker run --rm \
-  -v $(pwd):/usr/src \
-  -e SONAR_TOKEN=$SONAR_TOKEN \
-  -e SONAR_HOST_URL=$SONAR_HOST_URL \
-  sonarsource/sonar-scanner-cli \
-  -Dsonar.projectKey=meu-projeto-sast \
-  -Dsonar.sources=src \
-  -Dsonar.host.url=$SONAR_HOST_URL \
-  -Dsonar.login=$SONAR_TOKEN
-```
+**Evidência de Execução Correta:**
+- Log mostrando "EXECUTION SUCCESS"
+- Dashboard do SonarQube atualizado com resultados
+- Screenshot mostrando métricas: Bugs, Vulnerabilities, Code Smells, Coverage
 
-**Saída Esperada:**
-```
-INFO: Scanner configuration file: /opt/sonar-scanner/conf/sonar-scanner.properties
-INFO: Project root configuration file: /usr/src/sonar-project.properties
-INFO: SonarScanner 4.x.x
-INFO: ...
-INFO: EXECUTION SUCCESS
-```
+**Tempo Esperado:**
+- Projeto pequeno (< 1000 linhas): 1-2 minutos
+- Projeto médio (1000-10000 linhas): 3-5 minutos
+- Projeto grande (> 10000 linhas): 5-15 minutos
 
-**Validação Técnica do Scan:**
-- ✅ Mensagem "EXECUTION SUCCESS" indica sucesso
-- ✅ Logs mostram processamento sem erros fatais
-- ✅ Projeto aparece no SonarQube após scan
-- ⚠️ Se "EXECUTION FAILURE": verificar logs para identificar erro específico
+**Problemas Comuns e Correções:**
+- **Erro: Invalid token**: Gerar novo token, verificar variável $SONAR_TOKEN
+- **Scan muito lento**: Adicionar exclusões no `sonar-project.properties`
+- **Não encontra código**: Verificar `sonar.sources` está correto
 
-**Tempo de Execução (Referência):**
-- Projeto pequeno (< 1k LOC): 1-3 minutos
-- Projeto médio (1k-10k LOC): 5-15 minutos
-- Projeto grande (> 10k LOC): 15-60 minutos
+---
 
-**Problemas Comuns e Soluções:**
-- `ERROR: Invalid token` → Verificar token está correto, não expirou, tem permissão "Execute Analysis"
-- `ERROR: Project key not found` → Criar projeto primeiro no SonarQube, verificar projectKey no `sonar-project.properties` corresponde ao criado
-- Scan muito lento → Verificar exclusões em `sonar.exclusions`, reduzir escopo em `sonar.sources`, separar código de testes
-- `ERROR: Unable to execute SonarQube Scanner` → Verificar SonarQube está acessível, porta 9000 não está bloqueada
-
-### Passo 7: Analisar Resultados
+### Passo 4: Análise de Resultados - Top 5 Vulnerabilidades
 
 **Solução Esperada:**
 
-**7.1. Dashboard Principal**
-- Acessar: `http://localhost:9000` → Projects → Seu projeto
-- Visualizar métricas:
-  - Vulnerabilities (Critical, High, Medium, Low)
-  - Security Hotspots
-  - Bugs
-  - Code Smells
-  - Security Rating (A-E)
+O aluno deve documentar **pelo menos 3 vulnerabilidades** com análise crítica:
 
-**7.2. Explorar Vulnerabilities**
-1. Clicar em "Vulnerabilities"
-2. Filtrar por severidade (Critical primeiro)
-3. Clicar em cada vulnerabilidade para ver detalhes:
-   - Arquivo e linha
-   - Descrição do problema
-   - Exemplo de correção
-   - CWE e OWASP Top 10
-
-**7.3. Explorar Security Hotspots**
-- Hotspots são potenciais problemas (menos críticos que vulnerabilities)
-- Revisar cada hotspot manualmente
-- Marcar como "Safe" ou "Vulnerable" após análise
-
-**Interpretação dos Resultados:**
-
-**Vulnerabilities (Vulnerabilidades Confirmadas):**
-- **Critical/High**: Corrigir urgentemente (especialmente se em produção)
-- **Medium**: Corrigir quando possível (considerar contexto)
-- **Low**: Priorizar baixo (mas ainda documentar e planejar correção)
-
-**Validação Técnica:**
-- ✅ Severidade alinhada com CWE e OWASP Top 10
-- ✅ Localização precisa (arquivo e linha)
-- ✅ Mensagem clara indica vulnerabilidade e risco
-- ⚠️ Sempre validar manualmente Critical/High (não confiar cegamente na severidade SAST)
-
-**Security Hotspots (Pontos de Atenção):**
-- **Revisar manualmente**: Não são vulnerabilidades confirmadas, apenas pontos de atenção
-- **Podem ser false positives**: Muitas vezes são código seguro com padrão similar a vulnerabilidade
-- **Documentar decisão**: Marcar como "Safe" ou "Vulnerable" após análise manual
-- **Processo**: Revisar pelo menos todos os Critical/High hotspots
-
-**Bugs e Code Smells:**
-- **Não são vulnerabilidades de segurança**: Mas indicam problemas de qualidade
-- **Endereçar gradualmente**: Priorizar baixo, mas planejar correção
-- **Melhorias contínuas**: Usar para melhorar qualidade geral do código
-
-### Passo 8: Top 5 Vulnerabilidades
-
-**Solução Esperada - Estrutura do Relatório:**
+#### Exemplo de Boa Resposta:
 
 ```markdown
-## Top 5 Vulnerabilidades Identificadas
+## Vulnerabilidade #1: SQL Injection em UserController
 
-### Vulnerabilidade #1: SQL Injection em UserService.getUser()
-- **Severidade SAST**: Critical 🔴
+### Detalhes
+- **Severidade**: CRITICAL (9.8)
+- **Arquivo**: `src/controllers/UserController.java`
+- **Linha**: 45
 - **CWE**: CWE-89 (SQL Injection)
 - **OWASP Top 10**: A03:2021 – Injection
-- **Arquivo**: `src/services/UserService.java`
-- **Linha**: 45
 
-**Descrição:**
-O código concatena input do usuário diretamente em query SQL sem sanitização, permitindo SQL Injection.
+### Descrição
+Concatenação de strings na construção de query SQL permite injeção de código malicioso.
 
-**Código Flagado:**
+### Código Flagado
 ```java
-@GetMapping("/users/{id}")
-public User getUser(@PathVariable String id) {
-    String query = "SELECT * FROM users WHERE id = " + id;  // ❌ Vulnerável
-    return db.executeQuery(query);
-}
+String query = "SELECT * FROM users WHERE username = '" + username + "'";
+ResultSet rs = stmt.executeQuery(query);
 ```
 
-**Risco:**
-- Exploitability: ALTA - Pode ser explorado facilmente via API
-- Impacto: ALTO - Pode expor dados de todos os usuários
-- Contexto: Código em produção, dados sensíveis
+### Risco Real
+**TRUE POSITIVE** ✅ 
+- Exploitável por qualquer usuário com acesso ao endpoint `/api/login`
+- Pode expor todos os dados do banco (dump completo)
+- Permite bypass de autenticação
+- **Contexto**: Código está em produção, endpoint público
 
-**Correção Sugerida:**
+### Correção Sugerida
 ```java
-@GetMapping("/users/{id}")
-public User getUser(@PathVariable String id) {
-    // ✅ Validação de entrada
-    if (!isValidUserId(id)) {
-        throw new IllegalArgumentException("Invalid user ID");
-    }
-    
-    // ✅ Prepared Statement
-    String query = "SELECT * FROM users WHERE id = ?";
-    return db.executeQuery(query, id);  // Parâmetroizado
-}
+String query = "SELECT * FROM users WHERE username = ?";
+PreparedStatement pstmt = conn.prepareStatement(query);
+pstmt.setString(1, username);
+ResultSet rs = pstmt.executeQuery();
 ```
 
-**Priorização:** P1 - Corrigir IMEDIATAMENTE
-- Critical + Em produção + Dados sensíveis
-- Violação PCI-DSS/LGPD se dados pessoais envolvidos
-
-**Validação:**
-- ✅ True Positive (vulnerabilidade real confirmada)
-- ✅ Código está em produção
-- ✅ Dados sensíveis afetados (nomes, emails)
-
----
-
-### Vulnerabilidade #2: Hardcoded Secret em ConfigService
-- **Severidade SAST**: Critical 🔴
-- **CWE**: CWE-798 (Use of Hard-coded Credentials)
-- **OWASP Top 10**: A07:2021 – Identification and Authentication Failures
-- **Arquivo**: `src/config/ConfigService.py`
-- **Linha**: 12
-
-[Repetir estrutura similar...]
-
----
-
-[Continuar para #3, #4, #5...]
+### Priorização
+- [x] **P0 - IMEDIATO** (< 24h)
+  - Justificativa: Risco crítico, código em produção, fácil exploração
+  - Ação: Hotfix urgente + comunicar security team
 ```
 
-**Critérios para Seleção do Top 5:**
-1. Severidade (Critical/High primeiro)
-2. Código em produção
-3. Dados sensíveis afetados
-4. Exploitability alta
-5. Compliance violado (PCI-DSS, LGPD)
+**Características de Análise Profissional:**
+- ✅ Identifica vulnerabilidade corretamente
+- ✅ Avalia se é TRUE ou FALSE POSITIVE
+- ✅ Considera **contexto** (código em produção? Dados sensíveis?)
+- ✅ Prioriza por **risco real**, não apenas CVSS Score
+- ✅ Propõe correção técnica válida
 
-### Passo 9: Quality Gate (Opcional mas Recomendado)
+**Níveis de Priorização Esperados:**
 
-**Solução Esperada:**
-
-**9.1. Configurar Quality Gate Básico**
-1. Ir em "Quality Gates" → "Sonar way" (ou criar novo)
-2. Adicionar condições:
-   - Security Rating: A ou B
-   - New Vulnerabilities: 0 Critical
-   - New Vulnerabilities: Máximo 5 High
-   - Security Hotspots: 0 Critical/High (novos)
-
-**9.2. Estratégia Gradual (Recomendada):**
-
-**Semana 1-2 (Muito Permissivo):**
-- Security Rating: Qualquer
-- New Vulnerabilities: 0 Critical apenas
-
-**Semana 3-4 (Médio):**
-- Security Rating: A ou B
-- New Vulnerabilities: 0 Critical, máx 10 High
-
-**Mês 2+ (Rigoroso):**
-- Security Rating: A ou B
-- New Vulnerabilities: 0 Critical, máx 5 High
-- Security Hotspots: 0 Critical/High novas
-
-**Por Que Gradual?**
-- Não bloqueia time desde o início
-- Permite adaptação gradual
-- Reduz resistência à ferramenta
+| Prioridade | Quando usar |
+|------------|-------------|
+| **P0 - IMEDIATO** | Critical em produção + dados sensíveis + fácil exploração |
+| **P1 - URGENTE** | High em produção + impacto significativo |
+| **P2 - SPRINT ATUAL** | Medium ou High sem exposição direta |
+| **P3 - PRÓXIMO SPRINT** | Low ou Medium em código não crítico |
+| **P4 - BACKLOG** | Low + False Positive + código de teste |
 
 ---
 
-## 📊 Critérios de Avaliação
+## 📊 Critérios de Avaliação (Abordagem Qualitativa)
 
-### ✅ Essenciais (Obrigatórios para Aprovação)
+### ✅ Aspectos Essenciais (Obrigatórios)
 
-**Configuração Técnica:**
+**Instalação e Configuração:**
 - [ ] SonarQube instalado e rodando corretamente
-- [ ] Projeto criado no SonarQube com configuração adequada
-- [ ] Token gerado e configurado corretamente
-- [ ] Arquivo `sonar-project.properties` criado com configurações apropriadas
-- [ ] Primeiro scan executado com sucesso (sem erros fatais)
+- [ ] Projeto criado no SonarQube
+- [ ] Token gerado e utilizado (sem expor no git)
+- [ ] Arquivo `sonar-project.properties` configurado adequadamente
 
-**Análise de Resultados:**
-- [ ] Dashboard acessado e explorado (entendeu métricas principais)
-- [ ] Top 5 vulnerabilidades identificadas e documentadas
+**Execução do Scan:**
+- [ ] Scan executado com sucesso ("EXECUTION SUCCESS")
+- [ ] Dashboard mostra resultados da análise
+- [ ] Aluno conseguiu acessar e navegar nos resultados
 
-### ⭐ Importantes (Recomendados para Resposta Completa)
+**Análise de Vulnerabilidades:**
+- [ ] Identificou pelo menos 3 vulnerabilidades
+- [ ] Documentou detalhes básicos (arquivo, linha, severidade)
+- [ ] Demonstrou compreensão do tipo de vulnerabilidade
 
-**Relatório de Análise:**
-- [ ] Relatório criado com estrutura clara e organizada
-- [ ] Cada vulnerabilidade documentada com:
-  - Severidade, CWE, OWASP Top 10
-  - Código flagado (exemplo concreto)
-  - Código corrigido (solução segura)
-  - Análise de risco (exploitability, impacto, contexto)
+### ⭐ Aspectos Importantes (Qualidade da Resposta)
 
-**Priorização:**
-- [ ] Priorização realizada considerando:
-  - Severidade SAST vs Risco Real
-  - Contexto (produção vs desenvolvimento)
-  - Dados sensíveis afetados
-  - Compliance aplicável (LGPD, PCI-DSS, etc.)
+**Análise Crítica:**
+- [ ] Avaliou se vulnerabilidades são TRUE ou FALSE POSITIVES
+- [ ] Considerou contexto de execução (produção vs teste)
+- [ ] Priorizou por risco real, não apenas CVSS
+- [ ] Propôs correções técnicas válidas
 
-### 💡 Diferencial (Demonstram Conhecimento Avançado)
+**Documentação:**
+- [ ] Relatório estruturado e organizado
+- [ ] Evidências visuais (screenshots) incluídas
+- [ ] Justificativas claras para priorização
+- [ ] Código de correção quando aplicável
 
-**Quality Gate:**
-- [ ] Quality Gate configurado e testado
-- [ ] Estratégia gradual documentada (baseline → permissivo → rigoroso)
+### 💡 Aspectos Diferencial (Conhecimento Avançado)
 
-**Análise Avançada:**
-- [ ] Identifica false positives e documenta razão claramente
-- [ ] Considera contexto de negócio específico (financeiro, educacional, etc.)
-- [ ] Propõe estratégia de redução gradual de vulnerabilities com metas
+**Profundidade Técnica:**
+- [ ] Testou correções propostas (validou que funcionam)
+- [ ] Identificou vulnerabilidades não óbvias (Security Hotspots)
+- [ ] Considerou múltiplos contextos (financeiro, educacional, etc.)
+- [ ] Configurou Quality Gate personalizado
+
+**Práticas Profissionais:**
+- [ ] Documentou processo de instalação (README)
+- [ ] Configurou CI/CD integration (Desafio Adicional)
+- [ ] Criou estratégia de remediação para projeto legado
+- [ ] Otimizou performance do scan
 
 ---
 
@@ -438,282 +235,247 @@ public User getUser(@PathVariable String id) {
 
 ### Conceitos-Chave Avaliados
 
-1. **Capacidade Técnica**: Aluno consegue configurar SonarQube do zero?
-2. **Interpretação de Resultados**: Aluno entende os findings?
-3. **Priorização**: Aluno prioriza por risco real ou apenas severidade SAST?
-4. **Análise Crítica**: Aluno diferencia true positives de false positives?
+1. **Habilidade Técnica**: Consegue instalar e configurar ferramenta SAST?
+2. **Pensamento Crítico**: Distingue True Positive de False Positive?
+3. **Priorização por Risco**: Prioriza por contexto ou apenas por CVSS?
+4. **Comunicação**: Documentação é clara e acionável para devs?
 
 ### Erros Comuns
 
-1. **Erro: Configuração Incorreta do sonar-project.properties**
-   - **Situação**: Aluno configura `sonar.sources` incluindo node_modules/venv
-   - **Feedback**: "Boa configuração inicial! Note que incluir `node_modules/` ou `venv/` no `sonar.sources` vai tornar o scan muito lento. Esses diretórios devem estar em `sonar.exclusions` porque contêm código de terceiros que você não controla."
+**Erro 1: "Não consegui instalar SonarQube (Docker não funciona)"**
+- **Causa**: Docker não instalado ou configurado
+- **Orientação**: "Verifique se Docker está instalado (`docker --version`). Se não tiver, instale via instruções oficiais. Alternativamente, use SonarQube Cloud (https://sonarcloud.io) temporariamente."
 
-2. **Erro: Priorização Apenas por Severidade SAST**
-   - **Situação**: Aluno prioriza Critical primeiro sem considerar contexto
-   - **Feedback**: "Excelente identificação das vulnerabilidades! Lembre-se de que nem toda Critical é P1 se o código não está em produção. Considere: código em produção? dados sensíveis? fácil explorar? Isso ajuda a priorizar por risco real."
+**Erro 2: "Scan executou mas não encontrou nada"**
+- **Causa**: Projeto sem código vulnerável OU configuração incorreta
+- **Orientação**: "Verifique se `sonar.sources` está apontando para diretório correto. Se projeto realmente não tem vulnerabilidades, use projeto de exemplo (WebGoat, Juice Shop) ou adicione código vulnerável de propósito para praticar."
 
-3. **Erro: Não Configurar Quality Gate**
-   - **Situação**: Aluno não configura Quality Gate
-   - **Feedback**: "Ótimo trabalho configurando SonarQube! Para usar em produção, recomendamos configurar Quality Gate para bloquear merge quando encontrar Critical vulnerabilities. Isso previne que código vulnerável chegue à branch principal."
+**Erro 3: "Listou 50+ vulnerabilidades sem análise"**
+- **Causa**: Apenas exportou relatório sem análise crítica
+- **Orientação**: "Você listou as vulnerabilidades, mas faltou ANÁLISE. Selecione top 3-5 mais críticas e responda: 1) É TRUE ou FALSE POSITIVE? 2) Qual o RISCO REAL (considerando contexto)? 3) Como CORRIGIR? 4) Qual a PRIORIDADE? Refaça focando em qualidade, não quantidade."
 
-4. **Erro: Não Identificar False Positives**
-   - **Situação**: Aluno assume que tudo que SAST reporta é vulnerabilidade real
-   - **Feedback**: "Boa análise! SAST às vezes reporta false positives. Sempre valide cada Critical/High manualmente. Por exemplo, hardcoded password em teste unitário geralmente é false positive porque não é usado em produção."
+**Erro 4: "Priorizou tudo como P0 (IMEDIATO)"**
+- **Causa**: Não considerou contexto, priorizou apenas por CVSS
+- **Orientação**: "P0 deve ser reservado para vulnerabilidades CRÍTICAS em PRODUÇÃO com DADOS SENSÍVEIS. Re-priorize considerando: 1) Código está em produção? 2) Endpoint é público? 3) Dados sensíveis são afetados? 4) Facilidade de exploração? Use matriz de risco."
 
-### Dicas para Feedback
+**Erro 5: "Marcou tudo como FALSE POSITIVE sem evidências"**
+- **Causa**: Não validou manualmente, assumiu que SAST está errado
+- **Orientação**: "Você precisa PROVAR que é FALSE POSITIVE. Para cada um: 1) Reproduza manualmente (tente explorar), 2) Mostre evidências (screenshots, logs), 3) Explique POR QUÊ não é vulnerável. Sem evidências = não é confiável."
 
-- ✅ **Reconheça**: Configuração técnica correta, análise detalhada, relatórios bem estruturados
-- ❌ **Corrija**: Priorização incorreta, não considerar contexto, assumir que tudo é vulnerabilidade real
-- 💡 **Incentive**: Configurar Quality Gate, identificar false positives, considerar contexto de negócio
+**Erro 6: "Token exposto no git"**
+- **Causa**: Commitou token sem proteger
+- **Orientação**: "⚠️ SEGURANÇA! Você expôs token no repositório git. Isso é um risco de segurança sério. AÇÕES: 1) Revogue token imediatamente no SonarQube, 2) Remova do histórico do git (git filter-branch), 3) Adicione `.env` no `.gitignore`, 4) Use variáveis de ambiente. Refaça exercício aplicando práticas seguras."
+
+### Dicas para Feedback Construtivo
+
+**Para alunos com domínio completo:**
+> "Excelente trabalho! Você demonstrou proficiência técnica (instalação, configuração, scan) e pensamento crítico (distinguiu TRUE de FALSE POSITIVES, priorizou por contexto). Sua análise está no nível de um QA Security pleno. Próximo desafio: configure Quality Gate rigoroso e integre SonarQube no CI/CD (Exercício 2.1.3)."
+
+**Para alunos com dificuldades intermediárias:**
+> "Boa execução técnica! Você conseguiu instalar e executar scan com sucesso. Para melhorar: aprofunde análise de TRUE vs FALSE POSITIVES (valide manualmente tentando explorar) e re-priorize considerando contexto de negócio. Revise seção 'Priorização de Findings' da Aula 2.1."
+
+**Para alunos que travaram:**
+> "Vejo que você enfrentou dificuldades. Vamos simplificar: 1) Use Docker Desktop (interface gráfica) se CLI é difícil, 2) Teste com projeto menor (< 500 linhas), 3) Siga documentação oficial passo a passo: https://docs.sonarqube.org/latest/try-out-sonarqube/. Após conseguir scan básico, agende monitoria para tirar dúvidas."
 
 ### Contexto Pedagógico
 
-Este exercício é fundamental porque:
+**Por que este exercício é fundamental:**
 
-1. **Base Prática**: Configurar SonarQube é habilidade básica essencial para QA de segurança
-2. **Interpretação de Resultados**: Ensina a interpretar findings SAST, não apenas ler relatórios
-3. **Priorização Real**: Desenvolve capacidade de priorizar por risco real, não apenas severidade técnica
-4. **Análise Crítica**: Ensina a validar findings e diferenciar true/false positives
+1. **Habilidade Base**: Configuração de ferramentas SAST é competência essencial para QA Security
+2. **Hands-on Real**: Simula tarefa real de primeiro dia em projeto (setup de ferramentas)
+3. **Pensamento Crítico**: Desenvolve capacidade de analisar findings, não apenas aceitar
+4. **Priorização**: Ensina a priorizar por risco real (não apenas scores)
+5. **Base para Automação**: Pré-requisito para integração CI/CD (Exercício 2.1.3)
 
 **Conexão com o Curso:**
-- Aula 2.1: SAST (teoria) → Este exercício (prática)
-- Pré-requisito para: Exercício 2.1.3 (Integrar SAST no CI/CD)
-- Base para: Módulo 3 (Aplicar SAST em contextos específicos)
+- **Pré-requisito**: Aula 2.1 (SAST: Static Application Security Testing)
+- **Aplica conceitos**: SAST, CVSS, True/False Positives, Quality Gates
+- **Prepara para**: Exercício 2.1.3 (SAST no CI/CD), Exercício 2.1.4 (Validar Findings)
+- **Integra com**: Aula 2.2 (DAST), Aula 2.4 (Automação)
 
 ---
 
 ## 🌟 Exemplos de Boas Respostas
 
-### Exemplo 1: Resposta Completa (Excelente)
-
-**Relatório de Top 5 Vulnerabilities:**
+### Exemplo 1: Resposta Exemplar (Nível Avançado)
 
 ```markdown
-## Vulnerabilidade #1: SQL Injection - P1 IMEDIATO
+## Relatório de Análise SAST - Projeto Open Banking (Hipotético)
 
-**Severidade**: Critical 🔴  
-**Arquivo**: `src/api/users.py:45`  
-**CWE**: CWE-89  
-**OWASP**: A03:2021 – Injection  
+### Resumo Executivo
+- **Projeto**: API de Open Banking (Node.js + Express)
+- **Linhas de código**: 3.245
+- **Data do scan**: 2026-01-24
+- **Tempo de scan**: 4m 32s
+
+### Resultados Gerais
+- **Vulnerabilities**: 12 (2 Critical, 5 High, 4 Medium, 1 Low)
+- **Security Hotspots**: 8 (3 High, 5 Medium)
+- **Bugs**: 23
+- **Code Smells**: 87
+
+### Top 5 Vulnerabilidades Priorizadas
+
+#### 1. SQL Injection em TransactionController (P0 - IMEDIATO)
+- **Arquivo**: `src/controllers/TransactionController.js:156`
+- **Severidade**: CRITICAL (CVSS 9.8)
+- **Status**: ✅ TRUE POSITIVE (validado manualmente)
 
 **Código Vulnerável:**
-```python
-def get_user(user_id):
-    query = f"SELECT * FROM users WHERE id = {user_id}"  # ❌ SQL Injection
-    return db.execute(query)
+```javascript
+const query = `SELECT * FROM transactions WHERE user_id = '${userId}'`;
+const result = await db.query(query);
 ```
 
-**Análise de Risco:**
-- Exploitability: ALTA - Pode ser explorado via API
-- Impacto: CRÍTICO - Pode acessar dados de todos os usuários
-- Contexto: Código em produção, endpoint público, dados sensíveis (LGPD)
-
-**Correção:**
-```python
-def get_user(user_id):
-    if not user_id.isdigit():  # ✅ Validação
-        raise ValueError("Invalid user ID")
-    query = "SELECT * FROM users WHERE id = %s"  # ✅ Prepared statement
-    return db.execute(query, (user_id,))
+**Validação Manual:**
+```bash
+# Teste com payload malicioso
+curl -X GET 'http://localhost:3000/api/transactions?userId=1%27%20OR%20%271%27=%271'
+# Resultado: Retornou TODAS as transações do banco
 ```
 
-**Justificativa P1:**
-- Critical + Em produção + Dados sensíveis + Fácil explorar = P1 IMEDIATO
+**Risco Real:**
+- Exploração: Trivial (apenas modificar query string)
+- Impacto: Exposição de dados financeiros de TODOS os clientes
+- Compliance: Viola PCI-DSS Requirement 6.5.1
+- Contexto: Endpoint PÚBLICO, código em PRODUÇÃO
+
+**Correção Aplicada:**
+```javascript
+const query = 'SELECT * FROM transactions WHERE user_id = $1';
+const result = await db.query(query, [userId]);
 ```
 
-**Características da Resposta:**
-- ✅ Identifica vulnerabilidade corretamente
-- ✅ Análise completa de risco (exploitability, impacto, contexto)
-- ✅ Correção técnica adequada
-- ✅ Priorização justificada
-- ✅ Considera compliance (LGPD)
-
-### Exemplo 2: Resposta Boa (Adequada)
-
-**Relatório Simples:**
-```markdown
-## Vulnerabilidade #1: SQL Injection
-- Severidade: Critical
-- Arquivo: src/api/users.py:45
-- Correção: Usar prepared statements
-- Prioridade: P1
+**Validação da Correção:**
+```bash
+curl -X GET 'http://localhost:3000/api/transactions?userId=1%27%20OR%20%271%27=%271'
+# Resultado após correção: 400 Bad Request (payload bloqueado)
 ```
 
-**Características da Resposta:**
-- ✅ Identifica vulnerabilidade corretamente
-- ✅ Propõe correção
-- ⚠️ Priorização sem justificativa detalhada
-- ⚠️ Não analisa risco completo (mas está correto)
+**Prioridade**: P0 - Hotfix IMEDIATO (< 24h)
 
 ---
 
-## 🎯 Respostas Esperadas para Desafios Adicionais
+#### 2. Hardcoded API Key em ConfigService (P1 - URGENTE)
+- **Arquivo**: `src/services/ConfigService.js:12`
+- **Severidade**: HIGH (CVSS 7.5)
+- **Status**: ✅ TRUE POSITIVE
 
-### Desafio 1: Projeto com 500+ Vulnerabilities
+**Código Vulnerável:**
+```javascript
+const API_KEY = "sk_live_1234567890abcdef";  // Hardcoded secret
+```
 
-**Solução Esperada:**
+**Risco Real:**
+- Exploração: Fácil (key exposta no repositório git)
+- Impacto: Acesso não autorizado a API de pagamentos (Stripe)
+- Compliance: Viola PCI-DSS Requirement 3.4
+- Contexto: Código commitado em repositório PÚBLICO no GitHub
 
-**1. Criar Baseline:**
-- Acessar SonarQube → Projeto → Settings → General
-- Criar novo baseline: "Baseline 2026-01-14"
-- Marcar todas as vulnerabilities existentes como baseline
+**Correção Aplicada:**
+```javascript
+const API_KEY = process.env.STRIPE_API_KEY;
+```
 
-**2. Configurar Quality Gate Gradual:**
+**Ações Adicionais:**
+- Revogada key antiga no Stripe
+- Gerada nova key e armazenada no AWS Secrets Manager
+- Adicionada `.env` no `.gitignore`
+- Limpado histórico do git (git filter-branch)
+
+**Prioridade**: P1 - URGENTE (< 48h)
+
+---
+
+[... demais vulnerabilidades ...]
+
+### Estratégia de Remediação
+
+| Sprint | Ações | Meta |
+|--------|-------|------|
+| **Sprint Atual** | Corrigir P0 e P1 (SQLi + Hardcoded Key) | 0 Critical |
+| **Próximo Sprint** | Corrigir P2 (5 High vulnerabilities) | 0 High |
+| **Mês 2** | Triagem de Security Hotspots | Reduzir 50% |
+| **Mês 3** | Quality Gate rigoroso (0 Critical + 0 High) | Manter qualidade |
+
+### Quality Gate Configurado
 ```yaml
-# Semana 1-2: Permissivo
-Quality Gate:
-  - Security Rating: Qualquer
-  - New Vulnerabilities: 0 Critical apenas (após baseline)
-
-# Mês 1: Médio
-Quality Gate:
-  - Security Rating: A, B, ou C
-  - New Vulnerabilities: 0 Critical, máx 10 High (novas)
-
-# Mês 3+: Rigoroso
-Quality Gate:
+Conditions:
+  - New Critical Vulnerabilities: 0
+  - New High Vulnerabilities: max 2
   - Security Rating: A ou B
-  - New Vulnerabilities: 0 Critical, máx 5 High (novas)
-  - Redução de 20% de vulnerabilities antigas por trimestre
+  - Security Hotspots Review: 100% (todas revisadas)
 ```
 
-**3. Estratégia de Redução:**
-- Trimestre 1: Reduzir 50 Critical → 30 Critical (meta: -40%)
-- Trimestre 2: Reduzir 30 Critical → 15 Critical (meta: -50%)
-- Trimestre 3: Reduzir 15 Critical → 5 Critical (meta: -67%)
-- Trimestre 4: Eliminar todas Critical (meta: 100%)
-
-**4. Template de Triagem:**
-```markdown
-## Nova Vulnerability: [ID]
-
-- Severidade: Critical/High/Medium/Low
-- Baseline? Sim/Em baseline / Não/Novo código
-- Ação: Corrigir / Aceitar Risco / False Positive
-- Responsável: [Nome]
-- Prazo: [Data]
+### Lições Aprendidas
+1. **SAST encontra vulnerabilidades reais**: 7 de 12 eram TRUE POSITIVES (58%)
+2. **Contexto é crucial**: CVSS 9.8 em endpoint de teste = P3, em produção = P0
+3. **Validação manual é essencial**: 5 FALSE POSITIVES foram identificados
+4. **Automação economiza tempo**: Scan automatizado (4min) vs revisão manual (horas)
 ```
 
-### Desafio 2: Otimização de Performance
-
-**Solução Esperada:**
-
-**Causas Comuns de Scan Lento:**
-1. Projeto muito grande (> 100k LOC)
-2. Muitas linguagens analisadas
-3. Incluindo node_modules/vendor/venv
-4. Quality Gate muito complexo
-5. Regras muito complexas ativas
-
-**Otimizações:**
-
-**1. Exclusões Agressivas:**
-```properties
-# sonar-project.properties
-sonar.exclusions=**/node_modules/**,**/vendor/**,**/venv/**,**/__pycache__/**,**/*.min.js,**/*.bundle.js,**/dist/**,**/build/**
-```
-
-**2. Analisar Apenas Código Fonte:**
-```properties
-sonar.sources=src/main  # Não src/
-sonar.tests=tests       # Separar testes
-sonar.test.inclusions=**/*Test.*  # Apenas arquivos de teste
-```
-
-**3. Scan Diferencial (CI/CD):**
-```bash
-# Analisar apenas mudanças no PR
-sonar-scanner \
-  -Dsonar.pullrequest.key=$PR_NUMBER \
-  -Dsonar.pullrequest.branch=$PR_BRANCH \
-  -Dsonar.pullrequest.base=$BASE_BRANCH
-```
-
-**4. Modo Preview (Rápido):**
-```bash
-sonar-scanner -Dsonar.analysis.mode=preview
-```
-
-**Métricas de Sucesso:**
-- Antes: 25 minutos
-- Depois: < 5 minutos (meta alcançada)
-- Melhoria: 80% de redução
-
-### Desafio 3: Integração Sem Quebrar Pipeline
-
-**Solução Esperada:**
-
-**1. Análise de Pipeline Existente:**
-- Identificar jobs/stages existentes
-- Identificar pontos de integração
-- Verificar dependências entre jobs
-
-**2. Integração Não-Bloqueante Inicial:**
-```yaml
-# .github/workflows/ci.yml
-jobs:
-  build:
-    # ... jobs existentes ...
-  
-  sonarqube:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-    
-    # Não bloqueia outros jobs inicialmente
-    continue-on-error: true
-```
-
-**3. Quality Gate Gradual:**
-```yaml
-# Semana 1-2: Apenas reporta
-- name: SonarQube Scan
-  continue-on-error: true  # Não falha pipeline
-
-# Semana 3-4: Bloqueia apenas Critical
-- name: SonarQube Scan
-  continue-on-error: false
-  # Quality Gate: 0 Critical apenas
-
-# Mês 2+: Bloqueia Critical + High
-- name: SonarQube Scan
-  continue-on-error: false
-  # Quality Gate: 0 Critical, máx 5 High
-```
-
-**4. Plano de Evolução:**
-```markdown
-## Evolução do Quality Gate
-
-### Fase 1 (Semanas 1-2): Monitoramento
-- SonarQube roda mas não bloqueia
-- Time se acostuma com findings
-- Coleta métricas de baseline
-
-### Fase 2 (Semanas 3-4): Bloqueio Crítico
-- Bloqueia apenas Critical novas
-- Comunica time sobre bloqueio
-- Documenta processo de triagem
-
-### Fase 3 (Mês 2): Bloqueio High
-- Bloqueia Critical + High novas
-- Time já acostumado
-- Redução visível de vulnerabilities
-
-### Fase 4 (Mês 3+): Rigoroso
-- Quality Gate completo ativo
-- Redução contínua de vulnerabilities
-- Cultura de segurança estabelecida
-```
+**Por que é exemplar:**
+- ✅ Análise técnica profunda com validação manual
+- ✅ Considera contexto de negócio (Open Banking, PCI-DSS)
+- ✅ Priorização justificada com matriz de risco
+- ✅ Correções testadas e validadas
+- ✅ Estratégia de remediação de longo prazo
+- ✅ Quality Gate configurado adequadamente
+- ✅ Documentação profissional (formato de relatório real)
 
 ---
 
-**Última atualização**: 2026-01-14  
+### Exemplo 2: Resposta Adequada (Nível Intermediário)
+
+```markdown
+## Análise SAST - Projeto Node.js API
+
+### Configuração
+- Instalei SonarQube via Docker (`docker run -d -p 9000:9000 sonarqube`)
+- Criei projeto "minha-api"
+- Gerei token e executei scan
+
+### Resultados
+Total de 8 vulnerabilidades encontradas:
+- 1 Critical
+- 3 High
+- 4 Medium
+
+### Top 3 Vulnerabilidades
+
+#### 1. SQL Injection (Critical)
+- **Arquivo**: `src/user.js` linha 45
+- **Problema**: Query usa concatenação de strings
+- **Correção**: Usar prepared statements
+- **Prioridade**: P0 (crítico)
+
+#### 2. Hardcoded Password (High)
+- **Arquivo**: `src/config.js` linha 12
+- **Problema**: Senha hardcoded no código
+- **Correção**: Mover para variável de ambiente
+- **Prioridade**: P1 (urgente)
+
+#### 3. XSS Reflected (High)
+- **Arquivo**: `src/search.js` linha 67
+- **Problema**: Input não sanitizado
+- **Correção**: Sanitizar entrada com DOMPurify
+- **Prioridade**: P2 (importante)
+```
+
+**Por que é adequado:**
+- ✅ Completou instalação e scan com sucesso
+- ✅ Identificou vulnerabilidades corretamente
+- ✅ Propôs correções técnicas válidas
+- ✅ Priorizou adequadamente
+- ⚠️ Faltou: validação manual (TRUE vs FALSE POSITIVE)
+- ⚠️ Faltou: contexto de negócio e impacto real
+- ⚠️ Faltou: evidências visuais (screenshots)
+
+**Feedback sugerido:**
+> "Boa execução! Você configurou SonarQube e identificou vulnerabilidades corretamente. Para elevar o nível: 1) Valide manualmente se são TRUE ou FALSE POSITIVES (tente explorar), 2) Adicione contexto (código está em produção? Dados sensíveis?), 3) Inclua screenshots do dashboard. Sua análise está no caminho certo!"
+
+---
+
+**Última atualização**: 2026-01-24  
 **Elaborado por**: Joelma Prestes Ferreira e Yago Palhano  
 **Revisado por**: [A definir]
