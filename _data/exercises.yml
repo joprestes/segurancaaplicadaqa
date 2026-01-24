@@ -228,14 +228,6 @@ exercises:
     order: 4
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-4-validate-findings
 
-  - id: lesson-2-1-exercise-5-compare-sast-tools
-    title: "Exercício 2.1.5: Comparar Ferramentas SAST"
-    lesson_id: lesson-2-1
-    module: module-2
-    slug: compare-sast-tools
-    order: 5
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-5-compare-sast-tools
-
   # Vídeo Explicativo - Aula 2.2
   - id: lesson-2-2-exercises-intro
     title: "📹 Vídeo: Introdução aos Exercícios - DAST: Testes Dinâmicos"
@@ -319,53 +311,37 @@ exercises:
     order: 1
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast
 
-  - id: lesson-2-4-exercise-2-dependabot-setup
-    title: "Exercício 2.4.2: Automatizar SCA com Dependabot"
-    lesson_id: lesson-2-4
-    module: module-2
-    slug: dependabot-setup
-    order: 2
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-2-dependabot-setup
-
-  - id: lesson-2-4-exercise-3-dast-cicd
-    title: "Exercício 2.4.3: Integrar DAST no Pipeline CI/CD"
+  - id: lesson-2-4-exercise-2-dast-cicd
+    title: "Exercício 2.4.2: Integrar DAST no Pipeline CI/CD"
     lesson_id: lesson-2-4
     module: module-2
     slug: dast-cicd-integration
-    order: 3
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-3-dast-cicd
+    order: 2
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-2-dast-cicd
 
-  - id: lesson-2-4-exercise-4-quality-gates
-    title: "Exercício 2.4.4: Implementar Quality Gates de Segurança"
+  - id: lesson-2-4-exercise-3-quality-gates
+    title: "Exercício 2.4.3: Implementar Quality Gates de Segurança"
     lesson_id: lesson-2-4
     module: module-2
     slug: quality-gates
+    order: 3
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-3-quality-gates
+
+  - id: lesson-2-4-exercise-4-pipeline-optimization
+    title: "Exercício 2.4.4: Otimização de Pipeline Lento ⭐"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: pipeline-optimization
     order: 4
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-4-quality-gates
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization
 
-  - id: lesson-2-4-exercise-5-secret-scanning
-    title: "Exercício 2.4.5: Configurar Secret Scanning Automatizado"
+  - id: lesson-2-4-exercise-5-security-policy
+    title: "Exercício 2.4.5: Criar Política de Segurança Executável ⭐⭐"
     lesson_id: lesson-2-4
     module: module-2
-    slug: secret-scanning
+    slug: security-policy
     order: 5
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-5-secret-scanning
-
-  - id: lesson-2-4-exercise-6-full-pipeline
-    title: "Exercício 2.4.6: Criar Pipeline Completo de Segurança ⭐"
-    lesson_id: lesson-2-4
-    module: module-2
-    slug: full-security-pipeline
-    order: 6
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-6-full-pipeline
-
-  - id: lesson-2-4-exercise-7-dashboard-metrics
-    title: "Exercício 2.4.7: Dashboard de Métricas de Segurança ⭐"
-    lesson_id: lesson-2-4
-    module: module-2
-    slug: dashboard-metrics
-    order: 7
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-7-dashboard-metrics
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-5-security-policy
 
   # Vídeo Explicativo - Aula 2.5
   - id: lesson-2-5-exercises-intro
@@ -384,63 +360,47 @@ exercises:
     order: 1
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-1-snyk-setup
 
-  - id: lesson-2-5-exercise-2-dependabot-config
-    title: "Exercício 2.5.2: Configurar Dependabot Avançado"
-    lesson_id: lesson-2-5
-    module: module-2
-    slug: dependabot-config
-    order: 2
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-2-dependabot-config
-
-  - id: lesson-2-5-exercise-3-npm-audit
-    title: "Exercício 2.5.3: npm audit e yarn audit"
+  - id: lesson-2-5-exercise-2-npm-audit
+    title: "Exercício 2.5.2: npm audit e yarn audit"
     lesson_id: lesson-2-5
     module: module-2
     slug: npm-audit
-    order: 3
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-3-npm-audit
+    order: 2
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-2-npm-audit
 
-  - id: lesson-2-5-exercise-4-license-compliance
-    title: "Exercício 2.5.4: Análise de Licenças de Dependências"
-    lesson_id: lesson-2-5
-    module: module-2
-    slug: license-compliance
-    order: 4
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-4-license-compliance
-
-  - id: lesson-2-5-exercise-5-dependency-update-strategy
-    title: "Exercício 2.5.5: Estratégia de Atualização de Dependências"
-    lesson_id: lesson-2-5
-    module: module-2
-    slug: dependency-update-strategy
-    order: 5
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-5-dependency-update-strategy
-
-  - id: lesson-2-5-exercise-6-sbom-generation
-    title: "Exercício 2.5.6: Gerar SBOM (Software Bill of Materials) ⭐"
+  - id: lesson-2-5-exercise-3-sbom-generation
+    title: "Exercício 2.5.3: Gerar SBOM (Software Bill of Materials) ⭐"
     lesson_id: lesson-2-5
     module: module-2
     slug: sbom-generation
-    order: 6
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-6-sbom-generation
+    order: 3
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-3-sbom-generation
 
-  - id: lesson-2-5-exercise-7-supply-chain-security
-    title: "Exercício 2.5.7: Avaliar Supply Chain Security ⭐"
+  - id: lesson-2-5-exercise-4-cve-war-room
+    title: "Exercício 2.5.4: War Room de CVE Crítica (Log4Shell) ⭐⭐"
     lesson_id: lesson-2-5
     module: module-2
-    slug: supply-chain-security
-    order: 7
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-7-supply-chain-security
+    slug: cve-war-room
+    order: 4
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-4-cve-war-room
+
+  - id: lesson-2-5-exercise-5-no-patch-available
+    title: "Exercício 2.5.5: Dependência Vulnerável Sem Patch Disponível ⭐⭐"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: no-patch-available
+    order: 5
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-5-no-patch-available
 
   # NOVOS EXERCÍCIOS DE ANÁLISE E DECISÃO (Revisão Módulo 2)
 
-  - id: lesson-2-1-exercise-6-security-vs-delivery
-    title: "Exercício 2.1.6: Trade-off Segurança vs Entrega"
+  - id: lesson-2-1-exercise-5-security-vs-delivery
+    title: "Exercício 2.1.5: Trade-off Segurança vs Entrega"
     lesson_id: lesson-2-1
     module: module-2
     slug: security-vs-delivery
-    order: 6
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-6-security-vs-delivery
+    order: 5
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery
 
   - id: lesson-2-2-exercise-3-false-positive-investigation
     title: "Exercício 2.2.3: Investigação de False Positive em DAST"
@@ -457,51 +417,3 @@ exercises:
     slug: dast-report-analysis
     order: 4
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis
-
-  - id: lesson-2-4-exercise-8-pipeline-debugging
-    title: "Exercício 2.4.8: Debugging de Pipeline de Segurança"
-    lesson_id: lesson-2-4
-    module: module-2
-    slug: pipeline-debugging
-    order: 8
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-8-pipeline-debugging
-
-  - id: lesson-2-4-exercise-9-pipeline-optimization
-    title: "Exercício 2.4.9: Otimização de Pipeline Lento ⭐"
-    lesson_id: lesson-2-4
-    module: module-2
-    slug: pipeline-optimization
-    order: 9
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-9-pipeline-optimization
-
-  - id: lesson-2-4-exercise-10-security-policy
-    title: "Exercício 2.4.10: Criar Política de Segurança Executável ⭐⭐"
-    lesson_id: lesson-2-4
-    module: module-2
-    slug: security-policy
-    order: 10
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-10-security-policy
-
-  - id: lesson-2-5-exercise-8-cve-war-room
-    title: "Exercício 2.5.8: War Room de CVE Crítica (Log4Shell) ⭐⭐"
-    lesson_id: lesson-2-5
-    module: module-2
-    slug: cve-war-room
-    order: 8
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-8-cve-war-room
-
-  - id: lesson-2-5-exercise-9-tool-cost-benefit
-    title: "Exercício 2.5.9: Análise de Custo-Benefício de Ferramentas SCA"
-    lesson_id: lesson-2-5
-    module: module-2
-    slug: tool-cost-benefit
-    order: 9
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-9-tool-cost-benefit
-
-  - id: lesson-2-5-exercise-10-no-patch-available
-    title: "Exercício 2.5.10: Dependência Vulnerável Sem Patch Disponível ⭐⭐"
-    lesson_id: lesson-2-5
-    module: module-2
-    slug: no-patch-available
-    order: 10
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-10-no-patch-available
