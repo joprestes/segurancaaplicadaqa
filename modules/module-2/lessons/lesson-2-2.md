@@ -9,12 +9,9 @@ level: "Intermediário"
 prerequisites: ["lesson-2-1"]
 exercises:
   - lesson-2-2-exercise-1-owasp-zap-setup
-  - lesson-2-2-exercise-2-burp-suite-manual
   - lesson-2-2-exercise-3-dast-cicd
-  - lesson-2-2-exercise-4-validate-findings
-  - lesson-2-2-exercise-5-compare-dast-tools
-  - lesson-2-2-exercise-6-baseline-legacy
-  - lesson-2-2-exercise-7-optimize-performance
+  - lesson-2-2-exercise-3-false-positive-investigation
+  - lesson-2-2-exercise-4-dast-report-analysis
 video:
   file: "assets/module-2/videos/2.2-DAST_Testes_Dinamicos.mp4"
   title: "DAST: Dynamic Application Security Testing"
@@ -36,7 +33,7 @@ permalink: /modules/testes-seguranca-pratica/lessons/dast-testes-dinamicos/
 **Aplicação prática**: Baseline scan em cada MR (10-15 min), full scan noturno, pre-production scan antes de deploy em produção.
 
 **Tempo de leitura completa**: 90 minutos  
-**Exercícios**: 7 (4 básicos, 1 intermediário, 2 avançados ⭐)
+**Exercícios**: 4 (2 básicos, 2 intermediários)
 
 ---
 
