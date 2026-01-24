@@ -226,8 +226,8 @@ Em um projeto financeiro hipotético, poderíamos identificar SQL Injection em e
 ## Próximos Passos
 
 Após completar este exercício, você estará preparado para:
-- Exercício 1.2.3: Prevenção de XSS
-- Exercício 1.2.4: Broken Access Control
+- Exercício 1.2.3: Broken Access Control
+- Exercício 1.2.4: Checklist OWASP Top 10
 - Aplicar conhecimento em testes reais de aplicações
 
 ---

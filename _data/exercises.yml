@@ -28,21 +28,21 @@ exercises:
     order: 2
     url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-2-sql-injection
 
-  - id: lesson-1-2-exercise-4-broken-access-control
-    title: "Exercício 1.2.4: Broken Access Control"
+  - id: lesson-1-2-exercise-3-broken-access-control
+    title: "Exercício 1.2.3: Broken Access Control"
     lesson_id: lesson-1-2
     module: module-1
     slug: broken-access-control
-    order: 4
-    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-4-broken-access-control
+    order: 3
+    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-3-broken-access-control
 
-  - id: lesson-1-2-exercise-5-owasp-checklist
-    title: "Exercício 1.2.5: Checklist OWASP Top 10"
+  - id: lesson-1-2-exercise-4-owasp-checklist
+    title: "Exercício 1.2.4: Checklist OWASP Top 10"
     lesson_id: lesson-1-2
     module: module-1
     slug: owasp-checklist
-    order: 5
-    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-5-owasp-checklist
+    order: 4
+    url: /modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist
 
   # Vídeo Explicativo - Aula 1.3
   - id: lesson-1-3-exercises-intro

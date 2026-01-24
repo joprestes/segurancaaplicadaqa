@@ -40,12 +40,12 @@ Esta aula conta com **4 exercícios práticos** para consolidar seu aprendizado:
 - **Objetivo**: Explorar vulnerabilidades de SQL Injection e aplicar prepared statements
 - **Duração estimada**: 60-90 minutos
 
-### 3. Exercício 1.2.4: Broken Access Control (Intermediário)
+### 3. Exercício 1.2.3: Broken Access Control (Intermediário)
 - **Prática**: Teste de controles de acesso
 - **Objetivo**: Identificar e corrigir falhas de autorização
 - **Duração estimada**: 60-90 minutos
 
-### 4. Exercício 1.2.5: Checklist OWASP Top 10 (Básico)
+### 4. Exercício 1.2.4: Checklist OWASP Top 10 (Básico)
 - **Prática**: Criação de checklist de testes
 - **Objetivo**: Desenvolver checklist completo para validar OWASP Top 10
 - **Duração estimada**: 30-45 minutos

@@ -159,7 +159,7 @@ def get_user(user_id):
 
 Após completar este exercício, você estará preparado para:
 - Exercício 1.2.2: SQL Injection na Prática
-- Exercício 1.2.3: Prevenção de XSS
+- Exercício 1.2.3: Broken Access Control
 - Aplicar conhecimento em testes reais de segurança
 
 ---

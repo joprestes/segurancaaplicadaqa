@@ -61,7 +61,9 @@ class VideoPlayer {
     this.duration = 0;
     this.isPlaying = false;
     const defaultPlaybackRate = (window.Constants && window.Constants.MEDIA_PLAYER && window.Constants.MEDIA_PLAYER.DEFAULT_PLAYBACK_RATE) || 1.0;
+    const restoreDelayMs = (window.Constants && window.Constants.MEDIA_PLAYER && window.Constants.MEDIA_PLAYER.RESTORE_DELAY_MS) || 500;
     this.playbackRate = defaultPlaybackRate;
+    this.restoreDelayMs = restoreDelayMs;
     
     this.video = document.getElementById('video-element');
     
@@ -243,7 +245,7 @@ class VideoPlayer {
                     window.Logger?.warn('Erro ao restaurar progresso do vídeo (tentativa 2):', error);
                   }
                 }
-              }, 500); // Aguardar 500ms para vídeo carregar alguns dados
+              }, this.restoreDelayMs);
             }
           });
         }
@@ -569,9 +571,6 @@ class VideoPlayer {
         
         // Atualizar displays (mas vídeo ainda está em 0:00 até usuário clicar play)
         this.updateDurationDisplay();
-        // NÃO atualizar currentTimeDisplay ainda - vai mostrar 0:00 até usuário clicar play
-        // this.updateCurrentTimeDisplay();
-        // this.updateProgress();
       }
     } else if (this.video && this.video.src) {
       let globalState = null;
@@ -608,9 +607,6 @@ class VideoPlayer {
         
         // Atualizar displays
         this.updateDurationDisplay();
-        // NÃO atualizar currentTimeDisplay ainda - será atualizado quando usuário clicar play
-        // this.updateCurrentTimeDisplay();
-        // this.updateProgress();
         this.updateUI();
       }
     }
