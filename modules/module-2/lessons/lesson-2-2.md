@@ -2511,3 +2511,9 @@ Recommendation:
 
 ---
 
+## 📖 Recursos Adicionais
+
+**Dúvida sobre algum termo técnico?**  
+Consulte o [📖 Glossário do Módulo 2](/modules/testes-seguranca-pratica/glossario/) com mais de 80 definições de termos de segurança (DAST, False Positive, OWASP ZAP, Burp Suite, Spider, Active Scan, etc.).
+
+---

@@ -2722,6 +2722,13 @@ Antes de considerar esta aula completa:
 
 ---
 
+## 📖 Recursos Adicionais
+
+**Dúvida sobre algum termo técnico?**  
+Consulte o [📖 Glossário do Módulo 2](/modules/testes-seguranca-pratica/glossario/) com mais de 80 definições de termos de segurança (SAST, DAST, CVE, CVSS, False Positive, Quality Gates, etc.).
+
+---
+
 **Aula Anterior**: [Aula 1.5: Fundamentos de Segurança em QA](./lesson-1-5.md)  
 **Próxima Aula**: [Aula 2.2: DAST - Testes Dinâmicos](./lesson-2-2.md)  
 **Voltar ao Módulo**: [Módulo 2: Testes de Segurança na Prática](../index.md)

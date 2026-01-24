@@ -125,6 +125,11 @@ Cada aula inclui exercícios práticos com ambientes de teste:
 
 ## 📚 Recursos Adicionais
 
+### 📖 [Glossário do Módulo 2](/modules/testes-seguranca-pratica/glossario/)
+Consulte o glossário completo com mais de 80 termos técnicos de segurança (SAST, DAST, SCA, Pentest, CVE, CVSS, etc.) organizados alfabeticamente.
+
+### Links Úteis
+
 - [OWASP ZAP - Getting Started](https://www.zaproxy.org/getting-started/)
 - [SonarQube Security Rules](https://rules.sonarsource.com/)
 - [Snyk Documentation](https://docs.snyk.io/)
