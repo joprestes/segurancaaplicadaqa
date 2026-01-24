@@ -495,3 +495,85 @@ exercises:
     slug: supply-chain-security
     order: 7
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-7-supply-chain-security
+
+  # NOVOS EXERCÍCIOS DE ANÁLISE E DECISÃO (Revisão Módulo 2)
+
+  - id: lesson-2-1-exercise-6-security-vs-delivery
+    title: "Exercício 2.1.6: Trade-off Segurança vs Entrega"
+    lesson_id: lesson-2-1
+    module: module-2
+    slug: security-vs-delivery
+    order: 6
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-6-security-vs-delivery
+
+  - id: lesson-2-2-exercise-8-false-positive-investigation
+    title: "Exercício 2.2.8: Investigação de False Positive em DAST"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: false-positive-investigation
+    order: 8
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-8-false-positive-investigation
+
+  - id: lesson-2-2-exercise-9-dast-report-analysis
+    title: "Exercício 2.2.9: Análise de Relatório DAST Completo"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: dast-report-analysis
+    order: 9
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-9-dast-report-analysis
+
+  - id: lesson-2-3-exercise-8-incident-postmortem
+    title: "Exercício 2.3.8: Post-Mortem de Incidente de Segurança ⭐⭐"
+    lesson_id: lesson-2-3
+    module: module-2
+    slug: incident-postmortem
+    order: 8
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-8-incident-postmortem
+
+  - id: lesson-2-4-exercise-8-pipeline-debugging
+    title: "Exercício 2.4.8: Debugging de Pipeline de Segurança"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: pipeline-debugging
+    order: 8
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-8-pipeline-debugging
+
+  - id: lesson-2-4-exercise-9-pipeline-optimization
+    title: "Exercício 2.4.9: Otimização de Pipeline Lento ⭐"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: pipeline-optimization
+    order: 9
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-9-pipeline-optimization
+
+  - id: lesson-2-4-exercise-10-security-policy
+    title: "Exercício 2.4.10: Criar Política de Segurança Executável ⭐⭐"
+    lesson_id: lesson-2-4
+    module: module-2
+    slug: security-policy
+    order: 10
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-10-security-policy
+
+  - id: lesson-2-5-exercise-8-cve-war-room
+    title: "Exercício 2.5.8: War Room de CVE Crítica (Log4Shell) ⭐⭐"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: cve-war-room
+    order: 8
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-8-cve-war-room
+
+  - id: lesson-2-5-exercise-9-tool-cost-benefit
+    title: "Exercício 2.5.9: Análise de Custo-Benefício de Ferramentas SCA"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: tool-cost-benefit
+    order: 9
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-9-tool-cost-benefit
+
+  - id: lesson-2-5-exercise-10-no-patch-available
+    title: "Exercício 2.5.10: Dependência Vulnerável Sem Patch Disponível ⭐⭐"
+    lesson_id: lesson-2-5
+    module: module-2
+    slug: no-patch-available
+    order: 10
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-10-no-patch-available

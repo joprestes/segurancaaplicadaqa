@@ -25,6 +25,21 @@ permalink: /modules/testes-seguranca-pratica/lessons/dast-testes-dinamicos/
 
 <!-- # Aula 2.2: DAST: Dynamic Application Security Testing -->
 
+## ⚡ TL;DR (5 minutos)
+
+**O que você vai aprender**: DAST testa aplicação em execução (runtime), simulando ataques reais de hackers sem acesso ao código-fonte.
+
+**Por que importa**: 60% das vulnerabilidades só são detectáveis em runtime (misconfigurations, falhas de autenticação, IDOR). DAST complementa SAST.
+
+**Ferramentas principais**: OWASP ZAP (open-source, gratuito), Burp Suite (comercial, mais completo), Acunetix (automatizado)
+
+**Aplicação prática**: Baseline scan em cada MR (10-15 min), full scan noturno, pre-production scan antes de deploy em produção.
+
+**Tempo de leitura completa**: 90 minutos  
+**Exercícios**: 7 (4 básicos, 1 intermediário, 2 avançados ⭐)
+
+---
+
 ## 🎯 Objetivos de Aprendizado
 
 Ao final desta aula, você será capaz de:
@@ -1905,6 +1920,72 @@ if __name__ == '__main__':
 
 ---
 
+## 📋 Cheat Sheet: DAST
+
+### Comandos Rápidos
+
+**OWASP ZAP**:
+```bash
+# Baseline scan (rápido, passivo)
+docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-baseline.py \
+  -t https://app.example.com -r report.html
+
+# Full scan (ativo, completo)
+docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py \
+  -t https://app.example.com -r report.html
+
+# API scan
+docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-api-scan.py \
+  -t https://api.example.com/openapi.json -f openapi
+```
+
+**Burp Suite (CLI)**:
+```bash
+# Scan com autenticação
+burp-cli scan --url https://app.example.com \
+  --credentials user:pass \
+  --output report.xml
+```
+
+### Quando Usar DAST
+
+✅ **Use DAST para**:
+- Vulnerabilidades em runtime (misconfigurations, auth bypass)
+- Testar aplicação como atacante (black box)
+- Falhas de lógica de negócio (IDOR, race conditions)
+- Validar correções de vulnerabilidades
+- Compliance (evidências de testes dinâmicos)
+
+❌ **NÃO use DAST para**:
+- Vulnerabilidades em código-fonte (use SAST)
+- Dependências vulneráveis (use SCA)
+- Performance rápida (<5 min, use SAST)
+- Cobertura de código (DAST não vê código)
+
+### Quality Gate Sugerido
+
+**Baseline Scan** (em cada PR - 10-15 min):
+- Bloquear: Critical + High novas
+- Avisar: Medium novas
+- Informar: Low
+
+**Full Scan** (noturno - 45-60 min):
+- Bloquear: Critical
+- Avisar: High
+- Informar: Medium, Low
+
+**Pre-Production Scan** (antes de deploy):
+- Bloquear: Critical + High
+- Revisar manualmente: Tudo
+
+### Links Úteis
+
+- [OWASP ZAP Docs](https://www.zaproxy.org/docs/)
+- [Burp Suite Docs](https://portswigger.net/burp/documentation)
+- [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)
+
+---
+
 ## 📝 Resumo
 
 ### Principais Conceitos
@@ -2386,3 +2467,50 @@ Recommendation:
 **Aula Anterior**: [Aula 2.1: SAST - Static Application Security Testing](./lesson-2-1.md)  
 **Próxima Aula**: [Aula 2.3: Testes de Penetração (Pentest) Básico](./lesson-2-3.md)  
 **Voltar ao Módulo**: [Módulo 2: Testes de Segurança na Prática](../index.md)
+
+---
+
+## ❌ Erros Comuns que QAs Cometem com DAST
+
+### 1. **Executar Full Scan em produção sem autorização**
+
+**Por quê é erro**: DAST ativo pode causar DoS, corrupção de dados, alertas falsos para SOC.
+
+**Impacto**: Produção cai → Perda de receita → Demissão.
+
+**Solução**: SEMPRE use ambiente staging/QA. Produção apenas com autorização escrita de C-Level e em janela de manutenção.
+
+### 2. **Não autenticar DAST (testa apenas público)**
+
+**Por quê é erro**: 70% das vulnerabilidades estão atrás de autenticação (IDOR, privilege escalation).
+
+**Impacto**: False sense of security → Vulnerabilidades críticas não detectadas.
+
+**Solução**: Configure credenciais de teste em ZAP/Burp. Teste com usuários de diferentes roles (user, admin, guest).
+
+### 3. **Ignorar findings "Informational" e "Low"**
+
+**Por quê é erro**: Informational pode revelar information disclosure crítico (version leakage, stack traces).
+
+**Impacto**: Atacante usa info para exploração targeted.
+
+**Solução**: Revise TODOS os findings. Informational pode ser Critical dependendo do contexto.
+
+### 4. **Aceitar todos os findings ZAP sem validar (trust automation blindly)**
+
+**Por quê é erro**: DAST tem 20-30% false positive rate.
+
+**Impacto**: Time corrige vulnerabilidades inexistentes → Perda de tempo.
+
+**Solução**: SEMPRE reproduza manualmente antes de criar ticket. Use Burp Suite para investigar.
+
+### 5. **Escanear aplicação sem avisar Dev/Ops (surprise scan)**
+
+**Por quê é erro**: DAST ativo gera toneladas de requests → Alertas SOC/WAF → Incident response desnecessário.
+
+**Impacto**: Time de Ops escalona incident → War room → Desgaste de relações.
+
+**Solução**: Comunique ANTES de scans. Whitelist IPs de scanner no WAF/IDS.
+
+---
+
