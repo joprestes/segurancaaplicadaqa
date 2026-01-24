@@ -8,13 +8,10 @@ duration: "120 minutos"
 level: "Avançado"
 prerequisites: ["lesson-2-2"]
 exercises:
-  - lesson-2-3-exercise-1-recon-osint
-  - lesson-2-3-exercise-2-nmap-enumeration
-  - lesson-2-3-exercise-3-metasploit-exploit
-  - lesson-2-3-exercise-4-burp-suite-manual
-  - lesson-2-3-exercise-5-privilege-escalation
-  - lesson-2-3-exercise-6-pentest-report
-  - lesson-2-3-exercise-7-api-pentest
+  - lesson-2-3-exercise-1-interpretar-relatorio
+  - lesson-2-3-exercise-2-validar-correcoes
+  - lesson-2-3-exercise-3-preparar-escopo
+  - lesson-2-3-exercise-4-incident-postmortem
 video:
   file: "assets/module-2/videos/2.3-Pentest_Basico.mp4"
   title: "Testes de Penetração (Pentest) Básico"
@@ -36,7 +33,7 @@ permalink: /modules/testes-seguranca-pratica/lessons/pentest-basico/
 **Aplicação prática**: QA aprende a interpretar relatórios de pentest, priorizar findings por contexto de negócio e colaborar com pentesters especializados.
 
 **Tempo de leitura completa**: 120 minutos  
-**Exercícios**: 7 (3 básicos, 2 intermediários, 2 avançados ⭐)
+**Exercícios**: 4 (2 básicos, 2 avançados ⭐⭐)
 
 ---
 

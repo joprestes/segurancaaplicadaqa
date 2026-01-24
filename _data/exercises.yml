@@ -270,61 +270,37 @@ exercises:
     order: 0
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercises-intro
   
-  - id: lesson-2-3-exercise-1-recon-osint
-    title: "Exercício 2.3.1: Reconhecimento e OSINT"
+  - id: lesson-2-3-exercise-1-interpretar-relatorio
+    title: "Exercício 2.3.1: Interpretar Relatório de Pentest"
     lesson_id: lesson-2-3
     module: module-2
-    slug: recon-osint
+    slug: interpretar-relatorio-pentest
     order: 1
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-1-recon-osint
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio
 
-  - id: lesson-2-3-exercise-2-nmap-enumeration
-    title: "Exercício 2.3.2: Varredura e Enumeração com Nmap"
+  - id: lesson-2-3-exercise-2-validar-correcoes
+    title: "Exercício 2.3.2: Validar Correções de Pentest"
     lesson_id: lesson-2-3
     module: module-2
-    slug: nmap-enumeration
+    slug: validar-correcoes-pentest
     order: 2
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-2-nmap-enumeration
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes
 
-  - id: lesson-2-3-exercise-3-metasploit-exploit
-    title: "Exercício 2.3.3: Exploração com Metasploit"
+  - id: lesson-2-3-exercise-3-preparar-escopo
+    title: "Exercício 2.3.3: Preparar Escopo de Pentest"
     lesson_id: lesson-2-3
     module: module-2
-    slug: metasploit-exploit
+    slug: preparar-escopo-pentest
     order: 3
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-3-metasploit-exploit
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo
 
-  - id: lesson-2-3-exercise-4-burp-suite-manual
-    title: "Exercício 2.3.4: Pentest Manual com Burp Suite"
+  - id: lesson-2-3-exercise-4-incident-postmortem
+    title: "Exercício 2.3.4: Post-Mortem de Incidente de Segurança ⭐⭐"
     lesson_id: lesson-2-3
     module: module-2
-    slug: burp-suite-manual
+    slug: incident-postmortem
     order: 4
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-4-burp-suite-manual
-
-  - id: lesson-2-3-exercise-5-privilege-escalation
-    title: "Exercício 2.3.5: Escalação de Privilégios"
-    lesson_id: lesson-2-3
-    module: module-2
-    slug: privilege-escalation
-    order: 5
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-5-privilege-escalation
-
-  - id: lesson-2-3-exercise-6-pentest-report
-    title: "Exercício 2.3.6: Criar Relatório de Pentest ⭐"
-    lesson_id: lesson-2-3
-    module: module-2
-    slug: pentest-report
-    order: 6
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-6-pentest-report
-
-  - id: lesson-2-3-exercise-7-api-pentest
-    title: "Exercício 2.3.7: Pentest de API REST ⭐"
-    lesson_id: lesson-2-3
-    module: module-2
-    slug: api-pentest
-    order: 7
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-7-api-pentest
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem
 
   # Vídeo Explicativo - Aula 2.4
   - id: lesson-2-4-exercises-intro
@@ -481,14 +457,6 @@ exercises:
     slug: dast-report-analysis
     order: 4
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis
-
-  - id: lesson-2-3-exercise-8-incident-postmortem
-    title: "Exercício 2.3.8: Post-Mortem de Incidente de Segurança ⭐⭐"
-    lesson_id: lesson-2-3
-    module: module-2
-    slug: incident-postmortem
-    order: 8
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-8-incident-postmortem
 
   - id: lesson-2-4-exercise-8-pipeline-debugging
     title: "Exercício 2.4.8: Debugging de Pipeline de Segurança"
