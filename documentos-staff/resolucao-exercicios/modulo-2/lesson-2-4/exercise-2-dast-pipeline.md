@@ -215,6 +215,74 @@ dast:
 - SRE/QA Automation gerencia staging e testes automatizados
 - Security Engineers interpretam resultados e refinam rules
 
+**Habilidades desenvolvidas:**
+- Integração de DAST em CI/CD (ZAP Docker, GitHub Actions)
+- Health checks e wait strategies (garantir app está pronta)
+- Gestão de False Positives (rules.tsv)
+- Análise de relatórios automatizados
+- Threshold configuration (quando bloquear pipeline)
+
+**Estatísticas da indústria:**
+- 62% das empresas fazem DAST automatizado em staging (SANS, 2025)
+- DAST no CI/CD detecta 40% das vulnerabilidades que SAST não pega (Gartner, 2024)
+- Times com DAST automatizado têm 55% menos vulnerabilidades runtime (Veracode, 2025)
+
+**Estratégias avançadas de DAST em CI/CD:**
+
+**1. Staging Environment Requirements:**
+```yaml
+# Garantir que staging está pronto antes de DAST
+- name: Wait for staging deployment
+  run: |
+    echo "Aguardando staging estar online..."
+    for i in {1..30}; do
+      if curl -f https://staging.exemplo.com/health; then
+        echo "✅ Staging online!"
+        break
+      fi
+      echo "Tentativa $i/30..."
+      sleep 10
+    done
+```
+
+**2. Authenticated DAST (área logada):**
+```yaml
+- name: OWASP ZAP Authenticated Scan
+  run: |
+    docker run -v $(pwd):/zap/wrk owasp/zap2docker-stable \
+      zap-full-scan.py \
+      -t https://staging.exemplo.com \
+      -z "-config authentication.method=formBasedAuthentication \
+          -config authentication.loginUrl=https://staging.exemplo.com/login \
+          -config authentication.username=dast@test.com \
+          -config authentication.password=${{ secrets.DAST_USER_PASSWORD }}"
+```
+
+**3. Differential Scanning (apenas mudanças):**
+```yaml
+# Scan apenas páginas afetadas pelo PR (não site inteiro)
+- name: Determine changed URLs
+  id: urls
+  run: |
+    # Detectar quais rotas mudaram baseado em arquivos modificados
+    if git diff --name-only origin/main | grep -q "src/controllers/UserController"; then
+      echo "urls=https://staging.exemplo.com/users,https://staging.exemplo.com/profile" >> $GITHUB_OUTPUT
+    fi
+
+- name: ZAP Scan (targeted)
+  run: |
+    for url in $(echo "${{ steps.urls.outputs.urls }}" | tr ',' ' '); do
+      zap-baseline.py -t $url -r report-$(basename $url).html
+    done
+```
+
+**4. False Positive Management:**
+```tsv
+# .zap/rules.tsv (exceções conhecidas)
+10055	IGNORE	https://staging.exemplo.com/search.*	React JSX auto-escape (validated 2026-01-24)
+10202	IGNORE	https://staging.exemplo.com/api.*	CSP header present
+```
+
 ---
 
 **Última atualização**: 2026-01-24  

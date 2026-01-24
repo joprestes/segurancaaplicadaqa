@@ -226,6 +226,57 @@ Time de Segurança
 **Para SBOM básico:**
 > "Bom SBOM gerado! Para profissionalizar: 1) Analise vulnerabilidades (Grype/Snyk), 2) Documente dependências críticas (transitive com vulnerabilidades), 3) Automatize no CI (não manual), 4) Omita devDependencies se para cliente. SBOM gerado, agora usabilidade."
 
+### Contexto Pedagógico Completo
+
+**Por que SBOM é fundamental:**
+- **Compliance**: Executive Order 14028 (US) exige SBOM em software governamental
+- **Supply Chain**: 92% dos ataques recentes foram via supply chain (Sonatype, 2024)
+- **Transparência**: Clientes/auditores exigem visibilidade de dependências
+- **Incident Response**: SBOM acelera resposta a CVEs (qual componente afetado?)
+
+**Conexão com o curso:**
+- **Pré-requisito**: Exercício 2.5.1 (Snyk), 2.5.2 (npm audit) - SCA
+- **Aplica conceitos**: Software Composition Analysis, Supply Chain Security, Compliance
+- **Prepara para**: Módulo 3 (Segurança por Setor - compliance), cargo de Security Compliance Analyst
+
+**Habilidades desenvolvidas:**
+- Geração de SBOM (CycloneDX, SPDX)
+- Análise de supply chain (diretas vs transitivas)
+- Identificação de vulnerabilidades em SBOMs
+- Comunicação com clientes/auditores
+- Compliance com regulações (NTIA, EO 14028)
+
+**Estatísticas da indústria:**
+- 88% das organizações exigirão SBOM até 2027 (Gartner, 2025)
+- 61% dos ataques exploram dependências transitivas (Sonatype, 2024)
+- SBOM reduz MTTR de CVEs em 70% (CISA, 2025)
+
+**Casos de uso SBOM:**
+
+**1. Compliance/Auditoria:**
+- Cliente solicita SBOM para auditoria de supply chain
+- Governo exige SBOM (Executive Order 14028 - US)
+- Certificações (SOC2, ISO27001) requerem inventário de componentes
+
+**2. Incident Response:**
+- CVE crítico publicado (ex: Log4Shell) → consultar SBOM → identificar versões afetadas em segundos
+- Sem SBOM: Busca manual em 50 repos = horas/dias
+- Com SBOM: Query automatizada = minutos
+
+**3. License Compliance:**
+- Identificar dependências com licenças incompatíveis (GPL em software proprietário)
+- Prevenir violações de licenciamento (multas, processos)
+
+**4. M&A Due Diligence:**
+- Empresa sendo adquirida → SBOM revela tech stack e riscos
+- Avaliação de débito técnico de segurança
+
+**Ferramentas de geração SBOM:**
+- CycloneDX (OWASP) - foco em segurança
+- SPDX (Linux Foundation) - foco em licenciamento
+- Syft (Anchore) - scans containers também
+- Trivy (Aqua Security) - multi-formato
+
 ---
 
 **Última atualização**: 2026-01-24  
