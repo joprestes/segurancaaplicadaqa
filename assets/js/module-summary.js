@@ -304,9 +304,10 @@ class ModuleSummary {
     const safeCompletedAt = this.escapeHtml(completedAt);
     const safeScore = Number.isFinite(Number(score)) ? Number(score) : 0;
     const safeLessonUrl = this.sanitizeUrl(this.getLessonUrl(lessonId));
+    const safeLessonId = this.escapeHtml(String(lessonId ?? ''));
 
     return `
-      <div class="quiz-result-card completed">
+      <div class="quiz-result-card completed" data-testid="quiz-result-card-${safeLessonId}">
         <div class="result-icon" aria-hidden="true">✔</div>
         <div class="result-info">
           <p class="result-title">${safeLessonTitle}</p>
@@ -314,7 +315,7 @@ class ModuleSummary {
         </div>
         <div class="result-actions">
           <span class="result-date">${safeCompletedAt}</span>
-          <a href="${safeLessonUrl}" class="btn-link">Refazer Quiz</a>
+          <a href="${safeLessonUrl}" class="btn-link" data-testid="quiz-card-retry-link-${safeLessonId}">Refazer Quiz</a>
         </div>
       </div>
     `;
@@ -324,8 +325,9 @@ class ModuleSummary {
     const lessonTitle = lesson ? lesson.title : `Aula ${lessonId}`;
     const safeLessonTitle = this.escapeHtml(lessonTitle);
     const safeLessonUrl = this.sanitizeUrl(this.getLessonUrl(lessonId));
+    const safeLessonId = this.escapeHtml(String(lessonId ?? ''));
     return `
-      <div class="quiz-result-card incomplete">
+      <div class="quiz-result-card incomplete" data-testid="quiz-result-card-${safeLessonId}">
         <div class="result-icon" aria-hidden="true">⏳</div>
         <div class="result-info">
           <p class="result-title">${safeLessonTitle}</p>
@@ -333,7 +335,7 @@ class ModuleSummary {
         </div>
         <div class="result-actions">
           <span class="result-date">Pendente</span>
-          <a href="${safeLessonUrl}" class="btn-link">Ir para Aula</a>
+          <a href="${safeLessonUrl}" class="btn-link" data-testid="quiz-card-lesson-link-${safeLessonId}">Ir para Aula</a>
         </div>
       </div>
     `;
@@ -378,12 +380,12 @@ class ModuleSummary {
     const safeActionUrl = this.sanitizeUrl(actionUrl);
     
     return `
-      <div class="empty-state empty-state--inline empty-state-full-width">
+      <div class="empty-state empty-state--inline empty-state-full-width" data-testid="module-summary-empty-state">
         <div class="empty-state__icon">🎯</div>
         <h3 class="empty-state__title">Nenhum quiz completado ainda</h3>
         <p class="empty-state__description">Complete os quizzes das aulas para ver seus resultados e descobrir sua classificação como profissional de segurança!</p>
         <div class="empty-state__action">
-          <a href="${safeActionUrl}" class="btn btn-primary">Começar a Estudar →</a>
+          <a href="${safeActionUrl}" class="btn btn-primary" data-testid="empty-state-start-link">Começar a Estudar →</a>
         </div>
       </div>
     `;

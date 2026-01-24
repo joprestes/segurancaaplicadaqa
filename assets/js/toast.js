@@ -21,6 +21,7 @@
   // ============================================
   function Toast() {
     this.container = null;
+    this.counter = 0;
     this.init();
   }
   
@@ -31,6 +32,7 @@
     // Verificar se já existe container
     if (document.getElementById('toast-container')) {
       this.container = document.getElementById('toast-container');
+      this.container.setAttribute('data-testid', 'toast-container');
       return;
     }
     
@@ -39,6 +41,7 @@
     this.container.className = 'toast-container';
     this.container.setAttribute('aria-live', 'polite');
     this.container.setAttribute('aria-atomic', 'true');
+    this.container.setAttribute('data-testid', 'toast-container');
     document.body.appendChild(this.container);
   };
   
@@ -64,6 +67,9 @@
     // Criar elemento toast
     var toast = document.createElement('div');
     toast.className = 'toast toast--' + type;
+    this.counter += 1;
+    toast.setAttribute('data-testid', 'toast-' + this.counter);
+    toast.setAttribute('data-toast-type', type);
     
     // Se não tiver título, usar classe message-only
     if (!title) {

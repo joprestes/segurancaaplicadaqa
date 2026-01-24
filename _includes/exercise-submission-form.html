@@ -6,10 +6,10 @@
 
   <form id="exercise-submit-form" class="submission-form" enctype="multipart/form-data">
     <!-- Informações do Exercício (ocultas) -->
-    <input type="hidden" id="exercise-id" value="{{ page.slug }}">
-    <input type="hidden" id="exercise-title" value="{{ page.title }}">
-    <input type="hidden" id="exercise-lesson-id" value="{{ page.lesson_id }}">
-    <input type="hidden" id="exercise-module" value="{{ page.module }}">
+    <input type="hidden" id="exercise-id" value="{{ page.slug }}" data-testid="exercise-submit-id-hidden">
+    <input type="hidden" id="exercise-title" value="{{ page.title }}" data-testid="exercise-submit-title-hidden">
+    <input type="hidden" id="exercise-lesson-id" value="{{ page.lesson_id }}" data-testid="exercise-submit-lesson-id-hidden">
+    <input type="hidden" id="exercise-module" value="{{ page.module }}" data-testid="exercise-submit-module-hidden">
     
     <!-- Nome do Aluno -->
     <div class="form-group">

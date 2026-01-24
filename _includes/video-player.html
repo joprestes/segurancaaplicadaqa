@@ -1,6 +1,6 @@
 {% if include.video %}
 <hr />
-<div class="video-player" id="video-player">
+<div class="video-player" id="video-player" data-testid="video-player">
   <div class="video-info">
     <h3>{{ include.video.title }}</h3>
     <p class="video-description" id="video-description-{{ include.lesson_id }}">{{ include.video.description }}</p>
@@ -9,6 +9,7 @@
   <div class="video-container">
       <video 
       id="video-element" 
+      data-testid="video-player-element"
       controls 
       preload="none" 
       src="{{ include.video.file | relative_url }}" 
@@ -64,7 +65,7 @@
 </div>
 
 
-<div id="video-indicator" class="video-playing-indicator" aria-live="polite" aria-label="Vídeo sendo reproduzido">
+<div id="video-indicator" class="video-playing-indicator" data-testid="video-indicator" aria-live="polite" aria-label="Vídeo sendo reproduzido">
   Reproduzindo
 </div>
 
