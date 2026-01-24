@@ -9,12 +9,10 @@ level: "Avançado"
 prerequisites: ["lesson-2-3"]
 exercises:
   - lesson-2-4-exercise-1-github-actions-sast
-  - lesson-2-4-exercise-2-dependabot-setup
-  - lesson-2-4-exercise-3-dast-cicd
-  - lesson-2-4-exercise-4-quality-gates
-  - lesson-2-4-exercise-5-secret-scanning
-  - lesson-2-4-exercise-6-full-pipeline
-  - lesson-2-4-exercise-7-dashboard-metrics
+  - lesson-2-4-exercise-2-dast-cicd
+  - lesson-2-4-exercise-3-quality-gates
+  - lesson-2-4-exercise-4-pipeline-optimization
+  - lesson-2-4-exercise-5-security-policy
 video:
   file: "assets/module-2/videos/2.4-Automacao_Testes_Seguranca.mp4"
   title: "Automação de Testes de Segurança"
@@ -36,7 +34,7 @@ permalink: /modules/testes-seguranca-pratica/lessons/automacao-testes-seguranca/
 **Aplicação prática**: Criar pipeline completo com quality gates que bloqueia código inseguro, mantendo velocidade de entrega sem comprometer segurança.
 
 **Tempo de leitura completa**: 120 minutos  
-**Exercícios**: 7 (3 básicos, 2 intermediários, 2 avançados ⭐)
+**Exercícios**: 5 (1 básico, 2 intermediários, 2 avançados ⭐⭐)
 
 ---
 

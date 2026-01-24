@@ -12,7 +12,7 @@ exercises:
   - lesson-2-1-exercise-2-semgrep-custom-rules
   - lesson-2-1-exercise-3-sast-cicd
   - lesson-2-1-exercise-4-validate-findings
-  - lesson-2-1-exercise-5-compare-sast-tools
+  - lesson-2-1-exercise-5-security-vs-delivery
 video:
   file: "assets/module-2/videos/2.1-SAST_Testes_Estaticos.mp4"
   title: "SAST: Static Application Security Testing"
@@ -34,7 +34,7 @@ permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 **Aplicação prática**: Integrar SAST no CI/CD para bloquear merges com vulnerabilidades críticas, implementando shift-left security.
 
 **Tempo de leitura completa**: 90 minutos  
-**Exercícios**: 5 (3 básicos, 2 intermediários)
+**Exercícios**: 5 (2 básicos, 2 intermediários, 1 avançado ⭐⭐)
 
 ---
 

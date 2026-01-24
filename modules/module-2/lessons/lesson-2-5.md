@@ -9,12 +9,10 @@ level: "Intermediário"
 prerequisites: ["lesson-2-4"]
 exercises:
   - lesson-2-5-exercise-1-snyk-setup
-  - lesson-2-5-exercise-2-dependabot-config
-  - lesson-2-5-exercise-3-npm-audit
-  - lesson-2-5-exercise-4-license-compliance
-  - lesson-2-5-exercise-5-dependency-update-strategy
-  - lesson-2-5-exercise-6-sbom-generation
-  - lesson-2-5-exercise-7-supply-chain-security
+  - lesson-2-5-exercise-2-npm-audit
+  - lesson-2-5-exercise-3-sbom-generation
+  - lesson-2-5-exercise-4-cve-war-room
+  - lesson-2-5-exercise-5-no-patch-available
 video:
   file: "assets/module-2/videos/2.5-Dependency_Scanning_SCA.mp4"
   title: "Dependency Scanning e SCA"
@@ -36,7 +34,7 @@ permalink: /modules/testes-seguranca-pratica/lessons/dependency-scanning-sca/
 **Aplicação prática**: SCA a cada commit detecta dependências vulneráveis antes de merge. SBOM permite resposta rápida a CVEs críticas (identificar uso em minutos).
 
 **Tempo de leitura completa**: 90 minutos  
-**Exercícios**: 7 (4 básicos, 1 intermediário, 2 avançados ⭐)
+**Exercícios**: 5 (2 básicos, 1 intermediário ⭐, 2 avançados ⭐⭐)
 
 ---
 
