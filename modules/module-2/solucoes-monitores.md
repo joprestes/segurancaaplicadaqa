@@ -74,15 +74,29 @@ Este documento contém:
 ### ✅ Objetivo do Exercício
 Avaliar se o aluno consegue instalar, configurar e executar análise SAST com SonarQube do zero.
 
-### 📋 Critérios de Avaliação
+### 📋 Critérios de Avaliação (Abordagem Qualitativa)
 
-| Critério | Peso | O que avaliar |
-|----------|------|---------------|
-| **Instalação correta** | 20% | SonarQube rodando (Docker ou local) |
-| **Configuração do projeto** | 20% | Token criado, projeto configurado no SonarQube |
-| **Execução do scan** | 20% | Scan executado com sucesso (evidência de log/dashboard) |
-| **Análise de resultados** | 30% | Top 5 vulnerabilidades identificadas corretamente |
-| **Relatório** | 10% | Documentação clara e objetiva |
+**Aspectos a observar:**
+
+1. **Instalação e Configuração**
+   - Aluno conseguiu instalar SonarQube (Docker ou local)?
+   - Configurou corretamente token e projeto?
+   - Documentou o processo?
+
+2. **Execução do Scan**
+   - Scan executou sem erros?
+   - Aluno demonstrou compreensão dos comandos?
+   - Há evidências (logs, screenshots)?
+
+3. **Análise de Resultados** (aspecto mais importante)
+   - Identificou vulnerabilidades relevantes?
+   - Compreendeu a severidade de cada uma?
+   - Priorizou baseado em contexto (não apenas CVSS)?
+
+4. **Documentação**
+   - Relatório é claro e objetivo?
+   - Incluiu todos os entregáveis solicitados?
+   - Demonstrou reflexão sobre os findings?
 
 ### 🎯 Resposta Esperada
 
