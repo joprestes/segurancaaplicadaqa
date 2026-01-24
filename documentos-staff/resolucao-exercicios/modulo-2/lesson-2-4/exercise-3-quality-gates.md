@@ -237,6 +237,18 @@ rules:
 - Security Engineers definem critérios
 - DevSecOps integra gates em múltiplos projetos
 
+**Habilidades desenvolvidas:**
+- Configuração de Quality Gates (SonarQube, Semgrep)
+- Definição de thresholds e métricas de segurança
+- Integração CI/CD com enforcement automatizado
+- Documentação de critérios e processos
+- Balanceamento entre rigor e pragmatismo
+
+**Estatísticas da indústria:**
+- 78% das empresas usam Quality Gates automatizados (DevOps Research, 2025)
+- Gates reduzem vulnerabilidades em produção em 65% (Forrester, 2024)
+- Times com gates bem configurados têm 50% menos débito técnico (DORA, 2025)
+
 ---
 
 **Última atualização**: 2026-01-24  

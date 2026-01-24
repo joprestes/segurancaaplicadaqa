@@ -190,18 +190,63 @@ snyk monitor
 **Para dificuldades:**
 > "SCA pode ser overwhelmed no início (muitas vulnerabilidades). Comece simples: 1) Snyk CLI local (entenda output), 2) Corrija 1-2 vulnerabilidades High (aprenda processo), 3) Adicione ao CI (automatize), 4) Expanda para outros projetos. Um passo de cada vez."
 
-### Contexto Pedagógico
+### Contexto Pedagógico Completo
 
 **Por que é fundamental:**
 - **83% das aplicações** têm vulnerabilidades em dependências (Veracode 2023)
-- **Supply Chain Attacks**: Atacar lib popular afeta milhares de apps
+- **Supply Chain Attacks**: Atacar lib popular afeta milhares de apps (ex: Log4Shell 2021)
 - **Compliance**: SOC2, PCI-DSS exigem SCA
-- **Manutenção Contínua**: Novas CVEs aparecem diariamente
+- **Manutenção Contínua**: Novas CVEs aparecem diariamente (média: 50 CVEs/dia)
+
+**Conexão com o curso:**
+- **Pré-requisito**: Conhecimento de package managers (npm, pip, maven), CVE/CWE
+- **Aplica conceitos**: SCA (Software Composition Analysis), Supply Chain Security, Patch Management
+- **Prepara para**: Exercício 2.5.2 (npm audit), 2.5.3 (SBOM), 2.5.4 (War Room CVE)
+- **Integra com**: Aula 2.1 (SAST - código próprio), Aula 2.2 (DAST - runtime)
+
+**Habilidades desenvolvidas:**
+- Instalação e configuração de SCA tools (Snyk, npm audit, OWASP Dependency-Check)
+- Análise de vulnerabilidades em dependências (diretas e transitivas)
+- Priorização por severity e exploitability
+- Patch management (quando atualizar vs aceitar risco)
+- Automação de scans no CI/CD
+- Gestão de False Positives e ignored vulnerabilities
 
 **Habilidades do mundo real:**
-- Security Engineers gerenciam SCA em portfólio de apps
-- DevOps automatiza scans e correções
-- Developers corrigem vulnerabilidades em sprint
+- Security Engineers gerenciam SCA em portfólio de 20-100 aplicações
+- DevOps automatiza scans e correções (Dependabot, Renovate)
+- Developers corrigem vulnerabilidades em sprint (SLA: Critical 7 dias, High 30 dias)
+
+**Estatísticas da indústria:**
+- 92% dos ataques recentes envolveram supply chain (Sonatype, 2024)
+- Média de 237 dependências transitivas por aplicação (NPM, 2025)
+- 45% das vulnerabilidades estão em deps transitivas (não diretas)
+- Snyk detecta 15% mais vulnerabilidades que npm audit alone (Database maior)
+
+**Estratégias de gestão de dependências:**
+
+**1. Automated Updates (Dependabot, Renovate):**
+- PRs automáticos quando patch disponível
+- Reduz MTTR (Mean Time To Remediation)
+- Requer testes automatizados robustos
+
+**2. Version Pinning vs Ranges:**
+```json
+// Pinning exato (máxima previsibilidade, mas desatualiza)
+"dependencies": {
+  "express": "4.17.1"
+}
+
+// Range (recebe patches automaticamente, mas pode quebrar)
+"dependencies": {
+  "express": "^4.17.1"  // Aceita 4.17.x, 4.18.x (não 5.x)
+}
+```
+
+**3. Lock Files (package-lock.json):**
+- Garante builds reproduzíveis
+- Essencial para SCA preciso
+- Sempre commitar no git
 
 ---
 

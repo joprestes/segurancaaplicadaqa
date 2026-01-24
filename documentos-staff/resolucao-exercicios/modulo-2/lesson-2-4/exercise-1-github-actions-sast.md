@@ -221,6 +221,68 @@ SONAR_HOST_URL=https://sonarcloud.io
 - QA Automation deve saber integrar SAST em CI/CD
 - Habilidade valorizada em empresas maduras (GitLab, GitHub, fintech)
 
+**Habilidades desenvolvidas:**
+- GitHub Actions workflow development (YAML, secrets, artifacts)
+- Integração de ferramentas SAST (Semgrep, SonarQube)
+- Quality Gates e enforcement automatizado
+- Debugging de pipelines CI/CD
+- Otimização de performance (cache, incremental scans)
+
+**Estatísticas da indústria:**
+- 78% das empresas usam SAST automatizado no CI/CD (DevOps Research, 2025)
+- Integração de SAST reduz vulnerabilidades em produção em 65% (Forrester, 2024)
+- Times com SAST no CI têm 50% menos débito técnico de segurança (DORA, 2025)
+
+**Comparação de ferramentas CI/CD:**
+
+| Plataforma | Prós | Contras | SAST Support |
+|------------|------|---------|--------------|
+| **GitHub Actions** | Nativo GitHub, marketplace rico, grátis (open-source) | Vendor lock-in | ✅ Excelente (Semgrep, SonarQube, CodeQL) |
+| **GitLab CI** | CI/CD integrado, auto-devops, self-hosted | Curva aprendizado | ✅ Excelente (SAST nativo, templates) |
+| **Jenkins** | Flexível, plugins infinitos, self-hosted | Complexo, manutenção | ✅ Bom (plugins Semgrep, SonarQube) |
+| **CircleCI** | Performance, orbs reusáveis | Custo (minutos) | ✅ Bom (orbs de security) |
+| **Azure Pipelines** | Integração MS, Windows support | Complexo | ✅ Bom (extensions) |
+
+**Recomendação:** GitHub Actions (maioria dos projetos) ou GitLab CI (self-hosted)
+
+**Práticas avançadas:**
+
+**1. Matrix Builds (testar múltiplas versões):**
+```yaml
+strategy:
+  matrix:
+    node: [16, 18, 20]
+    os: [ubuntu-latest, windows-latest]
+    
+# Roda SAST em 6 combinações (3 nodes x 2 OS)
+```
+
+**2. Conditional Execution (otimizar custo):**
+```yaml
+# Executar SAST apenas se arquivos de código mudaram
+- name: Check changed files
+  id: changed
+  run: |
+    if git diff --name-only origin/main | grep -E '\.(js|ts|py|java)$'; then
+      echo "code_changed=true" >> $GITHUB_OUTPUT
+    fi
+
+- name: Run SAST
+  if: steps.changed.outputs.code_changed == 'true'
+  run: semgrep scan ...
+```
+
+**3. Custom Rulesets (específico do projeto):**
+```yaml
+# .github/workflows/sast.yml
+- name: Run Semgrep with custom rules
+  run: |
+    semgrep scan \
+      --config=p/security-audit \
+      --config=.semgrep/custom-rules/ \  # Regras específicas do projeto
+      --json --output=semgrep.json
+```
+
 ---
 
 **Última atualização**: 2026-01-24  
