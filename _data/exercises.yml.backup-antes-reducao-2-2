@@ -253,13 +253,53 @@ exercises:
     order: 1
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup
 
+  - id: lesson-2-2-exercise-2-burp-suite-manual
+    title: "Exercício 2.2.2: Testes Manuais com Burp Suite"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: burp-suite-manual
+    order: 2
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-2-burp-suite-manual
+
   - id: lesson-2-2-exercise-3-dast-cicd
-    title: "Exercício 2.2.2: Integrar DAST no CI/CD"
+    title: "Exercício 2.2.3: Integrar DAST no CI/CD"
     lesson_id: lesson-2-2
     module: module-2
     slug: dast-cicd
-    order: 2
+    order: 3
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-3-dast-cicd
+
+  - id: lesson-2-2-exercise-4-validate-findings
+    title: "Exercício 2.2.4: Validar e Priorizar Findings DAST"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: validate-findings-dast
+    order: 4
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-4-validate-findings
+
+  - id: lesson-2-2-exercise-5-compare-dast-tools
+    title: "Exercício 2.2.5: Comparar Ferramentas DAST"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: compare-dast-tools
+    order: 5
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-5-compare-dast-tools
+
+  - id: lesson-2-2-exercise-6-baseline-legacy
+    title: "Exercício 2.2.6: Gerenciar Baseline em Projeto Legado ⭐"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: baseline-legacy
+    order: 6
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-6-baseline-legacy
+
+  - id: lesson-2-2-exercise-7-optimize-performance
+    title: "Exercício 2.2.7: Otimizar Performance de Scans DAST ⭐"
+    lesson_id: lesson-2-2
+    module: module-2
+    slug: optimize-performance
+    order: 7
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-7-optimize-performance
 
   # Vídeo Explicativo - Aula 2.3
   - id: lesson-2-3-exercises-intro
@@ -466,21 +506,21 @@ exercises:
     order: 6
     url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-6-security-vs-delivery
 
-  - id: lesson-2-2-exercise-3-false-positive-investigation
-    title: "Exercício 2.2.3: Investigação de False Positive em DAST"
+  - id: lesson-2-2-exercise-8-false-positive-investigation
+    title: "Exercício 2.2.8: Investigação de False Positive em DAST"
     lesson_id: lesson-2-2
     module: module-2
     slug: false-positive-investigation
-    order: 3
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation
+    order: 8
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-8-false-positive-investigation
 
-  - id: lesson-2-2-exercise-4-dast-report-analysis
-    title: "Exercício 2.2.4: Análise de Relatório DAST Completo"
+  - id: lesson-2-2-exercise-9-dast-report-analysis
+    title: "Exercício 2.2.9: Análise de Relatório DAST Completo"
     lesson_id: lesson-2-2
     module: module-2
     slug: dast-report-analysis
-    order: 4
-    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis
+    order: 9
+    url: /modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-9-dast-report-analysis
 
   - id: lesson-2-3-exercise-8-incident-postmortem
     title: "Exercício 2.3.8: Post-Mortem de Incidente de Segurança ⭐⭐"
