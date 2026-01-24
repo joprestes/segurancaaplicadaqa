@@ -23,6 +23,21 @@ permalink: /modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/
 
 <!-- # Aula 2.1: SAST: Static Application Security Testing -->
 
+## ⚡ TL;DR (5 minutos)
+
+**O que você vai aprender**: SAST analisa código-fonte estaticamente (sem executar) para detectar vulnerabilidades como SQLi, XSS, hardcoded secrets.
+
+**Por que importa**: Detecta vulnerabilidades no código antes mesmo de rodar a aplicação, permitindo correção 30x mais barata que em produção (NIST).
+
+**Ferramentas principais**: SonarQube (análise completa), Semgrep (rules customizadas), CodeQL (GitHub native)
+
+**Aplicação prática**: Integrar SAST no CI/CD para bloquear merges com vulnerabilidades críticas, implementando shift-left security.
+
+**Tempo de leitura completa**: 90 minutos  
+**Exercícios**: 5 (3 básicos, 2 intermediários)
+
+---
+
 ## 🎯 Objetivos de Aprendizado
 
 Ao final desta aula, você será capaz de:
@@ -2465,6 +2480,195 @@ def load_model(model_path):
 - **[OWASP Community](https://owasp.org/www-community/)**: Comunidade global de segurança
 - **[Semgrep Slack](https://r2c.dev/slack)**: Comunidade Semgrep
 - **[SonarSource Community](https://community.sonarsource.com/)**: Fórum da comunidade SonarSource
+
+---
+
+## ❌ Erros Comuns que QAs Cometem com SAST
+
+### 1. **Confiar cegamente em CVSS Score sem validar contexto**
+
+**Por quê é erro**: CVSS 9.8 pode ser Low risk no seu contexto específico.
+
+**Impacto**: Priorização errada → correções desnecessárias → perda de tempo.
+
+**Solução**:
+- Sempre valide: Exploitability + Exposure + Impacto Real
+- Pergunte: "Essa vulnerabilidade é explorável NA MINHA aplicação?"
+- Exemplo: SQLi em endpoint admin interno ≠ SQLi em checkout público
+
+**Caso CWI real**: Vulnerabilidade High em código de teste não-executável consumiu 1 sprint inteiro antes de QA descobrir que código nem estava em produção.
+
+### 2. **Marcar True Positives como False Positives para "esverdear" dashboard**
+
+**Por quê é erro**: Vulnerabilidade real continua em produção, apenas escondida.
+
+**Impacto**: Falsa sensação de segurança → Data breach → Demissões + multas LGPD.
+
+**Solução**:
+- Jamais marque TP como FP sem validação técnica
+- Se não tem tempo para corrigir agora: documente exceção temporária com prazo
+- Crie ticket rastreável para correção futura
+
+**Caso real**: QA marcou XSS como FP. Explorado em produção 2 meses depois. Cliente processou empresa.
+
+### 3. **Implementar Quality Gate muito rígido de imediato em código legado**
+
+**Por quê é erro**: 1.200 vulnerabilidades legadas bloqueiam 100% dos PRs → time desabilita SAST.
+
+**Impacto**: Resistência do time → ferramenta abandonada → investimento desperdiçado.
+
+**Solução**:
+- Use Baseline Approach: aceite vulnerabilidades existentes temporariamente
+- Quality Gate: bloqueia apenas NOVAS vulnerabilidades
+- Reduza dívida gradualmente (50 vulns/sprint)
+
+**Caso CWI real**: Time desabilitou SonarQube completamente após 2 semanas bloqueando tudo. Re-implementação levou 6 meses.
+
+### 4. **Não documentar decisões de "Aceitar Risco"**
+
+**Por quê é erro**: Sem documentação, auditoria reprova + responsabilidade não é clara.
+
+**Impacto**: Compliance fail → Multas → Responsabilização individual.
+
+**Solução**:
+```markdown
+Template de Exceção de Segurança:
+- Vulnerabilidade: [ID e descrição]
+- Justificativa técnica: [Por que não corrigir agora]
+- Mitigações aplicadas: [WAF, monitoramento, etc]
+- Prazo de correção: [Data]
+- Aprovador: [CISO / Tech Lead]
+- Re-análise: [Trimestral]
+```
+
+### 5. **Configurar SAST mas nunca revisar findings (dashboard esquecido)**
+
+**Por quê é erro**: Ferramenta rodando ≠ segurança. Findings ignorados = vulnerabilidades não corrigidas.
+
+**Impacto**: Falsa segurança → Vulnerabilidades acumulam → 500+ findings impossíveis de remediar.
+
+**Solução**:
+- SLA de triagem: Todo finding deve ser analisado em 48h
+- Assign findings para responsáveis (não deixe órfão)
+- Review semanal de dashboard com time
+
+**Caso real**: SonarQube rodando há 2 anos, 847 vulnerabilidades nunca revisadas. Data breach custou R$ 3M.
+
+---
+
+## 📋 Cheat Sheet: SAST
+
+### Comandos Rápidos
+
+**SonarQube (Docker)**:
+```bash
+# Executar SonarQube local
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+
+# Scan de projeto
+sonar-scanner \
+  -Dsonar.projectKey=my-project \
+  -Dsonar.sources=src \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=$SONAR_TOKEN
+```
+
+**Semgrep**:
+```bash
+# Scan rápido com regras OWASP
+semgrep --config=p/owasp-top-ten src/
+
+# Scan com regras customizadas
+semgrep --config=.semgrep.yml src/
+
+# CI/CD mode (exit code não-zero se findings)
+semgrep --config=auto --error
+```
+
+**CodeQL (GitHub)**:
+```yaml
+# .github/workflows/codeql.yml
+- uses: github/codeql-action/init@v2
+  with:
+    languages: javascript, python
+- uses: github/codeql-action/analyze@v2
+```
+
+### Quando Usar SAST
+
+✅ **Use SAST para**:
+- Detectar vulnerabilidades em código-fonte (SQLi, XSS, hardcoded secrets)
+- Análise de código estático antes de executar aplicação
+- Feedback rápido em cada commit/PR (shift-left)
+- Compliance e auditoria (evidências de testes contínuos)
+- Identificar hotspots de segurança (áreas críticas)
+
+❌ **NÃO use SAST para**:
+- Vulnerabilidades em runtime (misconfigurations, falhas de autenticação)
+- Falhas de lógica de negócio (precisa DAST/Pentest)
+- Vulnerabilidades em dependências de terceiros (use SCA)
+- 0-days ou exploits complexos (precisa Pentest manual)
+
+### Quality Gate Sugerido
+
+**Conservador** (para aplicações críticas):
+- Bloquear: Critical
+- Avisar: High
+- Informar: Medium, Low
+
+**Balanceado** (maioria dos projetos):
+- Bloquear: Critical + High
+- Avisar: Medium
+- Informar: Low
+
+**Permissivo** (legado ou início de adoção):
+- Bloquear: Apenas Critical novas
+- Avisar: High novas
+- Informar: Medium, Low
+- Aceitar: Vulnerabilidades legadas temporariamente (com plano de redução)
+
+### Priorização de Vulnerabilidades
+
+```
+Prioridade = Severidade × Exploitability × Exposure
+
+P0 (Crítico): 
+- Critical SAST + Internet-facing + PII/Pagamentos
+- Exemplo: SQL Injection em endpoint público
+
+P1 (Alto):
+- High SAST + Autenticado + Dados sensíveis
+- Exemplo: XSS em painel admin
+
+P2 (Médio):
+- Medium SAST ou High em código interno
+- Exemplo: Path traversal em feature interna
+
+P3 (Baixo):
+- Low SAST ou code smells
+- Exemplo: Insecure randomness em feature não-crítica
+```
+
+### Troubleshooting Comum
+
+**Problema**: False positives demais  
+**Solução**: Ajustar regras, usar `@SuppressWarnings` documentado, criar profile customizado
+
+**Problema**: Scan muito lento (>10 min)  
+**Solução**: Excluir node_modules/vendor, analisar apenas src/, usar cache no CI/CD
+
+**Problema**: SAST não detecta vulnerabilidade óbvia  
+**Solução**: Verificar regras ativas, testar com Semgrep (rules diferentes), considerar ferramenta adicional
+
+**Problema**: Quality gate bloqueia tudo  
+**Solução**: Baseline approach (aceitar legado temporariamente), bloquear apenas novas vulnerabilidades
+
+### Links Úteis
+
+- [SonarQube Docs](https://docs.sonarqube.org/)
+- [Semgrep Registry](https://semgrep.dev/explore)
+- [OWASP SAST Guide](https://owasp.org/www-community/controls/Static_Application_Security_Testing)
+- [CWE Top 25](https://cwe.mitre.org/top25/)
 
 ---
 
