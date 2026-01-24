@@ -102,6 +102,7 @@ Imagine que você é um **chef de restaurante** preparando um prato sofisticado:
 **Resultado**: Restaurante seguro, clientes satisfeitos, sem processos ou fechamentos.
 
 **Mapeamento para SCA:**
+
 | Restaurante | Aplicação |
 |-------------|-----------|
 | Ingredientes comprados prontos | Dependências (npm, pip, maven) |
