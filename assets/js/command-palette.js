@@ -48,12 +48,12 @@
       '<div class="command-palette__backdrop" id="palette-backdrop"></div>' +
       '<div class="command-palette__container">' +
         '<div class="command-palette__header">' +
-          '<input type="text" id="palette-input" class="command-palette__input" ' +
+          '<input type="text" id="palette-input" class="command-palette__input" data-testid="command-palette-input" ' +
                  'placeholder="Buscar módulos, lições..." autocomplete="off" ' +
                  'aria-label="Buscar">' +
           '<kbd>' + (navigator.platform.indexOf('Mac') > -1 ? '⌘' : 'Ctrl') + ' K</kbd>' +
         '</div>' +
-        '<div class="command-palette__results" id="palette-results" role="listbox"></div>' +
+        '<div class="command-palette__results" id="palette-results" role="listbox" data-testid="command-palette-results"></div>' +
       '</div>';
     
     document.body.appendChild(palette);
@@ -244,6 +244,7 @@
       var typeLabel = item.type === 'module' ? 'Módulo' : 'Lição';
       
       html += '<div class="command-palette__item ' + selected + '" ' +
+              'data-testid="command-palette-item-' + i + '" ' +
               'data-url="' + this.escapeHtml(item.url) + '" ' +
               'role="option" ' +
               (i === this.selectedIndex ? 'aria-selected="true"' : '') +

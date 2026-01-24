@@ -1,4 +1,4 @@
-<div class="quiz-container" id="quiz-container" data-lesson-id="{{ page.lesson_id }}">
+<div class="quiz-container" id="quiz-container" data-lesson-id="{{ page.lesson_id }}" data-testid="quiz-container">
   <div class="quiz-header">
     <h2>🔍 Quiz: Verifique seu Conhecimento</h2>
     <p>Responda as 10 perguntas para testar seu aprendizado e descobrir seu nível como detetive de segurança!</p>
@@ -11,11 +11,11 @@
     <span class="progress-text">Pergunta <span id="current-question-num">1</span> de 10</span>
   </div>
   
-  <div class="quiz-content" id="quiz-content">
+  <div class="quiz-content" id="quiz-content" data-testid="quiz-content">
     <!-- Renderizado dinamicamente via JavaScript -->
   </div>
   
-  <div class="quiz-results hidden" id="quiz-results">
+  <div class="quiz-results hidden" id="quiz-results" data-testid="quiz-results">
     <!-- Resultado final com nota e classificação -->
   </div>
 </div>

@@ -256,6 +256,29 @@ Consulte `documentos-staff/processos/README.md` para mais informações.
 - **Breadcrumbs**: Navegação hierárquica
 - **Sistema de Submissão de Exercícios**: Formulário integrado com EmailJS para envio de respostas
 
+## Convenção de Test IDs
+
+Para facilitar automação de testes, use `data-testid` em todos os elementos interativos e em estados importantes.
+
+### Padrão de nomenclatura
+
+- Formato: `data-testid="[contexto]-[elemento]-[tipo]"`
+- Use kebab-case, nomes semânticos e estáveis
+- Em listas dinâmicas, incluir identificador único (id, slug ou índice)
+
+### Boas práticas
+
+- Manter unicidade por página
+- Não depender de estrutura HTML ou CSS no nome
+- Preservar `id` existente quando for usado por JavaScript
+
+### Checklist rápido
+
+- [ ] Botões, links, inputs, selects e checkboxes têm `data-testid`
+- [ ] Elementos dinâmicos gerados via JavaScript têm `data-testid`
+- [ ] Containers de estado (ex.: empty state, toast, progress) têm `data-testid`
+- [ ] Nomes são consistentes e sem duplicidade
+
 ### Segurança e Limitações
 
 - **Progresso local**: O progresso é salvo no `localStorage`, portanto pode ser alterado manualmente pelo usuário.
