@@ -15,6 +15,29 @@ CVE Critical em dependência core, sem patch disponível. Avaliar exploitability
 
 ---
 
+## Contexto
+
+Você precisa decidir rapidamente a melhor alternativa quando não há patch oficial. A decisão precisa ser justificada e comunicada.
+
+## Pré-requisitos
+
+- Conhecimento básico de CVSS e risco
+- Noções de mitigação (WAF, feature flags, isolamentos)
+
+## Passo a Passo
+
+1. **Analisar o cenário**
+   - Entenda impacto e exploitability.
+
+2. **Avaliar opções**
+   - Compare refactor, fork, mitigação e aceitação de risco.
+
+3. **Definir plano**
+   - Escolha a opção com melhor custo/benefício e risco aceitável.
+
+4. **Comunicar**
+   - Documente decisão e plano para stakeholders.
+
 ## Cenário
 
 ```yaml
@@ -39,6 +62,17 @@ Uso: Core da aplicação (autenticação)
 - Comunicação para stakeholders
 
 ---
+
+## Validação
+
+- Decisão com justificativa clara.
+- Plano de ação executável e com prazos.
+- Comunicação objetiva para stakeholders.
+
+## Troubleshooting
+
+- **Risco subestimado**: revise exposição e dados afetados.
+- **Plano vago**: detalhe etapas, responsáveis e prazos.
 
 ## 📤 Enviar Resposta
 

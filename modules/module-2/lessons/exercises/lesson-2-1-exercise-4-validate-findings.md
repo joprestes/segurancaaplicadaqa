@@ -44,7 +44,15 @@ Nem tudo que SAST reporta é vulnerabilidade real. É fundamental validar findin
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Projeto de código-fonte para análise
+- Ferramenta SAST configurada (Semgrep, SonarQube ou Bandit)
+- Conhecimento básico de CVSS e priorização de risco
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Executar SAST em Projeto Real
 

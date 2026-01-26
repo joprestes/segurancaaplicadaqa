@@ -41,7 +41,15 @@ Regras customizadas permitem detectar padrões específicos do seu contexto que 
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Projeto de código-fonte para análise
+- Acesso ao terminal para rodar o Semgrep
+- Conhecimento básico de YAML
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Instalar Semgrep
 

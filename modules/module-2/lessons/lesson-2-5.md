@@ -53,6 +53,32 @@ Ao final desta aula, você será capaz de:
 
 ---
 
+## 🧭 Como usar esta aula (Essencial vs Aprofundamento)
+
+Se estiver com pouco tempo, foque nas seções essenciais abaixo e deixe o aprofundamento como leitura complementar.
+
+**Essencial**:
+- Introdução, Tipos de vulnerabilidades, Ferramentas, Processo de scanning
+- Integração com CI/CD, Exemplos práticos, Gerenciamento, Boas práticas
+
+**Aprofundamento opcional**:
+- Analogias e dados históricos da indústria
+- Cheat sheet para consulta rápida
+
+---
+
+## 📘 Glossário rápido
+
+- **CVE**: identificador público de vulnerabilidades conhecidas
+- **CVSS**: pontuação de severidade (0 a 10)
+- **SBOM**: inventário de componentes e dependências da aplicação
+- **Dependência transitiva**: dependência indireta das suas dependências
+- **SCA**: análise de componentes e vulnerabilidades em software de terceiros
+- **License compliance**: validação de licenças incompatíveis
+- **Supply chain attack**: ataque via dependências comprometidas
+
+---
+
 ## 📚 Introdução ao SCA e Dependency Scanning
 
 ### O que é SCA?
@@ -75,6 +101,7 @@ Ao final desta aula, você será capaz de:
 - ✅ **Malware** em dependências (typosquatting, backdoors)
 - ✅ **Dependências transitivas** (dependências das suas dependências)
 
+**Leitura opcional (aprofundamento)**  
 #### 🎭 Analogia: O Inspetor de Ingredientes
 
 Imagine que você é um **chef de restaurante** preparando um prato sofisticado:
@@ -647,6 +674,16 @@ Informar:
 - [npm Security Best Practices](https://docs.npmjs.com/security-best-practices)
 - [SBOM Guide](https://www.cisa.gov/sbom)
 - [CVE Database](https://cve.mitre.org/)
+
+---
+
+## ✅ Quick Reference (para o dia a dia)
+
+- **Pipeline mínimo**: SCA em PR + alertas contínuos
+- **Prioridade**: Critical/High com SLA curto
+- **SBOM**: gerar automaticamente no CI/CD
+- **Resposta a CVE**: identificar apps afetadas em minutos
+- **Ruído baixo**: trate falsos positivos e normalização
 
 ---
 

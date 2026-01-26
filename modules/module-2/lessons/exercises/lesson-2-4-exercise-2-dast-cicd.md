@@ -15,12 +15,40 @@ Integrar OWASP ZAP no pipeline CI/CD para executar testes dinâmicos automaticam
 
 ---
 
-## Descrição
+## Contexto
 
-Configure DAST automatizado:
-- Integre OWASP ZAP Baseline no pipeline
-- Execute scan após deploy em staging
-- Gere relatório de vulnerabilidades
+Seu time precisa garantir que endpoints expostos em staging sejam validados a cada PR. O objetivo é detectar falhas conhecidas sem impactar o tempo de entrega.
+
+## Pré-requisitos
+
+- Ambiente de staging acessível por URL
+- Permissão para editar pipeline CI/CD
+- OWASP ZAP disponível via container ou ação oficial
+
+## Passo a Passo
+
+1. **Adicionar etapa de DAST no pipeline**
+   - Inclua o OWASP ZAP Baseline após o deploy em staging.
+   - Configure a URL alvo e o nome do relatório.
+
+2. **Executar o scan em uma PR**
+   - Abra uma PR para disparar o pipeline.
+   - Aguarde o job do ZAP finalizar.
+
+3. **Coletar relatório**
+   - Salve o relatório HTML/JSON como artefato do pipeline.
+
+## Validação
+
+- O job de DAST executa após o deploy em staging.
+- O relatório é gerado e anexado como artefato.
+- Findings críticos são visíveis no relatório.
+
+## Troubleshooting
+
+- **Scan falha com timeout**: reduza profundidade do crawl ou use baseline.
+- **URL inválida**: confirme se o staging está acessível pelo runner.
+- **Sem resultados**: valide se o app tem endpoints públicos acessíveis.
 
 ---
 

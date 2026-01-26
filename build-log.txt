@@ -1,0 +1,1053 @@
+`/Users/joelmadeoliveiraprestesferreira` is not writable.
+Bundler will use `/var/folders/7q/kvrrhl9n05jgcwqm_p6g61vr0000gq/T/bundler20260125-5448-7zclnd5448' as your home directory temporarily.
+  Logging at level: debug
+    Jekyll Version: 4.4.1
+Configuration file: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_config.yml
+             Theme: minima
+      Theme source: /private/var/folders/7q/kvrrhl9n05jgcwqm_p6g61vr0000gq/T/cursor-sandbox-cache/ae2777c4d04268bb4379eac735141de2/bundle/ruby/3.3.0/gems/minima-2.5.2
+         Requiring: jekyll-feed
+         Requiring: jekyll-seo-tag
+         Requiring: jekyll-feed
+         Requiring: jekyll-sitemap
+         Requiring: jekyll-seo-tag
+            Source: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade
+       Destination: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+           Reading: /_layouts/default.html
+           Reading: /_layouts/exercise.html
+           Reading: /_layouts/lesson.html
+           Reading: /_layouts/module-summary.html
+           Reading: /_layouts/module.html
+           Reading: /_layouts/home.html
+           Reading: /_layouts/page.html
+           Reading: /_layouts/post.html
+       EntryFilter: excluded /README.md
+       EntryFilter: excluded /documentos-staff
+       EntryFilter: excluded /Gemfile
+       EntryFilter: excluded /Gemfile.lock
+       EntryFilter: excluded /.jekyll-cache
+       EntryFilter: excluded /backups
+           Reading: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-2-exercises-intro.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-1-exercises-intro.md
+           Reading: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+           Reading: modules/module-2/lessons/lesson-2-5.md
+           Reading: modules/module-2/lessons/lesson-2-1.md
+           Reading: modules/module-2/lessons/lesson-2-4.md
+           Reading: modules/module-2/lessons/lesson-2-3.md
+           Reading: modules/module-2/lessons/lesson-2-2.md
+           Reading: modules/module-2/glossario.md
+           Reading: modules/module-2/index.md
+           Reading: modules/module-4/lessons/lesson-4-1.md
+           Reading: modules/module-4/lessons/lesson-4-5.md
+           Reading: modules/module-4/lessons/lesson-4-4.md
+           Reading: modules/module-4/lessons/lesson-4-3.md
+           Reading: modules/module-4/lessons/lesson-4-2.md
+           Reading: modules/module-4/index.md
+           Reading: modules/module-3/lessons/lesson-3-4.md
+           Reading: modules/module-3/lessons/lesson-3-1.md
+           Reading: modules/module-3/lessons/lesson-3-5.md
+           Reading: modules/module-3/lessons/lesson-3-2.md
+           Reading: modules/module-3/lessons/lesson-3-3.md
+           Reading: modules/module-3/index.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-2-exercises-intro.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-4-exercises-intro.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-5-exercises-intro.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-3-exercises-intro.md
+           Reading: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+           Reading: modules/module-1/lessons/lesson-1-2.md
+           Reading: modules/module-1/lessons/lesson-1-3.md
+           Reading: modules/module-1/lessons/lesson-1-4.md
+           Reading: modules/module-1/lessons/lesson-1-1.md
+           Reading: modules/module-1/lessons/lesson-1-5.md
+           Reading: modules/module-1/index.md
+           Reading: assets/main.scss
+           Reading: 404.html
+           Reading: index.md
+           Reading: about.md
+           Reading: _module-summaries/module-1-summary.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+           Reading: _module-summaries/module-2-summary.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+           Reading: _module-summaries/module-3-summary.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+           Reading: _module-summaries/module-4-summary.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+           Reading: assets/main.scss
+             Theme: Ignoring assets/main.scss in theme due to existing file with that path in site.
+           Reading: _data/exercises.yml
+           Reading: _data/lessons.yml
+           Reading: _data/modules.yml
+           Reading: _data/quizzes.yml
+           Reading: _data/videos.yml
+           Reading: _data/monitores.json
+       Jekyll Feed: Generating feed for posts
+        Generating: JekyllFeed::Generator finished in 0.000509 seconds.
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+        Generating: Jekyll::JekyllSitemap finished in 0.00193 seconds.
+         Rendering: _module-summaries/module-1-summary.md
+  Pre-Render Hooks: _module-summaries/module-1-summary.md
+  Rendering Markup: _module-summaries/module-1-summary.md
+Post-Convert Hooks: _module-summaries/module-1-summary.md
+  Rendering Layout: _module-summaries/module-1-summary.md
+         Rendering: _module-summaries/module-1-summary.md/#excerpt
+  Pre-Render Hooks: _module-summaries/module-1-summary.md/#excerpt
+  Rendering Markup: _module-summaries/module-1-summary.md/#excerpt
+Post-Convert Hooks: _module-summaries/module-1-summary.md/#excerpt
+         Rendering: _module-summaries/module-2-summary.md
+  Pre-Render Hooks: _module-summaries/module-2-summary.md
+  Rendering Markup: _module-summaries/module-2-summary.md
+Post-Convert Hooks: _module-summaries/module-2-summary.md
+  Rendering Layout: _module-summaries/module-2-summary.md
+         Rendering: _module-summaries/module-2-summary.md/#excerpt
+  Pre-Render Hooks: _module-summaries/module-2-summary.md/#excerpt
+  Rendering Markup: _module-summaries/module-2-summary.md/#excerpt
+Post-Convert Hooks: _module-summaries/module-2-summary.md/#excerpt
+         Rendering: _module-summaries/module-3-summary.md
+  Pre-Render Hooks: _module-summaries/module-3-summary.md
+  Rendering Markup: _module-summaries/module-3-summary.md
+Post-Convert Hooks: _module-summaries/module-3-summary.md
+  Rendering Layout: _module-summaries/module-3-summary.md
+         Rendering: _module-summaries/module-3-summary.md/#excerpt
+  Pre-Render Hooks: _module-summaries/module-3-summary.md/#excerpt
+  Rendering Markup: _module-summaries/module-3-summary.md/#excerpt
+Post-Convert Hooks: _module-summaries/module-3-summary.md/#excerpt
+         Rendering: _module-summaries/module-4-summary.md
+  Pre-Render Hooks: _module-summaries/module-4-summary.md
+  Rendering Markup: _module-summaries/module-4-summary.md
+Post-Convert Hooks: _module-summaries/module-4-summary.md
+  Rendering Layout: _module-summaries/module-4-summary.md
+         Rendering: _module-summaries/module-4-summary.md/#excerpt
+  Pre-Render Hooks: _module-summaries/module-4-summary.md/#excerpt
+  Rendering Markup: _module-summaries/module-4-summary.md/#excerpt
+Post-Convert Hooks: _module-summaries/module-4-summary.md/#excerpt
+         Rendering: 404.html
+  Pre-Render Hooks: 404.html
+  Rendering Liquid: 404.html
+  Rendering Markup: 404.html
+Post-Convert Hooks: 404.html
+  Rendering Layout: 404.html
+         Rendering: about.md
+  Pre-Render Hooks: about.md
+  Rendering Liquid: about.md
+  Rendering Markup: about.md
+Post-Convert Hooks: about.md
+  Rendering Layout: about.md
+         Rendering: modules/module-2/glossario.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/glossario.md
+  Rendering Markup: modules/module-2/glossario.md
+Post-Convert Hooks: modules/module-2/glossario.md
+  Rendering Layout: modules/module-2/glossario.md
+         Rendering: modules/module-4/index.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-4/index.md
+  Rendering Markup: modules/module-4/index.md
+Post-Convert Hooks: modules/module-4/index.md
+  Rendering Layout: modules/module-4/index.md
+         Rendering: modules/module-3/index.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-3/index.md
+  Rendering Markup: modules/module-3/index.md
+Post-Convert Hooks: modules/module-3/index.md
+  Rendering Layout: modules/module-3/index.md
+         Rendering: index.md
+  Pre-Render Hooks: index.md
+  Rendering Liquid: index.md
+  Rendering Markup: index.md
+Post-Convert Hooks: index.md
+  Rendering Layout: index.md
+         Rendering: modules/module-1/index.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-1/index.md
+  Rendering Liquid: modules/module-1/index.md
+  Rendering Markup: modules/module-1/index.md
+Post-Convert Hooks: modules/module-1/index.md
+  Rendering Layout: modules/module-1/index.md
+         Rendering: modules/module-2/index.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/index.md
+  Rendering Liquid: modules/module-2/index.md
+  Rendering Markup: modules/module-2/index.md
+Post-Convert Hooks: modules/module-2/index.md
+  Rendering Layout: modules/module-2/index.md
+         Rendering: modules/module-1/lessons/lesson-1-1.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/lesson-1-1.md
+  Rendering Liquid: modules/module-1/lessons/lesson-1-1.md
+  Rendering Markup: modules/module-1/lessons/lesson-1-1.md
+Post-Convert Hooks: modules/module-1/lessons/lesson-1-1.md
+  Rendering Layout: modules/module-1/lessons/lesson-1-1.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-2-exercise-2-sql-injection.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-2-exercise-3-broken-access-control.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-2-exercises-intro.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercises-intro.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-2-exercises-intro.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-2-exercises-intro.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-2-exercises-intro.md
+         Rendering: modules/module-1/lessons/lesson-1-2.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/lesson-1-2.md
+  Rendering Liquid: modules/module-1/lessons/lesson-1-2.md
+  Rendering Markup: modules/module-1/lessons/lesson-1-2.md
+Post-Convert Hooks: modules/module-1/lessons/lesson-1-2.md
+  Rendering Layout: modules/module-1/lessons/lesson-1-2.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-3-exercise-1-security-requirements.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-3-exercises-intro.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercises-intro.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-3-exercises-intro.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-3-exercises-intro.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-3-exercises-intro.md
+         Rendering: modules/module-1/lessons/lesson-1-3.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/lesson-1-3.md
+  Rendering Liquid: modules/module-1/lessons/lesson-1-3.md
+  Rendering Markup: modules/module-1/lessons/lesson-1-3.md
+Post-Convert Hooks: modules/module-1/lessons/lesson-1-3.md
+  Rendering Layout: modules/module-1/lessons/lesson-1-3.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-4-exercise-1-stride-basico.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-4-exercise-3-analise-riscos.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-4-exercises-intro.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercises-intro.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-4-exercises-intro.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-4-exercises-intro.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-4-exercises-intro.md
+         Rendering: modules/module-1/lessons/lesson-1-4.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/lesson-1-4.md
+  Rendering Liquid: modules/module-1/lessons/lesson-1-4.md
+  Rendering Markup: modules/module-1/lessons/lesson-1-4.md
+Post-Convert Hooks: modules/module-1/lessons/lesson-1-4.md
+  Rendering Layout: modules/module-1/lessons/lesson-1-4.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-5-exercise-3-soc2-controles.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+  Rendering Liquid: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa.md
+         Rendering: modules/module-1/lessons/exercises/lesson-1-5-exercises-intro.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercises-intro.md
+  Rendering Markup: modules/module-1/lessons/exercises/lesson-1-5-exercises-intro.md
+Post-Convert Hooks: modules/module-1/lessons/exercises/lesson-1-5-exercises-intro.md
+  Rendering Layout: modules/module-1/lessons/exercises/lesson-1-5-exercises-intro.md
+         Rendering: modules/module-1/lessons/lesson-1-5.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-1/lessons/lesson-1-5.md
+  Rendering Liquid: modules/module-1/lessons/lesson-1-5.md
+  Rendering Markup: modules/module-1/lessons/lesson-1-5.md
+Post-Convert Hooks: modules/module-1/lessons/lesson-1-5.md
+  Rendering Layout: modules/module-1/lessons/lesson-1-5.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-1-exercise-3-sast-cicd.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-1-exercise-4-validate-findings.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-1-exercise-5-security-vs-delivery.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-1-exercises-intro.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercises-intro.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-1-exercises-intro.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-1-exercises-intro.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-1-exercises-intro.md
+         Rendering: modules/module-2/lessons/lesson-2-1.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/lesson-2-1.md
+  Rendering Liquid: modules/module-2/lessons/lesson-2-1.md
+  Rendering Markup: modules/module-2/lessons/lesson-2-1.md
+Post-Convert Hooks: modules/module-2/lessons/lesson-2-1.md
+  Rendering Layout: modules/module-2/lessons/lesson-2-1.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-dast-cicd.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-2-exercise-3-false-positive-investigation.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-2-exercise-4-dast-report-analysis.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-2-exercises-intro.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercises-intro.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-2-exercises-intro.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-2-exercises-intro.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-2-exercises-intro.md
+         Rendering: modules/module-2/lessons/lesson-2-2.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/lesson-2-2.md
+  Rendering Liquid: modules/module-2/lessons/lesson-2-2.md
+  Rendering Markup: modules/module-2/lessons/lesson-2-2.md
+Post-Convert Hooks: modules/module-2/lessons/lesson-2-2.md
+  Rendering Layout: modules/module-2/lessons/lesson-2-2.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-3-exercise-4-incident-postmortem.md
+         Rendering: modules/module-2/lessons/lesson-2-3.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/lesson-2-3.md
+  Rendering Markup: modules/module-2/lessons/lesson-2-3.md
+Post-Convert Hooks: modules/module-2/lessons/lesson-2-3.md
+  Rendering Layout: modules/module-2/lessons/lesson-2-3.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-4-exercise-2-dast-cicd.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-4-exercise-3-quality-gates.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-4-exercise-4-pipeline-optimization.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-4-exercise-5-security-policy.md
+         Rendering: modules/module-2/lessons/lesson-2-4.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/lesson-2-4.md
+  Rendering Markup: modules/module-2/lessons/lesson-2-4.md
+Post-Convert Hooks: modules/module-2/lessons/lesson-2-4.md
+  Rendering Layout: modules/module-2/lessons/lesson-2-4.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-5-exercise-1-snyk-setup.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-5-exercise-2-npm-audit.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-5-exercise-3-sbom-generation.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-5-exercise-4-cve-war-room.md
+         Rendering: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+  Rendering Liquid: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+  Rendering Markup: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+Post-Convert Hooks: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+  Rendering Layout: modules/module-2/lessons/exercises/lesson-2-5-exercise-5-no-patch-available.md
+         Rendering: modules/module-2/lessons/lesson-2-5.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-2/lessons/lesson-2-5.md
+  Rendering Markup: modules/module-2/lessons/lesson-2-5.md
+Post-Convert Hooks: modules/module-2/lessons/lesson-2-5.md
+  Rendering Layout: modules/module-2/lessons/lesson-2-5.md
+         Rendering: modules/module-3/lessons/lesson-3-1.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-3/lessons/lesson-3-1.md
+  Rendering Markup: modules/module-3/lessons/lesson-3-1.md
+Post-Convert Hooks: modules/module-3/lessons/lesson-3-1.md
+  Rendering Layout: modules/module-3/lessons/lesson-3-1.md
+         Rendering: modules/module-3/lessons/lesson-3-2.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-3/lessons/lesson-3-2.md
+  Rendering Markup: modules/module-3/lessons/lesson-3-2.md
+Post-Convert Hooks: modules/module-3/lessons/lesson-3-2.md
+  Rendering Layout: modules/module-3/lessons/lesson-3-2.md
+         Rendering: modules/module-3/lessons/lesson-3-3.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-3/lessons/lesson-3-3.md
+  Rendering Markup: modules/module-3/lessons/lesson-3-3.md
+Post-Convert Hooks: modules/module-3/lessons/lesson-3-3.md
+  Rendering Layout: modules/module-3/lessons/lesson-3-3.md
+         Rendering: modules/module-3/lessons/lesson-3-4.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-3/lessons/lesson-3-4.md
+  Rendering Markup: modules/module-3/lessons/lesson-3-4.md
+Post-Convert Hooks: modules/module-3/lessons/lesson-3-4.md
+  Rendering Layout: modules/module-3/lessons/lesson-3-4.md
+         Rendering: modules/module-3/lessons/lesson-3-5.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-3/lessons/lesson-3-5.md
+  Rendering Markup: modules/module-3/lessons/lesson-3-5.md
+Post-Convert Hooks: modules/module-3/lessons/lesson-3-5.md
+  Rendering Layout: modules/module-3/lessons/lesson-3-5.md
+         Rendering: modules/module-4/lessons/lesson-4-1.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-4/lessons/lesson-4-1.md
+  Rendering Markup: modules/module-4/lessons/lesson-4-1.md
+Post-Convert Hooks: modules/module-4/lessons/lesson-4-1.md
+  Rendering Layout: modules/module-4/lessons/lesson-4-1.md
+         Rendering: modules/module-4/lessons/lesson-4-2.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-4/lessons/lesson-4-2.md
+  Rendering Liquid: modules/module-4/lessons/lesson-4-2.md
+  Rendering Markup: modules/module-4/lessons/lesson-4-2.md
+Post-Convert Hooks: modules/module-4/lessons/lesson-4-2.md
+  Rendering Layout: modules/module-4/lessons/lesson-4-2.md
+         Rendering: modules/module-4/lessons/lesson-4-3.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-4/lessons/lesson-4-3.md
+  Rendering Liquid: modules/module-4/lessons/lesson-4-3.md
+  Rendering Markup: modules/module-4/lessons/lesson-4-3.md
+Post-Convert Hooks: modules/module-4/lessons/lesson-4-3.md
+  Rendering Layout: modules/module-4/lessons/lesson-4-3.md
+         Rendering: modules/module-4/lessons/lesson-4-4.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-4/lessons/lesson-4-4.md
+  Rendering Liquid: modules/module-4/lessons/lesson-4-4.md
+  Rendering Markup: modules/module-4/lessons/lesson-4-4.md
+Post-Convert Hooks: modules/module-4/lessons/lesson-4-4.md
+  Rendering Layout: modules/module-4/lessons/lesson-4-4.md
+         Rendering: modules/module-4/lessons/lesson-4-5.md
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: modules/module-4/lessons/lesson-4-5.md
+  Rendering Liquid: modules/module-4/lessons/lesson-4-5.md
+  Rendering Markup: modules/module-4/lessons/lesson-4-5.md
+Post-Convert Hooks: modules/module-4/lessons/lesson-4-5.md
+  Rendering Layout: modules/module-4/lessons/lesson-4-5.md
+         Rendering: assets/main.scss
+  Pre-Render Hooks: assets/main.scss
+  Rendering Markup: assets/main.scss
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+1 │ @import 'variables';
+  │         ^^^^^^^^^^^
+  ╵
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 1:9  root stylesheet
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+2 │ @import 'colors';
+  │         ^^^^^^^^
+  ╵
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 2:9  root stylesheet
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │ @import 'theme';
+  │         ^^^^^^^
+  ╵
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 3:9  root stylesheet
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+4 │ @import 'navigation';
+  │         ^^^^^^^^^^^^
+  ╵
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 4:9  root stylesheet
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import 'video-player';
+  │         ^^^^^^^^^^^^^^
+  ╵
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 5:9  root stylesheet
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use list.length instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+3 │   @if length($properties) == 0 {
+  │       ^^^^^^^^^^^^^^^^^^^
+  ╵
+    _theme.scss 3:7                                                                                     theme-transition()
+    _navigation.scss 22:5                                                                               @import
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 4:9  root stylesheet
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use list.append instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+7 │     $transition-list: append($transition-list, #{$prop} 0.3s ease, comma);
+  │                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+    _theme.scss 7:23                                                                                    theme-transition()
+    _navigation.scss 22:5                                                                               @import
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 4:9  root stylesheet
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.has-key instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+66 │   @if map-has-key($z-index-layers, $layer) {
+   │       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    _variables.scss 66:7                                                                                z()
+    _video-player.scss 22:12                                                                            @import
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 5:9  root stylesheet
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use map.get instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+67 │     @return map-get($z-index-layers, $layer);
+   │             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   ╵
+    _variables.scss 67:13                                                                               z()
+    _video-player.scss 22:12                                                                            @import
+    /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/assets/main.scss 5:9  root stylesheet
+WARNING: 23 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+Post-Convert Hooks: assets/main.scss
+         Rendering: feed.xml
+  Pre-Render Hooks: feed.xml
+  Rendering Liquid: feed.xml
+  Rendering Markup: feed.xml
+Post-Convert Hooks: feed.xml
+  Rendering Layout: feed.xml
+         Rendering: sitemap.xml
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: sitemap.xml
+  Rendering Liquid: sitemap.xml
+  Rendering Markup: sitemap.xml
+Post-Convert Hooks: sitemap.xml
+  Rendering Layout: sitemap.xml
+         Rendering: assets/main.css.map
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+  Pre-Render Hooks: assets/main.css.map
+  Rendering Markup: assets/main.css.map
+Post-Convert Hooks: assets/main.css.map
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+Globbed Scope Path: modules/module-1/lessons/exercises
+Globbed Scope Path: modules/module-2/lessons/exercises
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/404.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/about.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/glossario/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/introducao-seguranca-qa/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-1-identificar-vulnerabilidades/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-2-sql-injection/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-3-broken-access-control/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercise-4-owasp-checklist/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-2-exercises-intro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/owasp-top-10/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-1-security-requirements/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-2-threat-modeling-early/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-3-devqa-security-collab/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercise-4-shift-left-checklist/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-3-exercises-intro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/shift-left-security/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-1-stride-basico/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-2-identificar-ameacas/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-3-analise-riscos/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-4-threat-model-completo/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercise-5-mitigacao-priorizacao/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-4-exercises-intro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/threat-modeling/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-1-lgpd-checklist/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-2-pci-dss-validacao/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-3-soc2-controles/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-4-compliance-por-setor/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercise-5-auditoria-qa/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/exercises/lesson-1-5-exercises-intro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/lessons/compliance-regulamentacoes/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-1-sonarqube-setup/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-2-semgrep-custom-rules/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-3-sast-cicd/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-4-validate-findings/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercise-6-security-vs-delivery/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-1-exercises-intro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/sast-testes-estaticos/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-1-owasp-zap-setup/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-3-dast-cicd/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-8-false-positive-investigation/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercise-9-dast-report-analysis/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-2-exercises-intro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/dast-testes-dinamicos/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-1-interpretar-relatorio/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-2-validar-correcoes/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-3-preparar-escopo/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-3-exercise-8-incident-postmortem/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/pentest-basico/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-1-github-actions-sast/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-2-dast-cicd/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-3-quality-gates/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-9-pipeline-optimization/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-4-exercise-5-security-policy/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/automacao-testes-seguranca/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-1-snyk-setup/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-2-npm-audit/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-3-sbom-generation/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-4-cve-war-room/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/exercises/lesson-2-5-exercise-10-no-patch-available/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/lessons/dependency-scanning-sca/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/lessons/seguranca-setor-financeiro/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/lessons/seguranca-setor-educacional/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/lessons/seguranca-ecommerce/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/lessons/seguranca-aplicacoes-ia/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/lessons/apis-microservicos-seguranca/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/lessons/devsecops-cultura-praticas/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/lessons/pipeline-seguranca/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/lessons/container-security-kubernetes/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/lessons/secrets-management/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/lessons/monitoramento-resposta-incidentes/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/assets/main.css
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/feed.xml
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/sitemap.xml
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/assets/main.css.map
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/fundamentos-seguranca-qa/summary/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/testes-seguranca-pratica/summary/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-por-setor/summary/index.html
+           Writing: /Users/joelmadeoliveiraprestesferreira/Desktop/POC 3/poc3/crescidos-qualidade/_site/modules/seguranca-cicd-devsecops/summary/index.html
+                    done in 1.627 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.

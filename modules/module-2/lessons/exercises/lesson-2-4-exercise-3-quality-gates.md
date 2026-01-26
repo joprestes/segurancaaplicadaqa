@@ -11,16 +11,46 @@ lesson_url: /modules/testes-seguranca-pratica/lessons/automacao-testes-seguranca
 
 ## Objetivo
 
-Criar Quality Gates que bloqueiam deploys quando vulnerabilidades críticas são detectadas.
+Criar Quality Gates que bloqueiam deploys quando vulnerabilidades críticas são detectadas, com exceções controladas.
 
 ---
 
-## Descrição
+## Contexto
 
-Implemente regras de Quality Gates:
-- Bloquear se vulnerabilidades Critical/High > 0
-- Permitir Medium com aprovação manual
-- Configurar notificações automáticas
+O time quer balancear velocidade e risco. O objetivo é definir regras claras que automatizem bloqueios e permitam exceções documentadas.
+
+## Pré-requisitos
+
+- Pipeline CI/CD com pelo menos um scanner de segurança (SAST/DAST/SCA)
+- Acesso para editar regras de branch e checks obrigatórios
+
+## Passo a Passo
+
+1. **Definir regras de Quality Gates**
+   - Critical/High: bloqueiam automaticamente.
+   - Medium: liberado com aprovação manual.
+
+2. **Implementar no pipeline**
+   - Configure o job para falhar quando o gate for violado.
+   - Adicione output claro com severidade e contagem.
+
+3. **Configurar notificações**
+   - Envie alerta para o canal correto (email/Slack).
+
+4. **Simular violação**
+   - Rode o pipeline com findings críticos para validar o bloqueio.
+
+## Validação
+
+- Pipeline bloqueia com Critical/High > 0.
+- Medium exige aprovação manual.
+- Notificações são disparadas com contexto.
+
+## Troubleshooting
+
+- **Gate não bloqueia**: verifique condição de falha do job.
+- **Notificação não chega**: revise webhook e permissões.
+- **Dados inconsistentes**: normalize formato do relatório do scanner.
 
 ---
 

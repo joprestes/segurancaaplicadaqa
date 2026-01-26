@@ -15,9 +15,18 @@ Preparar documentação completa de escopo para contratar pentester, economizand
 
 ---
 
-## Descrição
+## Contexto
 
 **Cenário**: Empresa vai contratar pentest externo pela primeira vez. Você (QA Security) precisa preparar documentação de escopo detalhada para maximizar ROI.
+
+## Pré-requisitos
+
+- Conhecimento básico do sistema e do negócio
+- Acesso a informações de arquitetura e ambientes
+
+---
+
+## Passo a Passo
 
 ### Tarefas
 
@@ -53,6 +62,19 @@ Crie documento de escopo com:
    - O que esperamos descobrir
    - Formato de entrega (relatório + apresentação)
    - Prazo
+
+---
+
+## Validação
+
+- Documento cobre escopo, out of scope e objetivos
+- Credenciais de teste documentadas com segurança
+- Arquitetura representada de forma simples
+
+## Troubleshooting
+
+- **Informações incompletas**: alinhe com DevOps e PO antes de fechar escopo
+- **Escopo grande demais**: priorize áreas críticas para maximizar ROI
 
 ---
 

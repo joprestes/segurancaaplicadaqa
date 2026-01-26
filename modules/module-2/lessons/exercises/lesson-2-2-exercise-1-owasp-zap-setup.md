@@ -42,7 +42,15 @@ Como QA de segurança, é fundamental saber configurar e usar ferramentas DAST. 
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Docker instalado e funcionando
+- Aplicação web para teste (própria ou de exemplo)
+- Acesso ao terminal e navegador
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Preparar Ambiente
 

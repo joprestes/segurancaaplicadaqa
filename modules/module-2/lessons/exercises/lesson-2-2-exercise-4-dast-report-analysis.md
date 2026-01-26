@@ -15,7 +15,18 @@ Relatório DAST com 47 findings (3 Critical, 12 High, 32 Medium). Priorizar top 
 
 ---
 
-## Tarefa
+## Contexto
+
+Você recebeu um relatório grande de DAST e precisa transformar dados brutos em decisões de correção com impacto real.
+
+## Pré-requisitos
+
+- Conhecimento básico de severidade e risco
+- Familiaridade com DAST e validação manual
+
+---
+
+## Passo a Passo
 
 **Findings Critical:**
 1. SQL Injection em /api/users (CVSS 9.8)
@@ -28,6 +39,19 @@ Relatório DAST com 47 findings (3 Critical, 12 High, 32 Medium). Priorizar top 
 1. Top 5 priorizados por risco REAL
 2. 3 false positives identificados (com justificativa)
 3. Plano de remediação (timeline + responsáveis)
+
+---
+
+## Validação
+
+- Top 5 priorizados com justificativa clara
+- 3 possíveis false positives analisados e documentados
+- Plano de remediação com prazos e responsáveis
+
+## Troubleshooting
+
+- **Difícil validar**: reproduza manualmente com payloads alternativos
+- **Sem contexto**: peça apoio do time para entender o fluxo do endpoint
 
 ---
 

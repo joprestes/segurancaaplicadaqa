@@ -12,7 +12,7 @@ Este documento mapeia detalhadamente a estrutura completa do Módulo 1, incluind
 - **Pré-requisitos**: Conhecimento básico de QA e desenvolvimento web
 - **Total de Aulas**: 5 aulas
 - **Total de Exercícios**: 18 exercícios práticos
-- **Total de Quizzes**: 5 quizzes (um por aula)
+- **Total de Quizzes**: 5 quizzes (um por aula) com gabaritos em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`
 
 ---
 
@@ -94,7 +94,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-1-1`
-- **Total de Questões**: 10
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`)
 - **Temas das Questões**:
   1. Tríade CIA (Confidencialidade, Integridade, Disponibilidade)
   2. Diferença entre QA Tradicional e Security QA
@@ -149,7 +149,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-1-2`
-- **Total de Questões**: 10
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`)
 - **Temas das Questões**:
   1. Vulnerabilidade #1 do OWASP Top 10 2021
   2. O que é SQL Injection
@@ -210,7 +210,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-1-3`
-- **Total de Questões**: 10
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`)
 - **Temas das Questões**:
   1. O que significa Shift-Left Security
   2. Custo de corrigir vulnerabilidade em produção
@@ -251,7 +251,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-1-4`
-- **Total de Questões**: 10
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`)
 - **Temas das Questões**:
   1. O que é Threat Modeling
   2. Metodologia STRIDE
@@ -292,7 +292,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-1-5`
-- **Total de Questões**: 10
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`)
 - **Temas das Questões**:
   1. O que é Compliance
   2. Multa máxima da LGPD
@@ -536,7 +536,7 @@ Cada aula com exercícios possui um vídeo introdutório:
 
 ### Formato dos Quizzes
 
-Cada quiz está associado a uma aula e contém 10 questões no formato de múltipla escolha.
+Cada quiz está associado a uma aula e contém 10 questões no formato de múltipla escolha. Os gabaritos consolidados estão em `documentos-staff/resolucao-exercicios/modulo-1/GABARITOS_QUIZZES_MODULO_1.md`.
 
 #### Estrutura de uma Questão
 
@@ -628,6 +628,7 @@ Contém todas as questões dos quizzes, organizadas por aula:
 - ID da aula associada
 - Array de questões (10 por aula)
 - Cada questão com ID, texto, opções, resposta correta e explicação
+ - Gabaritos consolidados na documentação da staff
 
 ### Arquivos de Assets (Recursos)
 

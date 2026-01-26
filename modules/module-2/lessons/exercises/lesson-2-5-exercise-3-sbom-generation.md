@@ -15,12 +15,39 @@ Gerar SBOM completo da aplicação para rastreabilidade de dependências e confo
 
 ---
 
-## Descrição
+## Contexto
 
-Crie SBOM usando CycloneDX ou SPDX:
-- Liste todas as dependências diretas e transitivas
-- Documente versões e licenças
-- Automatize geração no CI/CD
+O time precisa responder rápido a CVEs críticas. Um SBOM atualizado permite identificar impacto em minutos.
+
+## Pré-requisitos
+
+- Projeto com dependências gerenciadas (ex.: Node, Java, Python)
+- Ferramenta de SBOM (CycloneDX ou SPDX)
+
+## Passo a Passo
+
+1. **Gerar SBOM**
+   - Use CycloneDX ou SPDX para gerar arquivo em JSON/XML.
+
+2. **Incluir dependências transitivas**
+   - Garanta que a ferramenta liste dependências diretas e transitivas.
+
+3. **Documentar versões e licenças**
+   - Confirme que versão e licença aparecem no SBOM.
+
+4. **Automatizar no CI/CD**
+   - Adicione etapa no pipeline para gerar e publicar o SBOM.
+
+## Validação
+
+- Arquivo SBOM gerado com dependências diretas e transitivas.
+- Licenças e versões presentes.
+- Pipeline gera SBOM automaticamente.
+
+## Troubleshooting
+
+- **SBOM incompleto**: ajuste flags da ferramenta para incluir transitivas.
+- **Licenças ausentes**: verifique metadados dos pacotes.
 
 ---
 

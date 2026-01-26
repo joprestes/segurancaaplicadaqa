@@ -15,7 +15,7 @@ Validar que correções de vulnerabilidades de pentest foram implementadas corre
 
 ---
 
-## Descrição
+## Contexto
 
 **Cenário**: Dev Team corrigiu 5 vulnerabilidades Critical/High do pentest. Você precisa validar ANTES de chamar pentester para re-test (economiza $2k de re-test).
 
@@ -26,6 +26,16 @@ Validar que correções de vulnerabilidades de pentest foram implementadas corre
 4. Authentication Bypass no Admin Panel
 5. Missing Rate Limiting em `/api/login`
 
+## Pré-requisitos
+
+- Acesso ao ambiente de teste
+- Relatório de pentest com exploits originais
+- Ferramentas de teste (curl ou Burp Suite)
+
+---
+
+## Passo a Passo
+
 ### Tarefas
 
 Para cada vulnerabilidade:
@@ -35,6 +45,19 @@ Para cada vulnerabilidade:
 3. **Testar Bypasses** (tentar contornar a correção)
 4. **Criar Teste de Regressão** (para CI/CD)
 5. **Documentar Resultado** (Pass/Fail com evidências)
+
+---
+
+## Validação
+
+- Exploits originais não funcionam mais
+- Bypasses testados e documentados
+- Testes de regressão adicionados
+
+## Troubleshooting
+
+- **Exploit ainda funciona**: reporte ao time e reabra a correção
+- **Ambiente instável**: valide em staging antes de concluir
 
 ---
 

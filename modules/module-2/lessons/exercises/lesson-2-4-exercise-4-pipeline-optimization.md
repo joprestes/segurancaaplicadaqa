@@ -15,6 +15,15 @@ Pipeline demora 45 minutos. Devs reclamando. Meta: reduzir para <10 min sem perd
 
 ---
 
+## Contexto
+
+O time está sofrendo com PRs lentas porque o pipeline de segurança é pesado. Você precisa otimizar sem comprometer a cobertura e manter a qualidade dos gates.
+
+## Pré-requisitos
+
+- Acesso ao pipeline CI/CD
+- Relatório ou métricas de duração por etapa
+
 ## Situação Atual
 
 ```yaml
@@ -25,6 +34,19 @@ Steps:
 Total: 45 min
 ```
 
+## Passo a Passo
+
+1. **Mapear gargalos**
+   - Identifique quais etapas são mais lentas e por quê.
+
+2. **Aplicar otimizações**
+   - SAST: cache e análise incremental
+   - SCA: cache de dependências
+   - DAST: baseline em PR, full scan noturno
+
+3. **Validar impacto**
+   - Compare tempos antes/depois e confirme cobertura mínima.
+
 **Tarefa**: Otimize:
 - SAST: cache, análise incremental
 - SCA: cache de dependências
@@ -33,6 +55,18 @@ Total: 45 min
 Meta: <10 min no PR, cobertura mantida.
 
 ---
+
+## Validação
+
+- PRs executam em <10 minutos.
+- Full scan continua rodando em janela noturna.
+- Cobertura de segurança mantida.
+
+## Troubleshooting
+
+- **Cache não funciona**: verifique chave de cache e diretórios corretos.
+- **Baseline DAST muito permissivo**: ajuste o threshold ou regras.
+- **Aumento de falsos positivos**: revise o perfil do scanner.
 
 ## 📤 Enviar Resposta
 

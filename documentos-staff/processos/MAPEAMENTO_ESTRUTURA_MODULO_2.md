@@ -12,7 +12,7 @@ Este documento mapeia detalhadamente a estrutura completa do Módulo 2, incluind
 - **Pré-requisitos**: Módulo 1 completo (Fundamentos de Segurança em QA)
 - **Total de Aulas**: 5 aulas
 - **Total de Exercícios**: *[A ser definido - placeholders preparados]*
-- **Total de Quizzes**: *[A ser definido - estrutura para 5 quizzes]*
+- **Total de Quizzes**: 5 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`)
 
 ---
 
@@ -96,8 +96,8 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-2-1`
-- **Total de Questões**: *[A ser definido - estrutura para 10 questões]*
-- **Temas das Questões**: *[A ser definido]*
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`)
+- **Temas das Questões**: SAST, ferramentas, false positives, priorização e qualidade
 
 #### Estrutura do Conteúdo
 1. Objetivos de Aprendizado
@@ -138,7 +138,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-2-2`
-- **Total de Questões**: *[A ser definido - estrutura para 10 questões]*
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`)
 
 ---
 
@@ -164,7 +164,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-2-3`
-- **Total de Questões**: *[A ser definido - estrutura para 10 questões]*
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`)
 
 ---
 
@@ -190,7 +190,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-2-4`
-- **Total de Questões**: *[A ser definido - estrutura para 10 questões]*
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`)
 
 ---
 
@@ -216,7 +216,7 @@ Cada aula possui uma estrutura consistente com os seguintes componentes:
 
 #### Quiz
 - **ID do Quiz**: `lesson-2-5`
-- **Total de Questões**: *[A ser definido - estrutura para 10 questões]*
+- **Total de Questões**: 10 (gabaritos em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`)
 
 ---
 
@@ -303,7 +303,7 @@ Cada aula com exercícios deve possuir um vídeo introdutório:
 
 ### Formato dos Quizzes
 
-*[Estrutura preparada - quizzes a serem criados]*
+Quizzes criados em `_data/quizzes.yml` com 10 questões por aula. Gabaritos consolidados em `documentos-staff/resolucao-exercicios/modulo-2/GABARITOS_QUIZZES_MODULO_2.md`.
 
 Cada quiz está associado a uma aula e deve conter 10 questões no formato de múltipla escolha.
 
@@ -325,13 +325,13 @@ Cada quiz está associado a uma aula e deve conter 10 questões no formato de m�
 
 | Aula | ID do Quiz | Total de Questões | Arquivo |
 |------|------------|-------------------|---------|
-| 2.1 | `lesson-2-1` | *[A ser criado - 10 questões]* | `_data/quizzes.yml` |
-| 2.2 | `lesson-2-2` | *[A ser criado - 10 questões]* | `_data/quizzes.yml` |
-| 2.3 | `lesson-2-3` | *[A ser criado - 10 questões]* | `_data/quizzes.yml` |
-| 2.4 | `lesson-2-4` | *[A ser criado - 10 questões]* | `_data/quizzes.yml` |
-| 2.5 | `lesson-2-5` | *[A ser criado - 10 questões]* | `_data/quizzes.yml` |
+| 2.1 | `lesson-2-1` | 10 questões | `_data/quizzes.yml` |
+| 2.2 | `lesson-2-2` | 10 questões | `_data/quizzes.yml` |
+| 2.3 | `lesson-2-3` | 10 questões | `_data/quizzes.yml` |
+| 2.4 | `lesson-2-4` | 10 questões | `_data/quizzes.yml` |
+| 2.5 | `lesson-2-5` | 10 questões | `_data/quizzes.yml` |
 
-**Total**: *[A ser criado - 50 questões distribuídas em 5 quizzes]*
+**Total**: 50 questões distribuídas em 5 quizzes
 
 ---
 
@@ -465,8 +465,8 @@ assets/module-2/images/podcasts/
 - **Vídeos de Exercícios**: ⚠️ **1 de 5 criados** (lesson-2-1 ✅, lesson-2-2 ❌, lesson-2-3 ❌, lesson-2-4 ❌, lesson-2-5 ❌)
 
 ### Quizzes
-- **Total de Quizzes**: *[A ser criado - 5]*
-- **Total de Questões**: *[A ser criado - 50 (10 por quiz)]*
+- **Total de Quizzes**: 5
+- **Total de Questões**: 50 (10 por quiz)
 
 ### Infográficos
 - **Total de Infográficos**: ⚠️ **2 de 6 criados**
@@ -570,12 +570,12 @@ Para cada aula, verificar se possui:
    - ✅ Exercícios lesson-2-2 criados (7 exercícios)
    - ⚠️ Vídeos: 1 de 5 aulas com vídeo (lesson-2-1 ✅)
    - ⚠️ Infográficos: 2 de 6 criados (introdução + lesson-2-1 ✅)
-   - ❌ Quizzes: Ainda não criados
+   - ✅ Quizzes: Criados em `_data/quizzes.yml` com gabaritos na documentação da staff
 2. **Próximos Passos**: 
    - Criar vídeo da aula lesson-2-2
    - Criar vídeo introdutório dos exercícios lesson-2-2
    - Criar infográfico lesson-2-2
-   - Criar quizzes para todas as aulas
+   - Revisar periodicamente os quizzes e gabaritos conforme atualizações do conteúdo
    - Criar exercícios para lessons 2-3, 2-4, 2-5
 3. **Dependências**: Módulo 2 depende da conclusão do Módulo 1
 4. **Nível**: Módulo mais prático, com foco em ferramentas e técnicas

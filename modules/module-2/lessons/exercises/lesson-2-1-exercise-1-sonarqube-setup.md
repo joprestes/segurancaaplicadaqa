@@ -41,7 +41,15 @@ Como QA de segurança, é fundamental saber configurar e usar ferramentas SAST. 
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Docker instalado e funcionando
+- Projeto de código-fonte para análise
+- Acesso local ao terminal
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Preparar Ambiente
 

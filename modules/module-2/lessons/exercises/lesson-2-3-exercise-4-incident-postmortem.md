@@ -15,6 +15,19 @@ XSS descoberto em produção por cliente. Realizar RCA (Root Cause Analysis), id
 
 ---
 
+## Contexto
+
+Um incidente real expôs falhas de processo. O objetivo é aprender sem blame e transformar o incidente em melhorias concretas.
+
+## Pré-requisitos
+
+- Conhecimento básico de RCA (ex.: 5 Whys)
+- Familiaridade com SAST/DAST e pentest
+
+---
+
+## Passo a Passo
+
 ## Cenário
 
 Cliente reportou: "Consegui executar JavaScript na página de checkout e acessar cookies de outros usuários."
@@ -30,6 +43,19 @@ Cliente reportou: "Consegui executar JavaScript na página de checkout e acessar
 2. Root cause (não "dev errou", mas "processo falhou onde")
 3. Gaps identificados
 4. Action items (SMART goals)
+
+---
+
+## Validação
+
+- Timeline clara e objetiva
+- RCA baseada em processo, não em culpa
+- Action items SMART com priorização
+
+## Troubleshooting
+
+- **Fatos insuficientes**: busque logs, métricas e relatos do time
+- **Ação genérica**: transforme em tarefa com dono e prazo
 
 ---
 

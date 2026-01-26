@@ -534,21 +534,21 @@ quizzes:
   - id: q1
     question: O que é SAST (Static Application Security Testing)?
     options:
-    - Teste de segurança que analisa código-fonte sem executar a aplicação
     - Teste de segurança que analisa aplicação em execução
     - Teste de segurança que analisa apenas dependências
+    - Teste de segurança que analisa código-fonte sem executar a aplicação
     - Teste de segurança que analisa apenas configurações
-    correct: 0
+    correct: 2
     explanation: SAST analisa código-fonte, bytecode ou binários sem executar a aplicação,
       identificando vulnerabilidades através de análise estática do código.
   - id: q2
     question: Qual é a principal diferença entre SAST e DAST?
     options:
-    - SAST analisa código estático, DAST analisa aplicação em execução
     - SAST é mais caro que DAST
     - SAST só funciona para aplicações web
     - Não há diferença
-    correct: 0
+    - SAST analisa código estático, DAST analisa aplicação em execução
+    correct: 3
     explanation: SAST analisa código estático (sem executar), enquanto DAST testa
       aplicação em execução (runtime). SAST encontra problemas cedo e barato, DAST
       encontra problemas de runtime.
@@ -556,11 +556,11 @@ quizzes:
     question: Qual ferramenta SAST é conhecida por ser muito rápida e usar 'rules
       as code' (regras em YAML)?
     options:
-    - SonarQube
     - Semgrep
+    - SonarQube
     - Checkmarx
     - Bandit
-    correct: 1
+    correct: 0
     explanation: Semgrep é conhecido por ser muito rápido (segundos para projetos
       grandes) e usar 'rules as code' - regras escritas em YAML que são fáceis de
       criar e customizar.
@@ -569,10 +569,10 @@ quizzes:
       uso perigoso (sink), verificando se foram sanitizados?
     options:
     - Pattern Matching
+    - Taint Analysis
     - Data Flow Analysis
     - Control Flow Analysis
-    - Taint Analysis
-    correct: 3
+    correct: 1
     explanation: Taint Analysis é um tipo especializado de Data Flow Analysis que
       rastreia especificamente dados 'tainted' (contaminados/não confiáveis) desde
       origem até uso perigoso, verificando se foram sanitizados.
@@ -580,10 +580,10 @@ quizzes:
     question: O que é um 'False Positive' em SAST?
     options:
     - Vulnerabilidade real que foi detectada corretamente
-    - SAST reporta vulnerabilidade que não existe na prática
     - Vulnerabilidade crítica encontrada
     - Vulnerabilidade que foi corrigida
-    correct: 1
+    - SAST reporta vulnerabilidade que não existe na prática
+    correct: 3
     explanation: False Positive é quando SAST reporta uma vulnerabilidade que não
       existe na prática. É comum em SAST (20-40% dos findings podem ser false positives)
       e requer validação manual.
@@ -591,11 +591,11 @@ quizzes:
     question: Qual é o custo médio de corrigir uma vulnerabilidade encontrada por
       SAST durante desenvolvimento vs em produção?
     options:
-    - Mesmo custo em ambos os casos
     - 'SAST: $50-200, Produção: $50,000-500,000+ (250-10,000x mais caro em produção)'
+    - Mesmo custo em ambos os casos
     - 'SAST: $500-2,000, Produção: $5,000-10,000'
     - SAST é mais caro que produção
-    correct: 1
+    correct: 0
     explanation: Corrigir vulnerabilidade encontrada por SAST durante desenvolvimento
       custa $50-200, enquanto em produção (após breach) pode custar $50,000-500,000+.
       SAST economiza 250-10,000x mais.
@@ -603,11 +603,11 @@ quizzes:
     question: O que é Quality Gate em SonarQube?
     options:
     - Porta de entrada do SonarQube
+    - Relatório de qualidade
     - 'Critérios de qualidade que bloqueiam merge se não passarem (ex: 0 Critical
       vulnerabilities)'
-    - Relatório de qualidade
     - Ferramenta de análise
-    correct: 1
+    correct: 2
     explanation: 'Quality Gate são critérios de qualidade configuráveis (ex: 0 Critical
       vulnerabilities, Security Rating A ou B) que podem bloquear merge de código
       se não passarem, prevenindo que código vulnerável chegue à branch principal.'
@@ -616,10 +616,10 @@ quizzes:
       500+ vulnerabilities?
     options:
     - Corrigir tudo de uma vez antes de usar SAST
-    - Criar baseline (aceitar tudo que existe hoje) e focar apenas em novas vulnerabilities
     - Ignorar todas as vulnerabilities
     - Desabilitar SAST
-    correct: 1
+    - Criar baseline (aceitar tudo que existe hoje) e focar apenas em novas vulnerabilities
+    correct: 3
     explanation: Para projeto legado com muitas vulnerabilities, a melhor estratégia
       é criar baseline (aceitar tudo que existe hoje) e configurar Quality Gate para
       bloquear apenas novas Critical/High vulnerabilities. Aperte gradualmente ao
@@ -629,10 +629,10 @@ quizzes:
       de segurança comuns?
     options:
     - SonarQube
-    - Semgrep
     - Bandit
+    - Semgrep
     - Checkmarx
-    correct: 2
+    correct: 1
     explanation: 'Bandit é uma ferramenta SAST específica para Python que procura
       por problemas de segurança comuns em código Python. Outras ferramentas específicas:
       Brakeman (Ruby), ESLint Security (JavaScript), FindSecBugs (Java).'
@@ -640,12 +640,12 @@ quizzes:
     question: Em um contexto CWI Financeiro, qual é a priorização CORRETA para vulnerabilidades
       SAST encontradas?
     options:
-    - Todas têm mesma prioridade
-    - Priorizar por severidade SAST (Critical sempre P1)
     - 'Priorizar por risco real: Critical + Em produção + Dados sensíveis = P1 (IMEDIATO),
       considerar contexto de negócio'
+    - Todas têm mesma prioridade
+    - Priorizar por severidade SAST (Critical sempre P1)
     - Apenas corrigir Low e Medium
-    correct: 2
+    correct: 0
     explanation: A priorização correta considera severidade SAST, mas também exploitability,
       impacto, contexto (produção vs desenvolvimento) e contexto de negócio. Critical
       + Em produção + Dados sensíveis financeiros = P1 IMEDIATO.
@@ -655,22 +655,22 @@ quizzes:
     question: O que é DAST (Dynamic Application Security Testing)?
     options:
     - Teste de segurança que analisa código-fonte sem executar
-    - Teste de segurança que analisa aplicação em execução, simulando ataques reais
     - Teste de segurança que analisa apenas dependências
+    - Teste de segurança que analisa aplicação em execução, simulando ataques reais
     - Teste de segurança que analisa apenas configurações de servidor
-    correct: 1
+    correct: 2
     explanation: DAST testa aplicação em execução, simulando ataques reais de hackers.
       Diferente do SAST (código estático), DAST testa comportamento em runtime.
   - id: q2
     question: Qual é a principal diferença entre Active Scanning e Passive Scanning
       em DAST?
     options:
-    - Não há diferença
     - Active Scanning envia payloads maliciosos e testa vulnerabilidades, Passive
       Scanning apenas observa tráfego sem atacar
+    - Não há diferença
     - Passive Scanning é mais agressivo que Active Scanning
     - Active Scanning é mais seguro para produção
-    correct: 1
+    correct: 0
     explanation: 'Active Scanning envia payloads maliciosos (SQL Injection, XSS,
       etc.) e tenta explorar vulnerabilidades. Passive Scanning apenas observa tráfego
       existente e analisa headers, configurações, informações expostas - sem atacar
@@ -678,11 +678,11 @@ quizzes:
   - id: q3
     question: Qual ferramenta DAST é open-source, gratuita e mantida pela OWASP?
     options:
-    - OWASP ZAP
     - Burp Suite Professional
     - Acunetix
     - Checkmarx
-    correct: 0
+    - OWASP ZAP
+    correct: 3
     explanation: OWASP ZAP (Zed Attack Proxy) é a ferramenta DAST open-source líder
       mundial, 100% gratuita e mantida pela OWASP. É ideal para times com orçamento
       limitado e integração em CI/CD.
@@ -690,23 +690,23 @@ quizzes:
     question: Por que DAST com autenticação é importante?
     options:
     - Não é importante, DAST funciona sem autenticação
+    - Apenas para documentação
     - 60-80% das vulnerabilidades estão em áreas autenticadas que scans não-autenticados
       não conseguem ver
-    - Apenas para documentação
     - Apenas para melhorar performance
-    correct: 1
+    correct: 2
     explanation: '60-80% das vulnerabilidades estão em áreas autenticadas (privilege
       escalation, IDOR, admin panels, user profile manipulation). DAST sem autenticação
       testa apenas áreas públicas, perdendo a maior parte das vulnerabilidades críticas.'
   - id: q5
     question: O que é BOLA (Broken Object Level Authorization) e como DAST detecta?
     options:
-    - Vulnerabilidade de SQL Injection
     - Usuário consegue acessar dados de outros usuários via manipulação de IDs. DAST
       testa tentando acessar objetos de outros usuários
+    - Vulnerabilidade de SQL Injection
     - Vulnerabilidade de XSS
     - Problema de configuração de servidor
-    correct: 1
+    correct: 0
     explanation: 'BOLA (também chamado IDOR) ocorre quando usuário A consegue acessar
       dados de usuário B modificando IDs na URL/API. DAST detecta testando: GET /api/users/123
       com token de user 456. Se retornar 200 OK, vulnerabilidade confirmada.'
@@ -714,10 +714,10 @@ quizzes:
     question: Qual é a taxa de false positives típica de DAST vs SAST?
     options:
     - 'DAST: 20-40%, SAST: 5-10%'
-    - Ambas têm mesma taxa
     - 'DAST: 5-10%, SAST: 20-40%'
+    - Ambas têm mesma taxa
     - DAST tem 100% false positives
-    correct: 2
+    correct: 1
     explanation: DAST tem menos false positives (5-10%) que SAST (20-40%) porque
       DAST confirma exploits reais - se vulnerabilidade foi explorada com sucesso,
       é real. SAST pode reportar padrões que não são vulnerabilidades no contexto
@@ -726,23 +726,23 @@ quizzes:
     question: Por que Active Scanning NÃO deve ser executado em produção?
     options:
     - Active Scanning é muito lento
+    - Active Scanning é muito caro
+    - Active Scanning não funciona em produção
     - Active Scanning envia payloads maliciosos que podem danificar dados, causar
       DoS, gerar logs de ataque e comprometer estado da aplicação
-    - Active Scanning não funciona em produção
-    - Active Scanning é muito caro
-    correct: 1
+    correct: 3
     explanation: Active Scanning envia payloads maliciosos (SQL Injection, XSS, etc.)
       que podem danificar dados, causar Denial of Service, gerar muitos logs de ataque
       e comprometer estado da aplicação. Sempre execute em staging/QA, nunca em produção!
   - id: q8
     question: Qual é a melhor estratégia para integrar DAST em pipeline CI/CD?
     options:
-    - 'Full scan ativo em cada commit (bloqueia pipeline por horas)'
-    - Não integrar DAST em CI/CD
     - 'Baseline scan rápido em MRs (10-15 min), Full scan noturno (scan completo),
       Pre-production scan antes de deploy'
+    - 'Full scan ativo em cada commit (bloqueia pipeline por horas)'
+    - Não integrar DAST em CI/CD
     - Apenas scan manual quando lembrar
-    correct: 2
+    correct: 0
     explanation: 'Estratégia ideal: Baseline scan (passive) em cada MR para feedback
       rápido (10-15 min), Full scan (active) noturno para análise profunda, Pre-production
       scan como safety check final antes de produção. Isso equilibra velocidade e
@@ -752,11 +752,11 @@ quizzes:
       é mais crítica?
     options:
     - Missing security headers (Medium)
+    - Informações de versão em headers (Low)
     - BOLA (Broken Object Level Authorization) - permite acesso a contas de outros
       usuários
-    - Informações de versão em headers (Low)
     - Cookie sem flag HttpOnly (Medium)
-    correct: 1
+    correct: 2
     explanation: 'No contexto financeiro, BOLA é crítica porque permite que User
       A acesse transações/dados de User B. Exemplo: GET /api/accounts/user2_account/transactions
       com token de user1 retorna 200 OK. Violação de privacidade, LGPD e PCI-DSS.'
@@ -764,11 +764,11 @@ quizzes:
     question: Qual é o melhor workflow para combinar SAST e DAST?
     options:
     - Usar apenas DAST
-    - Usar apenas SAST
     - 'SAST em cada commit (shift-left) → DAST Baseline em cada MR → DAST Full Scan
       noturno → DAST Pre-Production antes de deploy → Pentest manual trimestral'
+    - Usar apenas SAST
     - Usar SAST e DAST apenas em produção
-    correct: 2
+    correct: 1
     explanation: 'Workflow completo: 1) SAST em cada commit (encontra problemas no
       código cedo), 2) DAST Baseline em MRs (valida runtime rapidamente), 3) DAST
       Full Scan noturno (análise profunda), 4) DAST Pre-Prod (safety check final),
@@ -783,11 +783,11 @@ quizzes:
     question: O que diferencia Pentest de ferramentas automatizadas (SAST/DAST)?
     options:
     - Pentest é mais barato e rápido
+    - Pentest é apenas scan automatizado
     - Pentest combina ferramentas automatizadas com análise manual criativa e pensamento
       como atacante, encontrando falhas que scanners não detectam
-    - Pentest é apenas scan automatizado
     - Não há diferença
-    correct: 1
+    correct: 2
     explanation: Pentest combina ferramentas automatizadas com expertise humano
       para exploração criativa. Encontra falhas de lógica de negócio, chains de
       ataque e vulnerabilidades contextuais que scanners automatizados não detectam.
@@ -795,11 +795,11 @@ quizzes:
     question: Qual metodologia de pentest é focada em aplicações web e contém 108
       testes específicos?
     options:
-    - PTES (Penetration Testing Execution Standard)
     - OWASP Testing Guide
+    - PTES (Penetration Testing Execution Standard)
     - NIST SP 800-115
     - Metasploit Framework
-    correct: 1
+    correct: 0
     explanation: 'OWASP Testing Guide v4.2 é a referência global para pentest de
       aplicações web, com 108 testes específicos divididos em 12 categorias: Information
       Gathering, Authentication, Authorization, Session Management, Input Validation,
@@ -810,33 +810,33 @@ quizzes:
     options:
     - Exploração
     - Pós-exploração
-    - Reconhecimento Passivo (OSINT)
     - Relatório
-    correct: 2
+    - Reconhecimento Passivo (OSINT)
+    correct: 3
     explanation: Reconhecimento Passivo (OSINT) coleta informações públicas sem
       interagir com o alvo (Google Dorking, Shodan, GitHub, LinkedIn). É a fase
       mais demorada mas crítica - 80% do sucesso do pentest depende de bom reconhecimento.
   - id: q4
     question: Por que o Nmap com flag -sS (SYN scan) é chamado de "stealth scan"?
     options:
-    - Porque é invisível aos logs
     - Porque não completa o TCP handshake (envia SYN, recebe SYN-ACK, mas não envia
       ACK final), deixando menos rastros
+    - Porque é invisível aos logs
     - Porque usa criptografia
     - Porque é mais rápido
-    correct: 1
+    correct: 0
     explanation: SYN scan (-sS) não completa o TCP handshake (envia SYN → recebe
       SYN-ACK → envia RST ao invés de ACK). Isso deixa menos rastros em logs antigos
       que só registram conexões completas, mas IDS/IPS modernos detectam igualmente.
   - id: q5
     question: Qual é a diferença entre Black Box, Gray Box e White Box pentest?
     options:
-    - Black Box (sem informações), Gray Box (credenciais de user), White Box (acesso
-      completo + código-fonte)
     - Não há diferença
     - White Box é mais barato
+    - Black Box (sem informações), Gray Box (credenciais de user), White Box (acesso
+      completo + código-fonte)
     - Black Box tem mais cobertura
-    correct: 0
+    correct: 2
     explanation: 'Black Box simula atacante externo (sem informações), Gray Box
       tem acesso parcial (credenciais de user comum, mais realista), White Box tem
       acesso total (código-fonte, credenciais admin) para análise profunda. Gray
@@ -846,11 +846,11 @@ quizzes:
       (bash, cmd)?
     options:
     - É mais rápido
-    - Meterpreter roda na memória (não toca disco), suporta pivoting, extensões
-      dinâmicas, keystroke logging e é mais difícil de detectar
     - Não é superior
     - Apenas porque é open-source
-    correct: 1
+    - Meterpreter roda na memória (não toca disco), suporta pivoting, extensões
+      dinâmicas, keystroke logging e é mais difícil de detectar
+    correct: 3
     explanation: Meterpreter é um payload avançado que roda inteiramente na memória
       (não deixa arquivos no disco), suporta carregamento dinâmico de módulos,
       pivoting para redes internas, keystroke logging, screenshot e mais difícil
@@ -858,12 +858,12 @@ quizzes:
   - id: q7
     question: O que é IDOR (Insecure Direct Object Reference) e como explorá-lo?
     options:
-    - Vulnerabilidade de SQL Injection
     - Usuário consegue acessar recursos de outros usuários modificando IDs na URL/API.
       Exploração acessar /api/users/123 com token de user 456
+    - Vulnerabilidade de SQL Injection
     - Vulnerabilidade de XSS
     - Problema de configuração de rede
-    correct: 1
+    correct: 0
     explanation: 'IDOR (também chamado BOLA) permite que User A acesse dados de
       User B modificando IDs. Exemplo: GET /api/users/123 com token de user 456
       retorna dados de user 123. Exploração é trivial mas impacto é crítico (violação
@@ -872,12 +872,12 @@ quizzes:
     question: Qual técnica de privilege escalation no Linux explora binários com
       SUID bit?
     options:
+    - Binários com SUID não são exploráveis
     - Binários com SUID rodam com privilégios do dono (geralmente root). Se exploráveis
       (ex find, vim, nmap), permitem executar comandos como root
-    - Binários com SUID não são exploráveis
     - SUID bit não existe no Linux
     - Apenas em Windows
-    correct: 0
+    correct: 1
     explanation: 'Binários com SUID bit (Set User ID) executam com privilégios
       do dono do arquivo (geralmente root). Se binário como /usr/bin/find tem SUID
       e permite execução de comandos, podemos escalar: sudo find . -exec /bin/bash
@@ -887,11 +887,11 @@ quizzes:
       Técnico)?
     options:
     - Porque é obrigatório por lei
+    - Para aumentar o tamanho do relatório
     - Executivo (para C-level/gestão) foca em impacto ao negócio e prioridades.
       Técnico (para dev/ops) tem steps to reproduce e recomendações detalhadas
-    - Para aumentar o tamanho do relatório
     - Não precisa de dois formatos
-    correct: 1
+    correct: 2
     explanation: 'Sumário Executivo é para C-level/gestão (linguagem de negócio,
       impacto financeiro, prioridades estratégicas). Relatório Técnico é para dev/ops/infra
       (steps to reproduce, evidências, código de correção). Públicos diferentes
@@ -899,12 +899,12 @@ quizzes:
   - id: q10
     question: Por que CVSS score sozinho não é suficiente para priorizar vulnerabilidades?
     options:
-    - CVSS está sempre errado
     - CVSS dá severidade técnica, mas contexto de negócio deve ajustar prioridade
       (XSS em checkout vale mais que XSS em admin interno)
+    - CVSS está sempre errado
     - CVSS é suficiente
     - Não se deve usar CVSS
-    correct: 1
+    correct: 0
     explanation: 'CVSS dá severidade técnica objetiva (9.8 = crítico), mas contexto
       de negócio é essencial. Exemplo: SQLi em checkout (100k users/dia, processa
       R$5MM/dia) é P0 (correção imediata). SQLi em painel admin interno (50 users)
@@ -918,12 +918,12 @@ quizzes:
   - id: q1
     question: O que diferencia automação de segurança de testes manuais (pentest)?
     options:
-    - Automação é sempre melhor que testes manuais
     - Automação detecta vulnerabilidades conhecidas rapidamente (CVE, padrões), mas
       não substitui pensamento criativo humano para falhas de lógica e 0-days
+    - Automação é sempre melhor que testes manuais
     - Testes manuais são obsoletos
     - Não há diferença
-    correct: 1
+    correct: 0
     explanation: 'Automação é excelente para detectar vulnerabilidades conhecidas
       (SQLi, XSS, CVEs) rapidamente e continuamente. Mas não substitui pentest
       manual que detecta: falhas de lógica de negócio, chains de ataque criativas,
@@ -932,11 +932,11 @@ quizzes:
     question: Por que automatizar testes de segurança é essencial em DevOps moderno?
     options:
     - Porque é mais barato
+    - Apenas para compliance
     - Porque com deploys múltiplos por dia, é impossível executar testes manuais
       antes de cada deploy. Automação permite shift-left e feedback contínuo
-    - Apenas para compliance
     - Não é essencial
-    correct: 1
+    correct: 2
     explanation: Em ambientes DevOps com 10+ deploys/dia, testes manuais não escalam.
       Automação permite shift-left (detectar vulnerabilidades cedo), feedback em
       minutos, e cobertura consistente. Custo de correção em dev é 30x menor que
@@ -945,23 +945,23 @@ quizzes:
     question: Quais testes DEVEM ser automatizados prioritariamente?
     options:
     - Apenas testes de performance
-    - 'SAST, SCA, Secret Scanning, IaC Security, Container Security - testes repetitivos
-      com padrões conhecidos'
     - Apenas pentest
     - Engenharia social
-    correct: 1
+    - 'SAST, SCA, Secret Scanning, IaC Security, Container Security - testes repetitivos
+      com padrões conhecidos'
+    correct: 3
     explanation: 'Devem ser automatizados: SAST (código), SCA (dependências), Secret
       Scanning (credenciais), IaC Security (Terraform), Container Security (Docker).
       São repetitivos, têm padrões conhecidos e fornecem feedback rápido. ROI alto.'
   - id: q4
     question: Por que falhas de lógica de negócio NÃO podem ser automatizadas?
     options:
-    - Porque são muito complexas
     - Porque cada aplicação tem lógica de negócio única. Ferramentas não sabem o
       que é comportamento esperado. Requer entendimento profundo do fluxo
+    - Porque são muito complexas
     - Porque não existem ferramentas
     - Porque são raras
-    correct: 1
+    correct: 0
     explanation: 'Falhas de lógica de negócio (ex: aplicar cupom múltiplas vezes,
       bypass de pagamento) são únicas para cada aplicação. Ferramentas não têm
       contexto de "comportamento esperado". Exemplo: Sistema permite refund sem
@@ -970,11 +970,11 @@ quizzes:
     question: O que é "shift-left security" em automação?
     options:
     - Mover testes de segurança para esquerda do escritório
+    - Testar apenas código antigo
     - Detectar vulnerabilidades o mais cedo possível no ciclo de desenvolvimento
       (IDE, commit, MR), não apenas em produção
-    - Testar apenas código antigo
     - Usar apenas ferramentas open-source
-    correct: 1
+    correct: 2
     explanation: '"Shift-left" significa mover testes de segurança para fases iniciais
       do desenvolvimento. Ao invés de descobrir SQLi em produção (custo alto),
       SAST detecta no commit (custo 30x menor). IDE plugins, pre-commit hooks,
@@ -983,11 +983,11 @@ quizzes:
     question: Qual é o papel de Quality Gates em pipeline de segurança?
     options:
     - Apenas documentação
+    - Apenas para compliance
+    - Quality Gates são opcionais
     - Quality Gates bloqueiam build/deploy se vulnerabilidades críticas são encontradas,
       impedindo código inseguro em produção
-    - Quality Gates são opcionais
-    - Apenas para compliance
-    correct: 1
+    correct: 3
     explanation: 'Quality Gates definem critérios mínimos de segurança. Exemplo:
       "Se SAST encontrar vulnerabilidades Critical/High, bloquear merge". Isso
       impede código inseguro em produção. Sem Quality Gates, vulnerabilidades são
@@ -995,12 +995,12 @@ quizzes:
   - id: q7
     question: Por que SCA (Software Composition Analysis) deve rodar a cada commit?
     options:
-    - Apenas para estatísticas
     - '60-80% do código moderno é dependências de terceiros. Novas CVEs são publicadas
       diariamente. SCA detecta dependências vulneráveis antes de merge'
+    - Apenas para estatísticas
     - SCA é muito lento
     - SCA não é importante
-    correct: 1
+    correct: 0
     explanation: 'Aplicações modernas têm 60-80% do código sendo dependências (npm,
       pip, maven). Novas CVEs são publicadas diariamente. SCA a cada commit detecta:
       dependências vulneráveis, licenças incompatíveis, supply chain attacks. Equifax
@@ -1009,11 +1009,11 @@ quizzes:
     question: O que é Secret Scanning e por que é crítico?
     options:
     - Buscar documentos secretos
+    - Apenas para compliance
     - Detectar automaticamente credenciais hardcoded (API keys, passwords, tokens)
       em código antes de commit. Credenciais vazadas = comprometimento imediato
-    - Apenas para compliance
     - Ferramenta de backup
-    correct: 1
+    correct: 2
     explanation: 'Secret Scanning detecta credenciais hardcoded em código (API keys,
       passwords, AWS credentials). Se commitar API key no GitHub público, bots
       automatizados detectam em minutos e exploram. truffleHog, GitLeaks, GitHub
@@ -1021,12 +1021,12 @@ quizzes:
   - id: q9
     question: Qual é a estratégia ideal para integrar DAST em CI/CD?
     options:
-    - Full scan ativo em cada commit (bloqueia pipeline por horas)
     - 'Baseline scan passivo em cada MR (10-15 min), Full scan noturno (completo),
       Pre-production scan final antes de deploy'
     - Não integrar DAST em CI/CD
     - Apenas scan manual mensal
-    correct: 1
+    - Full scan ativo em cada commit (bloqueia pipeline por horas)
+    correct: 0
     explanation: 'Estratégia ideal: 1) Baseline scan (passive) em MRs para feedback
       rápido (10-15 min), 2) Full scan (active) noturno para análise profunda,
       3) Pre-production scan como safety check final. Full scan em cada commit
@@ -1035,11 +1035,11 @@ quizzes:
     question: Como reduzir false positives em automação de segurança?
     options:
     - Desabilitar todas as regras
-    - 'Configurar baselines, tuning de ferramentas, validar findings manualmente,
-      implementar feedback loop (marcar false positives para refinar regras)'
     - Ignorar todos os alertas
     - Não é possível reduzir
-    correct: 1
+    - 'Configurar baselines, tuning de ferramentas, validar findings manualmente,
+      implementar feedback loop (marcar false positives para refinar regras)'
+    correct: 3
     explanation: 'Para reduzir false positives: 1) Baseline inicial (aceitar findings
       legados temporariamente), 2) Tuning (desabilitar regras não aplicáveis),
       3) Validação manual (Security Champion revisa findings), 4) Feedback loop
@@ -1053,12 +1053,12 @@ quizzes:
   - id: q1
     question: O que é SCA (Software Composition Analysis) e o que ele detecta?
     options:
-    - Análise de código próprio da aplicação
     - Análise automatizada de dependências de terceiros (libraries, packages) para
       detectar CVEs, licenças incompatíveis, dependências desatualizadas e malware
+    - Análise de código próprio da aplicação
     - Apenas análise de performance
     - Análise de banco de dados
-    correct: 1
+    correct: 0
     explanation: 'SCA analisa dependências de terceiros (npm, pip, maven) para detectar:
       CVEs conhecidas, licenças incompatíveis (GPL em software proprietário), dependências
       desatualizadas/abandonadas, malware, typosquatting. Foco em código que você
@@ -1067,12 +1067,12 @@ quizzes:
     question: Por que 60-80% do código moderno ser dependências torna SCA crítico?
     options:
     - Porque dependências são sempre seguras
+    - Porque dependências são gratuitas
     - 'Porque a maior parte do código (dependencies) não foi escrita pela equipe.
       Cada dependência é vetor de ataque potencial. Equifax breach: $1.4B por dependência
       não atualizada'
-    - Porque dependências são gratuitas
     - Não torna SCA crítico
-    correct: 1
+    correct: 2
     explanation: 'Aplicações modernas têm 60-80% do código sendo dependências externas.
       Equifax perdeu $1.4B porque não atualizou Apache Struts (CVE conhecida há
       2 meses). Log4Shell afetou milhares de empresas. 97% das apps têm pelo menos
@@ -1081,23 +1081,23 @@ quizzes:
     question: O que é uma dependência transitiva e por que é perigosa?
     options:
     - Dependência que você instalou diretamente
-    - Dependência das suas dependências (você usa A, A usa B, B tem CVE). Você não
-      sabe que B existe mas está vulnerável. SCA detecta toda a árvore
     - Dependência temporária
     - Dependência de desenvolvimento apenas
-    correct: 1
+    - Dependência das suas dependências (você usa A, A usa B, B tem CVE). Você não
+      sabe que B existe mas está vulnerável. SCA detecta toda a árvore
+    correct: 3
     explanation: 'Dependência transitiva é a dependência da sua dependência. Exemplo:
       você instala express → express usa body-parser → body-parser usa qs → qs
       tem CVE crítica. Você nem sabe que qs existe! SCA mapeia toda árvore transitiva.'
   - id: q4
     question: Qual foi o impacto do breach da Equifax (2017) relacionado a dependências?
     options:
-    - Sem impacto significativo
-    - '147 milhões de pessoas expostas, $1.4 bilhões em custos. Causa: Apache Struts
-      não patcheado (CVE conhecida há 2 meses). SCA automatizado teria detectado'
     - Apenas perda de reputação
     - Apenas 100 usuários afetados
-    correct: 1
+    - '147 milhões de pessoas expostas, $1.4 bilhões em custos. Causa: Apache Struts
+      não patcheado (CVE conhecida há 2 meses). SCA automatizado teria detectado'
+    - Sem impacto significativo
+    correct: 2
     explanation: Equifax não atualizou Apache Struts apesar de CVE-2017-5638 ser
       conhecida há 2 meses. Resultado 147M pessoas expostas, $575M em multas, $1.4B
       em custos totais. SCA automatizado teria detectado dependência vulnerável
@@ -1106,12 +1106,12 @@ quizzes:
     question: O que é SBOM (Software Bill of Materials) e por que é importante?
     options:
     - Lista de bugs da aplicação
+    - Lista de features
     - 'Inventário completo de todas as dependências e versões na aplicação. Essencial
       para resposta a incidentes (Log4Shell: saber em 5 min se você usa log4j).
       Exigido por governo dos EUA'
-    - Lista de features
     - Apenas para documentação
-    correct: 1
+    correct: 2
     explanation: 'SBOM é inventário completo de dependências. Quando Log4Shell (CVSS
       10.0) foi publicado, empresas com SBOM identificaram uso de log4j em minutos
       (vs semanas manualmente). Executive Order 14028 (2021): governo dos EUA exige
@@ -1120,12 +1120,12 @@ quizzes:
     question: O que são supply chain attacks e como SCA ajuda a prevenir?
     options:
     - Ataques a lojas físicas
+    - Apenas ataques de phishing
+    - Ataques que SCA não detecta
     - Atacantes comprometem packages legítimos (typosquatting, malware, maintainer
       account takeover). SCA com malware detection e behavioral analysis detecta
       anomalias
-    - Apenas ataques de phishing
-    - Ataques que SCA não detecta
-    correct: 1
+    correct: 3
     explanation: 'Supply chain attacks cresceram 650% (Sonatype 2023). Exemplos:
       event-stream (malware em package npm), ua-parser-js (9M downloads/week comprometido),
       colors.js sabotage. SCA moderno detecta: typosquatting, malware, behavioral
@@ -1133,12 +1133,12 @@ quizzes:
   - id: q7
     question: Por que licenças de dependências são críticas para compliance?
     options:
-    - Apenas para documentação
     - Usar dependência GPL em software proprietário pode custar milhões em processos.
       SCA mapeia todas as licenças e alerta sobre incompatibilidades
+    - Apenas para documentação
     - Licenças não importam
     - Apenas para open source
-    correct: 1
+    correct: 0
     explanation: 'Licenças têm implicações legais. GPL é "viral": se você usa library
       GPL, seu código deve ser open-source. Empresa proprietária usando GPL inadvertidamente
       = processo milionário. SCA mapeia licenças (MIT, Apache, GPL, etc) e alerta
@@ -1147,11 +1147,11 @@ quizzes:
     question: O que é dependency pinning e quais são os trade-offs?
     options:
     - Sempre usar latest version
+    - Deletar dependências
     - Fixar versões exatas (package.json "1.2.3" vs "^1.2.3"). Evita breaking changes
       inesperados mas você não recebe security patches automaticamente
-    - Deletar dependências
     - Usar apenas dependências antigas
-    correct: 1
+    correct: 2
     explanation: 'Pinning (1.2.3) vs ranges (^1.2.3). Pinning garante builds reproduzíveis
       e evita breaking changes, mas você não recebe patches de segurança automaticamente.
       Ranges recebem patches mas podem quebrar build. Solução: pinning + Dependabot
@@ -1160,11 +1160,11 @@ quizzes:
     question: Como SCA deve ser integrado em CI/CD?
     options:
     - Apenas scan manual mensal
+    - Apenas em produção
+    - Não integrar em CI/CD
     - 'Scan a cada commit (fast feedback), Quality Gate bloqueando merges com Critical/High
       CVEs, Daily full scan, Pre-production scan final'
-    - Não integrar em CI/CD
-    - Apenas em produção
-    correct: 1
+    correct: 3
     explanation: 'Estratégia ideal: 1) Scan a cada commit/PR para feedback rápido
       (<2 min), 2) Quality Gate bloqueando Critical/High CVEs, 3) Daily full scan
       (novas CVEs publicadas diariamente), 4) Pre-production scan final. Dependabot/Renovate
@@ -1173,13 +1173,13 @@ quizzes:
     question: O que fazer quando SCA detecta CVE Critical em dependência que não
       tem patch disponível?
     options:
-    - Ignorar a vulnerabilidade
     - '1) Verificar se CVE é exploitável no seu contexto, 2) Procurar dependência
       alternativa, 3) Isolar componente vulnerável, 4) Implementar WAF rules, 5)
       Monitorar para patch'
+    - Ignorar a vulnerabilidade
     - Sempre usar a dependência vulnerável
     - Deletar a aplicação
-    correct: 1
+    correct: 0
     explanation: 'Se CVE Critical sem patch: 1) Avaliar exploitabilidade real (às
       vezes CVE não é exploitável no seu uso), 2) Buscar fork ou alternativa, 3)
       Isolar (container, network segmentation), 4) Mitigar com WAF/IPS rules, 5)

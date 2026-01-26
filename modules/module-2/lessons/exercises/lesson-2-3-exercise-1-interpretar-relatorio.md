@@ -22,7 +22,18 @@ Ao completar este exercício, você será capaz de:
 
 ---
 
-## Descrição
+## Contexto
+
+Você recebeu um relatório de pentest e precisa transformar achados técnicos em plano de ação claro para o time e para o negócio.
+
+## Pré-requisitos
+
+- Conhecimento básico de CVSS e risco
+- Noções de priorização e comunicação com stakeholders
+
+---
+
+## Passo a Passo
 
 **Cenário**: Pentester externo entregou relatório de 45 páginas com 23 findings. Você (QA Security) precisa interpretar, priorizar e criar plano de ação para o time.
 
@@ -92,6 +103,19 @@ Recomendação: Validar ownership antes de retornar order
    - Escreva summary executivo para CEO (5 frases)
    - Escreva briefing técnico para Dev Team (1 página)
    - Prepare apresentação para reunião de alinhamento
+
+---
+
+## Validação
+
+- Findings organizados e priorizados por risco real
+- Plano de remediação com responsáveis e prazos
+- Comunicação adequada para público técnico e executivo
+
+## Troubleshooting
+
+- **Relatório muito extenso**: comece pelo executive summary e findings críticos
+- **Dúvida de prioridade**: use matriz de risco e exposição
 
 ---
 

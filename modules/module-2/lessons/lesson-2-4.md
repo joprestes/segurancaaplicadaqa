@@ -52,6 +52,34 @@ Ao final desta aula, você será capaz de:
 
 ---
 
+## 🧭 Como usar esta aula (Essencial vs Aprofundamento)
+
+Se estiver com pouco tempo, foque nas seções essenciais abaixo e deixe o aprofundamento como leitura complementar.
+
+**Essencial**:
+- Introdução, O que pode/não pode ser automatizado, Ferramentas, Tipos de automação
+- Integração com CI/CD, Exemplos práticos, Gerenciamento de resultados, Limitações e boas práticas
+
+**Aprofundamento opcional**:
+- Analogias e dados históricos da indústria
+- Cheat sheet para consulta rápida
+- Futuro: AI-Powered Security Testing
+
+---
+
+## 📘 Glossário rápido
+
+- **SAST**: análise estática de código para encontrar falhas sem executar a aplicação
+- **DAST**: teste dinâmico em aplicação em execução (ex.: endpoints web)
+- **SCA**: análise de dependências e CVEs em bibliotecas de terceiros
+- **CI/CD**: integração e entrega contínua com pipelines automatizados
+- **Quality Gate**: regra que bloqueia o merge/deploy se violada
+- **False Positive**: alerta incorreto (vulnerabilidade inexistente)
+- **False Negative**: falha real que não foi detectada
+- **Shift-left**: antecipar testes para o início do ciclo de desenvolvimento
+
+---
+
 ## 📚 Introdução à Automação de Testes de Segurança
 
 ### O que é Automação de Testes de Segurança?
@@ -67,6 +95,7 @@ Ao final desta aula, você será capaz de:
 
 **⚠️ Importante**: Automação **complementa**, não **substitui** testes manuais. Ferramentas encontram vulnerabilidades técnicas conhecidas (SQLi, XSS, CVEs), mas **não detectam falhas de lógica de negócio**, engenharia social ou vulnerabilidades contextuais complexas que requerem pensamento criativo humano.
 
+**Leitura opcional (aprofundamento)**  
 #### 🎭 Analogia: O Sistema de Alarme Residencial
 
 Imagine que sua casa é uma aplicação web, e você quer protegê-la contra invasões:
@@ -960,6 +989,16 @@ Total pipeline: ~20 min (aceitável)
 - [GitHub Actions Security](https://docs.github.com/en/actions/security-guides)
 - [GitLab CI Security](https://docs.gitlab.com/ee/user/application_security/)
 - [OWASP DevSecOps Maturity Model](https://dsomm.owasp.org/)
+
+---
+
+## ✅ Quick Reference (para o dia a dia)
+
+- **Pipeline mínimo**: SAST + SCA em PR, DAST em staging
+- **Regra crítica**: Critical/High bloqueiam merge
+- **Ruído baixo**: trate falsos positivos com baseline e exceções documentadas
+- **Ciclo curto**: resultados em minutos, não horas
+- **Visibilidade**: publicar relatórios como artefatos
 
 ---
 

@@ -59,7 +59,14 @@ Product Owner te procura: "Podemos liberar essa release? Não podemos atrasar, t
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Conhecimento básico de CVSS e priorização de risco
+- Familiaridade com SAST e triagem de findings
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Análise das Vulnerabilidades High
 

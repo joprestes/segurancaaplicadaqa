@@ -41,7 +41,15 @@ Integrar SAST no CI/CD garante que vulnerabilidades sejam detectadas antes do me
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Repositório com pipeline CI/CD configurável
+- Permissão para editar workflows/pipelines
+- Conhecimento básico de YAML
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Escolher Ferramenta SAST
 

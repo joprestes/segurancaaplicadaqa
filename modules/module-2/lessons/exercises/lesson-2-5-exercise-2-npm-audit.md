@@ -15,12 +15,37 @@ Usar ferramentas nativas (npm audit/yarn audit) para identificar e corrigir vuln
 
 ---
 
-## Descrição
+## Contexto
 
-Execute análise de dependências:
-- Execute `npm audit` ou `yarn audit`
-- Interprete relatório de vulnerabilidades
-- Aplique correções automáticas quando possível
+Você precisa validar rapidamente a segurança de um projeto Node.js antes de um release. O objetivo é usar ferramentas nativas para identificar e tratar riscos.
+
+## Pré-requisitos
+
+- Projeto Node.js com `package.json`
+- npm ou yarn instalado localmente
+
+## Passo a Passo
+
+1. **Executar o audit**
+   - Rode `npm audit` ou `yarn audit`.
+
+2. **Interpretar o relatório**
+   - Identifique severidade e pacotes afetados.
+
+3. **Aplicar correções**
+   - Use `npm audit fix` (ou `yarn audit --fix` se suportado).
+   - Registre dependências que exigem atualização manual.
+
+## Validação
+
+- Relatório com severidades identificadas.
+- Dependências corrigidas automaticamente quando possível.
+- Plano para correções manuais pendentes.
+
+## Troubleshooting
+
+- **Audit sem resultados**: valide se o projeto tem dependências instaladas.
+- **Fix quebra versão**: avalie o impacto semântico e use branch de teste.
 
 ---
 

@@ -50,7 +50,15 @@ Dev Team alega: "É false positive, temos sanitização". Você precisa investig
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Conhecimento básico de XSS e DAST
+- Acesso a ferramentas de teste (curl ou Burp Suite)
+- Familiaridade com SPA (React) e SSR
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Análise do Finding ZAP
 
@@ -142,6 +150,7 @@ curl "https://app.example.com/api/search?q=&lt;script&gt;alert(1)&lt;/script&gt;
 
 **Tarefa 4.2**: Verifique proteções do frontend:
 
+{% raw %}
 ```javascript
 // React sanitiza automaticamente?
 // Código React:
@@ -152,6 +161,7 @@ curl "https://app.example.com/api/search?q=&lt;script&gt;alert(1)&lt;/script&gt;
 <div dangerouslySetInnerHTML={{__html: searchQuery}} />
 // Aí sim é vulnerável!
 ```
+{% endraw %}
 
 ### Passo 5: Decisão e Documentação
 

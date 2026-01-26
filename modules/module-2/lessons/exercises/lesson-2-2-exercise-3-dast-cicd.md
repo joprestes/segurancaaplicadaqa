@@ -41,7 +41,15 @@ Integrar DAST no CI/CD garante que vulnerabilidades sejam detectadas antes do de
 
 ---
 
-## Requisitos
+## Pré-requisitos
+
+- Pipeline CI/CD configurável
+- Aplicação disponível em ambiente de teste
+- Conhecimento básico de YAML
+
+---
+
+## Passo a Passo
 
 ### Passo 1: Escolher Ferramenta DAST
 
