@@ -73,7 +73,7 @@ Ao final desta aula, você será capaz de:
 - ✅ **Dependências desatualizadas** que precisam ser atualizadas
 - ✅ **Dependências abandonadas** (unmaintained packages)
 - ✅ **Malware** em dependências (typosquatting, backdoors)
-- ✅ **Dependências transitivasm** (dependências das suas dependências)
+- ✅ **Dependências transitivas** (dependências das suas dependências)
 
 #### 🎭 Analogia: O Inspetor de Ingredientes
 
@@ -216,49 +216,65 @@ Aplicações modernas são construídas sobre **pilhas gigantes de dependências
 
 ### 1. Vulnerabilidades Conhecidas (CVEs)
 
-**Definição**: [A ser preenchido]
+**Definição**: falhas públicas com identificador oficial (CVE) e severidade (CVSS).
 
-[Explicação detalhada a ser desenvolvida]
+**Exemplo**: Log4Shell (CVE-2021-44228), CVSS 10.0, RCE sem autenticação.
 
 ### 2. Licenças Incompatíveis
 
-[Conteúdo a ser desenvolvido]
+**Definição**: licenças que não podem ser usadas no contexto do produto (ex: GPL em software proprietário).
+
+**Risco**: obrigação de abrir código ou processos legais.
 
 ### 3. Dependências Desatualizadas
 
-[Conteúdo a ser desenvolvido]
+**Definição**: versões antigas sem patches de segurança ou com bugs conhecidos.
+
+**Risco**: exposição desnecessária a CVEs já corrigidas.
 
 ### 4. Dependências Abandonadas
 
-[Conteúdo a ser desenvolvido]
+**Definição**: bibliotecas sem manutenção ativa (sem releases ou suporte).
+
+**Risco**: vulnerabilidades ficam sem correção e dependência vira “ponto fraco eterno”.
 
 ---
 
 ## 🔧 Ferramentas de SCA
 
-### 1. [Ferramenta 1]
+### 1. Snyk
 
-**Definição**: [Descrição da ferramenta]
+**Definição**: SCA comercial com auto-fix e monitoramento contínuo.
 
 **Características principais**:
-- [Característica 1]
-- [Característica 2]
-- [Característica 3]
+- Alertas em PR e dashboard
+- Auto-fix com PRs sugeridos
+- Cobertura de dependências transitivas
 
-**Quando usar**: [Cenários de uso]
+**Quando usar**: times com alta cadência de deploy e necessidade de rapidez.
 
 **Exemplo prático**:
 ```bash
-# [Exemplo de uso da ferramenta]
+snyk test --severity-threshold=high
 ```
 
-### 2. [Ferramenta 2]
+### 2. Dependabot (GitHub)
 
-[Conteúdo a ser desenvolvido]
+**Definição**: bot nativo que cria PRs de atualização de dependências.
 
-### 3. [Ferramenta 3]
+**Características principais**:
+- PRs automáticos com changelog
+- Configuração por diretório/stack
+- Integração direta com repositório
 
-[Conteúdo a ser desenvolvido]
+### 3. OWASP Dependency-Check
+
+**Definição**: ferramenta open-source para detectar CVEs em bibliotecas.
+
+**Características principais**:
+- Funciona offline após atualizar base
+- Gera relatório em HTML/JSON
+- Suporta Maven, npm, NuGet e outros
 
 ---
 
@@ -266,22 +282,24 @@ Aplicações modernas são construídas sobre **pilhas gigantes de dependências
 
 ### 1. Identificação de Dependências
 
-**Definição**: [A ser preenchido]
-
-[Explicação detalhada a ser desenvolvida]
+**Definição**: leitura dos arquivos de manifesto e lockfiles do projeto.
 
 **Formatos suportados**:
-- [Formato 1]
-- [Formato 2]
-- [Formato 3]
+- `package.json` / `package-lock.json`
+- `pom.xml` / `gradle.lockfile`
+- `requirements.txt` / `poetry.lock`
 
 ### 2. Análise de Vulnerabilidades
 
-[Conteúdo a ser desenvolvido]
+- Cruzar versões com bases de CVE
+- Identificar dependências diretas e transitivas
+- Analisar severidade e exploitabilidade
 
 ### 3. Priorização e Remediation
 
-[Conteúdo a ser desenvolvido]
+- Priorizar Critical/High com patch disponível
+- Atualizar dependências com testes em staging
+- Definir plano de mitigação quando não há patch
 
 ---
 
@@ -289,35 +307,52 @@ Aplicações modernas são construídas sobre **pilhas gigantes de dependências
 
 ### Configurando SCA no Pipeline
 
-[Conteúdo sobre integração CI/CD a ser desenvolvido]
+**Objetivo**: rodar SCA em PRs e manter monitoramento contínuo.
 
 **Exemplo de configuração**:
 ```yaml
-# [Exemplo de pipeline CI/CD com SCA]
+name: SCA
+on: [pull_request]
+jobs:
+  sca:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Snyk
+        run: snyk test --severity-threshold=high
 ```
 
 ### Quality Gates para Dependências
 
-[Conteúdo a ser desenvolvido]
+- **Bloquear**: Critical com patch disponível
+- **Alertar**: High com patch disponível há >30 dias
+- **Informar**: Medium/Low e dependências desatualizadas
 
 ---
 
 ## 🎯 Exemplos Práticos
 
-### Exemplo 1: [Título do Exemplo]
+### Exemplo 1: npm audit com bloqueio de Critical
 
-**Cenário**: [Descrição do cenário]
+**Cenário**: projeto Node com vulnerabilidade conhecida em dependência.
 
 **Passos**:
-1. [Passo 1]
-2. [Passo 2]
-3. [Passo 3]
+1. Rodar `npm audit --audit-level=high`
+2. Aplicar `npm audit fix` quando possível
+3. Validar build e testes
 
-**Resultado esperado**: [A ser preenchido]
+**Resultado esperado**: dependência atualizada e CVE removida.
 
-### Exemplo 2: [Título do Exemplo]
+### Exemplo 2: Bloqueio de licença GPL
 
-[Conteúdo a ser desenvolvido]
+**Cenário**: produto proprietário não pode usar GPL.
+
+**Passos**:
+1. Configurar lista de licenças permitidas
+2. Rodar scan de licenças no pipeline
+3. Bloquear PR com GPL/AGPL
+
+**Resultado esperado**: PR bloqueado e dependência substituída.
 
 ---
 
@@ -325,17 +360,21 @@ Aplicações modernas são construídas sobre **pilhas gigantes de dependências
 
 ### Estratégias de Atualização
 
-[Conteúdo sobre estratégias a ser desenvolvido]
+- Atualizações pequenas e frequentes (1-5 deps por PR)
+- Janela fixa semanal para updates
+- Separar updates de segurança de updates funcionais
 
 ### Dependency Pinning
 
-**Definição**: [A ser preenchido]
+**Definição**: travar versões para garantir builds reproduzíveis.
 
-[Explicação detalhada]
+**Explicação**: usar lockfiles e ranges controlados evita “surpresas” em produção.
 
 ### Dependency Updates Automatizados
 
-[Conteúdo a ser desenvolvido]
+- Dependabot/Renovate para PRs automáticos
+- Agrupar updates por criticidade
+- Validar com testes automatizados
 
 ---
 
@@ -343,16 +382,16 @@ Aplicações modernas são construídas sobre **pilhas gigantes de dependências
 
 ### Checklist de SCA
 
-- ✅ [Prática 1]
-- ✅ [Prática 2]
-- ✅ [Prática 3]
-- ✅ [Prática 4]
+- ✅ SCA em PRs e monitoramento contínuo
+- ✅ Quality gate claro para Critical/High
+- ✅ SBOM gerado automaticamente por build
+- ✅ Processo definido para “sem patch disponível”
 
 ### Anti-padrões a Evitar
 
-- ❌ [Anti-padrão 1]
-- ❌ [Anti-padrão 2]
-- ❌ [Anti-padrão 3]
+- ❌ Atualizar tudo em “big bang”
+- ❌ Ignorar alertas por “alert fatigue”
+- ❌ Não testar updates em staging
 
 ---
 
@@ -615,20 +654,20 @@ Informar:
 
 ### Principais Conceitos
 
-- [Conceito 1 - a ser preenchido]
-- [Conceito 2 - a ser preenchido]
-- [Conceito 3 - a ser preenchido]
+- SCA identifica riscos em dependências de terceiros
+- Quality gates evitam CVEs críticas em produção
+- SBOM acelera resposta a incidentes
 
 ### Pontos-Chave para Lembrar
 
-- ✅ [Ponto-chave 1]
-- ✅ [Ponto-chave 2]
-- ✅ [Ponto-chave 3]
+- ✅ 60-80% do código é dependência
+- ✅ Atualizações pequenas reduzem risco
+- ✅ Licença é risco legal real
 
 ### Próximos Passos
 
 - Próximo módulo: [Módulo 3: Segurança por Setor](../../module-3/index.md)
-- [Ação prática sugerida]
+- Execute os exercícios para praticar Snyk, npm audit e SBOM
 
 ---
 

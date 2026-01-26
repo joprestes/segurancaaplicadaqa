@@ -177,7 +177,8 @@ Em projetos modernos com **deploys múltiplos por dia**, é **impossível execut
 - **2014**: Heartbleed (OpenSSL) e Shellshock (Bash) mostram impacto de vulnerabilidades em dependências (acelera adoção de SCA)
 - **2017**: Equifax breach (Apache Struts não patcheado) reforça necessidade de SCA automatizado
 - **2019**: Capital One breach (misconfiguration AWS) impulsiona IaC security scanning
-- **2021**: Log4Shell (Apache Log4j) mostra importância de detecção rápida em dependências transitivasAoAtual (2024): **Automação é padrão**, não exceção. Empresas modernas têm **5-10 ferramentas** de segurança automatizadas em pipelines.
+- **2021**: Log4Shell (Apache Log4j) mostra importância de detecção rápida em dependências transitivas  
+**Atual (2024)**: **Automação é padrão**, não exceção. Empresas modernas têm **5-10 ferramentas** de segurança automatizadas em pipelines.
 
 ---
 
@@ -218,7 +219,7 @@ Em projetos modernos com **deploys múltiplos por dia**, é **impossível execut
    ├─ Dependências com CVEs conhecidos
    ├─ Dependências desatualizadas
    ├─ Licenças incompatíveis
-   ├─ Dependências transitivascom vulnerabilidades
+   ├─ Dependências transitivas com vulnerabilidades
    ├─ Supply chain attacks (typosquatting, malicious packages)
    └─ Outdated base images (Docker)
    
@@ -543,29 +544,73 @@ resource "aws_s3_bucket" "data" {
 
 ## 🔧 Ferramentas de Automação
 
-### 1. [Ferramenta 1]
+### 1. SonarQube / Semgrep (SAST)
 
-**Definição**: [Descrição da ferramenta]
+**Definição**: ferramentas de análise estática que detectam vulnerabilidades no código antes da execução.
 
 **Características principais**:
-- [Característica 1]
-- [Característica 2]
-- [Característica 3]
+- Regras de segurança (OWASP, CWE) com severidade
+- Integração com PR/MR e comentários automáticos
+- Quality Gates para bloquear merge
 
-**Quando usar**: [Cenários de uso]
+**Quando usar**: a cada PR/merge e em scans noturnos completos.
 
 **Exemplo prático**:
 ```bash
-# [Exemplo de uso da ferramenta]
+# Semgrep - scan rápido em PR
+semgrep --config=auto --error
 ```
 
-### 2. [Ferramenta 2]
+### 2. OWASP ZAP (DAST)
 
-[Conteúdo a ser desenvolvido]
+**Definição**: scanner dinâmico que testa a aplicação em execução.
 
-### 3. [Ferramenta 3]
+**Características principais**:
+- Baseline scan rápido (passivo)
+- Full scan ativo (mais completo, mais lento)
+- Relatórios em JSON/HTML
 
-[Conteúdo a ser desenvolvido]
+**Quando usar**: baseline em PRs; full scan noturno ou pré-produção.
+
+**Exemplo prático**:
+```bash
+# Baseline scan com ZAP
+docker run zaproxy/zap-stable zap-baseline.py -t https://staging.exemplo.com
+```
+
+### 3. Snyk / Dependabot (SCA)
+
+**Definição**: scanners de dependências que detectam CVEs e sugerem atualizações seguras.
+
+**Características principais**:
+- Alertas automáticos no repositório
+- PRs com atualização e changelog
+- Monitoramento contínuo de novas CVEs
+
+**Quando usar**: a cada commit e com monitoramento contínuo.
+
+**Exemplo prático**:
+```bash
+# Snyk em CI
+snyk test --severity-threshold=high
+```
+
+### 4. truffleHog / GitLeaks (Secrets)
+
+**Definição**: detectores de segredos expostos em código e histórico Git.
+
+**Características principais**:
+- Scan em commits recentes e histórico completo
+- Bloqueio de PR com segredo exposto
+- Integração com pre-commit hooks
+
+**Quando usar**: pre-commit e em PRs.
+
+**Exemplo prático**:
+```bash
+# truffleHog em repo local
+trufflehog git file://. --no-update
+```
 
 ---
 
@@ -573,26 +618,50 @@ resource "aws_s3_bucket" "data" {
 
 ### 1. Automação de SAST
 
-**Definição**: [A ser preenchido]
+**Definição**: execução automática de análise estática a cada PR/commit.
 
-[Explicação detalhada a ser desenvolvida]
+**Pontos-chave**:
+- Detecta vulnerabilidades no código antes do merge
+- Ideal para feedback rápido (< 10 min)
+- Deve falhar o pipeline em Critical/High
 
 **Exemplo de integração**:
 ```yaml
-# [Exemplo de pipeline]
+name: SAST
+on: [pull_request]
+jobs:
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Semgrep
+        run: semgrep --config=auto --error
 ```
 
 ### 2. Automação de DAST
 
-[Conteúdo a ser desenvolvido]
+**Definição**: scan da aplicação em staging após deploy automático.
+
+**Pontos-chave**:
+- Baseline rápido em PRs
+- Full scan noturno para cobertura profunda
 
 ### 3. Automação de SCA
 
-[Conteúdo a ser desenvolvido]
+**Definição**: verificação automática de dependências e CVEs.
 
-### 4. Automação de Pentest
+**Pontos-chave**:
+- Snyk/Dependabot criam PRs de atualização
+- Quality gate bloqueia Critical com patch disponível
 
-[Conteúdo a ser desenvolvido]
+### 4. Automação de Pentest (parcial)
+
+**Definição**: automação de tarefas repetitivas do pentest (recon, scans).
+
+**Pontos-chave**:
+- Nmap automático para descoberta
+- Nuclei para checks rápidos
+- Exploração avançada permanece manual
 
 ---
 
@@ -600,37 +669,61 @@ resource "aws_s3_bucket" "data" {
 
 ### Pipeline de Segurança Completo
 
-[Conteúdo sobre pipeline completo a ser desenvolvido]
+**Objetivo**: garantir que segurança rode automaticamente em PRs e antes de produção.
 
 **Exemplo de pipeline**:
 ```yaml
-# [Exemplo completo de pipeline CI/CD com segurança]
+name: Security Pipeline
+on: [pull_request]
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SAST (Semgrep)
+        run: semgrep --config=auto --error
+      - name: SCA (Snyk)
+        run: snyk test --severity-threshold=high
+      - name: Secret Scanning (GitLeaks)
+        run: gitleaks detect --no-git
+      - name: DAST Baseline (ZAP)
+        run: docker run zaproxy/zap-stable zap-baseline.py -t $STAGING_URL
 ```
 
 ### Quality Gates
 
-**Definição**: [A ser preenchido]
+**Definição**: critérios objetivos que **bloqueiam** o merge/deploy quando falhas críticas são encontradas.
 
-[Explicação sobre quality gates a ser desenvolvida]
+**Exemplo de política**:
+- **Bloquear**: Critical/High novas (SAST + SCA)
+- **Alertar**: Medium
+- **Informar**: Low
 
 ---
 
 ## 🎯 Exemplos Práticos
 
-### Exemplo 1: [Título do Exemplo]
+### Exemplo 1: PR com SAST + SCA obrigatórios
 
-**Cenário**: [Descrição do cenário]
+**Cenário**: time quer bloquear PRs com vulnerabilidades Critical/High.
 
 **Passos**:
-1. [Passo 1]
-2. [Passo 2]
-3. [Passo 3]
+1. Configurar Semgrep e Snyk no pipeline de PR
+2. Definir quality gate para Critical/High
+3. Abrir PR com vulnerabilidade conhecida
 
-**Resultado esperado**: [A ser preenchido]
+**Resultado esperado**: pipeline falha e PR é bloqueado até correção.
 
-### Exemplo 2: [Título do Exemplo]
+### Exemplo 2: DAST noturno em staging
 
-[Conteúdo a ser desenvolvido]
+**Cenário**: rodar scan completo sem impactar o fluxo diário.
+
+**Passos**:
+1. Job noturno com ZAP full scan
+2. Gerar relatório e publicar artefato
+3. Abrir ticket automático para findings High
+
+**Resultado esperado**: vulnerabilidades são reportadas sem bloquear o time durante o dia.
 
 ---
 
@@ -638,11 +731,19 @@ resource "aws_s3_bucket" "data" {
 
 ### Priorização de Vulnerabilidades
 
-[Conteúdo sobre priorização a ser desenvolvido]
+**Critérios recomendados**:
+- Severidade (Critical/High primeiro)
+- Exposição (internet-facing > interno)
+- Explorabilidade (exploit público disponível)
+- Dados sensíveis envolvidos
 
 ### Dashboards e Relatórios
 
-[Conteúdo a ser desenvolvido]
+**Métricas úteis**:
+- Tempo médio para corrigir (MTTR)
+- % de PRs bloqueados por security gate
+- Vulnerabilidades novas por sprint
+- Tendência de Critical/High ao longo do tempo
 
 ---
 
@@ -650,13 +751,15 @@ resource "aws_s3_bucket" "data" {
 
 ### Limitações da Automação
 
-[Conteúdo sobre limitações a ser desenvolvido]
+- Falso positivo ainda existe (principalmente em SAST)
+- DAST não cobre lógica de negócio complexa
+- Ferramentas precisam de manutenção e tuning
 
 ### Boas Práticas
 
-- ✅ [Prática 1]
-- ✅ [Prática 2]
-- ✅ [Prática 3]
+- ✅ Comece com SAST + SCA (quick wins)
+- ✅ Mantenha pipelines abaixo de 15 minutos
+- ✅ Documente critérios dos quality gates
 
 ---
 
@@ -1040,20 +1143,20 @@ describe('UserController.getUser - SQL Injection Regression', () => {
 
 ### Principais Conceitos
 
-- [Conceito 1 - a ser preenchido]
-- [Conceito 2 - a ser preenchido]
-- [Conceito 3 - a ser preenchido]
+- Automação é essencial para segurança em times com deploy frequente
+- Quality gates garantem padrão mínimo de segurança
+- Automação complementa, não substitui, testes manuais
 
 ### Pontos-Chave para Lembrar
 
-- ✅ [Ponto-chave 1]
-- ✅ [Ponto-chave 2]
-- ✅ [Ponto-chave 3]
+- ✅ SAST/SCA em PRs e DAST noturno são o padrão
+- ✅ Priorize Critical/High e monitore MTTR
+- ✅ Automação só funciona com disciplina e ajustes contínuos
 
 ### Próximos Passos
 
 - Próxima aula: [Aula 2.5: Dependency Scanning e SCA](./lesson-2-5.md)
-- [Ação prática sugerida]
+- Execute os exercícios para configurar um pipeline completo
 
 ---
 
