@@ -1,26 +1,55 @@
 ---
 exercise_id: lesson-2-4-exercise-5-security-policy-as-code
-title: "Exercício 2.4.5: Security Policy as Code"
+title: "Exercício 2.4.5: Criar Política de Segurança Executável"
 lesson_id: lesson-2-4
 module: module-2
 difficulty: "Avançado"
 last_updated: 2026-01-24
 ---
 
-# Exercício 2.4.5: Security Policy as Code
+# Exercício 2.4.5: Criar Política de Segurança Executável
 
 ## 📋 Enunciado
-Crie políticas de segurança como código (OPA, Semgrep rules, custom linters) versionadas no Git.
+Você é Security Champion. Criar política de segurança executável com quality gates, SLAs por severidade e processo de exceções.
 
 ### Requisitos
-1. Políticas definidas em código (YAML/Rego)
-2. Versionadas no Git
-3. Aplicadas automaticamente no CI
-4. Documentadas (por que cada política)
+1. Quality Gates com critérios objetivos por severidade
+2. SLAs de correção por severidade
+3. Processo de exceções com responsáveis e evidências
+4. Documentação clara e auditável
 
 ---
 
-## ✅ Solução Completa
+## ✅ Solução Completa (Política Executável)
+
+```markdown
+# Política de Segurança Executável
+
+## 1. Quality Gates
+- **Critical**: Bloqueia merge/deploy imediatamente
+- **High**: Bloqueia merge, exige correção antes do deploy
+- **Medium**: Permitido com aprovação manual registrada
+- **Low**: Não bloqueia, deve ser priorizado no backlog
+
+## 2. SLAs de Correção
+- **Critical**: 4h
+- **High**: 48h
+- **Medium**: 1 sprint
+- **Low**: próximo ciclo de manutenção
+
+## 3. Processo de Exceções
+- **Quem aprova**: Security Lead + Tech Lead
+- **Evidências obrigatórias**: justificativa técnica + impacto + mitigação
+- **Revisão**: reavaliar exceção a cada 30 dias
+
+## 4. Escalation Path
+- Critical fora do SLA → aciona CISO e bloqueia release
+- High fora do SLA → escalonamento para gerente de engenharia
+```
+
+---
+
+## 🔎 Referência adicional: Policy as Code (opcional)
 
 ### 1. Semgrep Custom Rules
 
@@ -311,6 +340,8 @@ echo "✅ Políticas OK"
 ---
 
 ## 🎓 Pontos para Monitores
+
+**Foco da correção**: a política executável (quality gates, SLAs e exceções). A seção de Policy as Code é **opcional** e pode ser considerada **diferencial**.
 
 ### Conceitos-Chave
 1. **Policy as Code**: Políticas versionadas, testadas, revisadas como código

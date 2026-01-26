@@ -34,6 +34,20 @@ Todos os gabaritos seguem o mesmo padrão de critérios **qualitativos** (sem po
 
 ---
 
+## 🆕 Atualizações Recentes (Módulo 2)
+
+Ao corrigir exercícios do Módulo 2, valide os itens específicos abaixo quando aplicável:
+
+- **2.4.1 (SAST no GitHub Actions)**: evidência de **regra de proteção de branch** exigindo check do SAST
+- **2.4.2 (DAST no CI/CD)**: relatório como **artefato** e execução **após deploy em staging**
+- **2.4.3 (Quality Gates)**: bloqueio em **Critical/High**, aprovação manual para **Medium** e **notificações**
+- **2.5.1 (Snyk)**: **integração com GitHub**, scan inicial e **alertas configurados**
+- **2.5.3 (SBOM)**: incluir **dependências transitivas** e geração **automatizada no CI**
+
+Use esses itens como referência nos critérios **Essenciais**.
+
+---
+
 ## 📖 Processo de Correção Padronizado
 
 ### Passo 1: Preparação (Antes de Corrigir)

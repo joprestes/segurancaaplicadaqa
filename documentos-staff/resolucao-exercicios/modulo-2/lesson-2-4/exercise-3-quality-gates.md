@@ -16,7 +16,9 @@ Configure Quality Gates no SonarQube/Semgrep para bloquear PRs que não atendem 
 1. Quality Gate com métricas de segurança
 2. Threshold definido (ex: Security Rating ≥ A)
 3. Bloqueio automático de PR
-4. Documentar critérios
+4. Aprovação manual para Medium (quando aplicável)
+5. Notificações automáticas configuradas
+6. Documentar critérios
 
 ---
 
