@@ -10,13 +10,14 @@ last_updated: 2026-01-24
 # Exercício 2.5.1: Configurar Snyk e Escanear Dependências
 
 ## 📋 Enunciado
-Configure Snyk para monitorar vulnerabilidades em dependências do projeto.
+Configure o Snyk para monitorar vulnerabilidades em dependências do projeto, executar o scan inicial e habilitar alertas contínuos.
 
 ### Requisitos
-1. Conta Snyk criada e conectada ao Git
-2. Scan de dependências executado
+1. Conta Snyk criada e conectada ao GitHub
+2. Scan inicial de dependências executado
 3. Relatório interpretado (vulnerabilidades encontradas)
-4. Pelo menos 1 vulnerabilidade corrigida
+4. Alertas configurados (severidade mínima definida)
+5. Evidência do repositório integrado no Snyk
 
 ---
 

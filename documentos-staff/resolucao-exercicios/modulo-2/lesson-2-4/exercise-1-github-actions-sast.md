@@ -10,13 +10,14 @@ last_updated: 2026-01-24
 # Exercício 2.4.1: GitHub Actions SAST no Pipeline
 
 ## 📋 Enunciado
-Configure GitHub Actions para executar SonarQube ou Semgrep automaticamente em cada push/PR.
+Configure GitHub Actions para executar SAST (CodeQL, SonarQube ou Semgrep) automaticamente em cada push/PR e bloquear merge quando houver findings críticos.
 
 ### Requisitos
 1. Workflow YAML configurado
 2. SAST executado em PRs
 3. Falha se vulnerabilidades críticas
 4. Comentário automático no PR com resultados
+5. Regra de proteção de branch exigindo o check do SAST
 
 ---
 
@@ -196,6 +197,10 @@ SONAR_HOST_URL=https://sonarcloud.io
 **Erro 6: "Quality Gate não configurado"**
 - **Causa**: SonarQube sem regras de bloqueio
 - **Feedback**: "No SonarQube: Quality Gates > Create > Conditions: 'Security Rating is worse than A' = FAIL. Sem Quality Gate, scan é informativo (não bloqueia nada)."
+
+**Erro 7: "Branch protection não exige o check"**
+- **Causa**: Regra de branch não configurada ou check nunca rodou
+- **Feedback**: "Configure em Settings → Branches: exigir check do workflow SAST. O check só aparece após rodar o pipeline pelo menos 1 vez."
 
 ### Feedback Construtivo
 
