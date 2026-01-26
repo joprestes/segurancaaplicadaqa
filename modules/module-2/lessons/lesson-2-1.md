@@ -252,19 +252,15 @@ Se você **já tem um processo de QA estabelecido**, aqui está como integrar SA
    - Priorizar apenas Critical/High novos
 
 2. **Ajustar Quality Gates Gradualmente**
-```
-   # Início (Permissivo)
-   - Qualidade Gate 1: 0 Critical novas (após baseline)
-   - Qualidade Gate 2: Máximo 10 High novas
-   
-   # Após 1 mês (Médio)
-   - Qualidade Gate 1: 0 Critical novas
-   - Qualidade Gate 2: Máximo 5 High novas
-   
-   # Objetivo (Rigoroso)
-   - Qualidade Gate 1: 0 Critical (total)
-   - Qualidade Gate 2: 0 High novas
-```
+   - **Início (Permissivo)**
+     - Qualidade Gate 1: 0 Critical novas (após baseline)
+     - Qualidade Gate 2: Máximo 10 High novas
+   - **Após 1 mês (Médio)**
+     - Qualidade Gate 1: 0 Critical novas
+     - Qualidade Gate 2: Máximo 5 High novas
+   - **Objetivo (Rigoroso)**
+     - Qualidade Gate 1: 0 Critical (total)
+     - Qualidade Gate 2: 0 High novas
 
 3. **Configurar Exceções Documentadas**
 ```

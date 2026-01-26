@@ -14,10 +14,7 @@ module: module-1
 permalink: /modules/fundamentos-seguranca-qa/
 ---
 
-
-{% raw %}
 ![Infográfico: Introdução ao Módulo 1 - Fundamentos de Segurança em QA]({{ '/assets/module-1/images/infograficos/infografico-introducao-modulo-1.png' | relative_url }})
-{% endraw %}
 
 ## 🎯 Objetivo do Módulo
 
@@ -88,17 +85,6 @@ Navegue pelas principais regulamentações de segurança e privacidade aplicáve
 ## 🎯 Sobre os Exercícios Práticos
 
 Este módulo conta com **18 exercícios práticos** distribuídos ao longo das aulas, projetados para consolidar seu aprendizado através da prática. Cada exercício foi cuidadosamente elaborado para aplicar os conceitos teóricos em situações reais de trabalho.
-
-### 📹 Vídeo Explicativo dos Exercícios
-
-Antes de começar os exercícios, recomendamos assistir ao **vídeo explicativo** que apresenta uma visão geral de todos os exercícios do módulo, explicando:
-
-- Como os exercícios estão organizados
-- O que você vai praticar em cada um
-- Dicas para aproveitar ao máximo cada exercício
-- Como os exercícios se conectam com o conteúdo teórico
-
-> **📺 [Assistir ao Vídeo Explicativo dos Exercícios](#)** *(adicione o link do vídeo aqui)*
 
 ### 📋 Visão Geral dos Exercícios por Aula
 
